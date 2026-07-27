@@ -17,7 +17,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 REPO = HERE.parent.parent
 FRAG = HERE / 'fragments'
-V = '?v=cds21'
+V = '?v=cds23'
 SITE = 'https://creator.imswarnil.com'
 
 import content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
@@ -361,6 +361,7 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 <title>{title}</title>
 <meta name="description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site. Videos, courses, build logs and trips, decided once in tokens." />
 <link rel="canonical" href="{site}/" />
+<link rel="alternate" type="text/plain" href="{site}/llms.txt" title="Creator Design System for LLMs" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Creator Design System" />
 <meta property="og:title" content="{title}" />
@@ -371,7 +372,7 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 <meta name="twitter:title" content="{title}" />
 <meta name="twitter:description" content="A token-first, dependency-free CSS design system for creators building their site." />
 <meta name="twitter:image" content="{site}/og.png" />
-<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="./favicon.svg{v}" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -501,6 +502,7 @@ TEMPLATE = '''<!DOCTYPE html>
 <title>{page_title}</title>
 <meta name="description" content="{meta_desc}" />
 <link rel="canonical" href="{canonical}" />
+<link rel="alternate" type="text/plain" href="{site}/llms.txt" title="Creator Design System for LLMs" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Creator Design System" />
 <meta property="og:title" content="{page_title}" />
@@ -512,7 +514,7 @@ TEMPLATE = '''<!DOCTYPE html>
 <meta name="twitter:description" content="{meta_desc}" />
 <meta name="twitter:image" content="{site}/og.png" />
 {jsonld}
-<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="./favicon.svg{v}" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -749,13 +751,146 @@ def write_seo(slugs):
         + '\n'.join(urls) + '\n</urlset>\n')
 
     (OUT / 'robots.txt').write_text(
-        f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
+        f'User-agent: *\nAllow: /\n\n'
+        f'# Written for machines: the system in one read.\n'
+        f'# {SITE}/llms.txt\n'
+        f'# {SITE}/llms-full.txt\n\n'
+        f'Sitemap: {SITE}/sitemap.xml\n')
 
     (OUT / 'CNAME').write_text(SITE.split('//')[1] + '\n')
 
     # Pages would otherwise run the output through Jekyll, which silently drops
     # every directory beginning with an underscore — including _build.
     (OUT / '.nojekyll').write_text('')
+
+
+def write_llms(index):
+    """llms.txt and llms-full.txt — the site, written for a machine.
+
+    An LLM asked to "build a page with this design system" will otherwise guess
+    class names, and guessed class names are the single worst failure mode for
+    a CSS library: the markup looks right and renders as unstyled HTML. So the
+    full file is generated from the stylesheets themselves — every custom
+    property and every class the system actually defines. It cannot drift,
+    because nothing here is typed by hand.
+
+    llms.txt follows the convention: a title, a one-line summary, then link
+    lists. llms-full.txt is the whole surface in one read.
+    """
+    src = REPO / 'src'
+
+    def tokens_of(path):
+        text = (src / path).read_text()
+        # Only the :root declarations — the tier a consumer is meant to touch.
+        out = []
+        for block in re.findall(r':root\s*\{(.*?)\n\}', text, re.S):
+            for name, value in re.findall(r'(--[\w-]+):\s*([^;]+);', block):
+                out.append((name, ' '.join(value.split())))
+        return out
+
+    def classes_of(path):
+        text = (src / path).read_text()
+        text = re.sub(r'/\*.*?\*/', '', text, flags=re.S)
+        names = re.findall(r'(?:^|[,\s>+~])\.([a-z][\w-]*)', text, re.M)
+        seen, out = set(), []
+        for n in names:
+            if n not in seen:
+                seen.add(n); out.append(n)
+        return out
+
+    LAYERS = [
+        ('1-foundation', 'Tokens. Colour, type, space, elevation, motion, layout, '
+                         'patterns, logo, icons, shape, cutouts, frames, a11y.'),
+        ('2-elements', 'Single ideas: text roles, badge, table, indicator, syntax.'),
+        ('3-components', 'Things with parts and states: buttons through navbar.'),
+        ('4-broadcast', 'Export canvases for YouTube and Instagram. Not for websites.'),
+        ('5-sections', 'Full-width bands: page header, hero, stats, CTA, footer.'),
+        ('6-utilities', 'u- prefixed, single-purpose classes.'),
+    ]
+
+    # ── llms.txt ────────────────────────────────────────────────────────────
+    L = ['# Creator Design System', '',
+         '> Frame & Signal — a token-first, dependency-free CSS design system for '
+         'creators. Plain CSS custom properties and classes: no framework, no '
+         'runtime, no build step required to use it. Almost monochrome, so that one '
+         'colour can carry meaning.', '',
+         'Install: `npm install creator-design-system` then `@import '
+         '"creator-design-system";`, or link '
+         '`https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css`.', '',
+         'Customise by overriding tokens AFTER the import — never by editing source. '
+         'Dark mode rides `data-theme="light|dark"` on `<html>`. State lives in ARIA '
+         '(`[aria-current]`, `[aria-expanded]`), not in `.active` classes.', '',
+         '## Complete reference', '',
+         f'- [Full specification]({SITE}/llms-full.txt): every token, every class, '
+         'and the rules that govern them. Read this before generating markup.', '',
+         '## Docs', '']
+
+    by_group = {}
+    for row in index:
+        by_group.setdefault(row['g'] or 'Project', []).append(row)
+    for group, _ in NAV:
+        for row in by_group.get(group, []):
+            desc = (row['d'] or '').strip()[:120]
+            L.append(f"- [{row['t']}]({SITE}/{row['s']}.html): {group} — {desc}")
+    L.append('')
+    (OUT / 'llms.txt').write_text('\n'.join(L))
+
+    # ── llms-full.txt ───────────────────────────────────────────────────────
+    F = ['# Creator Design System — full specification', '',
+         'Generated from the stylesheets. Every name below is real; anything not '
+         'listed does not exist. Do not invent class names.', '',
+         '## How to use it', '',
+         '1. Link `dist/creator.css` (or import a layer).',
+         '2. Write plain HTML with the classes below.',
+         '3. Change appearance by overriding custom properties in `:root` AFTER the '
+         'import. Never edit the source files.',
+         '4. Mark state with ARIA — `aria-current="page"`, `aria-expanded="true"` — '
+         'and let the CSS react to it.', '',
+         '## Rules', '',
+         '- Active state is a dot or a 2px accent rule, never a filled pill.',
+         '- One accent colour, rationed. The palette is closed on purpose.',
+         '- Prefer the platform: <details>, <dialog>, the Popover API, native inputs.',
+         '- Every animation is off under prefers-reduced-motion, and the finished '
+         'state is the resting state.',
+         '- Components read semantic tokens (--fg-muted, --accent), not primitives '
+         '(--ink-500). Override the semantic tier to rebrand.', '']
+
+    F += ['## Tokens', '',
+          'Primitives are the ladders; semantic tokens name a job. Override the '
+          'semantic ones.', '']
+    for path in ['1-foundation/01-color.css', '1-foundation/02-typography.css',
+                 '1-foundation/03-space.css', '1-foundation/04-elevation.css',
+                 '1-foundation/05-motion.css', '1-foundation/06-layout.css']:
+        toks = tokens_of(path)
+        if not toks:
+            continue
+        F.append(f'### {path}')
+        F.append('')
+        F += [f'{n}: {v}' for n, v in toks]
+        F.append('')
+
+    F += ['## Classes', '']
+    for layer, note in LAYERS:
+        files = sorted((src / layer).glob('*.css'))
+        F.append(f'### {layer}')
+        F.append('')
+        F.append(note)
+        F.append('')
+        for f in files:
+            if f.name == 'index.css':
+                continue
+            names = classes_of(f'{layer}/{f.name}')
+            if names:
+                F.append(f'{f.name}: ' + ' '.join('.' + n for n in names))
+        F.append('')
+
+    F += ['## Optional JavaScript', '',
+          'src/highlight.js — colours code blocks. CreatorHighlight.scan(root), '
+          'CreatorHighlight.highlight(code, lang). Languages: html, css, js, json, bash.',
+          'src/nav.js — sets data-scrolled, data-dir and data-open for the navbar. '
+          'Everything visible stays in CSS. Both are additive; without them nothing '
+          'breaks.', '']
+    (OUT / 'llms-full.txt').write_text('\n'.join(F))
 
 
 def main():
@@ -794,6 +929,7 @@ def main():
                                     sprite=SPRITE, v=V, site=SITE))
 
     write_seo(built)
+    write_llms(index)
 
     index.sort(key=lambda r: [g for g, _ in NAV].index(r['g']) if r['g'] in [g for g, _ in NAV] else 99)
     (OUT / 'search-index.json').write_text(json.dumps(index, separators=(',', ':')))

@@ -1,0 +1,346 @@
+# Creator Design System — full specification
+
+Generated from the stylesheets. Every name below is real; anything not listed does not exist. Do not invent class names.
+
+## How to use it
+
+1. Link `dist/creator.css` (or import a layer).
+2. Write plain HTML with the classes below.
+3. Change appearance by overriding custom properties in `:root` AFTER the import. Never edit the source files.
+4. Mark state with ARIA — `aria-current="page"`, `aria-expanded="true"` — and let the CSS react to it.
+
+## Rules
+
+- Active state is a dot or a 2px accent rule, never a filled pill.
+- One accent colour, rationed. The palette is closed on purpose.
+- Prefer the platform: <details>, <dialog>, the Popover API, native inputs.
+- Every animation is off under prefers-reduced-motion, and the finished state is the resting state.
+- Components read semantic tokens (--fg-muted, --accent), not primitives (--ink-500). Override the semantic tier to rebrand.
+
+## Tokens
+
+Primitives are the ladders; semantic tokens name a job. Override the semantic ones.
+
+### 1-foundation/01-color.css
+
+--ink-0: #fff
+--ink-25: #fcfcfd
+--ink-50: #f8f8fa
+--ink-100: #f1f1f4
+--ink-200: #e5e5ea
+--ink-300: #d3d3db
+--ink-400: #a5a5b2
+--ink-500: #76768a
+--ink-600: #55556a
+--ink-700: #3c3c4e
+--ink-800: #272734
+--ink-900: #191922
+--ink-950: #101017
+--ink-1000: #08080c
+--signal-50: #fff2ef
+--signal-100: #ffe1db
+--signal-200: #ffc4b8
+--signal-300: #ff9d89
+--signal-400: #fb7358
+--signal-500: #f04e2e
+--signal-600: #dc3514
+--signal-700: #b52810
+--signal-800: #8f2211
+--signal-900: #6f1f12
+--signal-950: #3d0d07
+--amber-50: #fdf8ed
+--amber-100: #f9ecce
+--amber-200: #f2d795
+--amber-300: #e8bd5c
+--amber-400: #d9a33a
+--amber-500: #c1872a
+--amber-600: #9d6a22
+--amber-700: #78501f
+--amber-800: #55391b
+--amber-900: #382512
+--mint-50: #eafaf1
+--mint-100: #cbf2de
+--mint-500: #16a06a
+--mint-600: #0f8156
+--mint-700: #0b6444
+--azure-50: #eaf3ff
+--azure-100: #d3e6ff
+--azure-500: #2b7bef
+--azure-600: #1a61cc
+--azure-700: #164ea3
+--rose-50: #fdeef1
+--rose-100: #fbd7de
+--rose-500: #d92d4e
+--rose-600: #b81f3d
+--rose-700: #931832
+--pure-black: #000
+--pure-white: #fff
+--L-50: 97%
+--L-100: 94%
+--L-200: 89%
+--L-300: 81%
+--L-400: 68%
+--L-500: 56%
+--L-600: 46%
+--L-700: 37%
+--L-800: 28%
+--L-900: 19%
+--L-950: 11%
+--contrast-body: 4.5
+--contrast-large: 3
+--contrast-ui: 3
+--hue-signal: 14
+--hue-craft: 42
+--hue-info: 216
+--hue-success: 158
+--hue-danger: 348
+--hue-ink: 258
+--alpha-hairline: 0.07
+--alpha-wash: 0.12
+--alpha-veil: 0.24
+--alpha-scrim: 0.55
+--alpha-solid: 0.88
+--lift-1: 4%
+--lift-2: 7%
+--lift-3: 11%
+--lift-4: 16%
+
+### 1-foundation/02-typography.css
+
+--font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif
+--font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif
+--font-slate: 'IBM Plex Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', monospace
+--font-heading-effective: var(--gh-font-heading, var(--font-display))
+--font-body-effective: var(--gh-font-body, var(--font-body))
+--text-2xs: 0.6875rem
+--text-xs: 0.75rem
+--text-sm: 0.8125rem
+--text-base: 1rem
+--text-md: 1.0625rem
+--text-lg: clamp(1.125rem, 1.05rem + 0.32vw, 1.3125rem)
+--text-xl: clamp(1.3125rem, 1.19rem + 0.55vw, 1.625rem)
+--text-2xl: clamp(1.5rem, 1.31rem + 0.83vw, 2rem)
+--text-3xl: clamp(1.875rem, 1.55rem + 1.42vw, 2.75rem)
+--text-4xl: clamp(2.25rem, 1.72rem + 2.36vw, 3.75rem)
+--text-5xl: clamp(2.75rem, 1.86rem + 3.94vw, 5.25rem)
+--text-6xl: clamp(3.25rem, 1.82rem + 6.30vw, 7rem)
+--leading-flat: 1
+--leading-tight: 1.1
+--leading-snug: 1.25
+--leading-normal: 1.5
+--leading-relaxed: 1.65
+--leading-loose: 1.85
+--tracking-tighter: -0.035em
+--tracking-tight: -0.02em
+--tracking-normal: 0
+--tracking-wide: 0.04em
+--tracking-slate: 0.14em
+--weight-regular: 400
+--weight-medium: 500
+--weight-semibold: 600
+--weight-bold: 700
+--measure-prose: 68ch
+--measure-ui: 46ch
+--measure-lead: 56ch
+
+### 1-foundation/03-space.css
+
+--unit: 0.25rem
+--space-0: 0
+--space-px: 1px
+--space-1: 0.25rem
+--space-2: 0.5rem
+--space-3: 0.75rem
+--space-4: 1rem
+--space-5: 1.25rem
+--space-6: 1.5rem
+--space-8: 2rem
+--space-10: 2.5rem
+--space-12: 3rem
+--space-16: 4rem
+--space-20: 5rem
+--space-24: 6rem
+--space-32: 8rem
+--space-40: 10rem
+--section-sm: clamp(2rem, 1.4rem + 2.6vw, 3.5rem)
+--section-md: clamp(3rem, 2.0rem + 4.4vw, 6rem)
+--section-lg: clamp(4.5rem, 2.8rem + 7.4vw, 9rem)
+--gutter: clamp(1rem, 0.55rem + 2vw, 2rem)
+--radius-none: 0
+--radius-xs: 2px
+--radius-sm: 4px
+--radius-md: 8px
+--radius-lg: 12px
+--radius-xl: 16px
+--radius-2xl: 24px
+--radius-3xl: 32px
+--radius-pill: 999px
+--radius-full: 50%
+--radius-control: var(--radius-md)
+--radius-card: var(--radius-xl)
+--radius-media: var(--radius-lg)
+--radius-sheet: var(--radius-2xl)
+--border-hair: 1px
+--border-1: 1px
+--border-2: 2px
+--border-3: 3px
+--border-4: 4px
+--w-prose: 44rem
+--w-narrow: 56rem
+--w-site: 71rem
+--w-wide: 82rem
+--w-full: 100%
+--control-sm: 2rem
+--control-md: 2.5rem
+--control-lg: 3rem
+--tap-min: 44px
+--icon-xs: 0.875rem
+--icon-sm: 1rem
+--icon-md: 1.25rem
+--icon-lg: 1.5rem
+--icon-xl: 2rem
+--dot-sm: 6px
+--dot-md: 8px
+--dot-lg: 12px
+--z-below: -1
+--z-base: 0
+--z-raised: 10
+--z-sticky: 100
+--z-nav: 200
+--z-dropdown: 300
+--z-overlay: 400
+--z-modal: 500
+--z-toast: 600
+--z-tooltip: 700
+--z-max: 9999
+--ratio-wide: 16 / 9
+--ratio-video: 16 / 9
+--ratio-photo: 3 / 2
+--ratio-square: 1 / 1
+--ratio-short: 9 / 16
+--ratio-poster: 2 / 3
+--ratio-cinema: 21 / 9
+--ratio-golden: 1.618 / 1
+
+### 1-foundation/04-elevation.css
+
+--shadow-color: 232 20% 8%
+--shadow-0: none
+--shadow-1: 0 1px 2px hsl(var(--shadow-color) / 0.05), 0 1px 1px hsl(var(--shadow-color) / 0.03)
+--shadow-2: 0 2px 4px hsl(var(--shadow-color) / 0.06), 0 6px 12px hsl(var(--shadow-color) / 0.05)
+--shadow-3: 0 4px 8px hsl(var(--shadow-color) / 0.07), 0 12px 24px hsl(var(--shadow-color) / 0.07)
+--shadow-4: 0 8px 16px hsl(var(--shadow-color) / 0.08), 0 24px 48px hsl(var(--shadow-color) / 0.10)
+--shadow-5: 0 16px 32px hsl(var(--shadow-color) / 0.10), 0 40px 80px hsl(var(--shadow-color) / 0.14)
+--shadow-inset: inset 0 1px 2px hsl(var(--shadow-color) / 0.06)
+--shadow-signal: 0 0 0 4px var(--accent-ring)
+--ring-focus: 0 0 0 var(--border-2) var(--focus-ring-alt), 0 0 0 4px var(--focus-ring)
+
+### 1-foundation/05-motion.css
+
+--dur-1: 120ms
+--dur-2: 200ms
+--dur-3: 320ms
+--dur-4: 560ms
+--ease-out: cubic-bezier(0.22, 1, 0.36, 1)
+--ease-in: cubic-bezier(0.55, 0, 1, 0.45)
+--ease-inout: cubic-bezier(0.65, 0, 0.35, 1)
+--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)
+--ease-linear: linear
+--stagger: 60ms
+--t-colors: color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out)
+--t-transform: transform var(--dur-2) var(--ease-out)
+--t-shadow: box-shadow var(--dur-2) var(--ease-out)
+--t-all: var(--t-colors), var(--t-transform), var(--t-shadow), opacity var(--dur-2) var(--ease-out)
+--dur-1: 1ms
+--dur-2: 1ms
+--dur-3: 1ms
+--dur-4: 1ms
+--stagger: 0ms
+
+### 1-foundation/06-layout.css
+
+--grid-cols: 12
+--grid-gap: var(--space-6)
+--grid-gap-tight: var(--space-4)
+
+## Classes
+
+### 1-foundation
+
+Tokens. Colour, type, space, elevation, motion, layout, patterns, logo, icons, shape, cutouts, frames, a11y.
+
+00-reset.css: .kg-width-wide .kg-width-full
+01-color.css: .tint-accent-8 .tint-accent-16 .tint-craft-12 .lift-1 .lift-2 .lift-3
+02-typography.css: .t-display-1 .t-display-2 .t-h1 .t-h2 .t-h3 .t-h4 .t-lead .t-body .t-small .t-slate .t-slate-sm .t-numeric .t-stat .t-quote .t-code .t-muted .t-subtle .t-accent .t-link .measure .measure-ui .measure-lead .face-display .face-body .face-slate .num-tabular .num-proportional .num-lining .num-slashed .w-regular .w-medium .w-semibold .w-bold .optical-display .optical-caps .truncate .clamp-2 .clamp-3
+04-elevation.css: .surface .surface-raised .surface-sunken .edge-signal .edge-signal-top .edge-signal-bottom .elev-0 .elev-1 .elev-2 .elev-3 .elev-4 .elev-5
+05-motion.css: .fx-rise .fx-fade .fx-slide-l .fx-slide-r .fx-scale .fx-blur .fx-clip .fx-pulse .fx-spin .fx-stagger .fx-lift .fx-glow .fx-tilt .fx-shift .fx-shift__icon .fx-on-scroll .fx-flip .fx-swing .fx-pop .fx-draw .fx-mask .fx-zoom .tx-type .tx-chars .tx-words .tx-wave .tx-shine .tx-underline .tx-highlight .tx-gradient .tx-glitch .tx-blur .tx-mask .tx-flip .tx-count .an .an-circle .an-circle-2 .an-underline .an-strike .an-box .an-arrow .an-craft .an-ink .an-thin .an-thick .tx-highlight-craft .hx-swipe .hx-wipe .hx-sheen .hx-magnet .hx-press .hx-reveal .hx-reveal__panel .hx-swap .hx-trace .sec-fx .sec-cascade .sec-curtain .sec-split .sec-focus .sec-lift .sec-on-scroll .sting .sting__dot .sting__word .sting-drop .sting-static .sting-shutter .sting-type .sting-sweep .sting-paused .win-term__cursor
+06-layout.css: .container .container-prose .container-narrow .container-wide .container-full .bleed-wide .bleed-full .section .section-sm .section-lg .grid-12 .col-1 .col-2 .col-3 .col-4 .col-5 .col-6 .col-7 .col-8 .col-9 .col-10 .col-12 .grid-auto .grid-auto-sm .grid-auto-lg .split-phi .split-phi-reverse .split-half .stack .stack-xs .stack-sm .stack-lg .stack-xl .cluster .cluster-sm .cluster-lg .row-between .center-x .sticky-rail .canvas .canvas-thumb .canvas-short .canvas-square .canvas-poster .canvas-cinema .canvas__safe .canvas__scrim .frame .frame-4 .frame__tr .frame__bl .frame-signal .frame-ink .ratio-video .ratio-photo .ratio-square .ratio-short .object-cover .object-contain .gap-0 .gap-1 .gap-2 .gap-3 .gap-4 .gap-6 .gap-8 .gap-12 .gap-16 .gap-x-4 .gap-x-6 .gap-y-4 .gap-y-8 .flow .flow-tight .flow-loose .grid .grid-2 .grid-3 .grid-4 .grid-6 .grid-rail .grid-rail-left .grid-editorial .col-wide .col-full .grid-cols-fill .place-center .self-start .self-end .justify-between .items-start .items-center .rule .rule-solid
+07-pattern.css: .pattern .pattern-xs .pattern-sm .pattern-lg .pattern-xl .pattern-media .pattern-signal .pattern-craft .pattern-strong .pattern-faint .fade-corners .fade-b .fade-t .fade-r .fade-center .pattern-grid .pattern-blueprint .pattern-dots .pattern-halftone .pattern-golden .pattern-scanline .pattern-timecode .pattern-filmstrip .pattern-hatch .pattern-crosshatch .pattern-waveform .pattern-rays .pattern-arcs .pattern-glow .pattern-mesh .pattern-noise .pattern-hairline .pattern-heavy .pattern-dashed .pattern-cols .pattern-rows .pattern-scanline-fine .pattern-scanline-coarse .pattern-iso .pattern-plus .pattern-stripes .pattern-checker .pattern-topo .pattern-circuit .pattern-eq .pattern-sprocket .pattern-matrix .pattern-spotlight .pattern-ruler .pattern-corners .ring-ig .ring-live .dot .dot-sm .dot-lg .dot-live .dot-muted
+08-a11y.css: .focus-halo .skip-link .sr-only .sr-only-focusable .tap-target .pattern .canvas__scrim .surface .surface-raised .surface-sunken .hidden .relative .overflow-hidden .no-scrollbar .scroller .no-print
+09-logo.css: .logo .logo__i .logo__tittle .logo-live .logo-xs .logo-sm .logo-md .logo-lg .logo-xl .logo-2xl .logo-inverse .logo-mono .logo-ghost .logo-stack .logo__tag .logo-inline .logo__rule .logo-badge .logo-badge-round .logo-short .logo-s .logo-s-live .logo-dot .logo-dot-halo .favicon .favicon-16 .favicon-32 .favicon-48 .favicon-64 .favicon-180 .favicon-512 .logo-responsive .logo__full .logo__abbr .logo__mark .logo-fluid .logo-clear .logo-dont-stretch .logo-dont-rotate .logo-dont-recolor .logo-dont-outline .nav-bar
+10-icon.css: .icon .icon-xs .icon-sm .icon-md .icon-lg .icon-xl .icon-line .icon-solid .icon-duo .icon-ghost .icon-accent .icon-muted .icon-box .icon-box-round .icon-box-sm .icon-box-lg .icon-box-accent .icon-box-inverse .icon-feature .icon-badged .icon-badged__dot .icon-badged__n .icon-spin .icon-nudge .icon-lift .icon-sprite .icon-label .icon-only
+11-shape.css: .nest .nest__inner .shape .shape-dot .shape-square .shape-rounded .shape-squircle .shape-pill .shape-ring .shape-arc .shape-play .shape-chevron .shape-diamond .shape-ticket .shape-blob .shape-blob-2 .shape-golden .shape-caret .shape-tail .div-fade .div-dot .div-notch .div-ticks .clip-wipe-up .clip-wipe-hide .clip-angle .clip-notch .mask-fade-b .mask-fade-r .mask-circle .shape-triangle .shape-triangle-right .shape-diamond-4 .shape-pentagon .shape-hexagon .shape-hexagon-v .shape-octagon .shape-star .shape-chevron-solid .shape-arrow .shape-plus .shape-play-clip .shape-ring-progress .shape-donut .prop-golden .prop-root2 .prop-third .prop-cinema
+12-frame.css: .win .win__bar .win__body .win__dots .win__dots-color .win__title .win-mac .win-code .win-code__tabs .win-code__tab .win-code__body .win-code__gutter .win-code__lines .tok-key .tok-str .tok-num .tok-fn .tok-com .tok-tag .tok-attr .tok-prop .tok-sel .tok-var .tok-punc .win-term .win-term__body .win-term__prompt .win-term__cursor .win-browser .win-browser__url .win-phone .shutter .shutter__blades .vf .vf__tr .vf__bl .vf-signal .vf-ink .vf-light .vf-thirds .vf__grid .vf__rec .polaroid .polaroid__img .polaroid__caption .book .book__cover .book__kicker .book__title .book__foot .book-shelf .filmstrip
+13-cutout.css: .cut .cut-sm .cut-lg .cut-sticker .cut-sticker-accent .cut-stamp .cut-ticket .cut-corner .cut-tab .cut-tape .cut-punch .cut-speech .cut-inverse
+
+### 2-elements
+
+Single ideas: text roles, badge, table, indicator, syntax.
+
+10-text.css: .figure .figure__caption .pullquote .pullquote__text .pullquote__cite .code-block .code-block__head .mark .note .note-craft .note-signal .fn-ref .fn .drop-cap .term
+11-badge.css: .badge .badge-signal .badge-craft .badge-success .badge-warning .badge-danger .badge-info .badge-inverse .badge-live .eyebrow .eyebrow-plain .chip .chip__count .chip__x .avatar .avatar-sm .avatar-lg .avatar-xl .avatar-stack .kbd .timecode
+12-table.css: .table-wrap .table .num .table-compact .table-fixed .dl .rule-list .rule-list__main .rule-list__title .rule-list__meta .steps
+13-indicator.css: .progress .progress__bar .progress-thin .progress-indeterminate .progress-labelled .progress__label .skeleton .skeleton-text .skeleton-title .skeleton-media .skeleton-avatar .skeleton-breathe .loading-scan .buffer .spinner .tip
+15-syntax.css: .codebox .codebox__head .codebox__lang .codebox__copy .codebox__pre .ln .ln-hl .codebox-light .tok-key .tok-str .tok-num .tok-fn .tok-com .tok-tag .tok-attr .tok-prop .tok-sel .tok-var .tok-punc .copy-line
+
+### 3-components
+
+Things with parts and states: buttons through navbar.
+
+20-button.css: .btn .btn__icon .btn-primary .btn-secondary .btn-ghost .btn-soft .btn-quiet .btn-danger .btn-sm .btn-lg .btn-block .btn-icon .btn-pill .btn-live .btn-group
+21-form.css: .field .label .label-optional .hint .error-text .input .textarea .select .input-search .field-icon .field-icon__glyph .input-group .btn .check .radio .switch .fieldset .form-row
+22-card.css: .card .card__link .card__above .card__media .card__media-square .card__media-photo .card__media-poster .card__media-tr .card__media-br .card__media-tl .card__body .card__meta .card__title .card__excerpt .card__footer .card-featured .card-inverse .card-row .card-compact .card-bare .card-poster .deck .deck-sm .deck-lg
+23-collection.css: .c .c__media .c__body .c__meta .c__title .c__excerpt .c__foot .c__link .c__above .c-video .c__play .c-blog .c-project .c__logo .c__stack .c-projectlog .c__step .c-course .c__progress .c-lesson .c-lesson__no .c-lesson__tick .c-series .c-episode .c__no .c-product .c__thumb .c__price .c-shop .c-timeline .c-timeline__year .c-timeline__rail .c-changelog .c-changelog__v .c-newsletter .c__issue .c-snippet .c__code .c__lang .c-prompt .c__bubble .c__model .c-experience .c-trip .c__coords .c-travel .c__day .c-doc .c__arrow .c-guide .c__steps .c-tag .c__count .c-author .deck-c .deck-c-sm .deck-c-lg .deck-c-list
+24-nav.css: .nav-shell .nav-bar .nav-links .nav-link .nav-link__icon .nav-series .nav-course .nav-rail .tabs .tab .breadcrumb .pagination .pagination__pages .page-dot .pager .pager__item .pager__item-next .pager__dir .pager__title .toc .toc__title .toc-nested
+25-feedback.css: .alert .alert__title .alert-success .alert-warning .alert-danger .alert-info .alert-signal .toast-region .toast .empty .empty__title .empty__body
+26-media.css: .player .player__bar .player__rail .player__played .player__time .play .play__disc .play-sm .play-ghost .poster .poster__label .episode .episode__thumb .episode__title .episode__meta
+27-composite.css: .curriculum .curriculum__head .curriculum__title .curriculum__meta .progress .curriculum__module .curriculum__no .curriculum__module-title .curriculum__count .curriculum__lessons .lesson-row .lesson-row__tick .lesson-row__title .lesson-row__len .lesson-row__free .ep-panel .ep-panel__head .ep-panel__title .ep-panel__count .ep-panel__list .buildlog .buildlog__step .buildlog__node .buildlog__link .buildlog__date .itinerary .itinerary__day .itinerary__chip .itinerary__title .itinerary__note .itinerary__stops
+28-disclosure.css: .btn-close .btn-close-inverse .collapse .collapse__body .acc .dropdown .btn .dropdown__menu .dropdown-end .dropdown__item .icon .dropdown__divider .dropdown__head .list-group .list-group__item .badge .list-group-flush .carousel .carousel__track .carousel__slide .carousel-full .carousel__nav .carousel__dot .marquee .marquee__run .marquee-reverse .marquee-fast .marquee-slow
+29-overlay.css: .modal .modal__head .modal__title .modal__body .modal__foot .modal-lg .offcanvas .offcanvas-start .offcanvas__head .offcanvas__title .offcanvas__body .pop .pop__head .pop__body
+30-form-plus.css: .range .float-field .input .textarea .select .float-field__label .input-group__text .input-group
+31-content.css: .content .kg-card .kg-width-wide .kg-width-full .kg-gallery-container .kg-gallery-row .kg-gallery-image .kg-embed-card .kg-bookmark-card .kg-bookmark-container .kg-bookmark-content .kg-bookmark-title .kg-bookmark-description .kg-bookmark-metadata .kg-bookmark-icon .kg-bookmark-thumbnail .kg-callout-card .kg-callout-emoji .kg-callout-card-accent .kg-toggle-card .kg-toggle-heading .kg-toggle-heading-text .kg-toggle-card-icon .kg-toggle-content .kg-button-card .kg-btn .kg-btn-accent .kg-header-card .kg-header-card-header .kg-header-card-subheader .kg-audio-card .kg-file-card .kg-file-card-container .kg-file-card-title .kg-file-card-caption .kg-file-card-metadata .kg-video-card .kg-product-card-container .kg-product-card-title .kg-product-card-description .kg-product-card-rating-active .kg-signup-card .kg-signup-card-heading .kg-signup-card-subheading .kg-signup-card-input .kg-signup-card-button .kg-nft-card
+32-editorial.css: .rail .rail__block .rail__title .chat .chat__turn .chat__who .chat__bubble .chat__turn-you .chat__copy .release .release__meta .release__ver .release__date .release-current .share .share__label
+33-navbar.css: .nav-shell-flush .nav-bar .nav-shell-full .nav-shell .nav-links-rule .nav-link .nav-links-soft .nav-menu .nav-menu__panel .nav-mega .nav-mega__panel .nav-mega__col .nav-mega__title .nav-mega__link .icon .nav-mega__feature .pattern .nav-sheet .nav-sheet__in .nav-sheet__scan .nav-sheet__head .nav-sheet__links .nav-sheet__link .nav-sheet__foot .nav-burger .nav-burger__box .nav-burger__bars .nav-burger-squeeze .nav-burger-aperture .nav-burger-bare .nav-burger-labelled .nav-collapse .nav-links .nav-gh .nav-gh__stars .nav-ghost .nav-shell-morph .nav-s-static .nav-s-top .nav-video .logo .cds-mark .nav-over .nav-over__media .nav-course-bar .nav-blog .nav-shop .nav-actions .nav-trip .nav-docs-bar .nav-link__icon .nav-bar__mark .nav-progress .nav-stack .nav-shell-fixed .nav-shell-auto .nav-shell-reveal .nav-bar-center .nav-bar-inverse .nav-bar-compact .nav-menu-grow .nav-sub-menu .nav-sub-menu__items .nav-burger-rec .nav-sheet-drop .nav-panel .nav-panel__in .nav-panel__links .nav-panel__links-split .nav-panel__label .nav-panel__link .nav-panel__aside .nav-icons .nav-icon .nav-form .nav-form__field .logo__img .nav-sheet__more .dropdown__item .cluster-sm .nav-more .nav-item .nav-sub .nav-item__caret .nav-item__panel .nav-apps .nav-apps-btn .nav-apps__grid .dropdown .dropdown__menu .nav-burger-pinned .nav-panel__cta .input .nav-panel__name
+
+### 4-broadcast
+
+Export canvases for YouTube and Instagram. Not for websites.
+
+20-canvas.css: .yt .yt-flush .yt-thumb .yt-banner .yt-scene .yt-avatar .yt-short .yt__safe .yt__safe-banner .yt-guides .yt-kicker .yt-kicker-plain .yt-title .yt-title-sm .yt-title-lg .yt-hit .yt-sub .yt-slate .yt-num .yt-mark .yt-mark-lg .yt-mark-sm .yt-stack .yt-row .yt-between .yt-push .yt-split .yt-copy .yt-subject .yt-subject__hint .yt-square .yt-portrait .yt-story .yt-export
+21-thumbnail.css: .thumb .thumb__bg .thumb-generic .thumb-build .thumb__code .thumb-travel .thumb__horizon .thumb__coords .thumb-qna .thumb__quote .thumb__asker .thumb-live .thumb__live .thumb__frame .thumb__part .thumb__subject .thumb-l-split .thumb__copy .thumb-l-center .yt-title .yt-kicker .thumb-rules .thumb-rules-signal .thumb-rules-craft .thumb-rules-2 .thumb-l-band .thumb-series .thumb-vlog .thumb__stamp .thumb-scheduled .thumb__when .thumb__replay .thumb__ticks .thumb__copy-wide .thumb__copy-center
+22-series.css: .ep .ep__bg .ep__series .ep__no .ep__chip .ep__copy .ep__title .ep__detail .ep__ticks .ep-poster
+23-scene.css: .scene-open .scene-open__in .scene-open__rule .scene-title .scene-title__no .scene-points .scene-points__row .scene-points__no .scene-points__text .scene-quote .scene-quote__text .scene-quote__cite .scene-lower .lower-third .lower-third__name .lower-third__role .scene-break .scene-break__no .scene-break__label .scene-end .end__slots .end__slot .end__sub .end__target .scene-live .scene-live__main .live-tag .live-stat .ticker .ticker__pill .live-stage .src .src__label .src-cam .src__tag .live-1 .live-2 .src-share .live-3 .live-4 .live-5 .live-head .live-head__topic .live-head__meta .end-2 .end-2__mid .end-3 .end-list .end-list__row .end-list__no .end-4 .end-5 .title-2 .title-2__no .title-3 .title-3__in .title-4 .title-4__band .title-5 .scene-brb .scene-brb__timer
+24-social.css: .sub-pill .sub-bar .sub-count .sub-count__n .sub-count__cta .sub-bug .sub-bug__dot .sub-card .sub-card__av .sub-card__who .sub-card__what .sub-card__cta .engage-stack .engage-stack__item .engage-stack__disc .engage-tiles .engage-tile .engage-tile__glyph .engage-tile__n .engage-tile__label .engage-burst .engage .engage__item .engage__glyph .engage__sep .comment-prompt .comment-prompt__q .comment-prompt__hint .chat .chat__head .chat__list .chat__msg .chat__av .chat__who .chat__msg-pinned .chat__foot .promo-strip .promo-strip__url .promo-strip__what .promo-card .promo-card__title .promo-card__list
+25-brand.css: .banner .banner__field .banner__frame .banner__lockup .banner__name .banner__tag .banner__meta .banner-rulers .avatar-yt .mark-dot .mark-s .avatar-yt-light .watermark
+26-backdrop.css: .bd .bd-grid .bd-blueprint .bd-scan .bd-bloom .bd-craft .bd-mesh .bd-dots .bd-hatch .bd-rays .bd-film .bd-wave .bd-noise .yt .fr-corners .fr-inset .fr-vignette .fr-ticks .bd-sm .bd-lg .fr .fr-edge-l .fr-edge-b .fr-live .fr-letterbox .fr-rec
+27-instagram.css: .ig .ig__safe .ig-caption-safe .ig__kicker .ig__title .ig__body .ig__handle .logo .ig-slide .ig__page .ig__swipe .ig__no .ig-dots .ig-strip .ig-story .ig-story__ui-top .ig-story__ui-bottom .ig-story__pips .ig-grid .ig-follow .ig-follow__av .ig-follow__who .ig-follow__meta .ig-follow__cta .handles .handles__item .share-sheet .share-row .share-btn .share-btn__glyph .share-link .share-link__url
+
+### 5-sections
+
+Full-width bands: page header, hero, stats, CTA, footer.
+
+30-header.css: .page-head .page-head__kicker .icon .page-head__title .page-head__desc .page-head__meta .page-head__count .page-head-sm .sec-head-row .sec-head-row__title .sec-head-row__kicker .sec-head-row__more
+31-hero.css: .hero .hero__eyebrow .hero__title .hero__lead .hero__actions .hero-statement .hero-split .hero-split__stage .hero-split__caption .hero-band .hero-band__media .hero-band-media .hero-sm
+32-stats.css: .stats .stat .stat__value .stat__label .stat__note .stat-live .stats-bare .stats-inverse
+33-cta.css: .cta .cta__kicker .cta__title .cta__body .cta__actions .cta__fine .cta-left .cta-newsletter__form .input .cta-sponsor
+34-footer.css: .footer .footer__grid .footer__brand .footer__tag .footer__social .footer__head .footer__links .icon .footer__signoff .footer__rec .footer-inverse
+
+### 6-utilities
+
+u- prefixed, single-purpose classes.
+
+
+## Optional JavaScript
+
+src/highlight.js — colours code blocks. CreatorHighlight.scan(root), CreatorHighlight.highlight(code, lang). Languages: html, css, js, json, bash.
+src/nav.js — sets data-scrolled, data-dir and data-open for the navbar. Everything visible stays in CSS. Both are additive; without them nothing breaks.

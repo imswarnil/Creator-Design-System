@@ -211,6 +211,21 @@ CreatorHighlight.scan(container);            // everything under a root
 CreatorHighlight.highlight(code, 'css');     // -> token HTML string
 ```
 
+## For AI agents
+
+Point any assistant at these and it will use real class names instead of
+guessing — the single worst failure mode for a CSS library, because guessed
+markup looks right and renders as unstyled HTML.
+
+| File | For |
+| --- | --- |
+| [`creator.imswarnil.com/llms.txt`](https://creator.imswarnil.com/llms.txt) | the index: what the system is, how to install and customise it |
+| [`creator.imswarnil.com/llms-full.txt`](https://creator.imswarnil.com/llms-full.txt) | every token and every class the system defines, plus the rules |
+| [`AGENTS.md`](AGENTS.md) | working *on* this repo — commands, generated files, house rules |
+
+Both `llms` files are generated from the stylesheets on every build, so they
+cannot drift from the code.
+
 ## Develop
 
 ```bash

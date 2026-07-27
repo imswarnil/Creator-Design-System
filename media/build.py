@@ -93,7 +93,7 @@ def hero():
     # still reads as one word rather than three pieces.
     b.append(f'  <text x="104" y="176" font-family="{DISPLAY}" font-size="72" font-weight="700" '
              f'fill="#fff" letter-spacing="-2.5">creat</text>\n')
-    b.append(f'  <circle cx="281" cy="158" r="18" fill="{ACCENT}"/>\n')
+    b.append(f'  <circle cx="281" cy="158" r="11" fill="{ACCENT}"/>\n')
     b.append(f'  <text x="300" y="176" font-family="{DISPLAY}" font-size="72" font-weight="700" '
              f'fill="#fff" letter-spacing="-2.5">r</text>\n')
     b.append(f'  <text x="107" y="214" font-family="{MONO}" font-size="19" fill="#ffffff" '
@@ -247,7 +247,7 @@ def navbar():
              f'stroke-linecap="round"/>\n')
     b.append('  <text x="72" y="94" class="ink" font-size="21" font-weight="700" '
              'letter-spacing="-0.8">creat</text>\n')
-    b.append(f'  <circle cx="140" cy="83" r="6" fill="{ACCENT}"/>\n')
+    b.append(f'  <circle cx="140" cy="83" r="3.8" fill="{ACCENT}"/>\n')
     b.append('  <text x="149" y="94" class="ink" font-size="21" font-weight="700" '
              'letter-spacing="-0.8">r</text>\n')
     for i, (lbl, cur) in enumerate([('Watch', False), ('Learn', True), ('Build', False)]):
@@ -266,7 +266,7 @@ def navbar():
     b.append('  <path d="M40 168h1120v52H40Z" fill="#000" fill-opacity="0.35"/>\n')
     b.append('  <text x="72" y="204" fill="#fff" font-size="21" font-weight="700" '
              'letter-spacing="-0.8">creat</text>\n')
-    b.append(f'  <circle cx="140" cy="193" r="6" fill="{ACCENT}"/>\n')
+    b.append(f'  <circle cx="140" cy="193" r="3.8" fill="{ACCENT}"/>\n')
     b.append('  <text x="149" y="204" fill="#fff" font-size="21" font-weight="700" '
              'letter-spacing="-0.8">r</text>\n')
     for i, (lbl, cur) in enumerate([('Watch', True), ('Extras', False), ('About', False)]):

@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-	<!-- Creator Design System mark: the S with the tittle on its shoulder.
-	     Drawn edge-to-edge so it stays legible at 16px. Ink flips with the
-	     OS theme; the record light never changes. -->
+	<!-- The record light, and nothing else. At 16px an S with a tittle on its
+	     shoulder is two shapes fighting over four pixels; a single dot survives
+	     any size, and it is the one mark the whole system is built around.
+	     The ring gives the icon a shape to sit in at large sizes and fades to
+	     almost nothing at small ones. It flips with the OS theme; the light
+	     never changes, because that is the whole point of it. -->
 	<style>
-		.ink { stroke: #101017; }
-		@media (prefers-color-scheme: dark) { .ink { stroke: #f8f8fa; } }
+		.ring { stroke: #101017; }
+		@media (prefers-color-scheme: dark) { .ring { stroke: #f8f8fa; } }
 	</style>
-	<path class="ink" d="M35 13.5c-1.6-3.4-5.4-5.3-10.6-5.3-6.4 0-11 3.2-11 8.3 0 10.6 22.2 5 22.2 16 0 5.4-4.8 8.6-11.4 8.6-5.9 0-10-2.3-11.8-6" stroke-width="5.4" stroke-linecap="round" fill="none"/>
-	<circle cx="42" cy="6.5" r="5.5" fill="#f04e2e"/>
+	<circle class="ring" cx="24" cy="24" r="17" fill="none" stroke-width="3" opacity="0.16"/>
+	<circle cx="24" cy="24" r="9.5" fill="#f04e2e"/>
 </svg>
