@@ -9,7 +9,7 @@
 	   A near-neutral grey with a whisper of blue in the shadows, so dark
 	   surfaces read as "unlit" rather than "muddy". 14 steps: the extra steps
 	   at each end exist for hairlines and for near-black video surfaces. */
-	--ink-0:    #ffffff;
+	--ink-0:    #fff;
 	--ink-25:   #fcfcfd;
 	--ink-50:   #f8f8fa;
 	--ink-100:  #f1f1f4;
@@ -76,8 +76,8 @@
 	--rose-700:  #931832;
 
 	/* Fixed, theme-independent. Used for scrims and video letterboxing. */
-	--pure-black: #000000;
-	--pure-white: #ffffff;
+	--pure-black: #000;
+	--pure-white: #fff;
 }
 
 /* =============================================================================

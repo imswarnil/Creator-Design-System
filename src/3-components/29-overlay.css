@@ -98,6 +98,7 @@
 }
 
 .offcanvas-start[open] { animation-name: offcanvas-in-start; }
+
 @keyframes offcanvas-in-start { from { transform: translateX(-100%); } }
 
 .offcanvas__head {

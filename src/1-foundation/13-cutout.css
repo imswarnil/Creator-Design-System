@@ -45,7 +45,6 @@ button.cut-sticker:hover {
 	border: 0;
 	background:
 		radial-gradient(circle at 50% 50%, transparent 0.28em, var(--bg-surface) 0.3em);
-	background-color: transparent;
 	padding: calc(var(--space-3) + 0.3em) calc(var(--space-4) + 0.3em);
 	-webkit-mask: radial-gradient(circle 0.28em at 0.3em 0.3em, transparent 98%, #000) -0.3em -0.3em / 0.6em 0.6em round;
 	mask: radial-gradient(circle 0.28em, transparent 96%, #000 100%) 50% / 0.75em 0.75em round;

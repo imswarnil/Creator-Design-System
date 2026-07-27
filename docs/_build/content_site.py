@@ -31,29 +31,94 @@ def _load(folder):
 
 # ── The animated hero illustration ──────────────────────────────────────────
 
-HERO_SVG = '''
-<svg class="lp-illo" viewBox="0 0 680 300" role="img"
-     aria-label="A viewfinder framing a page being built: a scanning line, a record light, and a title typing itself">
-	<rect width="680" height="300" fill="var(--bg-sunken)"/>
+MONO = 'IBM Plex Mono, monospace'
+
+# One viewfinder, four things a creator makes. The frame and its chrome — the
+# corners, the record light, the sweep — never move; only what is being framed
+# changes, which is the whole argument of the system in one picture. Square,
+# because the frame is not a video player: it holds a 16:9 video, a 9:16 reel,
+# a page of writing and a screen of code without ever resizing itself.
+HERO_SVG = f'''
+<svg class="lp-illo" viewBox="0 0 600 600" role="img"
+     aria-label="A viewfinder framing four things in turn: a video, a vertical reel, a page being written, and code being typed">
+	<rect width="600" height="600" fill="var(--bg-sunken)"/>
 	<g stroke="var(--line-default)" stroke-width="1">
-		<path d="M0 60h680M0 150h680M0 240h680M170 0v300M340 0v300M510 0v300"/>
+		<path d="M0 150h600M0 300h600M0 450h600M150 0v600M300 0v600M450 0v600"/>
 	</g>
 	<g class="lp-orbit" fill="none" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="4 7">
-		<circle cx="340" cy="150" r="112"/>
+		<circle cx="300" cy="300" r="216"/>
 	</g>
-	<g fill="none" stroke="var(--fg-default)" stroke-width="4.5" stroke-linecap="round">
-		<path d="M212 66v-14a12 12 0 0 1 12-12h18M468 66v-14a12 12 0 0 0-12-12h-18M212 234v14a12 12 0 0 0 12 12h18M468 234v14a12 12 0 0 1-12 12h-18"/>
+
+	<!-- Scene 1 · the video -->
+	<g class="lp-scene lp-scene-1">
+		<rect x="110" y="193" width="380" height="214" rx="10"
+		      fill="var(--bg-surface)" stroke="var(--line-default)"/>
+		<circle class="lp-pulse" cx="300" cy="288" r="34" fill="var(--accent)"/>
+		<path d="M291 276v24l21-12-21-12Z" fill="#fff"/>
+		<rect x="130" y="374" width="340" height="4" rx="2" fill="var(--line-default)"/>
+		<rect class="lp-grow" x="130" y="374" width="340" height="4" rx="2" fill="var(--accent)"/>
+		<text x="130" y="398" font-family="{MONO}" font-size="11" letter-spacing="1.6"
+		      fill="var(--fg-faint)">04:12 / 11:38</text>
+		<text x="104" y="548" font-family="{MONO}" font-size="12" letter-spacing="2.5"
+		      fill="var(--fg-subtle)">VIDEO · 16:9</text>
 	</g>
-	<g class="lp-scan"><path d="M222 72h236" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/></g>
-	<circle class="lp-rec" cx="458" cy="52" r="8" fill="var(--accent)"/>
-	<rect x="222" y="168" width="212" height="16" rx="4" fill="var(--line-default)"/>
-	<rect class="lp-type" x="222" y="168" height="16" rx="4" fill="var(--fg-default)"/>
-	<rect x="222" y="196" width="150" height="10" rx="3" fill="var(--line-default)"/>
-	<text x="222" y="156" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="2.5" fill="var(--fg-faint)">TAKE 47 · 00:12:47</text>
-	<g class="lp-chip" transform="translate(505 120)">
-		<rect width="120" height="26" rx="13" fill="var(--bg-surface)" stroke="var(--line-default)"/>
+
+	<!-- Scene 2 · the reel -->
+	<g class="lp-scene lp-scene-2">
+		<rect x="204" y="129" width="192" height="342" rx="14"
+		      fill="var(--bg-surface)" stroke="var(--line-default)"/>
+		<rect x="224" y="404" width="120" height="9" rx="4" fill="var(--line-default)"/>
+		<rect class="lp-grow" x="224" y="422" width="86" height="9" rx="4" fill="var(--line-strong)"/>
+		<g fill="none" stroke="var(--fg-subtle)" stroke-width="2.4" stroke-linecap="round"
+		   stroke-linejoin="round" transform="translate(414 300)">
+			<path class="lp-pop" d="M11 19s-9-5.6-9-11.5A4.9 4.9 0 0 1 11 4.6 4.9 4.9 0 0 1 20 7.5C20 13.4 11 19 11 19Z"
+			      fill="var(--accent)" stroke="var(--accent)"/>
+			<path d="M2 46a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-5 4v-4H4a2 2 0 0 1-2-2v-9Z"
+			      transform="translate(0 6)"/>
+		</g>
+		<text x="104" y="548" font-family="{MONO}" font-size="12" letter-spacing="2.5"
+		      fill="var(--fg-subtle)">REEL · 9:16</text>
+	</g>
+
+	<!-- Scene 3 · the writing -->
+	<g class="lp-scene lp-scene-3">
+		<rect class="lp-grow" x="130" y="190" width="250" height="22" rx="5" fill="var(--fg-default)"/>
+		<rect class="lp-grow lp-d1" x="130" y="240" width="340" height="10" rx="4" fill="var(--line-default)"/>
+		<rect class="lp-grow lp-d2" x="130" y="266" width="312" height="10" rx="4" fill="var(--line-default)"/>
+		<rect class="lp-grow lp-d3" x="130" y="292" width="336" height="10" rx="4" fill="var(--line-default)"/>
+		<rect class="lp-grow lp-d4" x="130" y="318" width="180" height="10" rx="4" fill="var(--line-default)"/>
+		<rect class="lp-caret" x="318" y="314" width="3" height="18" fill="var(--accent)"/>
+		<text x="104" y="548" font-family="{MONO}" font-size="12" letter-spacing="2.5"
+		      fill="var(--fg-subtle)">BLOG · WRITING</text>
+	</g>
+
+	<!-- Scene 4 · the code -->
+	<g class="lp-scene lp-scene-4">
+		<g font-family="{MONO}" font-size="15">
+			<text class="lp-grow" x="130" y="212" fill="var(--fg-faint)">/* one colour means live */</text>
+			<text class="lp-grow lp-d1" x="130" y="244" fill="var(--accent)">.dot-live<tspan fill="var(--fg-subtle)"> {{</tspan></text>
+			<text class="lp-grow lp-d2" x="154" y="276" fill="var(--fg-muted)">background<tspan fill="var(--fg-subtle)">: </tspan><tspan fill="var(--fg-default)">var(--accent)</tspan><tspan fill="var(--fg-subtle)">;</tspan></text>
+			<text class="lp-grow lp-d3" x="154" y="308" fill="var(--fg-muted)">animation<tspan fill="var(--fg-subtle)">: </tspan><tspan fill="var(--fg-default)">rec 2.4s</tspan><tspan fill="var(--fg-subtle)">;</tspan></text>
+			<text class="lp-grow lp-d4" x="130" y="340" fill="var(--fg-subtle)">}}</text>
+		</g>
+		<rect class="lp-caret" x="146" y="326" width="3" height="18" fill="var(--accent)"/>
+		<text x="104" y="548" font-family="{MONO}" font-size="12" letter-spacing="2.5"
+		      fill="var(--fg-subtle)">CODE · SHIPPING</text>
+	</g>
+
+	<!-- The frame itself, over every scene -->
+	<g fill="none" stroke="var(--fg-default)" stroke-width="5" stroke-linecap="round">
+		<path d="M90 128V102a12 12 0 0 1 12-12h26M510 128V102a12 12 0 0 0-12-12h-26M90 472v26a12 12 0 0 0 12 12h26M510 472v26a12 12 0 0 1-12 12h-26"/>
+	</g>
+	<g class="lp-scan"><path d="M104 118h392" stroke="var(--accent)" stroke-width="1.5" opacity="0.55"/></g>
+	<circle class="lp-rec" cx="486" cy="66" r="8" fill="var(--accent)"/>
+	<text x="104" y="71" font-family="{MONO}" font-size="12" letter-spacing="2.5"
+	      fill="var(--fg-faint)">TAKE 47 · 00:12:47</text>
+	<g class="lp-chip" transform="translate(388 528)">
+		<rect width="118" height="26" rx="13" fill="var(--bg-surface)" stroke="var(--line-default)"/>
 		<circle cx="16" cy="13" r="4" fill="var(--accent)"/>
-		<text x="30" y="17" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.6" fill="var(--fg-subtle)">--accent</text>
+		<text x="30" y="17" font-family="{MONO}" font-size="10" letter-spacing="1.6"
+		      fill="var(--fg-subtle)">--accent</text>
 	</g>
 </svg>'''
 
@@ -144,7 +209,7 @@ def build_landing():
 			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
 				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
 			</button>
-			<a class="btn btn-secondary btn-sm" href="https://github.com/swarnil/Creator-Design-System"
+			<a class="btn btn-secondary btn-sm" href="https://github.com/imswarnil/Creator-Design-System"
 			   rel="noopener" target="_blank">
 				<svg class="icon btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
 				GitHub <span class="badge" data-gh-stars>★</span>
@@ -168,7 +233,7 @@ def build_landing():
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
-			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
+			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
 		</div>
 	</div>
 </dialog>
@@ -246,8 +311,8 @@ def build_landing():
 				pays for the next component — and templates fund the rest.
 			</p>
 			<div class="cta__actions">
-				<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/swarnil" rel="noopener" target="_blank">Sponsor the project</a>
-				<a class="btn btn-secondary btn-lg" href="https://github.com/swarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
+				<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">Sponsor the project</a>
+				<a class="btn btn-secondary btn-lg" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
 			</div>
 			<p class="cta__fine">Or contribute — issues and pull requests are genuinely welcome.</p>
 		</div>
@@ -263,12 +328,12 @@ def build_landing():
 				<a href="./introduction.html">Introduction</a><a href="./principles.html">Principles</a>
 				<a href="./install.html">Install</a><a href="./components.html">Components</a></div></div>
 			<div><h2 class="footer__head">Project</h2><div class="footer__links">
-				<a href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
-				<a href="https://github.com/swarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
-				<a href="https://github.com/swarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
+				<a href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
+				<a href="https://github.com/imswarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
+				<a href="https://github.com/imswarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
 			<div><h2 class="footer__head">More</h2><div class="footer__links">
 				<a href="./showcase.html">Showcase</a><a href="./templates.html">Templates</a>
-				<a href="https://github.com/sponsors/swarnil" rel="noopener">Sponsor</a></div></div>
+				<a href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor</a></div></div>
 		</div>
 		<div class="footer__signoff">
 			<span>MIT © 2026 Swarnil Singhai</span>
@@ -293,8 +358,8 @@ def _showcase():
         '<code class="t-code">/showcase/*.json</code>, so a merged PR is a '
         'published entry.</p>'
         '<div class="cluster u-mb-8">'
-        '<a class="btn btn-primary" href="https://github.com/swarnil/Creator-Design-System/tree/main/showcase" rel="noopener">Add your site</a>'
-        '<a class="btn btn-quiet" href="https://github.com/swarnil/Creator-Design-System/blob/main/showcase/README.md" rel="noopener">How it works</a>'
+        '<a class="btn btn-primary" href="https://github.com/imswarnil/Creator-Design-System/tree/main/showcase" rel="noopener">Add your site</a>'
+        '<a class="btn btn-quiet" href="https://github.com/imswarnil/Creator-Design-System/blob/main/showcase/README.md" rel="noopener">How it works</a>'
         '</div>')
     if not items:
         body += ('<div class="empty"><span class="eyebrow">Empty</span>'
@@ -357,7 +422,7 @@ def _templates():
         '<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">'
         'Built something on the system? Free or paid, add a JSON file to '
         '<code class="t-code">/templates</code> and open a pull request.</p>'
-        '<a class="btn btn-secondary" href="https://github.com/swarnil/Creator-Design-System/blob/main/templates/README.md" rel="noopener">How to list</a>')
+        '<a class="btn btn-secondary" href="https://github.com/imswarnil/Creator-Design-System/blob/main/templates/README.md" rel="noopener">How to list</a>')
     return body
 
 
@@ -378,15 +443,15 @@ PAGES['sponsor'] = ('Sponsor',
       '<div class="surface u-p-5"><span class="eyebrow">One-off</span>'
       '<h3 class="t-h4 u-mt-2">Buy a coffee</h3>'
       '<p class="t-small u-fg-subtle u-mt-2">A single thank-you. No tiers, no invoice.</p>'
-      '<a class="btn btn-secondary btn-sm u-mt-4" href="https://github.com/sponsors/swarnil" rel="noopener">Sponsor once</a></div>'
+      '<a class="btn btn-secondary btn-sm u-mt-4" href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor once</a></div>'
       '<div class="surface u-p-5" style="border-color:var(--line-accent)"><span class="eyebrow t-accent">Monthly</span>'
       '<h3 class="t-h4 u-mt-2">Keep it maintained</h3>'
       '<p class="t-small u-fg-subtle u-mt-2">Recurring support pays for the next component, and for answering issues.</p>'
-      '<a class="btn btn-primary btn-sm u-mt-4" href="https://github.com/sponsors/swarnil" rel="noopener">Sponsor monthly</a></div>'
+      '<a class="btn btn-primary btn-sm u-mt-4" href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor monthly</a></div>'
       '<div class="surface u-p-5"><span class="eyebrow">Free</span>'
       '<h3 class="t-h4 u-mt-2">Contribute instead</h3>'
       '<p class="t-small u-fg-subtle u-mt-2">Time is worth more than money here. Fix a bug, document a gap, add your site.</p>'
-      '<a class="btn btn-secondary btn-sm u-mt-4" href="https://github.com/swarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing guide</a></div>'
+      '<a class="btn btn-secondary btn-sm u-mt-4" href="https://github.com/imswarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing guide</a></div>'
       '</div>'
     + ct([
         ('Where it goes', 'maintenance time: issues, browser bugs, new components, documentation'),

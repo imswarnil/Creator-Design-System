@@ -7,7 +7,7 @@
    it becomes a drawer behind the ☰ button in the slim top bar.
    ========================================================================== */
 
-:root { --side-w: 16.5rem; --bar-h: 3.5rem; }
+:root { --side-w: 16.5rem; --rail-w: 15rem; --bar-h: 3.5rem; }
 
 /* ── Sidebar ─────────────────────────────────────────────────────────────── */
 
@@ -128,26 +128,6 @@ body.loop-demos .surface * { animation-iteration-count: infinite !important; }
 	flex: none;
 }
 
-/* Section links (on this page) — slate, smaller, indented under a hairline. */
-.doc-side__nav a[href^='#'] {
-	font-family: var(--font-slate);
-	font-size: var(--text-xs);
-	color: var(--fg-subtle);
-	letter-spacing: 0.03em;
-	padding-block: 4px;
-	border-left: var(--border-hair) solid var(--line-subtle);
-	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-	margin-left: var(--space-2);
-	padding-left: var(--space-3);
-}
-
-/* Scrollspy highlight. */
-.doc-side__nav a[href^='#'].is-active {
-	color: var(--fg-default);
-	border-left-color: var(--accent);
-	background: none;
-}
-
 .doc-side__foot {
 	flex: none;
 	padding: var(--space-4) var(--space-5);
@@ -232,6 +212,135 @@ button.doc-reopen.doc-reopen {
 	.doc-side { transition: none; }
 }
 
+/* ── The right rail — this page's headings, then the sponsor ask ─────────────
+   The page head runs the full content width, the way a hero should. Below it
+   the page splits: content on the left, rail on the right. The rail is sticky
+   because a table of contents that scrolls away has stopped being a map, and
+   it is the first thing to go when the viewport can no longer afford three
+   columns — the same headings are still reachable from the page itself.
+   -------------------------------------------------------------------------- */
+
+/* No align-items here on purpose: the rail must stretch to the full height of
+   the row, or the sticky card inside it runs out of track a screen in and
+   scrolls away with the top of the page. */
+.doc-split {
+	display: grid;
+	gap: var(--space-10);
+}
+
+@media (min-width: 78rem) {
+	.doc-split { grid-template-columns: minmax(0, 1fr) var(--rail-w); }
+}
+
+/* The content column must be allowed to shrink, or a wide demo (a table, a
+   thumbnail grid) pushes the rail off the screen instead of scrolling itself. */
+.doc-split__main { min-width: 0; }
+
+@media (min-width: 78rem) {
+	.doc-rail__in {
+		position: sticky;
+		top: calc(var(--bar-h) + var(--space-6));
+		max-height: calc(100vh - var(--bar-h) - var(--space-10));
+		overflow-y: auto;
+		scrollbar-width: thin;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+}
+
+.doc-toc__title {
+	display: block;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	padding-bottom: var(--space-3);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+}
+
+.doc-toc__links { display: flex; flex-direction: column; padding-top: var(--space-2); }
+
+.doc-toc a {
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	text-decoration: none;
+	line-height: var(--leading-snug, 1.35);
+	padding: 5px var(--space-3);
+	border-left: var(--border-hair) solid var(--line-subtle);
+	transition: var(--t-colors);
+}
+
+.doc-toc a:hover { color: var(--fg-default); border-left-color: var(--line-strong); }
+
+/* Scrollspy highlight — the accent marks where the reader is, nothing else. */
+.doc-toc a.is-active {
+	color: var(--fg-default);
+	font-weight: var(--weight-medium);
+	border-left-color: var(--accent);
+}
+
+/* ── Sponsor card ────────────────────────────────────────────────────────── */
+
+.doc-sponsor {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	padding: var(--space-5);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-3);
+	position: relative;
+	overflow: hidden;
+}
+
+/* The record light again — the one place on the page allowed to be vermilion. */
+.doc-sponsor::before {
+	content: '';
+	position: absolute;
+	inset-inline: 0;
+	top: 0;
+	height: 2px;
+	background: var(--accent);
+}
+
+.doc-sponsor__eyebrow {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.doc-sponsor__lead {
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	margin: 0;
+}
+
+.doc-sponsor__cta svg { width: 0.95rem; height: 0.95rem; margin-right: var(--space-2); }
+
+.doc-sponsor__alt {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	color: var(--fg-faint);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.doc-sponsor__alt:hover { color: var(--fg-default); }
+
+/* Below the split, the rail is gone — so the ask rides the page footer area
+   instead of vanishing with it. */
+@media (max-width: 77.999rem) {
+	.doc-split .doc-rail { display: block; margin-top: var(--space-10); }
+	.doc-split .doc-toc { display: none; }
+	.doc-split .doc-sponsor { max-width: 34rem; }
+}
+
 /* ── Shared bits ─────────────────────────────────────────────────────────── */
 
 .doc-logo {
@@ -297,6 +406,31 @@ section[id] { scroll-margin-top: 2rem; }
 
 .demo { padding: var(--space-6); }
 .demo-tile { overflow: hidden; }
+
+/* ── Room for an open panel ──────────────────────────────────────────────────
+   A dropdown is absolutely positioned: it adds no height, so the tile stays
+   the size of the closed bar and its own clipping cuts the panel off halfway.
+   Two things fix it, and both are needed. The tile stops clipping, so a panel
+   taller than expected is still readable; and the demo reserves room while a
+   panel is open, so the usual case lands inside the tile instead of over the
+   strip that names it. Nothing is reserved when everything is shut.
+   -------------------------------------------------------------------------- */
+
+.demo-tile:has(.nav-menu, .nav-mega) { overflow: visible; }
+
+/* The open tile paints above its neighbours, or the next tile covers the
+   panel that just opened. */
+.demo-tile:has(.nav-menu[open], .nav-mega[open]) {
+	position: relative;
+	z-index: 2;
+}
+
+.demo:has(.nav-menu[open]) { padding-bottom: 19rem; }
+.demo:has(.nav-mega[open]) { padding-bottom: 23rem; }
+
+/* The mega panel spans the island, so the tile must not squeeze it. */
+.demo:has(.nav-mega[open]) .nav-mega__panel { max-height: 21rem; overflow-y: auto; }
+.demo:has(.nav-menu[open]) .nav-menu__panel { max-height: 17rem; overflow-y: auto; }
 
 /* Sub-label inside a demo, for grouping rows of variants. */
 .demo-label {
@@ -594,6 +728,109 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 .demo-code { padding: var(--space-4) var(--space-4) var(--space-2); }
 .demo-code .codebox__pre { max-height: 26rem; }
 
+/* ── Navbar playground ───────────────────────────────────────────────────────
+   Docs chrome, not system CSS. Every control here sets a knob the component
+   already has, so the markup it prints is markup you could have written.
+   -------------------------------------------------------------------------- */
+
+.np {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	overflow: hidden;
+	background: var(--bg-surface);
+}
+
+.np__stage {
+	padding: var(--space-6) var(--space-5);
+	background: var(--bg-sunken);
+	border-bottom: var(--border-hair) solid var(--line-default);
+}
+
+.np__panel {
+	display: grid;
+	gap: var(--space-3);
+	padding: var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-default);
+}
+
+.np__row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	flex-wrap: wrap;
+}
+
+.np__label {
+	flex: none;
+	width: 7.5rem;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* Segmented control — radios, so arrow keys and labels come free. */
+.np__seg {
+	display: inline-flex;
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-pill);
+	overflow: hidden;
+	background: var(--bg-canvas);
+}
+
+.np__opt > input { position: absolute; opacity: 0; pointer-events: none; }
+
+.np__opt > span {
+	display: inline-flex;
+	align-items: center;
+	height: var(--control-sm);
+	padding-inline: var(--space-4);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	cursor: pointer;
+	transition: var(--t-colors);
+	border-left: var(--border-hair) solid var(--line-subtle);
+}
+
+.np__opt:first-child > span { border-left: 0; }
+.np__opt > span:hover { background: var(--bg-sunken); color: var(--fg-default); }
+.np__opt > input:checked + span { background: var(--fg-default); color: var(--bg-canvas); }
+.np__opt > input:focus-visible + span { outline: var(--border-2) solid var(--accent); outline-offset: -2px; }
+
+.np__checks { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+.np__check {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	cursor: pointer;
+}
+
+.np__check > input { accent-color: var(--accent); }
+.np__check:hover { color: var(--fg-default); }
+
+.np__range { flex: 1 1 12rem; max-width: 18rem; accent-color: var(--accent); }
+
+.np__out-val {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-subtle);
+	font-variant-numeric: tabular-nums;
+}
+
+.np__code { padding: var(--space-4); }
+.np__code .codebox__pre { max-height: 22rem; }
+
+@media (max-width: 40rem) {
+	.np__label { width: 100%; }
+}
+
 /* ── The Creator Design System mark ──────────────────────────────────────────
    The project's own brand, not Swarnil's: the word set in the display face
    with the record light riding the shoulder of the final letter. The dot is
@@ -677,6 +914,11 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 	max-width: calc(var(--w-wide) + var(--gutter) * 2);
 	margin-inline: auto;
 }
+
+/* Docs pages run the bar edge to edge: it sits above both rails and the
+   content, so centring it inside a container would leave it hanging over the
+   left sidebar rather than spanning the page. */
+.cds-bar-wide .cds-bar__in { max-width: none; }
 
 .cds-bar__links { display: none; gap: var(--space-1); margin-inline: auto; }
 @media (min-width: 62rem) { .cds-bar__links { display: flex; } }
@@ -817,3 +1059,29 @@ button.doc-reopen.doc-reopen { top: calc(var(--bar-h) + var(--space-3)); }
 .cds-bar__burger { display: none; }
 @media (max-width: 61.999rem) { .cds-bar__burger { display: inline-flex; } }
 @media (max-width: 55.999rem) { .lp-nav .cds-bar__burger { display: inline-flex; } }
+
+/* Scroll demo box — a page-in-a-box so the morph variant can be shown without
+   asking the reader to scroll the actual page. */
+.np__scroller { height: 15rem; overflow-y: auto; border-radius: var(--radius-lg); background: var(--bg-sunken); }
+.np__scroller-in { min-height: 34rem; position: relative; }
+.np__filler { padding: var(--space-6) var(--space-5); color: var(--fg-faint); }
+
+/* Accent swatches in the builder. */
+.np__swatches { display: flex; gap: var(--space-2); }
+
+.np__swatch > input { position: absolute; opacity: 0; pointer-events: none; }
+
+.np__swatch {
+	width: 1.4rem;
+	height: 1.4rem;
+	border-radius: var(--radius-full);
+	background: var(--sw, var(--accent));
+	cursor: pointer;
+	border: var(--border-2) solid transparent;
+	box-shadow: 0 0 0 1px var(--line-default);
+	transition: var(--t-transform);
+}
+
+.np__swatch:hover { transform: scale(1.1); }
+.np__swatch:has(> input:checked) { border-color: var(--bg-surface); box-shadow: 0 0 0 2px var(--fg-default); }
+.np__swatch:has(> input:focus-visible) { outline: var(--border-2) solid var(--accent); outline-offset: 2px; }

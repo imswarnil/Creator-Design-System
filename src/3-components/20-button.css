@@ -32,7 +32,7 @@
 }
 
 /* Press is a 1px settle, not a scale — a button is a physical key. */
-.btn:active:not(:disabled):not([aria-disabled='true']) {
+.btn:active:not(:disabled, [aria-disabled='true']) {
 	transform: translate3d(0, 1px, 0);
 }
 

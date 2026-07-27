@@ -7,8 +7,9 @@ One page per topic. Two kinds of pages:
 
 Re-run after editing content or fragments:
     python3 assets/design-system/preview/docs/_build/build.py
-The NAV tree below drives the sidebar, ordering and prev/next pagination.
-The per-page TOC nests under the active sidebar item (scrollspy in preview.js).
+The NAV tree below drives the left sidebar, ordering and prev/next pagination.
+The per-page TOC lives in the right rail beside the content, above the sponsor
+card (scrollspy in preview.js).
 """
 import pathlib, html, re, json
 
@@ -16,12 +17,13 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 REPO = HERE.parent.parent
 FRAG = HERE / 'fragments'
-V = '?v=cds10'
+V = '?v=cds17'
+SITE = 'https://creator.imswarnil.com'
 
-import content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer
+import content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
 
 PAGES = {}
-for mod in (content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer):
+for mod in (content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all):
     PAGES.update(mod.PAGES)
 
 # Fragment-backed pages: slug -> (folder, fragment, opts)
@@ -97,9 +99,8 @@ GROUP_ICONS = {
 NAV = [
     ('Start', [('introduction', 'Introduction'), ('why', 'Why this system'),
                ('principles', 'Principles'), ('usage', 'Usage — CSS · SCSS · Tailwind'),
-               ('components', 'Components explorer')]),
+               ('components', 'Components explorer'), ('all', 'All pages')]),
     ('Getting started', [('install', 'Installation'), ('setup', 'Setup & theming')]),
-    ('Project', [('showcase', 'Showcase'), ('templates', 'Templates'), ('sponsor', 'Sponsor')]),
     ('Foundation', [('f-logo', 'Logo'), ('f-color', 'Color'), ('f-type', 'Typography'),
                     ('f-space', 'Spacing & radius'), ('f-elevation', 'Elevation'),
                     ('f-pattern', 'Patterns'), ('breakpoints', 'Breakpoints'),
@@ -160,6 +161,11 @@ NAV = [
 ]
 
 ORDER = [(s, l, g) for g, items in NAV for s, l in items]
+
+# Pages that ship but do not belong in the docs sidebar: they are the project's
+# own pages, reached from the site bar, not steps in the reading order. They
+# still need an eyebrow label and they are simply skipped by the pager.
+OFF_NAV = {'showcase': 'Project', 'templates': 'Project', 'sponsor': 'Project'}
 
 SPRITE = '''<svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></symbol>
@@ -247,7 +253,9 @@ def strip_fragment_head(frag):
     return frag.strip(), lead
 
 
-def sidebar(current, toc):
+def sidebar(current):
+    """Pages only. This page's own headings live in the right rail now, so the
+    left rail stays a stable map of the system rather than shifting per page."""
     out = []
     for group, items in NAV:
         active = any(sl == current for sl, _ in items)
@@ -259,15 +267,75 @@ def sidebar(current, toc):
         for slug, label in items:
             cur = ' aria-current="page"' if slug == current else ''
             out.append(f'\t\t\t<a href="./{slug}.html"{cur}>{label}</a>')
-            if slug == current:
-                for hid, htext in toc:
-                    out.append(f'\t\t\t<a href="#{hid}">{html.escape(htext)}</a>')
         out.append('\t\t\t</details>')
     return '\n'.join(out)
 
 
+SPONSOR_CARD = '''\t\t\t<div class="doc-sponsor">
+				<span class="doc-sponsor__eyebrow">Support</span>
+				<p class="doc-sponsor__lead">Creator Design System is free, MIT, and built in the
+				open. Sponsoring keeps the next release coming.</p>
+				<a class="btn btn-primary btn-sm btn-pill doc-sponsor__cta"
+				   href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+					     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/>
+					</svg>Sponsor my project</a>
+				<a class="doc-sponsor__alt" href="./sponsor.html">What sponsorship pays for →</a>
+			</div>'''
+
+
+def aside(toc, slug=None):
+    """The right rail: this page's headings, then the sponsor card. The rail is
+    rendered even with an empty TOC so the sponsor ask is on every page — bar
+    the sponsor page, which is already the ask."""
+    if toc:
+        links = '\n'.join(f'\t\t\t\t\t<a href="#{hid}">{html.escape(htext)}</a>' for hid, htext in toc)
+        nav = ('\t\t\t<nav class="doc-toc" aria-label="On this page">\n'
+               '\t\t\t\t<span class="doc-toc__title">On this page</span>\n'
+               f'\t\t\t\t<div class="doc-toc__links">\n{links}\n\t\t\t\t</div>\n'
+               '\t\t\t</nav>')
+    else:
+        nav = ''
+    card = '' if slug == 'sponsor' else SPONSOR_CARD
+    return '\n'.join(p for p in (nav, card) if p)
+
+
+def jsonld(current):
+    """SiteNavigationElement for the site bar, and BreadcrumbList for where this
+    page sits. Search engines read the nav the way a reader does — as a named
+    list of destinations — only if you say so; the markup alone does not."""
+    site = [('Docs', 'introduction'), ('Components', 'components'),
+            ('Showcase', 'showcase'), ('Templates', 'templates'), ('Sponsor', 'sponsor')]
+    nav = {'@context': 'https://schema.org', '@type': 'ItemList',
+           'name': 'Creator Design System', 'itemListElement': [
+               {'@type': 'SiteNavigationElement', 'position': i + 1,
+                'name': label, 'url': f'./{slug}.html'}
+               for i, (label, slug) in enumerate(site)]}
+
+    label, group = {s: (l, g) for s, l, g in ORDER}.get(
+        current, (current, OFF_NAV.get(current, '')))
+    crumbs = [('Docs', './introduction.html')]
+    if group:
+        crumbs.append((group, None))
+    crumbs.append((label, f'./{current}.html'))
+    trail = {'@context': 'https://schema.org', '@type': 'BreadcrumbList',
+             'itemListElement': []}
+    for i, (name, url) in enumerate(crumbs):
+        item = {'@type': 'ListItem', 'position': i + 1, 'name': name}
+        if url:
+            item['item'] = url
+        trail['itemListElement'].append(item)
+
+    dump = lambda d: json.dumps(d, separators=(',', ':'), ensure_ascii=False)
+    return (f'<script type="application/ld+json">{dump(nav)}</script>\n'
+            f'<script type="application/ld+json">{dump(trail)}</script>')
+
+
 def pager(current):
-    idx = next(i for i, (s, _, _) in enumerate(ORDER) if s == current)
+    idx = next((i for i, (s, _, _) in enumerate(ORDER) if s == current), None)
+    if idx is None:
+        return ''
     parts = []
     if idx > 0:
         s, l, _ = ORDER[idx - 1]
@@ -291,7 +359,18 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
-<meta name="description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site." />
+<meta name="description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site. Videos, courses, build logs and trips, decided once in tokens." />
+<link rel="canonical" href="{site}/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Creator Design System" />
+<meta property="og:title" content="{title}" />
+<meta property="og:description" content="A token-first, dependency-free CSS design system for creators building their site." />
+<meta property="og:url" content="{site}/" />
+<meta property="og:image" content="{site}/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{title}" />
+<meta name="twitter:description" content="A token-first, dependency-free CSS design system for creators building their site." />
+<meta name="twitter:image" content="{site}/og.png" />
 <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -302,6 +381,8 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 <link rel="stylesheet" href="./src/5-sections/index.css{v}" />
 <link rel="stylesheet" href="./src/6-utilities/index.css{v}" />
 <link rel="stylesheet" href="./preview.css{v}" />
+<script src="./src/highlight.js{v}" defer></script>
+<script src="./src/nav.js{v}" defer></script>
 <script src="./preview.js{v}" defer></script>
 <style>
 	.lp-nav {{ position: sticky; top: 0; z-index: var(--z-nav); background: color-mix(in srgb, var(--bg-canvas) 88%, transparent); backdrop-filter: saturate(160%) blur(12px); border-bottom: var(--border-hair) solid var(--line-default); }}
@@ -312,18 +393,45 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 	@media (min-width: 64rem) {{ .lp-hero {{ grid-template-columns: 1fr 1fr; }} }}
 	.lp-hero__title {{ font-family: var(--font-display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }}
 	.lp-hero__title em {{ font-style: normal; color: var(--accent); }}
-	.lp-illo {{ width: 100%; height: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }}
-	@keyframes lp-scan {{ 0%,100% {{ transform: translateY(0); }} 50% {{ transform: translateY(160px); }} }}
+	.lp-illo {{ width: 100%; height: auto; max-width: 32rem; margin-inline: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }}
+	@keyframes lp-scan {{ 0%,100% {{ transform: translateY(0); }} 50% {{ transform: translateY(354px); }} }}
 	@keyframes lp-blink {{ 0%,70%,100% {{ opacity: 1; }} 82% {{ opacity: .2; }} }}
-	@keyframes lp-type {{ 0% {{ width: 0; }} 55%,100% {{ width: 212px; }} }}
 	@keyframes lp-orbit {{ to {{ transform: rotate(360deg); }} }}
-	@keyframes lp-float {{ 0%,100% {{ transform: translate(505px, 120px); }} 50% {{ transform: translate(505px, 108px); }} }}
+	@keyframes lp-float {{ 0%,100% {{ transform: translate(388px, 528px); }} 50% {{ transform: translate(388px, 518px); }} }}
 	.lp-scan {{ animation: lp-scan 6s var(--ease-inout) infinite; }}
 	.lp-rec {{ animation: lp-blink 2.4s linear infinite; }}
-	.lp-type {{ animation: lp-type 6s var(--ease-inout) infinite; }}
-	.lp-orbit {{ transform-origin: 340px 150px; animation: lp-orbit 26s linear infinite; }}
+	.lp-orbit {{ transform-origin: 300px 300px; animation: lp-orbit 26s linear infinite; }}
 	.lp-chip {{ animation: lp-float 5s var(--ease-inout) infinite; }}
-	@media (prefers-reduced-motion: reduce) {{ .lp-illo * {{ animation: none !important; }} }}
+
+	/* Four scenes on one 16-second reel: video, then reel, then writing, then
+	   code. --d is the scene's slot; children read it so anything that draws
+	   itself does so while its own scene is on screen, not somebody else's. */
+	.lp-scene {{ --d: 0s; opacity: 0; animation: lp-cut 16s var(--ease-inout) var(--d) infinite; }}
+	.lp-scene-2 {{ --d: 4s; }}
+	.lp-scene-3 {{ --d: 8s; }}
+	.lp-scene-4 {{ --d: 12s; }}
+	@keyframes lp-cut {{ 0% {{ opacity: 0; }} 3%,22% {{ opacity: 1; }} 25%,100% {{ opacity: 0; }} }}
+
+	/* Anything that types, fills or draws itself inside a scene. */
+	.lp-grow {{ transform-box: fill-box; transform-origin: left center; animation: lp-grow 16s var(--ease-out) var(--d) infinite; }}
+	@keyframes lp-grow {{ 0%,3% {{ transform: scaleX(0); }} 17%,100% {{ transform: scaleX(1); }} }}
+	.lp-d1 {{ animation-delay: calc(var(--d) + .35s); }}
+	.lp-d2 {{ animation-delay: calc(var(--d) + .7s); }}
+	.lp-d3 {{ animation-delay: calc(var(--d) + 1.05s); }}
+	.lp-d4 {{ animation-delay: calc(var(--d) + 1.4s); }}
+	.lp-caret {{ animation: lp-blink 1s steps(1) infinite; }}
+	.lp-pulse {{ transform-box: fill-box; transform-origin: center; animation: lp-pulse 2.6s var(--ease-inout) var(--d) infinite; }}
+	@keyframes lp-pulse {{ 0%,100% {{ transform: scale(1); }} 50% {{ transform: scale(1.06); }} }}
+	.lp-pop {{ transform-box: fill-box; transform-origin: center; animation: lp-pop 16s var(--ease-out) var(--d) infinite; }}
+	@keyframes lp-pop {{ 0%,8% {{ transform: scale(.4); opacity: 0; }} 13% {{ transform: scale(1.15); opacity: 1; }} 16%,100% {{ transform: scale(1); opacity: 1; }} }}
+
+	/* Reduced motion: no reel, no typing — the first scene simply stands. */
+	@media (prefers-reduced-motion: reduce) {{
+		.lp-illo * {{ animation: none !important; }}
+		.lp-scene {{ opacity: 0; }}
+		.lp-scene-1 {{ opacity: 1; }}
+		.lp-grow, .lp-pop {{ transform: none; }}
+	}}
 	.lp-feats {{ display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(16rem,100%), 1fr)); }}
 	.lp-feat {{ border: var(--border-hair) solid var(--line-default); border-radius: var(--radius-card); background: var(--bg-surface); padding: var(--space-5); }}
 	.lp-feat__ico {{ display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); background: var(--accent-soft); color: var(--accent-soft-fg); margin-bottom: var(--space-3); }}
@@ -370,7 +478,7 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 	// Live star count — falls back to the star glyph if the API is unreachable.
 	var stars = document.querySelector('[data-gh-stars]');
 	if (stars) {{
-		fetch('https://api.github.com/repos/swarnil/Creator-Design-System')
+		fetch('https://api.github.com/repos/imswarnil/Creator-Design-System')
 			.then(function (r) {{ return r.ok ? r.json() : null; }})
 			.then(function (d) {{
 				if (d && typeof d.stargazers_count === 'number') {{
@@ -391,7 +499,19 @@ TEMPLATE = '''<!DOCTYPE html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{page_title}</title>
-<meta name="robots" content="noindex" />
+<meta name="description" content="{meta_desc}" />
+<link rel="canonical" href="{canonical}" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Creator Design System" />
+<meta property="og:title" content="{page_title}" />
+<meta property="og:description" content="{meta_desc}" />
+<meta property="og:url" content="{canonical}" />
+<meta property="og:image" content="{site}/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{page_title}" />
+<meta name="twitter:description" content="{meta_desc}" />
+<meta name="twitter:image" content="{site}/og.png" />
+{jsonld}
 <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -402,12 +522,14 @@ TEMPLATE = '''<!DOCTYPE html>
 <link rel="stylesheet" href="./src/5-sections/index.css{v}" />
 <link rel="stylesheet" href="./src/6-utilities/index.css{v}" />{broadcast_css}
 <link rel="stylesheet" href="./preview.css{v}" />
+<script src="./src/highlight.js{v}" defer></script>
+<script src="./src/nav.js{v}" defer></script>
 <script src="./preview.js{v}" defer></script>{extra_style}
 </head>
 <body class="{body_class} has-side">
 <a class="skip-link" href="#main">Skip to content</a>
 {sprite}
-<header class="cds-bar">
+<header class="cds-bar cds-bar-wide">
 	<div class="cds-bar__in u-relative">
 		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span><span class="cds-mark__sub">design system</span></a>
 		<nav class="cds-bar__links" aria-label="Site">
@@ -433,7 +555,7 @@ TEMPLATE = '''<!DOCTYPE html>
 				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
 				<span class="u-sr-only">Menu</span>
 			</button>
-			<a class="cds-gh" href="https://github.com/swarnil/Creator-Design-System" rel="noopener" target="_blank">
+			<a class="cds-gh" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">
 				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><span>GitHub</span><span class="cds-gh__stars" data-gh-stars>★</span>
 			</a>{guides_btn}
 		</div>
@@ -455,7 +577,7 @@ TEMPLATE = '''<!DOCTYPE html>
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
-			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
+			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
 		</div>
 	</div>
 </dialog>
@@ -476,17 +598,23 @@ TEMPLATE = '''<!DOCTYPE html>
 	<span class="t-slate-sm" style="color:var(--fg-faint)">{title}</span>
 </header>
 <main id="main">
-	<div class="container section">
+	<div class="container-wide section">
 		<header class="docs-head">
 			<span class="t-slate" style="color:var(--fg-faint)">{group} · Creator Design System</span>
 			<h1 class="t-display-2" style="margin-top:var(--space-3)">{title}</h1>{lead_html}
 		</header>
 
+		<div class="doc-split">
+			<div class="doc-split__main">
 {body}
-
-		<nav class="docs-pager" aria-label="Pages">
-			{pager}
-		</nav>
+{pager_html}
+			</div>
+			<aside class="doc-rail">
+				<div class="doc-rail__in">
+{aside}
+				</div>
+			</aside>
+		</div>
 
 		<footer class="section-sm" style="padding-bottom:0">
 			<hr class="rule" style="margin-bottom:var(--space-6)" />
@@ -517,7 +645,7 @@ TEMPLATE = '''<!DOCTYPE html>
 
 	var stars = document.querySelector('[data-gh-stars]');
 	if (stars) {{
-		fetch('https://api.github.com/repos/swarnil/Creator-Design-System')
+		fetch('https://api.github.com/repos/imswarnil/Creator-Design-System')
 			.then(function (r) {{ return r.ok ? r.json() : null; }})
 			.then(function (d) {{ if (d && typeof d.stargazers_count === 'number') stars.textContent = d.stargazers_count.toLocaleString(); }})
 			.catch(function () {{}});
@@ -549,10 +677,22 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
     lead_html = (f'\n\t\t\t<p class="t-lead" style="margin-top:var(--space-4);'
                  f'max-width:var(--measure-lead)">{lead}</p>') if lead else ''
     esc_title = html.escape(title)
+    pg = pager(slug)
+    pager_html = ('\n\t\t\t\t<nav class="docs-pager" aria-label="Pages">\n'
+                  f'\t\t\t\t\t{pg}\n\t\t\t\t</nav>') if pg else ''
+    # The lead is the page's own sentence; it makes a better description than
+    # anything generic, and it is already written.
+    plain_lead = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', '', lead))).strip()
+    meta_desc = html.escape(plain_lead[:155] if plain_lead else
+                            f'{title} — Creator Design System, a token-first, '
+                            'dependency-free CSS design system for creators.')
+
     out = TEMPLATE.format(
         page_title=esc_title if 'Creator Design System' in esc_title else esc_title + ' — Creator Design System',
         title=esc_title, group=group, lead_html=lead_html, body=body,
-        nav=sidebar(slug, toc), pager=pager(slug), sprite=SPRITE, v=V,
+        meta_desc=meta_desc, canonical=f'{SITE}/{slug}.html', site=SITE,
+        nav=sidebar(slug), pager_html=pager_html, aside=aside(toc, slug),
+        jsonld=jsonld(slug), sprite=SPRITE, v=V,
         theme='light',
         theme_label='Light',
         dark='false',
@@ -572,20 +712,64 @@ def mirror_assets():
         if srcdir.exists():
             shutil.rmtree(dstdir, ignore_errors=True)
             shutil.copytree(srcdir, dstdir)
+
+    # The pages link index.css with ?v=…, but an @import inside it names its
+    # children with no query at all — so the browser happily serves a month-old
+    # 33-navbar.css behind a freshly-versioned index. Stamp the version onto
+    # every @import in the COPY (never the source) so a rebuild is actually
+    # visible without a hard reload.
+    for css in (OUT / 'src').rglob('*.css'):
+        text = css.read_text()
+        stamped = re.sub(r"@import url\('(\./[^']+\.css)'\)",
+                         lambda m: f"@import url('{m.group(1)}{V}')", text)
+        if stamped != text:
+            css.write_text(stamped)
     dist = REPO / 'dist'
     if dist.exists() and any(dist.iterdir()):
         shutil.rmtree(OUT / 'dist', ignore_errors=True)
         shutil.copytree(dist, OUT / 'dist')
 
 
+def write_seo(slugs):
+    """sitemap.xml, robots.txt and CNAME. The sitemap is generated from what was
+    actually built, so a page cannot be listed and missing, or built and unlisted.
+    CNAME is what tells GitHub Pages the site answers on its own domain."""
+    urls = ['<url><loc>%s/</loc><priority>1.0</priority></url>' % SITE]
+    for slug in sorted(slugs):
+        # The landing page is "/", not "/index.html" — listing both splits the
+        # signal between two URLs for one page.
+        if slug == 'index':
+            continue
+        pri = '0.8' if slug in ('introduction', 'components', 'install', 'usage') else '0.5'
+        urls.append(f'<url><loc>{SITE}/{slug}.html</loc><priority>{pri}</priority></url>')
+
+    (OUT / 'sitemap.xml').write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + '\n'.join(urls) + '\n</urlset>\n')
+
+    (OUT / 'robots.txt').write_text(
+        f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
+
+    (OUT / 'CNAME').write_text(SITE.split('//')[1] + '\n')
+
+    # Pages would otherwise run the output through Jekyll, which silently drops
+    # every directory beginning with an underscore — including _build.
+    (OUT / '.nojekyll').write_text('')
+
+
 def main():
     mirror_assets()
+    # The "All pages" index is generated from NAV itself.
+    PAGES['all'] = ('All pages',
+                    'Every page in the Creator Design System, in one list.',
+                    content_all.build(NAV, FRAGPAGES))
     slug_meta = {s: (l, g) for s, l, g in ORDER}
     built = set()
     index = []
 
     for slug, (title, lead, body) in PAGES.items():
-        label, group = slug_meta.get(slug, (title, ''))
+        label, group = slug_meta.get(slug, (title, OFF_NAV.get(slug, '')))
         page, toc = render(slug, title, group, lead, body, {}, return_toc=True)
         (OUT / f'{slug}.html').write_text(page)
         kw, ld = keywords(body, lead)
@@ -606,7 +790,10 @@ def main():
 
     for slug, (title, builder) in content_site.LANDING.items():
         (OUT / f'{slug}.html').write_text(
-            LANDING_TEMPLATE.format(title=html.escape(title), body=builder(), sprite=SPRITE, v=V))
+            LANDING_TEMPLATE.format(title=html.escape(title), body=builder(),
+                                    sprite=SPRITE, v=V, site=SITE))
+
+    write_seo(built)
 
     index.sort(key=lambda r: [g for g, _ in NAV].index(r['g']) if r['g'] in [g for g, _ in NAV] else 99)
     (OUT / 'search-index.json').write_text(json.dumps(index, separators=(',', ':')))

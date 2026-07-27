@@ -385,6 +385,7 @@
 .grid-cols-fill > * { break-inside: avoid; margin-bottom: var(--grid-gap); }
 
 @media (max-width: 62rem) { .grid-cols-fill { column-count: 2; } }
+
 @media (max-width: 40rem) { .grid-cols-fill { column-count: 1; } }
 
 /* Placement */

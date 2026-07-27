@@ -264,6 +264,7 @@
 }
 
 @keyframes txType { to { width: 100%; } }
+
 @keyframes txCaret { 50% { border-color: transparent; } }
 
 /* T2 · chars — each character rises. The workhorse for headlines. */
@@ -501,10 +502,10 @@
 .an-circle-2 > svg { --an-dur: 1100ms; rotate: -2deg; }
 
 /* Underline: one confident swipe under the word. */
-.an-underline > svg { inset: auto -4% -18% -4%; height: 40%; width: 108%; }
+.an-underline > svg { inset: auto -4% -18%; height: 40%; width: 108%; }
 
 /* Strike-through, for the thing that turned out to be wrong. */
-.an-strike > svg { inset: 34% -6% auto -6%; height: 30%; width: 112%; --an-color: var(--danger-line); }
+.an-strike > svg { inset: 34% -6% auto; height: 30%; width: 112%; --an-color: var(--danger-line); }
 
 /* Box — a rectangle drawn round a whole phrase. */
 .an-box > svg { inset: -30% -6%; height: 160%; width: 112%; }
@@ -628,7 +629,7 @@
 	.hx-reveal { position: relative; overflow: hidden; }
 	.hx-reveal > .hx-reveal__panel {
 		position: absolute;
-		inset: auto 0 0 0;
+		inset: auto 0 0;
 		transform: translateY(100%);
 		transition: transform var(--dur-3) var(--ease-out);
 	}

@@ -103,7 +103,7 @@
 /* Blob — the only organic shape allowed, used behind feature icons. Two of
    them at different rotations reads as hand-made; three reads as clip-art. */
 .shape-blob {
-	border-radius: 62% 38% 46% 54% / 54% 46% 54% 46%;
+	border-radius: 62% 38% 46% 54% / 54% 46%;
 }
 
 .shape-blob-2 { border-radius: 38% 62% 58% 42% / 44% 58% 42% 56%; }
@@ -127,7 +127,7 @@
 	width: calc(var(--shape-size) * 0.3);
 	height: calc(var(--shape-size) * 0.3);
 	transform: rotate(45deg);
-	border-radius: 2px 0 0 0;
+	border-radius: 2px 0 0;
 }
 
 /* ── Dividers ────────────────────────────────────────────────────────────

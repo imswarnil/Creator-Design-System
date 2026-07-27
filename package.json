@@ -6,11 +6,11 @@
     "css", "design-system", "ui-kit", "creator", "tokens",
     "design-tokens", "component-library", "ghost-theme", "dark-mode"
   ],
-  "homepage": "https://swarnil.github.io/Creator-Design-System/",
-  "bugs": "https://github.com/swarnil/Creator-Design-System/issues",
+  "homepage": "https://creator.imswarnil.com",
+  "bugs": "https://github.com/imswarnil/Creator-Design-System/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/swarnil/Creator-Design-System.git"
+    "url": "git+https://github.com/imswarnil/Creator-Design-System.git"
   },
   "author": {
     "name": "Swarnil Singhai",
@@ -31,6 +31,8 @@
     "./broadcast": "./src/4-broadcast/index.css",
     "./sections": "./src/5-sections/index.css",
     "./utilities": "./src/6-utilities/index.css",
+    "./highlight": "./src/highlight.js",
+    "./nav": "./src/nav.js",
     "./src/*": "./src/*",
     "./icons/*": "./icons/*",
     "./package.json": "./package.json"
@@ -56,6 +58,6 @@
   },
   "engines": { "node": ">=18" },
   "funding": [
-    { "type": "github", "url": "https://github.com/sponsors/swarnil" }
+    { "type": "github", "url": "https://github.com/sponsors/imswarnil" }
   ]
 }

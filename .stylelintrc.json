@@ -12,6 +12,11 @@
 		"alpha-value-notation": null,
 		"color-function-notation": null,
 		"media-feature-range-notation": null,
-		"value-keyword-case": null
+		"value-keyword-case": null,
+		"declaration-block-single-line-max-declarations": null,
+		"keyframes-name-pattern": null,
+		"property-no-vendor-prefix": null,
+		"no-duplicate-selectors": null,
+		"number-max-precision": 10
 	}
 }

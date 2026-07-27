@@ -203,7 +203,7 @@ a.card:hover { text-decoration: none; color: inherit; }
 
 .card-poster .card__body {
 	position: absolute;
-	inset: auto 0 0 0;
+	inset: auto 0 0;
 	padding: var(--space-4);
 	gap: var(--space-1);
 	background: linear-gradient(to top, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0.35) 55%, transparent);

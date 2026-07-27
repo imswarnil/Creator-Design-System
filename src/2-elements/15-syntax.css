@@ -88,8 +88,35 @@
 .codebox-light .tok-num { color: #9c6a10; }
 .codebox-light .tok-fn  { color: #1d5fbf; }
 .codebox-light .tok-com { color: var(--fg-faint); font-style: italic; }
+.codebox-light .tok-tag { color: #c22557; }
+.codebox-light .tok-attr { color: #9c6a10; }
+.codebox-light .tok-prop { color: #1d5fbf; }
+.codebox-light .tok-sel { color: #a2451b; }
+.codebox-light .tok-var { color: #6b3fc4; }
+.codebox-light .tok-punc { color: var(--fg-faint); }
 .codebox-light .codebox__pre .ln::before { color: var(--fg-faint); opacity: 0.6; }
 .codebox-light .codebox__pre .ln-hl { background: var(--accent-soft); box-shadow: inset 2px 0 0 var(--accent); }
+
+/* ── Arrival ──────────────────────────────────────────────────────────────────
+   A code block settles in when it first scrolls into view. One short fade and
+   rise for the whole slab — enough to say "this just arrived", not so much
+   that the reader waits on it. The finished state is the resting state, so
+   nothing is hidden if the animation never runs.
+   Markup: <figure class="codebox" data-play> — highlight.js drives the rest.
+   -------------------------------------------------------------------------- */
+
+.codebox[data-play].is-playing {
+	animation: cb-in var(--dur-3, 260ms) var(--ease-out, ease-out) both;
+}
+
+@keyframes cb-in {
+	0% { opacity: 0; transform: translateY(6px); }
+	100% { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.codebox[data-play].is-playing { animation: none; }
+}
 
 /* Inline copy chip for one-liners (`npm run build`). */
 .copy-line {

@@ -136,12 +136,21 @@
 }
 
 /* Minimal syntax colours — five roles, borrowed from the status hues so the
-   palette stays closed. */
+   palette stays closed. The four that follow are the same four hues re-used:
+   markup and CSS need to name a tag, an attribute, a property and a selector,
+   and inventing new colours for them would open a palette this system keeps
+   deliberately shut. Punctuation recedes rather than colours. */
 .tok-key { color: #ff8fa5; }
 .tok-str { color: #6ee7ad; }
 .tok-num { color: #f2d795; }
 .tok-fn  { color: #93c2ff; }
 .tok-com { color: rgb(255 255 255 / 0.32); font-style: italic; }
+.tok-tag { color: #ff8fa5; }
+.tok-attr { color: #f2d795; }
+.tok-prop { color: #93c2ff; }
+.tok-sel { color: #ffc59c; }
+.tok-var { color: #c7b6ff; }
+.tok-punc { color: rgb(255 255 255 / 0.45); }
 
 /* ── 3 · terminal ────────────────────────────────────────────────────────── */
 

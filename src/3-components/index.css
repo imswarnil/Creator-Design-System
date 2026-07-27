@@ -12,7 +12,7 @@
    ========================================================================== */
 
 @import url('./20-button.css');      /* 6 intents, 3 sizes, states, groups    */
-@import url('./21-form.css');        /* field = label + control + hint + error*/
+@import url('./21-form.css');        /* field = label + control + hint + error */
 @import url('./22-card.css');        /* the base card and its layouts         */
 @import url('./23-collection.css');  /* one card per routes.yaml collection   */
 @import url('./24-nav.css');         /* island, tabs, crumbs, pager, toc      */

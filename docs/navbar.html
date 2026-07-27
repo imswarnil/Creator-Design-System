@@ -4,18 +4,33 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Navbar — Creator Design System</title>
-<meta name="robots" content="noindex" />
+<meta name="description" content="The site chrome, end to end: anatomy, alignment, the active link, dropdowns, the submenu row, four positions, three ways to open on a phone — and a builder" />
+<link rel="canonical" href="https://creator.imswarnil.com/navbar.html" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Creator Design System" />
+<meta property="og:title" content="Navbar — Creator Design System" />
+<meta property="og:description" content="The site chrome, end to end: anatomy, alignment, the active link, dropdowns, the submenu row, four positions, three ways to open on a phone — and a builder" />
+<meta property="og:url" content="https://creator.imswarnil.com/navbar.html" />
+<meta property="og:image" content="https://creator.imswarnil.com/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Navbar — Creator Design System" />
+<meta name="twitter:description" content="The site chrome, end to end: anatomy, alignment, the active link, dropdowns, the submenu row, four positions, three ways to open on a phone — and a builder" />
+<meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Creator Design System","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Docs","url":"./introduction.html"},{"@type":"SiteNavigationElement","position":2,"name":"Components","url":"./components.html"},{"@type":"SiteNavigationElement","position":3,"name":"Showcase","url":"./showcase.html"},{"@type":"SiteNavigationElement","position":4,"name":"Templates","url":"./templates.html"},{"@type":"SiteNavigationElement","position":5,"name":"Sponsor","url":"./sponsor.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Docs","item":"./introduction.html"},{"@type":"ListItem","position":2,"name":"Components"},{"@type":"ListItem","position":3,"name":"Navbar","item":"./navbar.html"}]}</script>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds10" />
-<link rel="stylesheet" href="./src/2-elements/index.css?v=cds10" />
-<link rel="stylesheet" href="./src/3-components/index.css?v=cds10" />
-<link rel="stylesheet" href="./src/5-sections/index.css?v=cds10" />
-<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds10" />
-<link rel="stylesheet" href="./preview.css?v=cds10" />
-<script src="./preview.js?v=cds10" defer></script>
+<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds17" />
+<link rel="stylesheet" href="./src/2-elements/index.css?v=cds17" />
+<link rel="stylesheet" href="./src/3-components/index.css?v=cds17" />
+<link rel="stylesheet" href="./src/5-sections/index.css?v=cds17" />
+<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds17" />
+<link rel="stylesheet" href="./preview.css?v=cds17" />
+<script src="./src/highlight.js?v=cds17" defer></script>
+<script src="./src/nav.js?v=cds17" defer></script>
+<script src="./preview.js?v=cds17" defer></script>
 </head>
 <body class=" has-side">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -34,7 +49,7 @@
 <symbol id="i-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m8.8 10.8 6.4-3.1M8.8 13.2l6.4 3.1"/></symbol>
 <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></symbol>
 </svg>
-<header class="cds-bar">
+<header class="cds-bar cds-bar-wide">
 	<div class="cds-bar__in u-relative">
 		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span><span class="cds-mark__sub">design system</span></a>
 		<nav class="cds-bar__links" aria-label="Site">
@@ -60,7 +75,7 @@
 				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
 				<span class="u-sr-only">Menu</span>
 			</button>
-			<a class="cds-gh" href="https://github.com/swarnil/Creator-Design-System" rel="noopener" target="_blank">
+			<a class="cds-gh" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">
 				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><span>GitHub</span><span class="cds-gh__stars" data-gh-stars>★</span>
 			</a>
 		</div>
@@ -82,7 +97,7 @@
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
-			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
+			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
 		</div>
 	</div>
 </dialog>
@@ -99,15 +114,11 @@
 			<a href="./principles.html">Principles</a>
 			<a href="./usage.html">Usage — CSS · SCSS · Tailwind</a>
 			<a href="./components.html">Components explorer</a>
+			<a href="./all.html">All pages</a>
 			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Getting started</span></summary>
 			<a href="./install.html">Installation</a>
 			<a href="./setup.html">Setup & theming</a>
-			</details>
-			<details class="doc-group"><summary><span class="doc-group__l">Project</span></summary>
-			<a href="./showcase.html">Showcase</a>
-			<a href="./templates.html">Templates</a>
-			<a href="./sponsor.html">Sponsor</a>
 			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/></svg>Foundation</span></summary>
 			<a href="./f-logo.html">Logo</a>
@@ -173,18 +184,6 @@
 			<a href="./marquee.html">Marquee</a>
 			<a href="./modal.html">Modal</a>
 			<a href="./navbar.html" aria-current="page">Navbar</a>
-			<a href="#1-anatomy">1 · Anatomy</a>
-			<a href="#2-alignment-pick-deliberately">2 · Alignment — pick deliberately</a>
-			<a href="#3-the-active-link">3 · The active link</a>
-			<a href="#4-dropdown">4 · Dropdown</a>
-			<a href="#5-mega-panel">5 · Mega panel</a>
-			<a href="#6-hamburger">6 · Hamburger</a>
-			<a href="#7-mobile-sheet">7 · Mobile sheet</a>
-			<a href="#8-responsive-collapse">8 · Responsive collapse</a>
-			<a href="#9-contextual-bars-one-per-collection">9 · Contextual bars — one per collection</a>
-			<a href="#10-rules">10 · Rules</a>
-			<a href="#do">Do</a>
-			<a href="#don-t">Don’t</a>
 			<a href="./navs-tabs.html">Navs & tabs</a>
 			<a href="./offcanvas.html">Offcanvas</a>
 			<a href="./pagination.html">Pagination</a>
@@ -275,14 +274,16 @@
 	<span class="t-slate-sm" style="color:var(--fg-faint)">Navbar</span>
 </header>
 <main id="main">
-	<div class="container section">
+	<div class="container-wide section">
 		<header class="docs-head">
 			<span class="t-slate" style="color:var(--fg-faint)">Components · Creator Design System</span>
 			<h1 class="t-display-2" style="margin-top:var(--space-3)">Navbar</h1>
-			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">The site chrome, end to end: anatomy, alignment, the active link, dropdown, mega panel, hamburger, the mobile sheet, responsive collapse, and one contextual bar per collection — with the markup for each.</p>
+			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">The site chrome, end to end: anatomy, alignment, the active link, dropdowns, the submenu row, four positions, three ways to open on a phone — and a builder that writes the markup for whichever combination you land on.</p>
 		</header>
 
-<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">The navbar is one component with several shapes: a site bar, a bar with menus, a mobile sheet, and a contextual bar for each container module. They share a skeleton and a height, so moving between them never shifts the chrome. Everything below is on this page because you cannot pick the right shape from a page you did not know existed.</p>
+		<div class="doc-split">
+			<div class="doc-split__main">
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">The navbar is one component with several shapes: a site bar, a bar with menus, a mobile sheet, and a submenu row for whatever you are inside. They share a skeleton and a height, so moving between them never shifts the chrome. Everything below is on this page because you cannot pick the right shape from a page you did not know existed.</p>
 <h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="1-anatomy">1 · Anatomy</h2>
 <p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Three slots: the mark on the left, the links in the middle, the actions on the right. <code class="t-code">.nav-shell</code> positions and centres; <code class="t-code">.nav-bar</code> is the island itself. The shell is sticky, so the bar is always reachable.</p>
 		<div class="surface demo-tile u-mb-6"><div class="demo">
@@ -377,39 +378,194 @@
 		<div class="surface demo-tile u-mb-6"><div class="demo">
 <div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-collapse" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg>Blog</a><a class="nav-link" href="#i"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>Videos</a><a class="nav-link" href="#i"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Courses</a><a class="nav-link" href="#i"><svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg>Travel</a></div><div class="cluster-sm"><button class="nav-burger " type="button" aria-expanded="false" data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
 		</div><p class="spec"><b>.nav-collapse</b> — links above 48rem, burger below</p></div>
-<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="9-contextual-bars-one-per-collection">9 · Contextual bars — one per collection</h2>
-<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Inside a container module the site bar is <b>replaced</b>, never stacked on. One base — <code class="t-code">.nav-context</code> — with four slots: close, where-you-are, actions, and a progress rail. Skins change only what the medium demands, so cutting from a blog bar to a lesson player never moves the chrome.</p>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="9-the-submenu-row">9 · The submenu row</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">When you are inside something — a lesson, an episode, a trip — the site menu <b>stays</b> and a second row appears beneath it, in the same island. The way out never disappears, and opening a lesson no longer swaps a whole bar out from under the reader. Wrap the two rows in <code class="t-code">.nav-stack</code>: the island stops being a pill and becomes one card holding both.</p>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">There is no class per collection. One design, three knobs — <code class="t-code">data-tone</code>, <code class="t-code">data-density</code> and <code class="t-code">--value</code> — because a course and a trip differ in the words they put in the slots, not in their CSS.</p>
 		<div class="surface demo-tile u-mb-6"><div class="demo">
-<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-context nav-lesson" aria-label="Demo"><button class="btn-close" type="button" aria-label="Close course"></button><span class="nav-context__where"><span class="nav-context__title">Handlebars without tears</span><span class="nav-context__pos">Lesson 3 of 14</span></span><div class="cluster-sm"><button class="btn btn-quiet btn-sm">← Prev</button><button class="btn btn-primary btn-sm">Next →</button></div><span class="nav-rail" style="--value:21%"></span></nav></div>
-		</div><p class="spec"><b>.nav-context.nav-lesson</b> — course player: close · position · pager · progress rail</p></div>
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><div class="nav-stack"><nav class="nav-bar" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i">Watch</a><a class="nav-link" href="#i" aria-current="page">Learn</a><a class="nav-link" href="#i">Build</a></div><div class="cluster-sm"><button class="nav-burger nav-burger-bare" type="button" aria-expanded="false" data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button></div></nav><div class="nav-sub nav-context" data-mark="pos" style="--value:21%"><a class="nav-context__back" href="#i">← Course</a><span class="nav-context__where"><span class="nav-context__title">Handlebars without tears</span><span class="nav-context__pos">Lesson 3 of 14</span></span><div class="nav-context__actions"><button class="btn btn-quiet btn-sm">← Prev</button><button class="btn btn-primary btn-sm">Next →</button></div><span class="nav-rail" style="--value:21%"></span></div></div></div>
+		</div><p class="spec"><b>.nav-stack</b> — the site menu on top, the lesson beneath it; one object, two rows</p></div>
 		<div class="surface demo-tile u-mb-6"><div class="demo">
-<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-context nav-episode" aria-label="Demo"><button class="btn-close btn-close-inverse" type="button" aria-label="Exit series"></button><span class="nav-context__where"><span class="nav-context__title">The Build Season</span><span class="nav-context__pos">EP.07</span></span><div class="cluster-sm"><span class="badge badge-live">Live</span><button class="btn btn-quiet btn-sm">Episodes</button></div></nav></div>
-		</div><p class="spec"><b>.nav-context.nav-episode</b> — always ink; it is cinema, and cinema is dark</p></div>
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><div class="nav-stack"><nav class="nav-bar" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a><a class="nav-link" href="#i">Build</a></div></nav><div class="nav-sub nav-context" data-tone="ink" data-density="compact"><a class="nav-context__back" href="#i">← Series</a><span class="nav-context__where"><span class="nav-context__kind">Episode</span><span class="nav-context__title">The Build Season</span><span class="nav-context__pos">07</span></span><div class="nav-context__actions"><span class="badge badge-live">Live</span><button class="btn btn-quiet btn-sm">Episodes</button></div></div></div></div>
+		</div><p class="spec"><b>data-tone="ink"</b> — the same row, in cinema tone; the site menu above stays paper</p></div>
 		<div class="surface demo-tile u-mb-6"><div class="demo">
-<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-context nav-trip" aria-label="Demo"><button class="btn-close" type="button" aria-label="Close trip"></button><span class="nav-context__where"><span class="nav-context__title">Georgia, in eight days</span><span class="nav-context__pos">3</span></span><div class="cluster-sm"><button class="btn btn-quiet btn-sm">Itinerary</button></div><span class="nav-rail" style="--value:38%"></span></nav></div>
-		</div><p class="spec"><b>.nav-context.nav-trip</b> — the day counter prefixes itself</p></div>
-		<div class="surface demo-tile u-mb-6"><div class="demo">
-<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-docs" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links nav-links-rule"><a class="nav-link" href="#i" aria-current="page">Overview</a><a class="nav-link" href="#i">Build log</a><a class="nav-link" href="#i">Repo</a></div><div class="cluster-sm"><span class="badge badge-success">Shipped</span></div></nav></div>
-		</div><p class="spec"><b>.nav-docs</b> — dense bars take the rule, not the dot</p></div>
-		<div class="surface demo-tile u-mb-6"><div class="demo">
-<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-key">&lt;nav</span> class=<span class="tok-str">"nav-bar nav-context nav-lesson"</span><span class="tok-key">&gt;</span></span><span class="ln">  <span class="tok-key">&lt;button</span> class=<span class="tok-str">"btn-close"</span> aria-label=<span class="tok-str">"Close course"</span><span class="tok-key">&gt;&lt;/button&gt;</span></span><span class="ln">  <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-context__where"</span><span class="tok-key">&gt;</span></span><span class="ln">    <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-context__title"</span><span class="tok-key">&gt;</span>Course name<span class="tok-key">&lt;/span&gt;</span></span><span class="ln">    <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-context__pos"</span><span class="tok-key">&gt;</span>Lesson 3 of 14<span class="tok-key">&lt;/span&gt;</span></span><span class="ln">  <span class="tok-key">&lt;/span&gt;</span></span><span class="ln">  <span class="tok-key">&lt;div</span> class=<span class="tok-str">"cluster-sm"</span><span class="tok-key">&gt;</span>… prev / next …<span class="tok-key">&lt;/div&gt;</span></span><span class="ln">  <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-rail"</span> style=<span class="tok-str">"--value:21%"</span><span class="tok-key">&gt;&lt;/span&gt;</span></span><span class="ln"><span class="tok-key">&lt;/nav&gt;</span></span></code></pre></figure>
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-shell"</span><span class="tok-key">&gt;</span></span><span class="ln">  <span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-stack"</span><span class="tok-key">&gt;</span></span><span class="ln">    <span class="tok-key">&lt;nav</span> class=<span class="tok-str">"nav-bar"</span><span class="tok-key">&gt;</span>… site menu …<span class="tok-key">&lt;/nav&gt;</span></span><span class="ln">    <span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-sub nav-context"</span> data-tone=<span class="tok-str">"ink"</span></span><span class="ln">         style=<span class="tok-str">"--value:21%; --pos-prefix:&#39;DAY &#39;"</span><span class="tok-key">&gt;</span></span><span class="ln">      <span class="tok-key">&lt;a</span> class=<span class="tok-str">"nav-context__back"</span> href=<span class="tok-str">"/course"</span><span class="tok-key">&gt;</span>← Course<span class="tok-key">&lt;/a&gt;</span></span><span class="ln">      <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-context__where"</span><span class="tok-key">&gt;</span></span><span class="ln">        <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-context__title"</span><span class="tok-key">&gt;</span>Course name<span class="tok-key">&lt;/span&gt;</span></span><span class="ln">        <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-context__pos"</span><span class="tok-key">&gt;</span>3 of 14<span class="tok-key">&lt;/span&gt;</span></span><span class="ln">      <span class="tok-key">&lt;/span&gt;</span></span><span class="ln">      <span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-context__actions"</span><span class="tok-key">&gt;</span>… prev / next …<span class="tok-key">&lt;/div&gt;</span></span><span class="ln">      <span class="tok-key">&lt;span</span> class=<span class="tok-str">"nav-rail"</span><span class="tok-key">&gt;&lt;/span&gt;</span></span><span class="ln">    <span class="tok-key">&lt;/div&gt;</span></span><span class="ln">  <span class="tok-key">&lt;/div&gt;</span></span><span class="ln"><span class="tok-key">&lt;/div&gt;</span></span></code></pre></figure>
 		</div><p class="spec">drive the rail with <b>--value</b>; it transitions on its own</p></div>
-		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Skin</th><th>Used by</th></tr></thead><tbody>
-			<tr><td><code class="t-code">.nav-lesson</code></td><td>course players — accent marks the position</td></tr>
-			<tr><td><code class="t-code">.nav-course · .nav-guide</code></td><td>container overviews — paper, with a rail</td></tr>
-			<tr><td><code class="t-code">.nav-episode</code></td><td>episodes and series — always ink, regardless of theme</td></tr>
-			<tr><td><code class="t-code">.nav-video</code></td><td>video pages — keeps the site links; you are still browsing</td></tr>
-			<tr><td><code class="t-code">.nav-trip</code></td><td>trips — the position renders as “DAY n”</td></tr>
-			<tr><td><code class="t-code">.nav-docs</code></td><td>documentation — pair with <code class="t-code">.nav-links-rule</code></td></tr>
-			<tr><td><code class="t-code">.nav-shop</code></td><td>shop — actions pushed to the end</td></tr>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Knob</th><th>Values</th></tr></thead><tbody>
+			<tr><td><code class="t-code">data-tone</code></td><td><code class="t-code">paper</code> (default) · <code class="t-code">ink</code> · <code class="t-code">accent</code></td></tr>
+			<tr><td><code class="t-code">data-density</code></td><td><code class="t-code">regular</code> (default) · <code class="t-code">compact</code> for players</td></tr>
+			<tr><td><code class="t-code">data-mark="pos"</code></td><td>the accent marks the position — for players, where “where am I” is the point</td></tr>
+			<tr><td><code class="t-code">--value</code></td><td>the progress rail, <code class="t-code">0%</code>–<code class="t-code">100%</code></td></tr>
+			<tr><td><code class="t-code">--pos-prefix</code></td><td>the word in front of the number — <code class="t-code">'DAY '</code>, <code class="t-code">'EP.'</code></td></tr>
 		</tbody></table></div>
-<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="10-rules">10 · Rules</h2>
-<div class="grid-2 u-mb-6" style="gap:var(--space-4)"><div class="surface u-p-5"><h3 class="t-h4 u-mb-3" id="do">Do</h3><ul class="t-small u-fg-subtle" style="padding-left:1.1rem;display:grid;gap:var(--space-2)"><li>Mark the current page with <code class="t-code">aria-current="page"</code>.</li><li>Keep one dot per bar — it means “you are here”, not “this is nice”.</li><li>Replace the bar inside a container module; never stack two bars.</li><li>Use <code class="t-code">&lt;details&gt;</code> and <code class="t-code">&lt;dialog&gt;</code> so keyboard and Escape work for free.</li><li>Give every icon-only control an accessible name.</li></ul></div><div class="surface u-p-5"><h3 class="t-h4 u-mb-3" id="don-t">Don’t</h3><ul class="t-small u-fg-subtle" style="padding-left:1.1rem;display:grid;gap:var(--space-2)"><li>Use an <code class="t-code">.active</code> class — it can disagree with the a11y tree.</li><li>Fill the active link with a coloured pill.</li><li>Nest a second dropdown level; promote it to a mega panel.</li><li>Duplicate the menu markup for mobile — <code class="t-code">.nav-collapse</code> already handles it.</li><li>Change the bar’s height per context; the chrome must not jump.</li></ul></div></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="10-how-the-bar-behaves-on-scroll">10 · How the bar behaves on scroll</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Four behaviours, none of which change the markup. Put the class on the shell; <code class="t-code">nav.js</code> sets <code class="t-code">data-scrolled</code> and <code class="t-code">data-dir</code>, and every visible decision after that is CSS.</p>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Class</th><th>Behaviour</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.nav-shell</code></td><td>the default — a sticky island that never changes shape</td></tr>
+			<tr><td><code class="t-code">.nav-shell-fixed</code></td><td>pinned to the top, always there</td></tr>
+			<tr><td><code class="t-code">.nav-shell-auto</code></td><td>hides on the way down, returns on the way up — reading gets the screen, navigating gets the bar</td></tr>
+			<tr><td><code class="t-code">.nav-shell-morph</code></td><td>full-bleed at rest; contracts into the island once the page has moved</td></tr>
+		</tbody></table></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="np__scroller" data-scroll-demo><div class="np__scroller-in"><div class="nav-shell nav-shell-morph" data-scroll-at="12" style="position:sticky"><nav class="nav-bar" aria-label="Morph demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a><a class="nav-link" href="#i">Build</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div><div class="np__filler"><p class="t-slate-sm">scroll this panel ↓</p></div></div></div>
+		</div><p class="spec"><b>.nav-shell-morph</b> — full width at the top, an island once you move; scroll inside the box</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-key">&lt;header</span> class=<span class="tok-str">"nav-shell nav-shell-morph"</span> data-scroll-at=<span class="tok-str">"24"</span><span class="tok-key">&gt;</span></span><span class="ln">  <span class="tok-key">&lt;nav</span> class=<span class="tok-str">"nav-bar"</span><span class="tok-key">&gt;</span>…<span class="tok-key">&lt;/nav&gt;</span></span><span class="ln"><span class="tok-key">&lt;/header&gt;</span></span><span class="ln"></span><span class="ln"><span class="tok-com">&lt;!-- nav.js adds data-scrolled past data-scroll-at (default 24px) --&gt;</span></span></code></pre></figure>
+		</div><p class="spec">one class, plus <b>nav.js</b>; no inline handlers and no scroll maths in your theme</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="11-the-line-is-the-progress">11 · The line is the progress</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">The island already has a hairline. Rather than add a second piece of chrome under it, the line itself fills: the read part is the accent, the rest is the accent at a whisper. Set <code class="t-code">--progress</code> and the border does the rest — it works on the plain bar and on the two-row stack alike.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell nav-progress" style="position:static;padding-inline:0;max-width:none;--progress:64%"><nav class="nav-bar" aria-label="Progress demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Read</a><a class="nav-link" href="#i">Notes</a></div><div class="nav-actions"><span class="t-slate-sm" style="color:var(--fg-faint)">64%</span></div></nav></div>
+		</div><p class="spec"><b>.nav-progress</b> — <code class="t-code">--progress:64%</code>; the border is the bar</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-key">&lt;header</span> class=<span class="tok-str">"nav-shell nav-progress"</span> style=<span class="tok-str">"--progress:64%"</span><span class="tok-key">&gt;</span></span><span class="ln">  <span class="tok-key">&lt;nav</span> class=<span class="tok-str">"nav-bar"</span><span class="tok-key">&gt;</span>…<span class="tok-key">&lt;/nav&gt;</span></span><span class="ln"><span class="tok-key">&lt;/header&gt;</span></span></code></pre></figure>
+		</div><p class="spec">the ring is masked to the border, so the radius survives the gradient</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="12-centred-inverse-compact">12 · Centred, inverse, compact</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Three shapes that are token swaps rather than layouts of their own. The inverse bar takes the light mark for free — the logo is markup reading <code class="t-code">currentColor</code>, so it inverts with the bar and needs no second asset.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-bar-center" aria-label="Demo"><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Work</a><a class="nav-link" href="#i">About</a></div><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-actions"><button class="btn btn-secondary btn-sm btn-pill">Contact</button></div></nav></div>
+		</div><p class="spec"><b>.nav-bar-center</b> — the mark takes the middle, links and actions balance it</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-bar-center nav-bar-inverse" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a><a class="nav-link" href="#i">Build</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
+		</div><p class="spec"><b>.nav-bar-inverse</b> — ink whatever the theme; the mark inverts with it</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar nav-bar-compact" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Index</a><a class="nav-link" href="#i">Archive</a></div><div class="nav-actions"><span class="dot dot-sm"></span></div></nav></div>
+		</div><p class="spec"><b>.nav-bar-compact</b> — 2.75rem; for docs and players where the bar is chrome</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="13-the-burger-as-a-record-light">13 · The burger, as a record light</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Three bars becoming an X says nothing about what this site is. Here they collapse into the record light the whole system is built around, and the light unfolds into a play head: closed is <em>ready</em>, open is <em>rolling</em>. Same markup as every other burger — <code class="t-code">aria-expanded</code> drives it, so the glyph and the accessibility tree can never disagree.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="cluster" style="gap:var(--space-6);align-items:center"><button class="nav-burger nav-burger-rec" type="button" aria-expanded="false" data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button><button class="nav-burger nav-burger-aperture" type="button" aria-expanded="false" data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button><button class="nav-burger nav-burger-squeeze" type="button" aria-expanded="false" data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button><button class="nav-burger nav-burger-bare" type="button" aria-expanded="false" data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button></div>
+		</div><p class="spec"><b>.nav-burger-rec</b> · .nav-burger-aperture · .nav-burger-squeeze · .nav-burger-bare — click each</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="14-dropdowns-hover-click-and-a-second-level">14 · Dropdowns — hover, click, and a second level</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Pointer users open on hover with an intent delay, everyone else on click, and both land on the same <code class="t-code">&lt;details open&gt;</code> — one open state, not two. Touch is left alone, because there the first tap <em>is</em> the hover and stealing it costs the reader their click. The panel grows to its content rather than jumping to it.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i">Watch</a><details class="nav-menu nav-menu-hover nav-menu-grow"><summary class="nav-link">Learn</summary><div class="nav-menu__panel"><a class="dropdown__item" href="#i">All courses</a><a class="dropdown__item" href="#i">Free lessons</a><details class="nav-sub-menu"><summary>By subject</summary><div class="nav-sub-menu__items"><div><a class="dropdown__item" href="#i">CSS &amp; layout</a><a class="dropdown__item" href="#i">Motion</a><a class="dropdown__item" href="#i">Video craft</a></div></div></details></div></details><a class="nav-link" href="#i">Build</a></div><div class="nav-actions"><span class="dot dot-sm"></span></div></nav></div>
+		</div><p class="spec"><b>.nav-menu-hover.nav-menu-grow</b> + <b>.nav-sub-menu</b> — hover it, then open “By subject”</p></div>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Class</th><th>What it adds</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.nav-menu-hover</code></td><td>opens on hover for fine pointers, with a 120ms intent delay</td></tr>
+			<tr><td><code class="t-code">.nav-menu-grow</code></td><td>the panel animates to its own height (0fr → 1fr), no fixed max-height</td></tr>
+			<tr><td><code class="t-code">.nav-sub-menu</code></td><td>a second level, disclosed in place — never a fly-out</td></tr>
+		</tbody></table></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="15-three-ways-to-open-on-a-phone">15 · Three ways to open on a phone</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">The full-screen sheet is one answer, not the only one. All three take the same link markup, so choosing between them is a class rather than a rewrite.</p>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Class</th><th>Opens as</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.nav-sheet</code></td><td>full-screen dialog; irises open from the button, scanline sweeps once</td></tr>
+			<tr><td><code class="t-code">.nav-sheet-drop</code></td><td>full-width panel hinged at the top edge — the page stays visible beneath</td></tr>
+			<tr><td><code class="t-code">.nav-panel</code></td><td>no dialog at all: the island itself grows into the panel</td></tr>
+		</tbody></table></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><div class="nav-stack"><nav class="nav-bar" aria-label="Panel demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a></div><div class="nav-actions"><button class="nav-burger nav-burger-rec" type="button" aria-expanded="false" data-panel-toggle><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Menu</span></button></div></nav><div class="nav-panel"><div class="nav-panel__in"><div class="nav-panel__links"><a class="nav-panel__link" href="#i" aria-current="page">Watch<span class="t-slate-sm">128</span></a><a class="nav-panel__link" href="#i">Learn<span class="t-slate-sm">14</span></a><a class="nav-panel__link" href="#i">Build<span class="t-slate-sm">31</span></a><a class="nav-panel__link" href="#i">Travel<span class="t-slate-sm">9</span></a></div><div class="nav-panel__aside"><span class="nav-panel__label">Latest</span><p class="t-small">Handlebars without tears — lesson 3 is up.</p><span class="nav-panel__label" style="margin-top:var(--space-2)">Newsletter</span><form class="cluster-sm" onsubmit="return false"><input class="input input-sm" type="email" placeholder="you@example.com" aria-label="Email" /><button class="btn btn-primary btn-sm" type="submit">Join</button></form></div></div></div></div></div>
+		</div><p class="spec"><b>.nav-panel</b> — press the burger: the island grows, nothing covers the page</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-shell"</span><span class="tok-key">&gt;</span></span><span class="ln">  <span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-stack"</span><span class="tok-key">&gt;</span></span><span class="ln">    <span class="tok-key">&lt;nav</span> class=<span class="tok-str">"nav-bar"</span><span class="tok-key">&gt;</span></span><span class="ln">      … <span class="tok-key">&lt;button</span> class=<span class="tok-str">"nav-burger nav-burger-rec"</span></span><span class="ln">             aria-expanded=<span class="tok-str">"false"</span> data-panel-toggle<span class="tok-key">&gt;</span>…<span class="tok-key">&lt;/button&gt;</span></span><span class="ln">    <span class="tok-key">&lt;/nav&gt;</span></span><span class="ln">    <span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-panel"</span><span class="tok-key">&gt;</span></span><span class="ln">      <span class="tok-key">&lt;div</span> class=<span class="tok-str">"nav-panel__in"</span><span class="tok-key">&gt;</span>… links + aside …<span class="tok-key">&lt;/div&gt;</span></span><span class="ln">    <span class="tok-key">&lt;/div&gt;</span></span><span class="ln">  <span class="tok-key">&lt;/div&gt;</span></span><span class="ln"><span class="tok-key">&lt;/div&gt;</span></span></code></pre></figure>
+		</div><p class="spec">nav.js flips <b>data-open</b> on the stack; Escape closes it and returns focus</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="16-icons-the-call-and-the-form">16 · Icons, the call, and the form</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">A creator's bar carries more than links: where else to find them, the one thing they want you to do, and the list. The newsletter is folded into its own icon — closed it is one more chip, open it is a field that grew out of that chip. It is a <code class="t-code">&lt;details&gt;</code>, so Escape and focus come free.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar" aria-label="Demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a></div><div class="nav-actions"><div class="nav-icons"><a class="nav-icon" href="#i" aria-label="GitHub"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></a><a class="nav-icon" href="#i" aria-label="Chat"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></a><a class="nav-icon" href="#i" aria-label="Share"><svg class="icon" aria-hidden="true"><use href="#i-share"/></svg></a></div><details class="nav-form"><summary aria-label="Subscribe to the newsletter"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></summary><form class="nav-form__field" onsubmit="return false"><input type="email" placeholder="you@example.com" aria-label="Email address" /><button class="btn btn-primary btn-sm btn-pill" type="submit">Join</button></form></details><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
+		</div><p class="spec"><b>.nav-icons</b> · <b>.nav-form</b> · the CTA — press the envelope</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="17-the-submenu-on-a-phone">17 · The submenu on a phone</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">A lesson row that reads fine on a desktop becomes three competing things on a phone: where you are, how far in, and how to get anywhere else. So below 48rem the row keeps only where you are, and the rest moves behind a second burger — one that belongs to the submenu, not to the site. It opens the index, which is the point: “Lesson 3 of 14” only helps if the other thirteen are one press away.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><div class="nav-stack" id="np-sub-demo"><nav class="nav-bar" aria-label="Lesson demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Learn</a></div><div class="nav-actions"><span class="dot dot-sm"></span></div></nav><div class="nav-sub nav-context" data-mark="pos" style="--value:21%"><a class="nav-context__back" href="#i">← Courses</a><span class="nav-context__where"><span class="nav-context__title">Handlebars without tears</span><span class="nav-context__pos">3 of 14</span></span><div class="nav-context__actions"><button class="btn btn-quiet btn-sm" type="button">← Prev</button><button class="btn btn-primary btn-sm" type="button">Next →</button></div><button class="nav-burger nav-burger-bare nav-sub__more" type="button" aria-expanded="false" data-nav-open="np-index" aria-controls="np-index"><span class="nav-burger__box"><span class="nav-burger__bars"></span></span><span class="u-sr-only">Lessons</span></button><button class="nav-sub__hide" type="button" data-sub-hide aria-label="Hide this row">×</button><span class="nav-rail"></span></div><button class="nav-sub-show" type="button" data-sub-show>Show lesson bar</button></div></div><dialog class="nav-sheet nav-sheet-index" id="np-index"><div class="nav-sheet__in"><div class="nav-sheet__head"><span class="t-slate-sm" style="color:var(--fg-faint)">Handlebars without tears</span><button class="btn-close" type="button" data-nav-close aria-label="Close"></button></div><div class="nav-sheet__links"><a class="nav-sheet__link" style="--i:0" href="#i"><span class="nav-index__num">01</span>What a template is<span class="nav-index__done"></span></a><a class="nav-sheet__link" style="--i:1" href="#i"><span class="nav-index__num">02</span>Contexts and blocks<span class="nav-index__done"></span></a><a class="nav-sheet__link" style="--i:2" href="#i" aria-current="page"><span class="nav-index__num">03</span>Handlebars without tears</a><a class="nav-sheet__link" style="--i:3" href="#i"><span class="nav-index__num">04</span>Partials</a><a class="nav-sheet__link" style="--i:4" href="#i"><span class="nav-index__num">05</span>Helpers</a></div></div></dialog>
+		</div><p class="spec">narrow the window under <b>48rem</b>: prev/next fold into the index button · <b>×</b> hides the row, and the sliver brings it back</p></div>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Class</th><th>What it does</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.nav-sub__more</code></td><td>the submenu's own burger — shown under 48rem, opens the index</td></tr>
+			<tr><td><code class="t-code">.nav-sheet-index</code></td><td>the collection as a list, with position marked and done rows ticked</td></tr>
+			<tr><td><code class="t-code">[data-sub-hide] · [data-sub-show]</code></td><td>collapse the row; the choice is remembered in localStorage</td></tr>
+		</tbody></table></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="18-telling-machines-what-the-nav-is">18 · Telling machines what the nav is</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Markup alone does not say “these five links are the site navigation”. <code class="t-code">SiteNavigationElement</code> does, and a <code class="t-code">BreadcrumbList</code> says where the current page sits inside it. Every page of these docs ships both — view source and look for <code class="t-code">application/ld+json</code>.</p>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-key">&lt;script</span> type=<span class="tok-str">"application/ld+json"</span><span class="tok-key">&gt;</span></span><span class="ln">{</span><span class="ln">  <span class="tok-str">"@context"</span>: <span class="tok-str">"https://schema.org"</span>,</span><span class="ln">  <span class="tok-str">"@type"</span>: <span class="tok-str">"ItemList"</span>,</span><span class="ln">  <span class="tok-str">"itemListElement"</span>: [</span><span class="ln">    { <span class="tok-str">"@type"</span>: <span class="tok-str">"SiteNavigationElement"</span>, <span class="tok-str">"position"</span>: <span class="tok-fn">1</span>,</span><span class="ln">      <span class="tok-str">"name"</span>: <span class="tok-str">"Watch"</span>, <span class="tok-str">"url"</span>: <span class="tok-str">"/watch/"</span> }</span><span class="ln">  ]</span><span class="ln">}</span><span class="ln"><span class="tok-key">&lt;/script&gt;</span></span></code></pre></figure>
+		</div><p class="spec">one list per nav; the breadcrumb is a second block, not a second list</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="19-rules">19 · Rules</h2>
+<div class="grid-2 u-mb-6" style="gap:var(--space-4)"><div class="surface u-p-5"><h3 class="t-h4 u-mb-3" id="do">Do</h3><ul class="t-small u-fg-subtle" style="padding-left:1.1rem;display:grid;gap:var(--space-2)"><li>Mark the current page with <code class="t-code">aria-current="page"</code>.</li><li>Keep one dot per bar — it means “you are here”, not “this is nice”.</li><li>Keep the site menu and add a submenu row beneath it — never swap the bar out.</li><li>Use <code class="t-code">&lt;details&gt;</code> and <code class="t-code">&lt;dialog&gt;</code> so keyboard and Escape work for free.</li><li>Give every icon-only control an accessible name.</li></ul></div><div class="surface u-p-5"><h3 class="t-h4 u-mb-3" id="don-t">Don’t</h3><ul class="t-small u-fg-subtle" style="padding-left:1.1rem;display:grid;gap:var(--space-2)"><li>Use an <code class="t-code">.active</code> class — it can disagree with the a11y tree.</li><li>Fill the active link with a coloured pill.</li><li>Nest a second dropdown level; promote it to a mega panel.</li><li>Duplicate the menu markup for mobile — <code class="t-code">.nav-collapse</code> already handles it.</li><li>Write a new class per collection; set <code class="t-code">data-tone</code> and fill the slots.</li></ul></div></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="20-variants-four-positions-one-markup">20 · Variants — four positions, one markup</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Not ten skins. A bar's <em>shape</em> is decided once in the design; where it goes when the reader scrolls is a decision about <em>behaviour</em>, and that is the one worth a variant. Put the class on the shell — the bar never changes, so switching is a class swap and never a restructure.</p>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">The skins that used to be variants are the things they always were: <code class="t-code">.nav-bar-center</code>, <code class="t-code">.nav-bar-inverse</code> and <code class="t-code">.nav-bar-compact</code> for shape, <code class="t-code">.nav-shell-flush</code> and <code class="t-code">.nav-shell-full</code> for alignment, <code class="t-code">.nav-ghost</code> for a bar that materialises over a hero. Nothing was lost — the list stopped pretending “bordered” and “island” were the same kind of choice.</p>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Class</th><th>Position</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.nav-shell</code></td><td><b>Island</b> — The floating pill, sticky from the first pixel. The default.</td></tr>
+			<tr><td><code class="t-code">.nav-shell-fixed</code></td><td><b>Fixed</b> — Pinned to the top and never anywhere else. For apps and dashboards, where the chrome is furniture.</td></tr>
+			<tr><td><code class="t-code">.nav-shell-morph</code></td><td><b>Island on scroll</b> — Full-bleed at rest, drawing itself into the island once the page has moved. The header a site opens with, and the bar it works with.</td></tr>
+			<tr><td><code class="t-code">.nav-shell-auto</code></td><td><b>Fixed on scroll</b> — In flow at the top; pinned once you scroll up, and out of the way while you read down. Reading gets the screen, navigating gets the bar.</td></tr>
+		</tbody></table></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar" aria-label="Island demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Blog</a><a class="nav-link" href="#i">Videos</a><a class="nav-link" href="#i">Courses</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
+		</div><p class="spec"><b>Island</b> — The floating pill, sticky from the first pixel. The default.</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell nav-shell-fixed" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar" aria-label="Fixed demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Blog</a><a class="nav-link" href="#i">Videos</a><a class="nav-link" href="#i">Courses</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
+		</div><p class="spec"><b>Fixed</b> — Pinned to the top and never anywhere else. For apps and dashboards, where the chrome is furniture.</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell nav-shell-morph" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar" aria-label="Island on scroll demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Blog</a><a class="nav-link" href="#i">Videos</a><a class="nav-link" href="#i">Courses</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
+		</div><p class="spec"><b>Island on scroll</b> — Full-bleed at rest, drawing itself into the island once the page has moved. The header a site opens with, and the bar it works with.</p></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="nav-shell nav-shell-auto" style="position:static;padding-inline:0;max-width:none"><nav class="nav-bar" aria-label="Fixed on scroll demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Blog</a><a class="nav-link" href="#i">Videos</a><a class="nav-link" href="#i">Courses</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>
+		</div><p class="spec"><b>Fixed on scroll</b> — In flow at the top; pinned once you scroll up, and out of the way while you read down. Reading gets the screen, navigating gets the bar.</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="21-choosing-one-in-a-ghost-theme">21 · Choosing one in a Ghost theme</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Two levels, and the more specific one wins: a site-wide default from a theme setting, overridden per post or page by an internal tag.</p>
+		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Level</th><th>How</th></tr></thead><tbody>
+			<tr><td><code class="t-code">Site default</code></td><td>Ghost Admin &rarr; Design &rarr; <b>Navbar style</b> (a <code class="t-code">select</code> in package.json)</td></tr>
+			<tr><td><code class="t-code">Per-page override</code></td><td>tag the post <code class="t-code">#navbar-ghost</code>, <code class="t-code">#navbar-inverse</code>, … — internal tags never show to readers</td></tr>
+			<tr><td><code class="t-code">Why the tag wins</code></td><td>a landing page that opens on a full-bleed hero genuinely knows better than the site default</td></tr>
+		</tbody></table></div>
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">handlebars</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class="tok-com">&lt;!-- partials/navbar.hbs --&gt;</span></span><span class="ln"><span class="tok-key">{{#has</span> tag=<span class="tok-str">"#navbar-ghost"</span><span class="tok-key">}}</span><span class="tok-key">{{&gt; nav/bar</span> style=<span class="tok-str">"ghost"</span><span class="tok-key">}}</span></span><span class="ln"><span class="tok-key">{{else}}</span><span class="tok-key">{{&gt; nav/bar</span> style=@custom.navbar_style<span class="tok-key">}}</span></span><span class="ln"><span class="tok-key">{{/has}}</span></span></code></pre></figure>
+		</div><p class="spec">the tag override first, the theme setting as the fallback</p></div>
+<h2 class="t-h3" style="margin:var(--space-12) 0 var(--space-4)" id="22-navbar-builder">22 · Navbar builder</h2>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Every knob on this page, in one place. Start from a preset — a web series, a docs site, a course — then change anything: the position, the accent, what the main row carries, what the submenu says. The markup underneath rewrites itself as you go, so what you copy is what you are looking at.</p>
+<div class="np" data-nav-playground><div class="np__stage"><div class="nav-shell" style="position:static;padding-inline:0;max-width:none" data-np-shell><div class="nav-stack"><nav class="nav-bar" aria-label="Playground" data-np-bar></nav><div class="nav-sub nav-context" data-np-sub></div></div></div></div><div class="np__panel"><div class="np__row"><span class="np__label">Preset</span><div class="np__seg" role="group"><label class="np__opt"><input type="radio" name="np-preset" value="series" checked /><span>Web series</span></label><label class="np__opt"><input type="radio" name="np-preset" value="docs" /><span>Docs</span></label><label class="np__opt"><input type="radio" name="np-preset" value="course" /><span>Course</span></label><label class="np__opt"><input type="radio" name="np-preset" value="custom" /><span>Custom</span></label></div></div><div class="np__row"><span class="np__label">Position</span><div class="np__seg" role="group"><label class="np__opt"><input type="radio" name="np-shell" value="island" checked /><span>Island</span></label><label class="np__opt"><input type="radio" name="np-shell" value="fixed" /><span>Fixed</span></label><label class="np__opt"><input type="radio" name="np-shell" value="morph" /><span>Island on scroll</span></label><label class="np__opt"><input type="radio" name="np-shell" value="auto" /><span>Fixed on scroll</span></label></div></div><div class="np__row"><span class="np__label">Accent</span><div class="np__swatches"><label class="np__swatch" style="--sw:"><input type="radio" name="np-accent" value="" checked /><span class="u-sr-only">Record red</span></label><label class="np__swatch" style="--sw:#3b6fe0"><input type="radio" name="np-accent" value="#3b6fe0" /><span class="u-sr-only">Signal blue</span></label><label class="np__swatch" style="--sw:#1a8a5a"><input type="radio" name="np-accent" value="#1a8a5a" /><span class="u-sr-only">Field green</span></label><label class="np__swatch" style="--sw:#6d4aff"><input type="radio" name="np-accent" value="#6d4aff" /><span class="u-sr-only">Studio violet</span></label><label class="np__swatch" style="--sw:#c9791a"><input type="radio" name="np-accent" value="#c9791a" /><span class="u-sr-only">Amber</span></label></div></div><div class="np__row"><span class="np__label">Tone</span><div class="np__seg" role="group"><label class="np__opt"><input type="radio" name="np-tone" value="paper" checked /><span>Paper</span></label><label class="np__opt"><input type="radio" name="np-tone" value="ink" /><span>Ink</span></label><label class="np__opt"><input type="radio" name="np-tone" value="accent" /><span>Accent</span></label></div></div><div class="np__row"><span class="np__label">Density</span><div class="np__seg" role="group"><label class="np__opt"><input type="radio" name="np-density" value="regular" checked /><span>Regular</span></label><label class="np__opt"><input type="radio" name="np-density" value="compact" /><span>Compact</span></label></div></div><div class="np__row"><span class="np__label">Slots</span><div class="np__checks"><label class="np__check"><input type="checkbox" name="np-back" checked /><span>Back</span></label><label class="np__check"><input type="checkbox" name="np-kind" /><span>Kind</span></label><label class="np__check"><input type="checkbox" name="np-pos" checked /><span>Position</span></label><label class="np__check"><input type="checkbox" name="np-actions" checked /><span>Actions</span></label><label class="np__check"><input type="checkbox" name="np-rail" checked /><span>Rail</span></label></div></div><div class="np__row"><span class="np__label">Prefix</span><div class="np__seg" role="group"><label class="np__opt"><input type="radio" name="np-prefix" value="" checked /><span>None</span></label><label class="np__opt"><input type="radio" name="np-prefix" value="DAY " /><span>DAY</span></label><label class="np__opt"><input type="radio" name="np-prefix" value="EP." /><span>EP.</span></label></div></div><div class="np__row"><span class="np__label">Mark position</span><div class="np__checks"><label class="np__check"><input type="checkbox" name="np-mark" /><span>Accent</span></label></div></div><div class="np__row"><span class="np__label">Main bar</span><div class="np__checks"><label class="np__check"><input type="checkbox" name="np-logo" checked /><span>Logo</span></label><label class="np__check"><input type="checkbox" name="np-icons" /><span>Social icons</span></label><label class="np__check"><input type="checkbox" name="np-news" /><span>Newsletter</span></label><label class="np__check"><input type="checkbox" name="np-cta" /><span>CTA</span></label><label class="np__check"><input type="checkbox" name="np-burger" /><span>Burger</span></label></div></div><div class="np__row"><span class="np__label">Progress line</span><div class="np__checks"><label class="np__check"><input type="checkbox" name="np-progress" /><span>Border fills</span></label></div><div class="np__seg" role="group"><label class="np__opt"><input type="radio" name="np-track" value="grey" checked /><span>Grey track</span></label><label class="np__opt"><input type="radio" name="np-track" value="accent" /><span>Tinted track</span></label></div></div><div class="np__row"><span class="np__label">Progress</span><input class="np__range" type="range" name="np-value" min="0" max="100" value="21" aria-label="Progress" /><output class="np__out-val" data-np-value>21%</output></div></div><div class="np__code" data-np-code></div></div>
 
-		<nav class="docs-pager" aria-label="Pages">
-			<a class="docs-pager__link" href="./modal.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Modal</span></a>
+				<nav class="docs-pager" aria-label="Pages">
+					<a class="docs-pager__link" href="./modal.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Modal</span></a>
 			<a class="docs-pager__link docs-pager__link-next" href="./navs-tabs.html"><span class="docs-pager__dir">Next →</span><span class="docs-pager__title">Navs & tabs</span></a>
-		</nav>
+				</nav>
+			</div>
+			<aside class="doc-rail">
+				<div class="doc-rail__in">
+			<nav class="doc-toc" aria-label="On this page">
+				<span class="doc-toc__title">On this page</span>
+				<div class="doc-toc__links">
+					<a href="#1-anatomy">1 · Anatomy</a>
+					<a href="#2-alignment-pick-deliberately">2 · Alignment — pick deliberately</a>
+					<a href="#3-the-active-link">3 · The active link</a>
+					<a href="#4-dropdown">4 · Dropdown</a>
+					<a href="#5-mega-panel">5 · Mega panel</a>
+					<a href="#6-hamburger">6 · Hamburger</a>
+					<a href="#7-mobile-sheet">7 · Mobile sheet</a>
+					<a href="#8-responsive-collapse">8 · Responsive collapse</a>
+					<a href="#9-the-submenu-row">9 · The submenu row</a>
+					<a href="#10-how-the-bar-behaves-on-scroll">10 · How the bar behaves on scroll</a>
+					<a href="#11-the-line-is-the-progress">11 · The line is the progress</a>
+					<a href="#12-centred-inverse-compact">12 · Centred, inverse, compact</a>
+					<a href="#13-the-burger-as-a-record-light">13 · The burger, as a record light</a>
+					<a href="#14-dropdowns-hover-click-and-a-second-level">14 · Dropdowns — hover, click, and a second level</a>
+					<a href="#15-three-ways-to-open-on-a-phone">15 · Three ways to open on a phone</a>
+					<a href="#16-icons-the-call-and-the-form">16 · Icons, the call, and the form</a>
+					<a href="#17-the-submenu-on-a-phone">17 · The submenu on a phone</a>
+					<a href="#18-telling-machines-what-the-nav-is">18 · Telling machines what the nav is</a>
+					<a href="#19-rules">19 · Rules</a>
+					<a href="#do">Do</a>
+					<a href="#don-t">Don’t</a>
+					<a href="#20-variants-four-positions-one-markup">20 · Variants — four positions, one markup</a>
+					<a href="#21-choosing-one-in-a-ghost-theme">21 · Choosing one in a Ghost theme</a>
+					<a href="#22-navbar-builder">22 · Navbar builder</a>
+				</div>
+			</nav>
+			<div class="doc-sponsor">
+				<span class="doc-sponsor__eyebrow">Support</span>
+				<p class="doc-sponsor__lead">Creator Design System is free, MIT, and built in the
+				open. Sponsoring keeps the next release coming.</p>
+				<a class="btn btn-primary btn-sm btn-pill doc-sponsor__cta"
+				   href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+					     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/>
+					</svg>Sponsor my project</a>
+				<a class="doc-sponsor__alt" href="./sponsor.html">What sponsorship pays for →</a>
+			</div>
+				</div>
+			</aside>
+		</div>
 
 		<footer class="section-sm" style="padding-bottom:0">
 			<hr class="rule" style="margin-bottom:var(--space-6)" />
@@ -440,7 +596,7 @@
 
 	var stars = document.querySelector('[data-gh-stars]');
 	if (stars) {
-		fetch('https://api.github.com/repos/swarnil/Creator-Design-System')
+		fetch('https://api.github.com/repos/imswarnil/Creator-Design-System')
 			.then(function (r) { return r.ok ? r.json() : null; })
 			.then(function (d) { if (d && typeof d.stargazers_count === 'number') stars.textContent = d.stargazers_count.toLocaleString(); })
 			.catch(function () {});

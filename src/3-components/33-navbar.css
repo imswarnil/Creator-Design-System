@@ -3,13 +3,13 @@
    The site's chrome, in every shape it takes. 24-nav.css holds the primitives
    (the island, links, tabs, crumbs, pager, toc); this file is the navigation
    SYSTEM built on them: alignment, active styles, dropdowns, the mega panel,
-   the mobile sheet, and the contextual bars each collection swaps in.
+   the mobile sheet, and the submenu row a collection adds beneath it.
 
    HOUSE RULES
    · Active is a dot or a 2px rule — never a filled pill.
    · One level of dropdown. A second level is a mega panel, not a fly-out.
    · Every panel is a <details> or a <dialog>: keyboard and ESC come free.
-   · Contextual bars replace the site bar, never stack on top of it.
+   · The site bar stays; context becomes a submenu row beneath it.
    ========================================================================== */
 
 /* ── Alignment ───────────────────────────────────────────────────────────────
@@ -251,9 +251,9 @@
 }
 
 @keyframes nav-scan {
-	from { transform: translateY(0); opacity: 0; }
+	0% { transform: translateY(0); opacity: 0; }
 	20%  { opacity: 0.9; }
-	to   { transform: translateY(100dvh); opacity: 0; }
+	100%   { transform: translateY(100dvh); opacity: 0; }
 }
 
 .nav-sheet__head {
@@ -322,10 +322,83 @@
 	.nav-mega__panel { animation: none; }
 }
 
-/* ── Contextual bars ─────────────────────────────────────────────────────────
-   A container module replaces the site bar with chrome for the thing you are
-   inside. One base, `.nav-context`, plus the slots every player needs.
+/* ── The submenu row ─────────────────────────────────────────────────────────
+   The chrome for whatever you are inside — a lesson, an episode, a trip —
+   sits UNDER the site menu, in the same island, as a second row. The site bar
+   stays put: the way out never disappears, and opening a lesson no longer
+   swaps a whole bar out from under the reader.
+
+     <div class="nav-shell">
+       <div class="nav-stack">
+         <nav class="nav-bar"> … site menu … </nav>
+         <div class="nav-sub nav-context" data-tone="ink" style="--value:38%">
+           … back · where · actions · rail …
+         </div>
+       </div>
+     </div>
+
+   One design, three knobs — data-tone, data-density and --value. There is no
+   class per collection: a course and a trip differ in the words they put in
+   the slots, not in their CSS. What a bar shows is what you put in it.
    ------------------------------------------------------------------------- */
+
+/* Stacked, the island stops being a pill and becomes one card holding two
+   rows. The bar gives up its own chrome so the two read as a single object. */
+.nav-stack {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-xl, 1.25rem);
+	background: color-mix(in srgb, var(--bg-canvas) 82%, transparent);
+	backdrop-filter: saturate(180%) blur(14px);
+	box-shadow: var(--shadow-1);
+	overflow: hidden;
+}
+
+.nav-stack .nav-bar {
+	border: 0;
+	border-radius: 0;
+	background: none;
+	backdrop-filter: none;
+	box-shadow: none;
+}
+
+.nav-sub {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	position: relative;
+	overflow: hidden;
+	min-height: var(--sub-h, 2.75rem);
+	padding-inline: var(--space-4);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	background: var(--bg-surface);
+}
+
+/* Compact — for players, where the row is chrome and not content. */
+.nav-sub[data-density='compact'] {
+	--sub-h: 2.25rem;
+	gap: var(--space-3);
+	font-size: var(--text-xs);
+}
+
+/* Tone. Paper is the default and needs no attribute. */
+.nav-sub[data-tone='ink'] {
+	background: var(--ink-950);
+	color: var(--ink-50);
+	border-top-color: rgb(255 255 255 / 0.12);
+	color-scheme: dark;
+}
+
+.nav-sub[data-tone='ink'] .nav-context__title { color: var(--pure-white, #fff); }
+.nav-sub[data-tone='ink'] .nav-context__where { color: rgb(255 255 255 / 0.6); }
+
+.nav-sub[data-tone='accent'] {
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+	border-top-color: var(--line-accent, var(--accent));
+}
+
+.nav-sub[data-tone='accent'] .nav-context__where { color: inherit; opacity: 0.75; }
+.nav-sub[data-tone='accent'] .nav-context__title { color: inherit; }
 
 .nav-context {
 	display: flex;
@@ -361,7 +434,46 @@
 	white-space: nowrap;
 }
 
+/* The position, and whatever word belongs in front of it. A trip counts days,
+   a course counts lessons — that is a string, not a stylesheet, so it rides a
+   custom property rather than earning its own class. */
 .nav-context__pos { flex: none; font-variant-numeric: tabular-nums; }
+.nav-context__pos::before { content: var(--pos-prefix, ''); opacity: 0.6; }
+
+/* The kind of thing you are in — COURSE, EPISODE, TRIP. Optional. */
+.nav-context__kind {
+	flex: none;
+	padding-right: var(--space-3);
+	border-right: var(--border-hair) solid currentcolor;
+	opacity: 0.5;
+}
+
+/* The way back out. Always first, always the same shape. */
+.nav-context__back {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	color: inherit;
+	text-decoration: none;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	opacity: 0.75;
+	transition: var(--t-colors);
+}
+
+.nav-context__back:hover { opacity: 1; }
+
+/* Actions sit at the end and never grow. */
+.nav-context__actions {
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	margin-left: auto;
+}
 
 /* The progress rail welded to the bottom edge. Drive it with --value. */
 .nav-rail {
@@ -375,38 +487,9 @@
 	transition: width var(--dur-4) var(--ease-out);
 }
 
-/* Per-collection skins. Each one changes only what the medium demands —
-   never the geometry, so cutting between them never moves the chrome. */
-
-/* Course & guide — paper, a progress rail, prev/next. */
-.nav-course,
-.nav-guide { background: color-mix(in srgb, var(--bg-canvas) 94%, transparent); }
-
-/* Lesson — same as course, but the accent marks that you are mid-lesson. */
-.nav-lesson .nav-context__pos { color: var(--accent); }
-
-/* Series & episode — always ink. It is cinema, and cinema is dark. */
-.nav-episode {
-	background: var(--ink-950);
-	border-color: rgb(255 255 255 / 0.12);
-	color: var(--ink-50);
-	color-scheme: dark;
-}
-
-.nav-episode .nav-context__title { color: var(--pure-white, #fff); }
-.nav-episode .nav-context__where { color: rgb(255 255 255 / 0.6); }
-
-/* Video — ink too, but keeps the site links: you are still browsing. */
-.nav-video .nav-context__pos { font-family: var(--font-slate); }
-
-/* Travel — the trip's name leads, the day counts. */
-.nav-trip .nav-context__pos::before { content: 'DAY '; opacity: 0.6; }
-
-/* Docs — dense, so the active link takes the rule rather than the dot. */
-.nav-docs { background: var(--bg-surface); }
-
-/* Shop — the cart is the only action that matters. */
-.nav-shop .nav-context__where { justify-content: flex-end; }
+/* Marking the position with the accent — for players, where "where am I" is
+   the whole point of the row. Opt in; it is not the default. */
+.nav-sub[data-mark='pos'] .nav-context__pos { color: var(--accent); }
 
 /* ── Hamburger ───────────────────────────────────────────────────────────────
    The button that opens the sheet. Three bars that become an X — one element,
@@ -498,3 +581,791 @@
 	.nav-collapse .nav-links { display: none; }
 	.nav-collapse .nav-burger { display: inline-flex; }
 }
+
+/* ── GitHub chip ─────────────────────────────────────────────────────────────
+   A quiet link out to the repo, with room for a star count that JS fills in.
+   Sits at the end of the actions cluster, after the theme toggle.
+   ------------------------------------------------------------------------- */
+
+.nav-gh {
+	display: inline-grid;
+	place-items: center;
+	height: var(--control-sm);
+	width: var(--control-sm);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-pill);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.nav-gh:hover { border-color: var(--line-strong); background: var(--bg-sunken); }
+.nav-gh .icon { width: 1.05rem; height: 1.05rem; flex: none; }
+
+.nav-gh__stars {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	font-variant-numeric: tabular-nums;
+	color: var(--fg-subtle);
+}
+
+
+
+/* On an ink row the chip inverts with everything else. */
+.nav-sub[data-tone='ink'] .nav-gh {
+	background: rgb(255 255 255 / 0.06);
+	border-color: rgb(255 255 255 / 0.14);
+	color: var(--ink-50);
+}
+
+/* =============================================================================
+   NAVBAR VARIANTS
+   Not ten skins — four positions. A bar's shape is a decision you make once in
+   the design; where it goes when the reader scrolls is a decision about
+   behaviour, and that is the one worth a variant.
+
+     .nav-shell         island   — the floating pill, sticky from the start
+     .nav-shell-fixed   fixed    — pinned to the top, always
+     .nav-shell-morph   island on scroll — full-bleed at rest, drawing itself
+                        into the island once the page has moved
+     .nav-shell-auto    fixed on scroll  — in flow at the top, pinned once you
+                        scroll, and out of the way while you are reading down
+
+   All four are defined above with the shell behaviours. Skins that used to be
+   variants are now the things they always were: .nav-bar-center,
+   .nav-bar-inverse and .nav-bar-compact for the shape, .nav-shell-flush and
+   .nav-shell-full for the alignment. Nothing was lost; the list stopped
+   pretending that "bordered" and "island" are the same kind of choice.
+   ========================================================================== */
+
+/* The ghost: transparent over a hero, materialising once you scroll. It is a
+   behaviour, not a skin, so it survives the cull. */
+.nav-ghost {
+	background: transparent;
+	border-color: transparent;
+	box-shadow: none;
+	backdrop-filter: none;
+	transition: var(--t-colors), var(--t-shadow), backdrop-filter var(--dur-2);
+}
+
+.nav-shell[data-scrolled] .nav-ghost,
+.nav-shell-morph[data-scrolled] .nav-ghost {
+	background: color-mix(in srgb, var(--bg-canvas) 88%, transparent);
+	border-color: var(--line-default);
+	backdrop-filter: saturate(180%) blur(14px);
+	box-shadow: var(--shadow-1);
+}
+
+/* The shell's own position modifiers, usable with any of the four. */
+.nav-s-static { position: static; }
+.nav-s-top { top: 0; }
+
+/* ── Where the dot sits ──────────────────────────────────────────────────────
+   The leading slot is never shared. A plain link keeps the dot in front, where
+   it reads as a marker beside the word; a link that already carries an icon
+   sends the dot to the end rather than stacking two marks at the head, which
+   reads as one four-part smudge and tells you nothing.
+
+   :has() asks the link what it holds, so nobody has to remember a modifier.
+   ------------------------------------------------------------------------- */
+
+.nav-link:has(> svg, > .icon, > .nav-link__icon)[aria-current]::before { display: none; }
+
+.nav-link:has(> svg, > .icon, > .nav-link__icon)[aria-current]::after {
+	content: '';
+	width: var(--dot-sm);
+	height: var(--dot-sm);
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	flex: none;
+}
+
+/* ── Slot order ──────────────────────────────────────────────────────────────
+   The links follow the mark when there is one, and lead when there is not, so
+   a bar without a logo never opens with a hole where the logo would have been.
+   :has() asks the bar what it contains instead of making the author remember
+   a modifier class.
+   ------------------------------------------------------------------------- */
+
+.nav-bar:has(> .logo, > .cds-mark, > .nav-bar__mark) .nav-links { margin-inline: auto; }
+.nav-bar:not(:has(> .logo, > .cds-mark, > .nav-bar__mark)) .nav-links { margin-right: auto; }
+
+/* ── The line is the progress ────────────────────────────────────────────────
+   The island's hairline doubles as the read-through bar: the filled part is
+   the accent, the rest is the accent at a whisper. One line does both jobs, so
+   a reader never has to learn a second piece of chrome.
+
+     <div class="nav-shell nav-progress" style="--progress:38%">
+
+   It stays a hairline — the line is doing two jobs, not becoming a component.
+   The unread part is the page's own rule by default; data-track="accent" tints
+   it instead, for bars where the read-through is the point rather than a note.
+
+   The ring is painted on a pseudo-element and masked to the border, which is
+   the only way to gradient a border without giving up the radius.
+   ------------------------------------------------------------------------- */
+
+.nav-progress { position: relative; }
+.nav-progress[data-track='accent'] { --track: color-mix(in srgb, var(--accent) 18%, transparent); }
+
+.nav-progress > .nav-bar,
+.nav-progress > .nav-stack { position: relative; border-color: transparent; }
+
+.nav-progress > .nav-bar::after,
+.nav-progress > .nav-stack::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: var(--border-hair);
+	background: linear-gradient(90deg,
+		var(--accent) 0 var(--progress, 0%),
+		var(--track, var(--line-default)) var(--progress, 0%) 100%);
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	pointer-events: none;
+	transition: background var(--dur-4) var(--ease-out);
+}
+
+/* ── Shell behaviours ────────────────────────────────────────────────────────
+   Four ways a bar can behave, none of which change its markup:
+
+   .nav-shell-fixed   pinned to the top, always
+   .nav-shell-auto    pinned, but hides on the way down and returns on the way
+                      up — reading gets the screen, navigating gets the bar
+   .nav-shell-morph   full-bleed at rest, contracting into the island once the
+                      page has moved
+   (default)          sticky island
+
+   nav.js sets data-scrolled and data-dir; everything else is CSS.
+   ------------------------------------------------------------------------- */
+
+.nav-shell-fixed { position: fixed; top: 0; left: 0; right: 0; }
+
+.nav-shell-auto {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	transition: transform var(--dur-3) var(--ease-out);
+}
+
+.nav-shell-auto[data-dir='down'] { transform: translateY(-115%); }
+.nav-shell-auto[data-dir='up'] { transform: none; }
+
+/* Full-bleed until the page moves, then it draws itself in. Every property
+   here is one the island already had — the variant is the transition, not a
+   second design. */
+.nav-shell-morph {
+	max-width: none;
+	padding-inline: 0;
+	top: 0;
+	transition: max-width var(--dur-4) var(--ease-out),
+		padding var(--dur-4) var(--ease-out),
+		top var(--dur-4) var(--ease-out);
+}
+
+.nav-shell-morph > .nav-bar,
+.nav-shell-morph > .nav-stack {
+	border-radius: 0;
+	border-inline: 0;
+	border-top: 0;
+	box-shadow: none;
+	transition: border-radius var(--dur-4) var(--ease-out),
+		box-shadow var(--dur-4) var(--ease-out),
+		background var(--dur-3) var(--ease-out);
+}
+
+.nav-shell-morph[data-scrolled] {
+	max-width: calc(var(--w-site) + var(--gutter) * 2);
+	padding-inline: var(--gutter);
+	top: var(--space-3);
+}
+
+.nav-shell-morph[data-scrolled] > .nav-bar { border-radius: var(--radius-pill); }
+.nav-shell-morph[data-scrolled] > .nav-stack { border-radius: var(--radius-xl, 1.25rem); }
+
+.nav-shell-morph[data-scrolled] > .nav-bar,
+.nav-shell-morph[data-scrolled] > .nav-stack {
+	border: var(--border-hair) solid var(--line-default);
+	box-shadow: var(--shadow-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-shell-auto,
+	.nav-shell-morph,
+	.nav-shell-morph > .nav-bar,
+	.nav-shell-morph > .nav-stack { transition: none; }
+}
+
+/* ── Centred mark, inverse bar, compact ──────────────────────────────────────
+   Three shapes that are token swaps rather than layouts of their own.
+   ------------------------------------------------------------------------- */
+
+.nav-bar-center {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	justify-items: center;
+}
+
+.nav-bar-center > :first-child { justify-self: start; }
+.nav-bar-center > :last-child { justify-self: end; }
+.nav-bar-center .nav-links { margin: 0; }
+
+/* Inverse — ink regardless of theme. Pair with the light mark: the logo reads
+   currentColor, so it inverts with the bar and needs no second asset. */
+.nav-bar-inverse {
+	background: var(--ink-950);
+	border-color: rgb(255 255 255 / 0.14);
+	color: var(--ink-50);
+	color-scheme: dark;
+}
+
+.nav-bar-inverse .logo,
+.nav-bar-inverse .cds-mark { color: var(--pure-white, #fff); }
+.nav-bar-inverse .nav-link { color: rgb(255 255 255 / 0.66); }
+.nav-bar-inverse .nav-link:hover,
+.nav-bar-inverse .nav-link[aria-current] { color: var(--pure-white, #fff); }
+.nav-bar-inverse .nav-burger { border-color: rgb(255 255 255 / 0.2); background: rgb(255 255 255 / 0.06); }
+
+.nav-bar-compact { --nav-h: 2.75rem; height: var(--nav-h); font-size: var(--text-sm); }
+.nav-bar-compact .nav-link { height: 1.75rem; padding-inline: var(--space-2); }
+
+/* With a submenu underneath, the main row gives up height and the hairline
+   between them takes the accent: two rows must still read as one bar. */
+.nav-stack:has(> .nav-sub) > .nav-bar { height: calc(var(--nav-h) - 0.5rem); }
+.nav-stack:has(> .nav-sub) > .nav-sub { border-top-color: var(--accent); }
+
+/* ── Dropdown: hover and click, and room to grow ─────────────────────────────
+   Pointer users get it on hover, everyone else on click, and both land on the
+   same <details open> state — so there is one open state, not two. nav.js does
+   the hover with an intent delay; the keyboard path is untouched.
+
+   The panel grows to its content instead of jumping: 0fr → 1fr on a grid row
+   animates to auto height, which `height: auto` still cannot.
+   ------------------------------------------------------------------------- */
+
+.nav-menu__panel { display: grid; grid-template-rows: 1fr; }
+
+.nav-menu-grow > .nav-menu__panel {
+	grid-template-rows: 0fr;
+	transition: grid-template-rows var(--dur-3) var(--ease-out);
+	animation: none;
+	padding-block: 0;
+	overflow: hidden;
+}
+
+.nav-menu-grow[open] > .nav-menu__panel {
+	grid-template-rows: 1fr;
+	padding-block: var(--space-2);
+}
+
+.nav-menu-grow > .nav-menu__panel > * { min-height: 0; }
+
+/* Second level. It discloses in place rather than flying out, because a
+   fly-out is unusable on touch and this is the same menu on every device. */
+.nav-sub-menu { border-top: var(--border-hair) solid var(--line-subtle); margin-top: var(--space-1); }
+
+.nav-sub-menu > summary {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-md);
+	font-size: var(--text-sm);
+	color: var(--fg-default);
+	transition: var(--t-colors);
+}
+
+.nav-sub-menu > summary::-webkit-details-marker { display: none; }
+.nav-sub-menu > summary:hover { background: var(--bg-sunken); }
+
+.nav-sub-menu > summary::after {
+	content: '';
+	width: 0.35rem;
+	height: 0.35rem;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(-45deg);
+	transition: var(--t-transform);
+	opacity: 0.5;
+}
+
+.nav-sub-menu[open] > summary::after { transform: rotate(45deg); }
+
+.nav-sub-menu__items {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows var(--dur-2) var(--ease-out);
+	overflow: hidden;
+	padding-left: var(--space-3);
+	margin-left: var(--space-2);
+	border-left: var(--border-hair) solid var(--line-subtle);
+}
+
+.nav-sub-menu[open] .nav-sub-menu__items { grid-template-rows: 1fr; }
+.nav-sub-menu__items > * { min-height: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-menu-grow > .nav-menu__panel,
+	.nav-sub-menu__items { transition: none; }
+}
+
+/* ── The record burger ───────────────────────────────────────────────────────
+   Not three bars becoming an X. The bars collapse into the record light the
+   whole system is built around, and the light unfolds into a play triangle —
+   closed is "ready", open is "rolling". Same markup as every other burger, so
+   it is a class swap.
+   ------------------------------------------------------------------------- */
+
+.nav-burger-rec .nav-burger__box { position: relative; }
+
+.nav-burger-rec .nav-burger__bars,
+.nav-burger-rec .nav-burger__bars::before,
+.nav-burger-rec .nav-burger__bars::after {
+	transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-1) linear;
+}
+
+/* Open: the outer bars fold into the middle and go, the middle one goes last. */
+.nav-burger-rec[aria-expanded='true'] .nav-burger__bars { opacity: 0; transition-delay: 60ms; }
+.nav-burger-rec[aria-expanded='true'] .nav-burger__bars::before { transform: translateY(5px) scaleX(0.2); opacity: 0; }
+.nav-burger-rec[aria-expanded='true'] .nav-burger__bars::after { transform: translateY(-5px) scaleX(0.2); opacity: 0; }
+
+/* The record light, on its way to becoming the play head. */
+.nav-burger-rec .nav-burger__box::before {
+	content: '';
+	position: absolute;
+	inset: 50% auto auto 50%;
+	width: 0.5rem;
+	height: 0.5rem;
+	margin: -0.25rem 0 0 -0.25rem;
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	transform: scale(0);
+	transition: transform var(--dur-2) var(--ease-spring, var(--ease-out));
+}
+
+.nav-burger-rec[aria-expanded='true'] .nav-burger__box::before {
+	transform: scale(1);
+	transition-delay: 110ms;
+}
+
+/* The play triangle. Borders, so it inherits the accent and costs no asset. */
+.nav-burger-rec .nav-burger__box::after {
+	content: '';
+	position: absolute;
+	inset: 50% auto auto 50%;
+	width: 0;
+	height: 0;
+	margin: -0.3rem 0 0 -0.2rem;
+	border-top: 0.3rem solid transparent;
+	border-bottom: 0.3rem solid transparent;
+	border-left: 0.48rem solid var(--accent);
+	transform: scale(0) rotate(-90deg);
+	transition: transform var(--dur-3) var(--ease-spring, var(--ease-out));
+}
+
+.nav-burger-rec[aria-expanded='true'] .nav-burger__box::after {
+	transform: scale(1) rotate(0deg);
+	transition-delay: 220ms;
+}
+
+/* The dot ducks out as the triangle arrives, so one shape becomes the other. */
+.nav-burger-rec[aria-expanded='true'] .nav-burger__box::before {
+	animation: nav-rec-hand var(--dur-4) var(--ease-out) 110ms forwards;
+}
+
+@keyframes nav-rec-hand {
+	0% { transform: scale(0); }
+	45% { transform: scale(1); }
+	100% { transform: scale(0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-burger-rec .nav-burger__box::before,
+	.nav-burger-rec .nav-burger__box::after,
+	.nav-burger-rec .nav-burger__bars,
+	.nav-burger-rec .nav-burger__bars::before,
+	.nav-burger-rec .nav-burger__bars::after { transition: none; animation: none; }
+
+	.nav-burger-rec[aria-expanded='true'] .nav-burger__box::before { display: none; }
+}
+
+/* ── Three ways to open on small screens ─────────────────────────────────────
+   The full-screen sheet is one answer, not the only one. All three take the
+   same markup for the links, so choosing is a class, not a rewrite.
+
+   .nav-sheet        full-screen dialog, irises open        (already above)
+   .nav-sheet-drop   full-width panel dropping from the top edge
+   .nav-panel        the island itself grows into the panel — nothing covers
+                     the page, and the bar you pressed is still the bar
+   ------------------------------------------------------------------------- */
+
+/* 1 · The drop. Full width, hinged at the top, no iris. */
+.nav-sheet-drop {
+	height: auto;
+	max-height: 100dvh;
+	bottom: auto;
+	border-radius: 0 0 var(--radius-sheet) var(--radius-sheet);
+	border-bottom: var(--border-hair) solid var(--line-default);
+	box-shadow: var(--shadow-4);
+	overflow: hidden auto;
+}
+
+.nav-sheet-drop[open] { animation: nav-drop-in var(--dur-4) var(--ease-out); }
+
+@keyframes nav-drop-in {
+	from { transform: translateY(-100%); opacity: 0.4; }
+	to { transform: none; opacity: 1; }
+}
+
+.nav-sheet-drop .nav-sheet__in { height: auto; padding-bottom: var(--space-8); }
+.nav-sheet-drop .nav-sheet__links { margin-top: var(--space-5); overflow: visible; }
+.nav-sheet-drop .nav-sheet__link { font-size: var(--text-xl); padding-block: var(--space-3); }
+
+/* 2 · The island becomes the panel. No dialog, no backdrop, no page hidden
+   behind a sheet — the thing you pressed simply has more in it now. */
+.nav-panel {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows var(--dur-4) var(--ease-out);
+	overflow: hidden;
+	border-top: var(--border-hair) solid transparent;
+}
+
+.nav-panel > * { min-height: 0; overflow: hidden; }
+
+.nav-stack[data-open] > .nav-panel,
+.nav-shell[data-open] > .nav-panel {
+	grid-template-rows: 1fr;
+	border-top-color: var(--line-subtle);
+}
+
+.nav-panel__in {
+	padding: var(--space-5);
+	display: grid;
+	gap: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+	.nav-panel__in { grid-template-columns: 1.4fr 1fr; }
+}
+
+.nav-panel__links { display: flex; flex-direction: column; gap: 2px; }
+
+.nav-panel__link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-3);
+	border-radius: var(--radius-md);
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+	color: var(--fg-default);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.nav-panel__link:hover { background: var(--bg-sunken); }
+.nav-panel__link[aria-current] { color: var(--accent); }
+
+/* The other half: whatever the reader might want that is not a link — the
+   latest thing, a form, the numbers. A menu is a chance to say something. */
+.nav-panel__aside {
+	background: var(--bg-sunken);
+	border-radius: var(--radius-lg);
+	padding: var(--space-4);
+	display: grid;
+	gap: var(--space-3);
+	align-content: start;
+}
+
+.nav-panel__label {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-panel { transition: none; }
+	.nav-sheet-drop[open] { animation: none; }
+}
+
+/* ── Actions: the chips, the call, the form ──────────────────────────────────
+   A creator's bar carries more than links: where else to find them, the one
+   thing they want you to do, and the list. All three sit in the actions slot.
+   ------------------------------------------------------------------------- */
+
+.nav-actions { display: flex; align-items: center; gap: var(--space-2); }
+
+.nav-icons { display: flex; align-items: center; gap: 2px; }
+
+.nav-icon {
+	display: inline-grid;
+	place-items: center;
+	width: var(--control-sm);
+	height: var(--control-sm);
+	border-radius: var(--radius-full);
+	color: var(--fg-subtle);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.nav-icon:hover { color: var(--fg-default); background: var(--hover-wash); }
+.nav-icon .icon { width: 1.05rem; height: 1.05rem; }
+
+/* The newsletter, folded into its own icon. Closed it is one more chip; open
+   it is a field that grew out of that chip — the form was always there, it
+   just had nothing to say yet. <details> so Escape and focus come free. */
+.nav-form { position: relative; }
+
+.nav-form > summary {
+	list-style: none;
+	cursor: pointer;
+	display: inline-grid;
+	place-items: center;
+	width: var(--control-sm);
+	height: var(--control-sm);
+	border-radius: var(--radius-full);
+	color: var(--fg-subtle);
+	transition: var(--t-colors);
+}
+
+.nav-form > summary::-webkit-details-marker { display: none; }
+.nav-form > summary:hover { color: var(--fg-default); background: var(--hover-wash); }
+.nav-form[open] > summary { color: var(--accent); background: var(--accent-soft); }
+
+.nav-form__field {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	overflow: hidden;
+}
+
+/* Inline on a roomy bar: the field unrolls beside the chip. */
+@media (min-width: 48rem) {
+	.nav-form__field {
+		position: absolute;
+		right: calc(100% + var(--space-2));
+		top: 50%;
+		transform: translateY(-50%);
+		width: 15rem;
+		padding: var(--space-1);
+		border: var(--border-hair) solid var(--line-default);
+		border-radius: var(--radius-pill);
+		background: var(--bg-surface);
+		box-shadow: var(--shadow-2);
+		animation: nav-unroll var(--dur-3) var(--ease-out);
+		transform-origin: right center;
+	}
+
+	@keyframes nav-unroll {
+		from { width: 0; opacity: 0; padding-inline: 0; }
+	}
+}
+
+/* On a narrow bar it drops underneath instead, where there is room to type. */
+@media (max-width: 47.999rem) {
+	.nav-form__field {
+		position: absolute;
+		right: 0;
+		top: calc(100% + var(--space-2));
+		width: min(18rem, 78vw);
+		padding: var(--space-2);
+		border: var(--border-hair) solid var(--line-default);
+		border-radius: var(--radius-lg);
+		background: var(--bg-surface);
+		box-shadow: var(--shadow-3);
+		z-index: var(--z-popover, 40);
+		animation: nav-drop-form var(--dur-2) var(--ease-out);
+	}
+
+	@keyframes nav-drop-form {
+		from { opacity: 0; transform: translateY(-6px); }
+	}
+}
+
+.nav-form__field input {
+	flex: 1;
+	min-width: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	font-size: var(--text-sm);
+	color: inherit;
+	padding-inline: var(--space-3);
+}
+
+.nav-form__field input:focus { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-form__field { animation: none; }
+}
+
+/* ── The submenu on a phone ──────────────────────────────────────────────────
+   A lesson row that works on a desktop becomes three competing things on a
+   phone: where you are, how far in, and how to get anywhere else. So below the
+   breakpoint the row keeps only "where you are", and everything else moves
+   behind its own button — a second burger that belongs to the submenu, not to
+   the site.
+
+     <div class="nav-sub nav-context">
+       … back · where · rail …
+       <button class="nav-sub__more" data-dialog="lessons"
+               aria-expanded="false" aria-controls="lessons">…</button>
+     </div>
+     <dialog class="nav-sheet nav-sheet-index" id="lessons"> … the list … </dialog>
+
+   The list itself is the point: on a phone, "Lesson 3 of 14" is only useful if
+   the other thirteen are one press away.
+   ------------------------------------------------------------------------- */
+
+.nav-sub__more { display: none; flex: none; }
+
+@media (max-width: 47.999rem) {
+	.nav-sub__more { display: inline-flex; }
+	.nav-sub .nav-context__actions { display: none; }
+	.nav-sub .nav-context__kind { display: none; }
+	.nav-sub[data-density='compact'] { --sub-h: 2.5rem; }
+	.nav-context__title { font-size: var(--text-sm); }
+}
+
+/* The index sheet: the whole collection, with where you are marked. */
+.nav-sheet-index .nav-sheet__link {
+	font-family: var(--font-body);
+	font-size: var(--text-base);
+	font-weight: var(--weight-medium);
+	justify-content: space-between;
+	padding-block: var(--space-3);
+}
+
+.nav-sheet-index .nav-sheet__link[aria-current] { color: var(--accent); }
+
+.nav-index__num {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+	flex: none;
+}
+
+.nav-sheet-index .nav-sheet__link[aria-current] .nav-index__num { color: var(--accent); }
+
+/* Done rows get a tick rather than a colour, so progress survives colour
+   blindness and greyscale both. */
+.nav-index__done::after {
+	content: '✓';
+	color: var(--accent);
+	font-size: var(--text-sm);
+	flex: none;
+}
+
+/* ── Hiding the submenu ──────────────────────────────────────────────────────
+   Some readers want the chrome gone. The row collapses to nothing and leaves
+   a sliver to bring it back — it does not vanish without a way home.
+   ------------------------------------------------------------------------- */
+
+.nav-stack > .nav-sub {
+	transition: min-height var(--dur-3) var(--ease-out),
+		opacity var(--dur-2) linear;
+}
+
+.nav-stack[data-sub='hidden'] > .nav-sub {
+	min-height: 0;
+	height: 0;
+	opacity: 0;
+	padding-block: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.nav-sub__hide {
+	flex: none;
+	border: 0;
+	background: none;
+	color: inherit;
+	opacity: 0.5;
+	cursor: pointer;
+	padding: var(--space-1);
+	line-height: 1;
+	border-radius: var(--radius-sm);
+	transition: var(--t-colors);
+}
+
+.nav-sub__hide:hover { opacity: 1; background: var(--hover-wash); }
+
+/* The sliver that brings it back. Only shown once the row is hidden. */
+.nav-sub-show {
+	display: none;
+	width: 100%;
+	border: 0;
+	background: none;
+	color: var(--fg-faint);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	padding: 2px;
+	cursor: pointer;
+	border-top: var(--border-hair) solid var(--line-subtle);
+}
+
+.nav-stack[data-sub='hidden'] > .nav-sub-show { display: block; }
+.nav-sub-show:hover { color: var(--fg-default); background: var(--bg-sunken); }
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-stack > .nav-sub { transition: none; }
+}
+
+/* ── The publication logo, when the owner sets one ───────────────────────── */
+
+.logo__img {
+	display: block;
+	height: 1.75rem;
+	width: auto;
+	max-width: 12rem;
+	object-fit: contain;
+}
+
+/* ── The sheet's secondary section ───────────────────────────────────────── */
+
+.nav-sheet__more {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-1) var(--space-3);
+}
+
+.nav-sheet__more .dropdown__item {
+	padding: var(--space-1) 0;
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+}
+
+.nav-sheet__more .dropdown__item:hover { background: none; color: var(--fg-default); }
+
+/* ── Active state when the link carries an icon ──────────────────────────────
+   The dot and an icon side by side are two marks competing for the same job.
+   When there is an icon, IT becomes the active marker — accent, full opacity —
+   and the dot stands down. Icon-less bars keep the dot.
+   ------------------------------------------------------------------------- */
+
+.nav-link:has(.icon)[aria-current]::before { display: none; }
+
+.nav-link:has(.icon)[aria-current] .icon {
+	color: var(--accent);
+	opacity: 1;
+}
+
+/* Same idea in the sheet. */
+.nav-sheet__link:has(.icon)[aria-current] .icon { color: var(--accent); opacity: 1; }

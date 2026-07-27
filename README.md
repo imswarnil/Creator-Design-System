@@ -7,11 +7,11 @@ for creators building their own site.
 
 Almost monochrome, so that one colour can mean something.
 
-[Documentation](https://swarnil.github.io/Creator-Design-System/) ·
-[Components](https://swarnil.github.io/Creator-Design-System/components.html) ·
-[Showcase](https://swarnil.github.io/Creator-Design-System/showcase.html) ·
-[Templates](https://swarnil.github.io/Creator-Design-System/templates.html) ·
-[Sponsor](https://github.com/sponsors/swarnil)
+[Documentation](https://creator.imswarnil.com) ·
+[Components](https://creator.imswarnil.comcomponents.html) ·
+[Showcase](https://creator.imswarnil.comshowcase.html) ·
+[Templates](https://creator.imswarnil.comtemplates.html) ·
+[Sponsor](https://github.com/sponsors/imswarnil)
 
 </div>
 
@@ -63,7 +63,7 @@ Or take one layer at a time:
 
 ### Download
 
-Grab `dist/creator.css` from a [release](https://github.com/swarnil/Creator-Design-System/releases)
+Grab `dist/creator.css` from a [release](https://github.com/imswarnil/Creator-Design-System/releases)
 and link it. That is the whole installation.
 
 ## Make it yours
@@ -100,6 +100,73 @@ Dark mode rides `data-theme="light|dark"` on `<html>`.
 | `4-broadcast` | export canvases for YouTube and Instagram |
 | `5-sections` | full-width bands: page header, hero, stats, CTA, footer |
 | `6-utilities` | `u-`-prefixed single-purpose classes |
+| `highlight.js` | the system's own syntax highlighter — optional, no dependency |
+| `nav.js` | scroll state, hover-intent dropdowns, panels — optional, no dependency |
+
+## Navbar
+
+One component, several shapes. The site menu always stays; context for whatever
+you are inside becomes a second row beneath it inside `.nav-stack`, and the row
+is configured rather than subclassed — `data-tone`, `data-density`, `--value`,
+`--pos-prefix`. There is no class per collection.
+
+```html
+<header class="nav-shell nav-shell-morph nav-progress" style="--progress:38%">
+  <div class="nav-stack">
+    <nav class="nav-bar">… mark · links · actions …</nav>
+    <div class="nav-sub nav-context" data-tone="ink">… back · where · rail …</div>
+  </div>
+</header>
+<script src="creator-design-system/src/nav.js" defer></script>
+```
+
+`nav.js` is optional and additive: it sets `data-scrolled`, `data-dir`,
+`data-open` and `data-sub`, all of which the stylesheet already understands, so
+the CSS stays the single description of how the bar looks. Without it you get a
+plain sticky island and click-only dropdowns — nothing breaks.
+
+| Shell | Behaviour |
+| --- | --- |
+| `.nav-shell` | sticky island (default) |
+| `.nav-shell-fixed` | pinned to the top, always |
+| `.nav-shell-auto` | hides going down, returns going up |
+| `.nav-shell-morph` | full-bleed at rest, contracts into the island on scroll |
+
+The island's hairline doubles as the read-through bar (`.nav-progress` +
+`--progress`), the burger runs record → play rather than bars → X
+(`.nav-burger-rec`), and on phones the submenu folds its actions behind its own
+burger that opens the collection index.
+
+## Syntax highlighting
+
+The one piece of JavaScript in the box. Drop it in and any code block that
+names a language is coloured with the same five token roles the CSS already
+ships, in both themes:
+
+```html
+<figure class="codebox" data-play>
+  <figcaption class="codebox__head"><span class="codebox__lang">css</span></figcaption>
+  <pre class="codebox__pre"><code>.card { color: var(--fg-default); }</code></pre>
+</figure>
+<script src="creator-design-system/src/highlight.js" defer></script>
+```
+
+It reads the language from `data-lang` on the `<code>`, a `language-*` class,
+or the `.codebox__lang` caption. Five languages: `html`, `css`, `js`, `json`,
+`bash`. Anything else is left plain rather than mis-coloured. Code that
+already carries hand-written markup is never rewritten.
+
+`data-play` settles the block in — one short fade and rise — the first time it
+scrolls into view. It is skipped entirely under `prefers-reduced-motion`, and
+the finished state is the resting state, so the code is never hidden behind
+the animation.
+
+Call it yourself when you inject markup later:
+
+```js
+CreatorHighlight.scan(container);            // everything under a root
+CreatorHighlight.highlight(code, 'css');     // -> token HTML string
+```
 
 ## Develop
 
@@ -121,7 +188,7 @@ Adding your site to the [Showcase](showcase/README.md) is one small file.
 ## Sponsor
 
 This is free and MIT-licensed. If it saved you a weekend,
-[sponsoring](https://github.com/sponsors/swarnil) keeps it maintained.
+[sponsoring](https://github.com/sponsors/imswarnil) keeps it maintained.
 
 ## Licence
 
