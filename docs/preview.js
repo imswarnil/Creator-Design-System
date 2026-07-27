@@ -29,6 +29,18 @@
 		all.forEach(function (el) { el.style.animation = ''; });
 	});
 
+	// The menu burger mirrors the sheet's state, so it always returns to bars.
+	var menu = document.getElementById('cds-menu');
+	if (menu) {
+		var mb = document.querySelector('[data-menu-burger]');
+		menu.addEventListener('close', function () {
+			if (mb) mb.setAttribute('aria-expanded', 'false');
+		});
+		document.addEventListener('click', function (e) {
+			if (e.target.closest('[data-menu-burger]')) mb.setAttribute('aria-expanded', 'true');
+		});
+	}
+
 	// Guides toggle (broadcast pages): overlay export safe areas.
 	var gBtn = document.getElementById('guideToggle');
 	if (gBtn) {

@@ -7,13 +7,14 @@
    it becomes a drawer behind the ☰ button in the slim top bar.
    ========================================================================== */
 
-:root { --side-w: 16.5rem; }
+:root { --side-w: 16.5rem; --bar-h: 3.5rem; }
 
 /* ── Sidebar ─────────────────────────────────────────────────────────────── */
 
 .doc-side {
 	position: fixed;
-	inset-block: 0;
+	top: var(--bar-h);
+	bottom: 0;
 	left: 0;
 	width: var(--side-w);
 	display: flex;
@@ -173,7 +174,7 @@ button.doc-reopen.doc-reopen {
 
 @media (min-width: 64rem) {
 	.doc-side { transition: transform var(--dur-2) var(--ease-out), visibility var(--dur-2); }
-	body.side-collapsed { padding-left: 0; }
+	body.has-side.side-collapsed > main { padding-left: 0; }
 	body.side-collapsed .doc-side { transform: translateX(-100%); visibility: hidden; }
 	body.side-collapsed button.doc-reopen.doc-reopen { display: inline-flex; }
 }
@@ -209,7 +210,8 @@ button.doc-reopen.doc-reopen {
 /* ── Responsive split ────────────────────────────────────────────────────── */
 
 @media (min-width: 64rem) {
-	body { padding-left: var(--side-w); }
+	body.has-side > main,
+	body.has-side > .doc-top { padding-left: var(--side-w); }
 }
 
 @media (max-width: 63.999rem) {
@@ -468,6 +470,15 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 	line-height: var(--leading-snug);
 }
 
+/* Anchors in the docs chrome carry no underline — the colour and the
+   hover wash are the affordance. Long-form content sets its own rules. */
+.doc-side a,
+.doc-top a,
+.cds-bar a,
+.docs-pager a,
+.spec a,
+.demo a:not(.t-link) { text-decoration: none; }
+
 /* ── Docs search ─────────────────────────────────────────────────────────── */
 
 .doc-search {
@@ -582,3 +593,227 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 
 .demo-code { padding: var(--space-4) var(--space-4) var(--space-2); }
 .demo-code .codebox__pre { max-height: 26rem; }
+
+/* ── The Creator Design System mark ──────────────────────────────────────────
+   The project's own brand, not Swarnil's: the word set in the display face
+   with the record light riding the shoulder of the final letter. The dot is
+   the same idea the system teaches — one vermilion light that means live.
+   ------------------------------------------------------------------------- */
+
+.cds-mark {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.1em;
+	font-family: var(--font-display);
+	font-weight: var(--weight-bold);
+	font-size: var(--text-lg);
+	letter-spacing: var(--tracking-tighter);
+	color: var(--fg-default);
+	text-decoration: none;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.cds-mark__word { position: relative; }
+
+/* The record light, on the shoulder. */
+.cds-mark__rec {
+	position: absolute;
+	top: -0.12em;
+	right: -0.42em;
+	width: 0.26em;
+	height: 0.26em;
+	border-radius: var(--radius-full);
+	background: var(--accent);
+}
+
+.cds-mark__rec::after {
+	content: '';
+	position: absolute;
+	inset: -0.22em;
+	border-radius: var(--radius-full);
+	border: 1.5px solid var(--accent);
+	opacity: 0.28;
+}
+
+/* Only the landing hero breathes; a pulsing dot in a nav is a distraction. */
+.cds-mark-live .cds-mark__rec { animation: cds-rec 2.4s var(--ease-inout) infinite; }
+
+@keyframes cds-rec {
+	0%, 70%, 100% { opacity: 1; }
+	82% { opacity: 0.25; }
+}
+
+.cds-mark__sub {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	font-weight: var(--weight-regular);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-left: 0.5em;
+}
+
+@media (max-width: 40rem) { .cds-mark__sub { display: none; } }
+
+/* ── The site bar — on every page ────────────────────────────────────────── */
+
+.cds-bar {
+	position: sticky;
+	top: 0;
+	z-index: calc(var(--z-nav) + 1);
+	background: color-mix(in srgb, var(--bg-canvas) 90%, transparent);
+	backdrop-filter: saturate(160%) blur(12px);
+	border-bottom: var(--border-hair) solid var(--line-default);
+}
+
+.cds-bar__in {
+	min-height: var(--bar-h);
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--space-3) var(--space-4);
+	padding: var(--space-3) var(--gutter);
+	max-width: calc(var(--w-wide) + var(--gutter) * 2);
+	margin-inline: auto;
+}
+
+.cds-bar__links { display: none; gap: var(--space-1); margin-inline: auto; }
+@media (min-width: 62rem) { .cds-bar__links { display: flex; } }
+
+.cds-bar__links a {
+	padding: 5px var(--space-3);
+	border-radius: var(--radius-pill);
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+	transition: var(--t-colors);
+}
+
+.cds-bar__links a:hover { color: var(--fg-default); background: var(--bg-sunken); }
+
+.cds-bar__links a[aria-current] {
+	color: var(--fg-default);
+	font-weight: var(--weight-semibold);
+	background: var(--bg-sunken);
+}
+
+.cds-bar__end { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
+@media (min-width: 62rem) { .cds-bar__end { margin-left: 0; } }
+
+/* GitHub button with the live star count. */
+.cds-gh {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	height: var(--control-sm);
+	padding-inline: var(--space-3);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-pill);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	font-size: var(--text-xs);
+	font-weight: var(--weight-medium);
+	transition: var(--t-colors);
+}
+
+.cds-gh:hover { border-color: var(--line-strong); background: var(--bg-sunken); }
+.cds-gh svg { width: 1rem; height: 1rem; flex: none; }
+
+.cds-gh__stars {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	font-variant-numeric: tabular-nums;
+	color: var(--fg-subtle);
+	padding-left: var(--space-2);
+	border-left: var(--border-hair) solid var(--line-default);
+}
+
+@media (max-width: 48rem) { .cds-gh span:not(.cds-gh__stars) { display: none; } }
+
+/* Search moves into the bar, so it is on every page. */
+.cds-bar .doc-search { margin: 0; flex: 0 1 16rem; min-width: 6rem; }
+@media (max-width: 62rem) { .cds-bar .doc-search { flex: 1 1 auto; } }
+
+.cds-bar .doc-results {
+	position: absolute;
+	top: calc(100% + var(--space-2));
+	left: var(--gutter);
+	right: var(--gutter);
+	max-width: 26rem;
+	margin: 0;
+	z-index: var(--z-overlay, 200);
+}
+
+/* The reopen chip clears the bar. */
+button.doc-reopen.doc-reopen { top: calc(var(--bar-h) + var(--space-3)); }
+
+/* ── Component cards in the explorer ─────────────────────────────────────── */
+
+.cds-card__ico {
+	display: inline-grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: var(--radius-md);
+	background: var(--bg-sunken);
+	color: var(--fg-subtle);
+	margin-bottom: var(--space-3);
+	transition: var(--t-colors);
+}
+
+.cds-card__icon { width: 1.15rem; height: 1.15rem; }
+
+.cds-card:hover .cds-card__ico { background: var(--accent-soft); color: var(--accent-soft-fg); }
+
+/* ── Principles — the icon rides the right, and draws itself in ──────────── */
+
+.pr-row {
+	display: flex;
+	gap: var(--space-5);
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: var(--space-5);
+}
+
+.pr-row__art {
+	flex: none;
+	width: 4.5rem;
+	height: 4.5rem;
+	display: grid;
+	place-items: center;
+	border-radius: var(--radius-lg);
+	background: var(--bg-sunken);
+	color: var(--accent);
+	order: 2;
+}
+
+.pr-row__art svg { width: 2rem; height: 2rem; overflow: visible; }
+
+/* Each stroke draws itself when the row scrolls into view. */
+.pr-row__art svg * {
+	stroke-dasharray: 100;
+	stroke-dashoffset: 100;
+	animation: pr-draw 1.4s var(--ease-out) forwards;
+}
+
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.pr-row__art svg * { animation-timeline: view(); animation-range: entry 10% cover 30%; }
+	}
+}
+
+@keyframes pr-draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+	.pr-row__art svg * { animation: none; stroke-dashoffset: 0; }
+}
+
+@media (max-width: 40rem) {
+	.pr-row { flex-direction: column; }
+	.pr-row__art { order: -1; }
+}
+
+/* The bar's menu button appears only when the link row is gone. */
+.cds-bar__burger { display: none; }
+@media (max-width: 61.999rem) { .cds-bar__burger { display: inline-flex; } }
+@media (max-width: 55.999rem) { .lp-nav .cds-bar__burger { display: inline-flex; } }

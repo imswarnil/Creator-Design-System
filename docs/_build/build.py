@@ -390,7 +390,7 @@ TEMPLATE = '''<!DOCTYPE html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{title} — Creator Design System</title>
+<title>{page_title}</title>
 <meta name="robots" content="noindex" />
 <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -404,36 +404,76 @@ TEMPLATE = '''<!DOCTYPE html>
 <link rel="stylesheet" href="./preview.css{v}" />
 <script src="./preview.js{v}" defer></script>{extra_style}
 </head>
-<body class="{body_class}">
+<body class="{body_class} has-side">
 <a class="skip-link" href="#main">Skip to content</a>
 {sprite}
-<aside class="doc-side">
-	<div class="doc-side__head">
-		<a class="doc-logo" href="./index.html" title="Home"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span></a>
-		<button class="doc-btn doc-side__hide" type="button" data-side-toggle aria-label="Hide menu" title="Hide menu">«</button>
-	</div>
+<header class="cds-bar">
+	<div class="cds-bar__in u-relative">
+		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span><span class="cds-mark__sub">design system</span></a>
+		<nav class="cds-bar__links" aria-label="Site">
+			<a href="./introduction.html">Docs</a>
+			<a href="./components.html">Components</a>
+			<a href="./showcase.html">Showcase</a>
+			<a href="./templates.html">Templates</a>
+			<a href="./sponsor.html">Sponsor</a>
+		</nav>
+		<div class="cds-bar__end">
 	<div class="doc-search">
 		<svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
-		<input id="docSearch" type="search" placeholder="Search the system…" aria-label="Search the design system"
+		<input id="docSearch" type="search" placeholder="Search…" aria-label="Search the design system"
 		       autocomplete="off" role="combobox" aria-expanded="false" aria-controls="docResults" />
 		<kbd class="kbd">/</kbd>
 	</div>
 	<div class="doc-results" id="docResults" role="listbox" hidden></div>
+			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="{dark}">
+				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">{theme_label}</span>
+			</button>
+			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
+			        aria-expanded="false" aria-controls="cds-menu" data-dialog="cds-menu" data-menu-burger>
+				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
+				<span class="u-sr-only">Menu</span>
+			</button>
+			<a class="cds-gh" href="https://github.com/swarnil/Creator-Design-System" rel="noopener" target="_blank">
+				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><span>GitHub</span><span class="cds-gh__stars" data-gh-stars>★</span>
+			</a>{guides_btn}
+		</div>
+	</div>
+</header>
+<dialog class="nav-sheet" id="cds-menu">
+	<div class="nav-sheet__in">
+		<span class="nav-sheet__scan" aria-hidden="true"></span>
+		<div class="nav-sheet__head">
+			<span class="cds-mark"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span></span>
+			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
+		</div>
+		<nav class="nav-sheet__links" aria-label="Site">
+			<a class="nav-sheet__link" style="--i:0" href="./introduction.html">Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="./components.html">Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="./showcase.html">Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="./templates.html">Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="./sponsor.html">Sponsor</a>
+		</nav>
+		<div class="nav-sheet__foot">
+			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
+			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
+		</div>
+	</div>
+</dialog>
+<aside class="doc-side">
+	<div class="doc-side__head">
+		<span class="t-slate-sm" style="color:var(--fg-faint)">Contents</span>
+		<button class="doc-btn doc-side__hide" type="button" data-side-toggle aria-label="Hide menu" title="Hide menu">«</button>
+	</div>
 
 	<nav class="doc-side__nav" aria-label="Creator Design System">
 {nav}
 	</nav>
-	<div class="doc-side__foot">
-		<button class="doc-btn" id="themeToggle" type="button" aria-pressed="{dark}">
-			<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">{theme_label}</span>
-		</button>{guides_btn}
-	</div>
 </aside>
 <div class="doc-scrim" aria-hidden="true"></div>
 <button class="doc-btn doc-reopen" type="button" data-side-toggle aria-label="Show menu">☰</button>
 <header class="doc-top">
-	<button class="doc-btn" type="button" data-nav-toggle aria-label="Open navigation">☰ Menu</button>
-	<span class="doc-logo">{title}</span>
+	<button class="doc-btn" type="button" data-nav-toggle aria-label="Open navigation">☰ Contents</button>
+	<span class="t-slate-sm" style="color:var(--fg-faint)">{title}</span>
 </header>
 <main id="main">
 	<div class="container section">
@@ -468,9 +508,20 @@ TEMPLATE = '''<!DOCTYPE html>
 	}};
 	sync();
 	btn.addEventListener('click', function () {{
-		root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+		var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		root.setAttribute('data-theme', next);
+		try {{ localStorage.setItem('cds-theme', next); }} catch (e) {{}}
 		sync();
 	}});
+	try {{ var t = localStorage.getItem('cds-theme'); if (t) {{ root.setAttribute('data-theme', t); sync(); }} }} catch (e) {{}}
+
+	var stars = document.querySelector('[data-gh-stars]');
+	if (stars) {{
+		fetch('https://api.github.com/repos/swarnil/Creator-Design-System')
+			.then(function (r) {{ return r.ok ? r.json() : null; }})
+			.then(function (d) {{ if (d && typeof d.stargazers_count === 'number') stars.textContent = d.stargazers_count.toLocaleString(); }})
+			.catch(function () {{}});
+	}}
 }})();
 </script>
 </body>
@@ -497,8 +548,10 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
             extra = f'\n<style>\n{css.read_text()}</style>'
     lead_html = (f'\n\t\t\t<p class="t-lead" style="margin-top:var(--space-4);'
                  f'max-width:var(--measure-lead)">{lead}</p>') if lead else ''
+    esc_title = html.escape(title)
     out = TEMPLATE.format(
-        title=html.escape(title), group=group, lead_html=lead_html, body=body,
+        page_title=esc_title if 'Creator Design System' in esc_title else esc_title + ' — Creator Design System',
+        title=esc_title, group=group, lead_html=lead_html, body=body,
         nav=sidebar(slug, toc), pager=pager(slug), sprite=SPRITE, v=V,
         theme='light',
         theme_label='Light',

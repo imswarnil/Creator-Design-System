@@ -125,10 +125,15 @@ PAGES['why'] = ('Why this system',
 # ── Principles — detailed, with icons ───────────────────────────────────────
 
 def _p(icon, title, body):
-    return (f'<div class="surface u-mb-4" style="padding:var(--space-5);display:flex;gap:var(--space-4);align-items:flex-start">'
-            f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" '
-            f'style="width:1.6rem;height:1.6rem;flex:none;color:var(--accent)">{icon}</svg>'
-            f'<div><h3 class="t-h4">{title}</h3><p class="t-small u-fg-subtle u-mt-2" style="max-width:60ch">{body}</p></div></div>')
+    """A principle: the words lead, the mark answers on the right and draws
+    itself in as the row arrives."""
+    return (f'<div class="surface u-mb-4 pr-row">'
+            f'<div><h3 class="t-h4">{title}</h3>'
+            f'<p class="t-small u-fg-subtle u-mt-2" style="max-width:60ch">{body}</p></div>'
+            f'<span class="pr-row__art" aria-hidden="true">'
+            f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" '
+            f'stroke-linecap="round" stroke-linejoin="round" pathLength="100">{icon}</svg></span>'
+            f'</div>')
 
 _i = {
  'dot': '<circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 4"/>',

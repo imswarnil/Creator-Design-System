@@ -65,7 +65,10 @@
 
 <header class="lp-nav">
 	<div class="container lp-nav__in">
-		<span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+		<a class="cds-mark cds-mark-live" href="./index.html">
+			<span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span>
+			<span class="cds-mark__sub">design system</span>
+		</a>
 		<nav class="cluster-sm">
 			<a class="nav-link" href="./introduction.html">Docs</a>
 			<a class="nav-link" href="./components.html">Components</a>
@@ -73,6 +76,11 @@
 			<a class="nav-link" href="./templates.html">Templates</a>
 		</nav>
 		<div class="cluster-sm">
+			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
+			        aria-expanded="false" aria-controls="cds-menu" data-dialog="cds-menu" data-menu-burger>
+				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
+				<span class="u-sr-only">Menu</span>
+			</button>
 			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
 				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
 			</button>
@@ -84,6 +92,26 @@
 		</div>
 	</div>
 </header>
+<dialog class="nav-sheet" id="cds-menu">
+	<div class="nav-sheet__in">
+		<span class="nav-sheet__scan" aria-hidden="true"></span>
+		<div class="nav-sheet__head">
+			<span class="cds-mark"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span></span>
+			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
+		</div>
+		<nav class="nav-sheet__links" aria-label="Site">
+			<a class="nav-sheet__link" style="--i:0" href="./introduction.html">Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="./components.html">Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="./showcase.html">Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="./templates.html">Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="./sponsor.html">Sponsor</a>
+		</nav>
+		<div class="nav-sheet__foot">
+			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
+			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
+		</div>
+	</div>
+</dialog>
 
 <main id="main">
 	<section class="container lp-hero pattern pattern-grid pattern-lg fade-corners">
@@ -192,7 +220,7 @@
 	<footer class="container footer">
 		<div class="footer__grid">
 			<div class="footer__brand">
-				<span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+				<span class="cds-mark"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span></span>
 				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
 			</div>
 			<div><h2 class="footer__head">Docs</h2><div class="footer__links">

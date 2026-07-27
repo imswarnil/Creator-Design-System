@@ -27,6 +27,11 @@
    tab stop are right) and its ::after covers the card. */
 .card__link { text-decoration: none; color: inherit; }
 
+/* When the card ITSELF is the anchor, nothing inside it should underline —
+   the card is the affordance, not the words. */
+a.card,
+a.card:hover { text-decoration: none; color: inherit; }
+
 .card__link::after {
 	content: '';
 	position: absolute;
