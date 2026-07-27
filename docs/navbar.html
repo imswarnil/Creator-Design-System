@@ -19,19 +19,19 @@
 <meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Creator Design System","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Docs","url":"./introduction.html"},{"@type":"SiteNavigationElement","position":2,"name":"Components","url":"./components.html"},{"@type":"SiteNavigationElement","position":3,"name":"Showcase","url":"./showcase.html"},{"@type":"SiteNavigationElement","position":4,"name":"Templates","url":"./templates.html"},{"@type":"SiteNavigationElement","position":5,"name":"Sponsor","url":"./sponsor.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Docs","item":"./introduction.html"},{"@type":"ListItem","position":2,"name":"Components"},{"@type":"ListItem","position":3,"name":"Navbar","item":"./navbar.html"}]}</script>
-<link rel="icon" href="./favicon.svg?v=cds23" type="image/svg+xml" />
+<link rel="icon" href="./favicon.svg?v=cds24" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/2-elements/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/3-components/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/5-sections/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds23" />
-<link rel="stylesheet" href="./preview.css?v=cds23" />
-<script src="./src/highlight.js?v=cds23" defer></script>
-<script src="./src/nav.js?v=cds23" defer></script>
-<script src="./preview.js?v=cds23" defer></script>
+<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/2-elements/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/3-components/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/5-sections/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds24" />
+<link rel="stylesheet" href="./preview.css?v=cds24" />
+<script src="./src/highlight.js?v=cds24" defer></script>
+<script src="./src/nav.js?v=cds24" defer></script>
+<script src="./preview.js?v=cds24" defer></script>
 </head>
 <body class=" has-side">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -413,7 +413,9 @@
 			<tr><td><code class="t-code">.nav-shell-fixed</code></td><td>pinned to the top, always there</td></tr>
 			<tr><td><code class="t-code">.nav-shell-auto</code></td><td>hides on the way down, returns on the way up — reading gets the screen, navigating gets the bar</td></tr>
 			<tr><td><code class="t-code">.nav-shell-morph</code></td><td>full-bleed at rest; contracts into the island once the page has moved</td></tr>
+			<tr><td><code class="t-code">.nav-shell-reveal</code></td><td>the same disappearing act as -auto, but sticky rather than fixed — the bar keeps its place in the flow, so nothing hides under it at the top</td></tr>
 		</tbody></table></div>
+<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Pair <code class="t-code">.nav-shell-full</code> with either hiding behaviour for a plain bar across the page that leaves on the way down. And note that <code class="t-code">-morph</code> reaches its bar through <code class="t-code">:is()</code>, so the variant still works once the island grows a second row and the bar sits inside <code class="t-code">.nav-stack</code>.</p>
 		<div class="surface demo-tile u-mb-6"><div class="demo">
 <div class="np__scroller" data-scroll-demo><div class="np__scroller-in"><div class="nav-shell nav-shell-morph" data-scroll-at="12" style="position:sticky"><nav class="nav-bar" aria-label="Morph demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a><a class="nav-link" href="#i">Build</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div><div class="np__filler"><p class="t-slate-sm">scroll this panel ↓</p></div></div></div>
 		</div><p class="spec"><b>.nav-shell-morph</b> — full width at the top, an island once you move; scroll inside the box</p></div>

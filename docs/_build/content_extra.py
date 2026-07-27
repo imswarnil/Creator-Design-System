@@ -251,7 +251,7 @@ _GROUPS = {
 }
 
 iconset = ('<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
-           'Shipped as real files in <code class="t-code">design-system/icons/&lt;group&gt;/&lt;name&gt;.svg</code> '
+           'Shipped as real files in <code class="t-code">creator-design-system/icons/&lt;group&gt;/&lt;name&gt;.svg</code> '
            '— 24×24 grid, 1.5px stroke, <code class="t-code">currentColor</code> only, so every icon follows '
            'the text colour and dark/light theming is automatic. The <b>creator</b> group is ours alone: '
            'rec, viewfinder, slate, take, sting — the production-desk icons a template like this needs.</p>')
@@ -448,13 +448,14 @@ PAGES['install'] = ('Installation',
     '''
 		<h2 class="t-h3" style="margin:0 0 var(--space-4)">1 · Get the files</h2>
 		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
-			Today: copy the <code class="t-code">design-system/</code> folder into your
-			project. Soon: <code class="t-code">npm i creator-design-system</code> and a
-			jsDelivr CDN link (see <code class="t-code">instruction.md</code> in the repo).
+			Link it straight from jsDelivr — <code class="t-code">cdn.jsdelivr.net/gh/imswarnil/Creator-Design-System@main/dist/creator.min.css</code>
+			— or copy <code class="t-code">dist/creator.css</code> out of the repository.
+			<code class="t-code">npm i creator-design-system</code> lands with the first
+			tagged release. The full walkthrough is on <a href="./usage.html">Usage</a>.
 		</p>
 		<h2 class="t-h3" style="margin:var(--space-8) 0 var(--space-4)">2 · Link the layers</h2>
 ''' + tile('''<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
-<pre class="codebox__pre"><code><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"design-system/1-foundation/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"design-system/2-elements/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"design-system/3-components/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"design-system/5-sections/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"design-system/6-utilities/index.css"</span>&gt;</span></code></pre></figure>''',
+<pre class="codebox__pre"><code><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"creator-design-system/1-foundation/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"creator-design-system/2-elements/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"creator-design-system/3-components/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"creator-design-system/5-sections/index.css"</span>&gt;</span><span class="ln">&lt;<span class="tok-key">link</span> rel="stylesheet" href=<span class="tok-str">"creator-design-system/6-utilities/index.css"</span>&gt;</span></code></pre></figure>''',
        'later layers require earlier ones — take foundation alone, or the whole stack') + '''
 		<h2 class="t-h3" style="margin:var(--space-8) 0 var(--space-4)">3 · The fonts</h2>
 ''' + tile('<span class="copy-line"><code>fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400..600</code><button type="button" data-copy>Copy</button></span>',
@@ -485,7 +486,7 @@ PAGES['setup'] = ('Setup & theming',
 		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
 			The logo is markup, not an image (<a class="t-link" href="./f-logo.html">Logo</a>):
 			put your own word in, keep the tittle. Icons live in
-			<code class="t-code">design-system/icons/</code> — currentColor, so they
+			<code class="t-code">creator-design-system/icons/</code> — currentColor, so they
 			follow your ink automatically.
 		</p>
 		<h2 class="t-h3" style="margin:var(--space-8) 0 var(--space-4)">Checklist</h2>

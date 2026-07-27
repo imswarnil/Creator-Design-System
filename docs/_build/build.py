@@ -17,13 +17,13 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 REPO = HERE.parent.parent
 FRAG = HERE / 'fragments'
-V = '?v=cds23'
+V = '?v=cds24'
 SITE = 'https://creator.imswarnil.com'
 
-import content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
+import content_start, content_usage, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
 
 PAGES = {}
-for mod in (content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all):
+for mod in (content_start, content_usage, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all):
     PAGES.update(mod.PAGES)
 
 # Fragment-backed pages: slug -> (folder, fragment, opts)
@@ -814,9 +814,11 @@ def write_llms(index):
          'creators. Plain CSS custom properties and classes: no framework, no '
          'runtime, no build step required to use it. Almost monochrome, so that one '
          'colour can carry meaning.', '',
-         'Install: `npm install creator-design-system` then `@import '
-         '"creator-design-system";`, or link '
-         '`https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css`.', '',
+         'Install: link '
+         '`https://cdn.jsdelivr.net/gh/imswarnil/Creator-Design-System@main/dist/creator.min.css`, '
+         'or copy dist/creator.css out of the repository. The npm package '
+         '(`creator-design-system`) is not published yet; the import paths below are the ones '
+         'its exports map declares.', '',
          'Customise by overriding tokens AFTER the import — never by editing source. '
          'Dark mode rides `data-theme="light|dark"` on `<html>`. State lives in ARIA '
          '(`[aria-current]`, `[aria-expanded]`), not in `.active` classes.', '',

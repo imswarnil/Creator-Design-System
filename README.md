@@ -58,8 +58,14 @@ post, an episode or a day of a trip.
 
 ## Install
 
+```html
+<!-- works today, straight from the repo -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/imswarnil/Creator-Design-System@main/dist/creator.min.css">
+```
+
 ```bash
-npm install creator-design-system
+npm install creator-design-system   # with the first tagged release
 ```
 
 ```css
@@ -75,13 +81,6 @@ Or take one layer at a time:
 @import "creator-design-system/sections";
 @import "creator-design-system/utilities";
 @import "creator-design-system/broadcast";    /* YouTube / social art   */
-```
-
-### CDN — no build at all
-
-```html
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css">
 ```
 
 ### Download

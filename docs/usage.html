@@ -4,34 +4,34 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Usage — CSS · SCSS · Tailwind — Creator Design System</title>
-<meta name="description" content="Bring your own stack. The system is plain CSS with a token contract, so vanilla CSS, SCSS and Tailwind projects all build the same UI from the same variabl" />
+<meta name="description" content="How to actually use this: a complete first page, the token contract, and how it composes with Tailwind, SCSS, your own CSS and any framework — plus what to" />
 <link rel="canonical" href="https://creator.imswarnil.com/usage.html" />
 <link rel="alternate" type="text/plain" href="https://creator.imswarnil.com/llms.txt" title="Creator Design System for LLMs" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Creator Design System" />
 <meta property="og:title" content="Usage — CSS · SCSS · Tailwind — Creator Design System" />
-<meta property="og:description" content="Bring your own stack. The system is plain CSS with a token contract, so vanilla CSS, SCSS and Tailwind projects all build the same UI from the same variabl" />
+<meta property="og:description" content="How to actually use this: a complete first page, the token contract, and how it composes with Tailwind, SCSS, your own CSS and any framework — plus what to" />
 <meta property="og:url" content="https://creator.imswarnil.com/usage.html" />
 <meta property="og:image" content="https://creator.imswarnil.com/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Usage — CSS · SCSS · Tailwind — Creator Design System" />
-<meta name="twitter:description" content="Bring your own stack. The system is plain CSS with a token contract, so vanilla CSS, SCSS and Tailwind projects all build the same UI from the same variabl" />
+<meta name="twitter:description" content="How to actually use this: a complete first page, the token contract, and how it composes with Tailwind, SCSS, your own CSS and any framework — plus what to" />
 <meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Creator Design System","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Docs","url":"./introduction.html"},{"@type":"SiteNavigationElement","position":2,"name":"Components","url":"./components.html"},{"@type":"SiteNavigationElement","position":3,"name":"Showcase","url":"./showcase.html"},{"@type":"SiteNavigationElement","position":4,"name":"Templates","url":"./templates.html"},{"@type":"SiteNavigationElement","position":5,"name":"Sponsor","url":"./sponsor.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Docs","item":"./introduction.html"},{"@type":"ListItem","position":2,"name":"Start"},{"@type":"ListItem","position":3,"name":"Usage — CSS · SCSS · Tailwind","item":"./usage.html"}]}</script>
-<link rel="icon" href="./favicon.svg?v=cds23" type="image/svg+xml" />
+<link rel="icon" href="./favicon.svg?v=cds24" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/2-elements/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/3-components/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/5-sections/index.css?v=cds23" />
-<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds23" />
-<link rel="stylesheet" href="./preview.css?v=cds23" />
-<script src="./src/highlight.js?v=cds23" defer></script>
-<script src="./src/nav.js?v=cds23" defer></script>
-<script src="./preview.js?v=cds23" defer></script>
+<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/2-elements/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/3-components/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/5-sections/index.css?v=cds24" />
+<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds24" />
+<link rel="stylesheet" href="./preview.css?v=cds24" />
+<script src="./src/highlight.js?v=cds24" defer></script>
+<script src="./src/nav.js?v=cds24" defer></script>
+<script src="./preview.js?v=cds24" defer></script>
 </head>
 <body class=" has-side">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -279,63 +279,240 @@
 		<header class="docs-head">
 			<span class="t-slate" style="color:var(--fg-faint)">Start · Creator Design System</span>
 			<h1 class="t-display-2" style="margin-top:var(--space-3)">Usage — CSS · SCSS · Tailwind</h1>
-			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">Bring your own stack. The system is plain CSS with a token contract, so vanilla CSS, SCSS and Tailwind projects all build the same UI from the same variables.</p>
+			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">How to actually use this: a complete first page, the token contract, and how it composes with Tailwind, SCSS, your own CSS and any framework — plus what to check when it looks wrong.</p>
 		</header>
 
 		<div class="doc-split">
 			<div class="doc-split__main">
+		<section id="getting-it"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="getting-it">Getting it</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Two ways in today, and a third once the package is published. They give you the same CSS.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>&lt;link rel=&quot;stylesheet&quot;
+      href=&quot;https://cdn.jsdelivr.net/gh/imswarnil/Creator-Design-System@main/dist/creator.min.css&quot;&gt;</code></pre></figure>
+		</div><p class="spec">the CDN — no install, no build, nothing to configure. Pin <code class="t-code">@main</code> to a tag for production</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">Or download <code class="t-code">dist/creator.css</code> from the <a href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">repository</a> and link it. That is the whole installation — no init step, no config file, no runtime.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>npm install creator-design-system</code></pre></figure>
+		</div><p class="spec">coming with the first tagged release; the examples below use these paths</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">The npm package is not published yet, so that command does not work today. Everything below is written against the package paths it will use, because they are the paths the <code class="t-code">exports</code> map in <code class="t-code">package.json</code> already declares — the CDN link above gives you the same stylesheet in the meantime.</p></section>		<section id="first-page"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="your-first-page">Your first page</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">A complete document — nothing omitted. Copy it into an .html file, open it, and the system is running.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot; data-theme=&quot;light&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;My site&lt;/title&gt;
 
-		<h2 class="t-h3" style="margin:0 0 var(--space-4)" id="plain-css">Plain CSS</h2>
-		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
-			The system is dependency-free CSS. Import the layers you want — each
-			layer's <code class="t-code">index.css</code> pulls its files, and later
-			layers require the earlier ones.
-		</p>
-		<div class="surface demo-tile u-mb-6"><div class="demo">
-<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
-<pre class="codebox__pre"><code><span class="ln"><span class="tok-com">/* everything */</span></span><span class="ln"><span class="tok-key">@import</span> <span class="tok-str">"design-system/1-foundation/index.css"</span>;</span><span class="ln"><span class="tok-key">@import</span> <span class="tok-str">"design-system/2-elements/index.css"</span>;</span><span class="ln"><span class="tok-key">@import</span> <span class="tok-str">"design-system/3-components/index.css"</span>;</span><span class="ln"><span class="tok-key">@import</span> <span class="tok-str">"design-system/5-sections/index.css"</span>;</span><span class="ln"><span class="tok-key">@import</span> <span class="tok-str">"design-system/6-utilities/index.css"</span>;</span></code></pre></figure>
-		</div><p class="spec">link the indexes, or bundle them with postcss-import — no build step required</p></div>
-		<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="customizing-the-token-contract">Customizing — the token contract</h2>
-		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
-			Never edit source. Override tokens <em>after</em> the imports — every
-			component reads them live, in both themes. This is the whole
-			customization API.
-		</p>
-		<div class="surface demo-tile u-mb-6"><div class="demo">
-<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
-<pre class="codebox__pre"><code><span class="ln"><span class="tok-fn">:root</span> {</span><span class="ln">  <span class="tok-key">--accent</span>: <span class="tok-str">#6d4aff</span>;   <span class="tok-com">/* your signal colour */</span></span><span class="ln">  <span class="tok-key">--font-display</span>: <span class="tok-str">'Clash Display', sans-serif</span>;</span><span class="ln">  <span class="tok-key">--radius-card</span>: <span class="tok-num">1.25rem</span>;</span><span class="ln">}</span></code></pre></figure>
-		</div><p class="spec">three variables in, and every button, card, hero and thumbnail follows</p></div>
-		<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="scss">SCSS</h2>
-		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
-			Tokens are CSS custom properties, not Sass variables — so SCSS users
-			just <code class="t-code">@use</code> the same files and override the
-			same <code class="t-code">--vars</code>. Your Sass maps can feed them:
-		</p>
-		<div class="surface demo-tile u-mb-6"><div class="demo">
-<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">scss</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
-<pre class="codebox__pre"><code><span class="ln"><span class="tok-key">@use</span> <span class="tok-str">"design-system/1-foundation/index.css"</span>;</span><span class="ln"></span><span class="ln"><span class="tok-fn">:root</span> {</span><span class="ln">  <span class="tok-key">--accent</span>: #{<span class="tok-fn">map.get</span>($brand, signal)};</span><span class="ln">}</span></code></pre></figure>
-		</div><p class="spec">runtime theming stays intact — custom properties survive the Sass compile</p></div>
-		<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="tailwind">Tailwind</h2>
-		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
-			Two ways that compose: (1) keep the component classes
-			(<code class="t-code">.btn</code>, <code class="t-code">.card</code>,
-			<code class="t-code">.hero</code>) and let Tailwind handle one-off layout —
-			the <code class="t-code">u-</code> prefix guarantees zero collisions; or
-			(2) map the tokens into your Tailwind theme so utilities speak the same
-			ladder:
-		</p>
-		<div class="surface demo-tile u-mb-6"><div class="demo">
-<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">tailwind.config.js</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
-<pre class="codebox__pre"><code><span class="ln"><span class="tok-key">export default</span> {</span><span class="ln">  theme: { extend: {</span><span class="ln">    colors: { accent: <span class="tok-str">'var(--accent)'</span>, ink: <span class="tok-str">'var(--fg-default)'</span>,</span><span class="ln">              surface: <span class="tok-str">'var(--bg-surface)'</span>, line: <span class="tok-str">'var(--line-default)'</span> },</span><span class="ln">    borderRadius: { card: <span class="tok-str">'var(--radius-card)'</span>, pill: <span class="tok-str">'var(--radius-pill)'</span> },</span><span class="ln">    fontFamily: { display: <span class="tok-str">'var(--font-display)'</span>, slate: <span class="tok-str">'var(--font-slate)'</span> },</span><span class="ln">  } },</span><span class="ln">}</span></code></pre></figure>
-		</div><p class="spec">bg-surface, text-ink, rounded-card — Tailwind utilities now read the system's tokens</p></div>
-		<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="which-classes-are-which">Which classes are which</h2>
-		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Namespace</th><th>What it is</th></tr></thead><tbody>
-			<tr><td><code class="t-code">.btn, .card, .hero, .curriculum …</code></td><td>components — copy the markup from each page's demo</td></tr>
-			<tr><td><code class="t-code">.t-*</code></td><td>type roles (display, headings, slate, code)</td></tr>
-			<tr><td><code class="t-code">.u-*</code></td><td>utilities — safe beside Tailwind, same names never collide</td></tr>
-			<tr><td><code class="t-code">--accent, --space-*, --radius-*, …</code></td><td>tokens — the customization surface</td></tr>
-			<tr><td><code class="t-code">[aria-current], [data-done], [data-loading]</code></td><td>state — set attributes, never state classes</td></tr>
-		</tbody></table></div>
+  &lt;!-- 1 - the type the system expects --&gt;
+  &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap&quot;&gt;
+
+  &lt;!-- 2 - the system --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;node_modules/creator-design-system/dist/creator.css&quot;&gt;
+
+  &lt;!-- 3 - your overrides, always AFTER the system --&gt;
+  &lt;style&gt;
+    :root {
+      --accent: #f04e2e;
+      --font-display: &#x27;Space Grotesk&#x27;, sans-serif;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class=&quot;nav-shell&quot;&gt;
+    &lt;nav class=&quot;nav-bar&quot; aria-label=&quot;Main&quot;&gt;
+      &lt;a class=&quot;logo logo-sm&quot; href=&quot;/&quot;&gt;Your name&lt;/a&gt;
+      &lt;div class=&quot;nav-links&quot;&gt;
+        &lt;a class=&quot;nav-link&quot; href=&quot;/watch/&quot; aria-current=&quot;page&quot;&gt;Watch&lt;/a&gt;
+        &lt;a class=&quot;nav-link&quot; href=&quot;/learn/&quot;&gt;Learn&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;nav-actions&quot;&gt;
+        &lt;a class=&quot;btn btn-primary btn-sm btn-pill&quot; href=&quot;/subscribe/&quot;&gt;Subscribe&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main class=&quot;container section&quot;&gt;
+    &lt;h1 class=&quot;t-display-2&quot;&gt;A page, already styled&lt;/h1&gt;
+    &lt;p class=&quot;t-lead u-mt-5&quot;&gt;Every class above exists. Nothing was invented.&lt;/p&gt;
+
+    &lt;div class=&quot;deck deck-sm u-mt-8&quot;&gt;
+      &lt;article class=&quot;card&quot;&gt;
+        &lt;div class=&quot;card__body&quot;&gt;
+          &lt;p class=&quot;card__meta&quot;&gt;Build log - 12 min&lt;/p&gt;
+          &lt;h2 class=&quot;card__title&quot;&gt;&lt;a class=&quot;card__link&quot; href=&quot;/post/&quot;&gt;A post&lt;/a&gt;&lt;/h2&gt;
+          &lt;p class=&quot;card__excerpt&quot;&gt;The card is the same object in every collection.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+		</div><p class="spec">no build step, no bundler, no framework: this is the whole integration</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">The fonts are the only external dependency, and even they are a choice. Point <code class="t-code">--font-display</code>, <code class="t-code">--font-body</code> and <code class="t-code">--font-slate</code> at anything you like and drop the <code class="t-code">&lt;link&gt;</code>.</p></section>		<section id="layers"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="taking-less-than-all-of-it">Taking less than all of it</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Import a layer directly when you do not want the whole system. Each layer needs only the ones below it, so you can stop at any floor.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>/* everything, in one line */
+@import &quot;creator-design-system&quot;;
+
+/* or floor by floor - later layers need the earlier ones */
+@import &quot;creator-design-system/foundation&quot;;   /* tokens only                */
+@import &quot;creator-design-system/elements&quot;;     /* + text, badge, table, code */
+@import &quot;creator-design-system/components&quot;;   /* + buttons ... navbar       */
+@import &quot;creator-design-system/sections&quot;;     /* + hero, stats, CTA, footer */
+@import &quot;creator-design-system/utilities&quot;;    /* + u- helpers               */
+
+/* not included by default: it ships to YouTube and Instagram, not a website */
+@import &quot;creator-design-system/broadcast&quot;;</code></pre></figure>
+		</div><p class="spec">foundation alone is already usable — it is where every decision lives</p></div></section>		<section id="tokens"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="customising-the-token-contract">Customising — the token contract</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Never edit the source. Override tokens after the import; every component reads them live, in both themes. This is the entire customisation API.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>@import &quot;creator-design-system&quot;;
+
+:root {
+  --accent:        #6d4aff;                    /* your signal colour */
+  --font-display:  &#x27;Clash Display&#x27;, sans-serif;
+  --radius-card:   1.25rem;
+}</code></pre></figure>
+		</div><p class="spec">three lines rebrands the site, the buttons, the cards and the thumbnails</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">Tokens come in two tiers, and that distinction is the whole reason one override reaches everything. <b>Primitives</b> are the ladders — <code class="t-code">--ink-500</code>, <code class="t-code">--signal-500</code>, <code class="t-code">--space-4</code>. <b>Semantic tokens</b> name a job — <code class="t-code">--fg-muted</code>, <code class="t-code">--accent</code>, <code class="t-code">--line-default</code> — and point at a primitive. Components read the semantic tier only, so re-pointing one semantic token changes every component that meant that thing.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Token</th><th>What it decides</th></tr></thead><tbody>
+			<tr><td><code class="t-code">--accent</code></td><td>the one rationed colour: buttons, active states, the record light</td></tr>
+			<tr><td><code class="t-code">--bg-canvas · --bg-surface · --bg-sunken</code></td><td>the three background depths</td></tr>
+			<tr><td><code class="t-code">--fg-default · --fg-muted · --fg-subtle · --fg-faint</code></td><td>the text ladder, strongest first</td></tr>
+			<tr><td><code class="t-code">--line-subtle · --line-default · --line-strong</code></td><td>the three hairline weights</td></tr>
+			<tr><td><code class="t-code">--font-display · --font-body · --font-slate</code></td><td>headings · reading · labels and code</td></tr>
+			<tr><td><code class="t-code">--space-1 … --space-16</code></td><td>the spacing ladder — nothing invents a gap outside it</td></tr>
+			<tr><td><code class="t-code">--radius-sm … --radius-pill</code></td><td>the corner ladder, plus <code class="t-code">--radius-card</code></td></tr>
+			<tr><td><code class="t-code">--dur-1 … --dur-5 · --ease-out</code></td><td>motion: durations and curves</td></tr>
+		</tbody></table></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">The full list lives on <a href="./f-color.html">Color</a>, <a href="./f-type.html">Typography</a> and <a href="./f-space.html">Spacing</a> — or in one read at <a href="./llms-full.txt">llms-full.txt</a>.</p></section>		<section id="dark"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="light-and-dark">Light and dark</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Both themes come from the same variables. Nothing is duplicated, and no component knows which theme it is in.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>&lt;html data-theme=&quot;dark&quot;&gt;</code></pre></figure>
+		</div><p class="spec">the switch — that is all the system needs</p></div>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">js</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>// Follow the OS, remember a choice, and set it before first paint so the page
+// never flashes the wrong theme.
+(function () {
+  var saved = localStorage.getItem(&#x27;theme&#x27;);
+  var dark = saved ? saved === &#x27;dark&#x27;
+                   : matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches;
+  document.documentElement.dataset.theme = dark ? &#x27;dark&#x27; : &#x27;light&#x27;;
+})();</code></pre></figure>
+		</div><p class="spec">inline in &lt;head&gt;, above the stylesheet link</p></div></section>		<section id="tailwind"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="with-tailwind">With Tailwind</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The two do different jobs and compose well: Tailwind gives you utilities, this gives you decided components. The u- prefix means there are no class collisions.</p>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>Order matters more than anything else here.</b> Both ship a reset — Tailwind calls its one Preflight — and the last one loaded wins. Import Tailwind first, so this system’s reset and components sit on top of it.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>/* app.css - Tailwind 4 */
+@import &quot;tailwindcss&quot;;
+@import &quot;creator-design-system&quot;;        /* after Tailwind, always */
+
+/* Hand the tokens to Tailwind so bg-accent, text-muted and friends exist.
+   `inline` is the important word: it tells Tailwind these values reference
+   other custom properties, which keeps modifiers like bg-accent/50 working. */
+@theme inline {
+  --color-accent:  var(--accent);
+  --color-canvas:  var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-ink:     var(--fg-default);
+  --color-muted:   var(--fg-muted);
+  --radius-card:   var(--radius-card);
+}</code></pre></figure>
+		</div><p class="spec">Tailwind 4 — one import each, then map the tokens</p></div>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">js</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>// tailwind.config.js - Tailwind 3
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        accent:  &#x27;var(--accent)&#x27;,
+        canvas:  &#x27;var(--bg-canvas)&#x27;,
+        surface: &#x27;var(--bg-surface)&#x27;,
+        ink:     &#x27;var(--fg-default)&#x27;,
+        muted:   &#x27;var(--fg-muted)&#x27;,
+      },
+      borderRadius: { card: &#x27;var(--radius-card)&#x27; },
+    },
+  },
+  // Optional: this system brings its own reset, so you may not want two.
+  corePlugins: { preflight: false },
+};</code></pre></figure>
+		</div><p class="spec">Tailwind 3 — the same idea, in the config file</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">Now both vocabularies work on one element, and they agree by construction, because they are reading the same variable:</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>&lt;article class=&quot;card mt-8 lg:mt-12&quot;&gt;
+  &lt;div class=&quot;card__body&quot;&gt;
+    &lt;h2 class=&quot;card__title&quot;&gt;Component from the system&lt;/h2&gt;
+    &lt;p class=&quot;text-muted&quot;&gt;Spacing and layout from Tailwind&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;
+
+&lt;!-- change --accent once and both of these follow --&gt;
+&lt;button class=&quot;btn btn-primary&quot;&gt;System button&lt;/button&gt;
+&lt;span class=&quot;bg-accent text-white px-3 py-1 rounded-full&quot;&gt;Tailwind chip&lt;/span&gt;</code></pre></figure>
+		</div><p class="spec">no collisions — every helper here is <b>u-</b> prefixed and every component is a noun</p></div>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Which one</th><th>For what</th></tr></thead><tbody>
+			<tr><td><code class="t-code">Use the system for</code></td><td>components with parts and states — cards, navbar, forms, buttons, sections. The things where the decisions matter.</td></tr>
+			<tr><td><code class="t-code">Use Tailwind for</code></td><td>one-off layout on a page: grid, flex, margins, responsive tweaks.</td></tr>
+			<tr><td><code class="t-code">Do not</code></td><td>rebuild a card out of utilities. That is how two pages stop matching.</td></tr>
+		</tbody></table></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">If you would rather not load two resets at all: import <code class="t-code">creator-design-system/foundation</code> and skip <code class="t-code">00-reset.css</code>, or turn Preflight off as above. Either is fine. Loading both in the wrong order is not.</p></section>		<section id="scss"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="with-scss">With SCSS</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Nothing special is required, and one thing is worth knowing.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">scss</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>// main.scss
+@use &quot;creator-design-system/dist/creator.css&quot;;
+
+.promo {
+  // SCSS variables are compile-time; the tokens are not, and that is the point
+  padding: var(--space-6);
+  border-radius: var(--radius-card);
+  background: var(--bg-sunken);
+}</code></pre></figure>
+		</div><p class="spec">the tokens stay custom properties, so runtime theming survives compilation</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">Resist copying tokens into SCSS variables. A SCSS variable is resolved when you build; a custom property is resolved when the page runs. Only the second can flip to dark mode, or be re-pointed by a reader setting, without a rebuild.</p></section>		<section id="own-css"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="with-your-own-css">With your own CSS</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The system is meant to be built on. There is a right way to add to it, and it is the same way the system adds to itself.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>@import &quot;creator-design-system&quot;;
+
+/* Your component. Written in the system&#x27;s tokens, so it inherits the theme,
+   dark mode, the motion rules and any future rebrand - for free, forever. */
+.testimonial {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--bg-surface);
+  border: var(--border-hair) solid var(--line-default);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
+}
+
+.testimonial__quote {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+  color: var(--fg-default);
+  text-wrap: balance;
+}
+
+.testimonial__who {
+  font-family: var(--font-slate);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-slate);
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+/* State goes in ARIA, not in a class the accessibility tree cannot see. */
+.testimonial[aria-current] { border-color: var(--accent); }</code></pre></figure>
+		</div><p class="spec">a new component that behaves like a native one, because it reads the same variables</p></div>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th></th><th>Extending the system</th></tr></thead><tbody>
+			<tr><td><code class="t-code">Do</code></td><td>write new components in tokens — <code class="t-code">var(--space-4)</code>, never <code class="t-code">16px</code></td></tr>
+			<tr><td><code class="t-code">Do</code></td><td>follow the naming: <code class="t-code">.block</code>, <code class="t-code">.block__part</code>, <code class="t-code">.block-variant</code></td></tr>
+			<tr><td><code class="t-code">Do</code></td><td>style from ARIA — <code class="t-code">[aria-current]</code>, <code class="t-code">[aria-expanded]</code>, <code class="t-code">[data-*]</code></td></tr>
+			<tr><td><code class="t-code">Don’t</code></td><td>edit anything inside <code class="t-code">src/</code> — the next update overwrites it</td></tr>
+			<tr><td><code class="t-code">Don’t</code></td><td>add a second accent hue; the palette is closed so one colour can mean something</td></tr>
+			<tr><td><code class="t-code">Don’t</code></td><td>invent an <code class="t-code">.active</code> class. It can disagree with the accessibility tree, and then the two of them tell different people different things</td></tr>
+		</tbody></table></div></section>		<section id="frameworks"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="in-a-framework">In a framework</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">It is a stylesheet, so it goes where stylesheets go.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Stack</th><th>How</th></tr></thead><tbody>
+			<tr><td><code class="t-code">React · Next · Vue</code></td><td>import the CSS once at the app root, then use <code class="t-code">className="card"</code> as normal. No provider, no theme object, no runtime</td></tr>
+			<tr><td><code class="t-code">Astro · 11ty · Hugo</code></td><td>link it in the base layout</td></tr>
+			<tr><td><code class="t-code">Ghost</code></td><td>link it in <code class="t-code">default.hbs</code> — the collection cards were designed against <code class="t-code">routes.yaml</code></td></tr>
+			<tr><td><code class="t-code">Svelte</code></td><td>import in the root component, or link it in <code class="t-code">app.html</code></td></tr>
+		</tbody></table></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">The two optional scripts — <code class="t-code">nav.js</code> and <code class="t-code">highlight.js</code> — are plain, framework-free and additive. Without them you get sticky bars, click-only dropdowns and uncoloured code. Nothing breaks.</p></section>		<section id="names"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="reading-the-class-names">Reading the class names</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The shape of a name tells you what kind of thing it is, so you can guess correctly.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Shape</th><th>Means</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.card</code></td><td>a component — a noun, on its own</td></tr>
+			<tr><td><code class="t-code">.card__title</code></td><td>a part of it — two underscores</td></tr>
+			<tr><td><code class="t-code">.card-inverse</code></td><td>a variant of it — one hyphen</td></tr>
+			<tr><td><code class="t-code">.btn-primary · .btn-sm</code></td><td>intent and size on the same component</td></tr>
+			<tr><td><code class="t-code">.u-mt-6 · .u-fg-subtle</code></td><td>a utility — always <code class="t-code">u-</code> prefixed, always one job</td></tr>
+			<tr><td><code class="t-code">.t-display-1 · .t-lead</code></td><td>a type role, not a size</td></tr>
+			<tr><td><code class="t-code">[aria-current] · [aria-expanded]</code></td><td>state — an attribute, never a class</td></tr>
+		</tbody></table></div></section>		<section id="wrong"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="when-it-looks-wrong">When it looks wrong</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Five things account for nearly all of it.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Symptom</th><th>Almost always</th></tr></thead><tbody>
+			<tr><td><code class="t-code">Everything is unstyled</code></td><td>the class does not exist. Check it against <a href="./llms-full.txt">llms-full.txt</a> — nothing in this system is invented, so a name either is or is not real</td></tr>
+			<tr><td><code class="t-code">Overrides do nothing</code></td><td>they are above the import. Tokens must be set <em>after</em> the system loads</td></tr>
+			<tr><td><code class="t-code">The type looks wrong</code></td><td>the fonts are not loaded. Add the <code class="t-code">&lt;link&gt;</code>, or re-point <code class="t-code">--font-*</code> at what you do have</td></tr>
+			<tr><td><code class="t-code">Tailwind flattened it</code></td><td>Preflight loaded last. Import Tailwind first, or turn Preflight off</td></tr>
+			<tr><td><code class="t-code">Dark mode does nothing</code></td><td><code class="t-code">data-theme</code> is missing from <code class="t-code">&lt;html&gt;</code> — it does not go on <code class="t-code">&lt;body&gt;</code></td></tr>
+		</tbody></table></div></section>
 
 				<nav class="docs-pager" aria-label="Pages">
 					<a class="docs-pager__link" href="./principles.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Principles</span></a>
@@ -347,11 +524,17 @@
 			<nav class="doc-toc" aria-label="On this page">
 				<span class="doc-toc__title">On this page</span>
 				<div class="doc-toc__links">
-					<a href="#plain-css">Plain CSS</a>
-					<a href="#customizing-the-token-contract">Customizing — the token contract</a>
-					<a href="#scss">SCSS</a>
-					<a href="#tailwind">Tailwind</a>
-					<a href="#which-classes-are-which">Which classes are which</a>
+					<a href="#getting-it">Getting it</a>
+					<a href="#your-first-page">Your first page</a>
+					<a href="#taking-less-than-all-of-it">Taking less than all of it</a>
+					<a href="#customising-the-token-contract">Customising — the token contract</a>
+					<a href="#light-and-dark">Light and dark</a>
+					<a href="#with-tailwind">With Tailwind</a>
+					<a href="#with-scss">With SCSS</a>
+					<a href="#with-your-own-css">With your own CSS</a>
+					<a href="#in-a-framework">In a framework</a>
+					<a href="#reading-the-class-names">Reading the class names</a>
+					<a href="#when-it-looks-wrong">When it looks wrong</a>
 				</div>
 			</nav>
 			<div class="doc-sponsor">
