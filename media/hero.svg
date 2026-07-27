@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img">
+  <style>
+    .bg      { fill: #fff; }
+    .surface { fill: #f8f8fa; }
+    .hair    { stroke: #e5e5ea; fill: none; stroke-width: 1; }
+    .hair2   { stroke: #f1f1f4; fill: none; stroke-width: 1; }
+    .ink     { fill: #191922; }
+    .sub     { fill: #76768a; }
+    .faint   { fill: #a5a5b2; }
+    .fill-surface { fill: #f8f8fa; }
+    .fill-line    { fill: #e5e5ea; }
+    .accent  { fill: #f04e2e; }
+    .on-accent { fill: #fff; }
+    text { font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .slate { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing: 2.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg      { fill: #08080c; }
+      .surface { fill: #101017; }
+      .hair    { stroke: #2a2a35; }
+      .hair2   { stroke: #1c1c26; }
+      .ink     { fill: #f8f8fa; }
+      .sub     { fill: #a5a5b2; }
+      .faint   { fill: #76768a; }
+      .fill-surface { fill: #16161f; }
+      .fill-line    { fill: #2a2a35; }
+    }
+  </style>
+  <rect width="1200" height="380" class="bg"/>
+  <rect width="1200" height="380" fill="#08080c"/>
+  <g stroke="#ffffff" stroke-opacity="0.07" stroke-width="1"><path d="M0 95h1200M0 190h1200M0 285h1200M300 0v380M600 0v380M900 0v380"/></g>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="4" stroke-linecap="round"><path d="M56 96V70a12 12 0 0 1 12-12h28M1144 96V70a12 12 0 0 0-12-12h-28M56 284v26a12 12 0 0 0 12 12h28M1144 284v26a12 12 0 0 1-12 12h-28"/></g>
+  <text x="104" y="176" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="72" font-weight="700" fill="#fff" letter-spacing="-2.5">creator</text>
+  <circle cx="405" cy="122" r="11" fill="#f04e2e"/>
+  <text x="107" y="214" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="19" fill="#ffffff" fill-opacity="0.45" letter-spacing="5">DESIGN SYSTEM</text>
+  <text x="104" y="268" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="24" fill="#ffffff" fill-opacity="0.72">Frame &amp; Signal — token-first, dependency-free CSS.</text>
+  <text x="104" y="300" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="24" fill="#ffffff" fill-opacity="0.72">Almost monochrome, so one colour can mean <tspan fill="#f04e2e">live</tspan>.</text>
+  <rect x="700" y="120" width="30" height="30" rx="4" fill="#f8f8fa"/>
+  <rect x="734" y="120" width="30" height="30" rx="4" fill="#f1f1f4"/>
+  <rect x="768" y="120" width="30" height="30" rx="4" fill="#e5e5ea"/>
+  <rect x="802" y="120" width="30" height="30" rx="4" fill="#d3d3db"/>
+  <rect x="836" y="120" width="30" height="30" rx="4" fill="#a5a5b2"/>
+  <rect x="870" y="120" width="30" height="30" rx="4" fill="#76768a"/>
+  <rect x="904" y="120" width="30" height="30" rx="4" fill="#55556a"/>
+  <rect x="938" y="120" width="30" height="30" rx="4" fill="#3c3c4e"/>
+  <rect x="972" y="120" width="30" height="30" rx="4" fill="#272734"/>
+  <rect x="1006" y="120" width="30" height="30" rx="4" fill="#191922"/>
+  <rect x="700" y="160" width="30" height="30" rx="4" fill="#ffc4b8"/>
+  <rect x="734" y="160" width="30" height="30" rx="4" fill="#ff9d89"/>
+  <rect x="768" y="160" width="30" height="30" rx="4" fill="#fb7358"/>
+  <rect x="802" y="160" width="30" height="30" rx="4" fill="#f04e2e"/>
+  <rect x="836" y="160" width="30" height="30" rx="4" fill="#dc3514"/>
+  <rect x="870" y="160" width="30" height="30" rx="4" fill="#b52810"/>
+  <text x="700" y="112" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="10" fill="#ffffff" fill-opacity="0.4" letter-spacing="2.5">INK · THE WHOLE SITE</text>
+  <text x="700" y="212" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="10" fill="#ffffff" fill-opacity="0.4" letter-spacing="2.5">SIGNAL · RATIONED TO ONE MEANING</text>
+  <rect x="700" y="238" width="132" height="38" rx="19" fill="#f04e2e"/>
+  <text x="766" y="263" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="15" font-weight="600" fill="#fff" text-anchor="middle">Subscribe</text>
+  <rect x="844" y="242" width="86" height="30" rx="15" fill="none" stroke="#ffffff" stroke-opacity="0.28"/>
+  <circle cx="863" cy="257" r="4" fill="#f04e2e"/>
+  <text x="875" y="262" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="11" fill="#ffffff" fill-opacity="0.75" letter-spacing="1.5">LIVE</text>
+</svg>

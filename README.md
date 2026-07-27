@@ -7,10 +7,12 @@ for creators building their own site.
 
 Almost monochrome, so that one colour can mean something.
 
+<img src="media/hero.svg" alt="The creator wordmark inside a viewfinder frame, beside the ink and signal colour ramps, a Subscribe button and a LIVE badge" width="100%">
+
 [Documentation](https://creator.imswarnil.com) ·
-[Components](https://creator.imswarnil.comcomponents.html) ·
-[Showcase](https://creator.imswarnil.comshowcase.html) ·
-[Templates](https://creator.imswarnil.comtemplates.html) ·
+[Components](https://creator.imswarnil.com/components.html) ·
+[Showcase](https://creator.imswarnil.com/showcase.html) ·
+[Templates](https://creator.imswarnil.com/templates.html) ·
 [Sponsor](https://github.com/sponsors/imswarnil)
 
 </div>
@@ -32,6 +34,27 @@ everywhere — including the YouTube thumbnails and the Instagram posts.
 - **Light & dark**, from the same variables.
 - **State lives in ARIA**, so styling and the accessibility tree can't disagree.
 - **The platform first** — `<details>`, `<dialog>`, the Popover API, native inputs.
+
+## What you get
+
+Two ramps. Ink does the whole site; signal is rationed so hard that when it
+appears, it means something — live, now, here.
+
+<img src="media/colour.svg" alt="The 14-step ink ramp above the 11-step signal ramp, with signal-500 ringed as the accent token" width="100%">
+
+Three faces, three jobs, and no fourth one waiting to be argued about.
+
+<img src="media/type.svg" alt="Type specimen: Space Grotesk for display, Inter for body, IBM Plex Mono for labels and code" width="100%">
+
+One spacing ladder and one radius set, so no gap is ever invented at the
+last minute.
+
+<img src="media/space.svg" alt="The spacing ladder from 4 to 64 pixels, and the radius set from small to pill" width="100%">
+
+Components inherit all of it. A card is the same object whether it holds a
+post, an episode or a day of a trip.
+
+<img src="media/components.svg" alt="Buttons in four intents, state badges, and a media card with a play button and title" width="100%">
 
 ## Install
 
@@ -103,7 +126,11 @@ Dark mode rides `data-theme="light|dark"` on `<html>`.
 | `highlight.js` | the system's own syntax highlighter — optional, no dependency |
 | `nav.js` | scroll state, hover-intent dropdowns, panels — optional, no dependency |
 
+<img src="media/layers.svg" alt="The six layers stacked, each inset from the one above: foundation, elements, components, broadcast, sections, utilities" width="100%">
+
 ## Navbar
+
+<img src="media/navbar.svg" alt="A two-row navigation island: the site menu on top, a dark lesson row beneath it, and the top hairline filled to 21 per cent as a progress bar" width="100%">
 
 One component, several shapes. The site menu always stays; context for whatever
 you are inside becomes a second row beneath it inside `.nav-stack`, and the row
@@ -138,6 +165,8 @@ The island's hairline doubles as the read-through bar (`.nav-progress` +
 burger that opens the collection index.
 
 ## Syntax highlighting
+
+<img src="media/code.svg" alt="A code block with line numbers showing a CSS rule coloured by role: comment, selector, property, variable and keyword" width="100%">
 
 The one piece of JavaScript in the box. Drop it in and any code block that
 names a language is coloured with the same five token roles the CSS already
@@ -179,6 +208,11 @@ npm run lint
 
 The docs are generated: edit `docs/_build/content_*.py`, then `npm run docs`.
 Never edit the generated `docs/*.html` by hand.
+
+The specimens above are generated too — `python3 media/build.py` redraws them
+from the token values in `src/1-foundation`, so when a colour changes the
+picture of it changes with it. Each one carries both themes and switches on
+`prefers-color-scheme`, which is the same contract the CSS makes.
 
 ## Contributing
 

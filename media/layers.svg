@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img">
+  <style>
+    .bg      { fill: #fff; }
+    .surface { fill: #f8f8fa; }
+    .hair    { stroke: #e5e5ea; fill: none; stroke-width: 1; }
+    .hair2   { stroke: #f1f1f4; fill: none; stroke-width: 1; }
+    .ink     { fill: #191922; }
+    .sub     { fill: #76768a; }
+    .faint   { fill: #a5a5b2; }
+    .fill-surface { fill: #f8f8fa; }
+    .fill-line    { fill: #e5e5ea; }
+    .accent  { fill: #f04e2e; }
+    .on-accent { fill: #fff; }
+    text { font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .slate { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing: 2.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg      { fill: #08080c; }
+      .surface { fill: #101017; }
+      .hair    { stroke: #2a2a35; }
+      .hair2   { stroke: #1c1c26; }
+      .ink     { fill: #f8f8fa; }
+      .sub     { fill: #a5a5b2; }
+      .faint   { fill: #76768a; }
+      .fill-surface { fill: #16161f; }
+      .fill-line    { fill: #2a2a35; }
+    }
+  </style>
+  <rect width="1200" height="340" class="bg"/>
+  <text x="40" y="40" class="slate faint" font-size="11">SIX LAYERS — TAKE THE WHOLE STACK OR ONE FLOOR</text>
+  <rect x="40" y="56" width="900" height="38" rx="8" class="fill-surface hair"/>
+  <text x="60" y="80" class="mono ink" font-size="13">6-utilities</text>
+  <text x="200" y="80" class="sub" font-size="13">u- prefixed, single purpose</text>
+  <rect x="54" y="102" width="872" height="38" rx="8" class="fill-surface hair"/>
+  <text x="74" y="126" class="mono ink" font-size="13">5-sections</text>
+  <text x="214" y="126" class="sub" font-size="13">header · hero · stats · CTA · footer</text>
+  <rect x="68" y="148" width="844" height="38" rx="8" class="fill-surface hair"/>
+  <text x="88" y="172" class="mono ink" font-size="13">4-broadcast</text>
+  <text x="228" y="172" class="sub" font-size="13">YouTube and Instagram canvases</text>
+  <rect x="82" y="194" width="816" height="38" rx="8" class="fill-surface hair"/>
+  <text x="102" y="218" class="mono ink" font-size="13">3-components</text>
+  <text x="242" y="218" class="sub" font-size="13">parts and states: buttons → navbar</text>
+  <rect x="96" y="240" width="788" height="38" rx="8" class="fill-surface hair"/>
+  <text x="116" y="264" class="mono ink" font-size="13">2-elements</text>
+  <text x="256" y="264" class="sub" font-size="13">single ideas: text · badge · table · syntax</text>
+  <rect x="110" y="286" width="760" height="38" rx="8" class="fill-surface hair"/>
+  <text x="130" y="310" class="mono ink" font-size="13">1-foundation</text>
+  <text x="270" y="310" class="sub" font-size="13">tokens: colour · type · space · motion</text>
+  <path d="M975 70v240" class="hair"/>
+  <text x="995" y="180" class="mono faint" font-size="11" letter-spacing="2">EACH LAYER NEEDS ONLY</text>
+  <text x="995" y="198" class="mono faint" font-size="11" letter-spacing="2">THE ONES BELOW IT</text>
+</svg>

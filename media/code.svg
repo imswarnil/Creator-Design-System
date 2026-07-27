@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img">
+  <style>
+    .bg      { fill: #fff; }
+    .surface { fill: #f8f8fa; }
+    .hair    { stroke: #e5e5ea; fill: none; stroke-width: 1; }
+    .hair2   { stroke: #f1f1f4; fill: none; stroke-width: 1; }
+    .ink     { fill: #191922; }
+    .sub     { fill: #76768a; }
+    .faint   { fill: #a5a5b2; }
+    .fill-surface { fill: #f8f8fa; }
+    .fill-line    { fill: #e5e5ea; }
+    .accent  { fill: #f04e2e; }
+    .on-accent { fill: #fff; }
+    text { font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .slate { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing: 2.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg      { fill: #08080c; }
+      .surface { fill: #101017; }
+      .hair    { stroke: #2a2a35; }
+      .hair2   { stroke: #1c1c26; }
+      .ink     { fill: #f8f8fa; }
+      .sub     { fill: #a5a5b2; }
+      .faint   { fill: #76768a; }
+      .fill-surface { fill: #16161f; }
+      .fill-line    { fill: #2a2a35; }
+    }
+    .t-key { fill: #c22557; }
+    .t-str { fill: #1a7f4e; }
+    .t-num { fill: #9c6a10; }
+    .t-fn { fill: #1d5fbf; }
+    .t-com { fill: #a5a5b2; }
+    .t-sel { fill: #a2451b; }
+    .t-var { fill: #6b3fc4; }
+    @media (prefers-color-scheme: dark) {
+      .t-key { fill: #ff8fa5; }
+      .t-str { fill: #6ee7ad; }
+      .t-num { fill: #f2d795; }
+      .t-fn { fill: #93c2ff; }
+      .t-com { fill: #5b5b6b; }
+      .t-sel { fill: #ffc59c; }
+      .t-var { fill: #c7b6ff; }
+    }
+  </style>
+  <rect width="1200" height="280" class="bg"/>
+  <text x="40" y="40" class="slate faint" font-size="11">THE SYSTEM COLOURS ITS OWN CODE — FIVE ROLES, BOTH THEMES</text>
+  <rect x="40" y="56" width="1120" height="200" rx="12" class="fill-surface hair"/>
+  <path d="M40 92h1120" class="hair2"/>
+  <circle cx="64" cy="74" r="4" fill="#f04e2e"/>
+  <text x="78" y="79" class="mono faint" font-size="10" letter-spacing="2">CSS</text>
+  <text x="62" y="122" class="mono faint" font-size="12">1</text>
+  <text x="92" y="122" class="mono t-com" font-size="13" xml:space="preserve">/* one colour means live */</text>
+  <text x="62" y="148" class="mono faint" font-size="12">2</text>
+  <text x="92" y="148" class="mono t-sel" font-size="13" xml:space="preserve">.dot-live</text>
+  <text x="162.2" y="148" class="mono ink" font-size="13" xml:space="preserve"> {</text>
+  <text x="62" y="174" class="mono faint" font-size="12">3</text>
+  <text x="92" y="174" class="mono t-fn" font-size="13" xml:space="preserve">  background</text>
+  <text x="185.6" y="174" class="mono ink" font-size="13" xml:space="preserve">: </text>
+  <text x="201.2" y="174" class="mono t-var" font-size="13" xml:space="preserve">var(--accent)</text>
+  <text x="302.59999999999997" y="174" class="mono ink" font-size="13" xml:space="preserve">;</text>
+  <text x="62" y="200" class="mono faint" font-size="12">4</text>
+  <text x="92" y="200" class="mono t-fn" font-size="13" xml:space="preserve">  animation</text>
+  <text x="177.8" y="200" class="mono ink" font-size="13" xml:space="preserve">: </text>
+  <text x="193.4" y="200" class="mono t-num" font-size="13" xml:space="preserve">rec 2.4s</text>
+  <text x="255.8" y="200" class="mono ink" font-size="13" xml:space="preserve"> </text>
+  <text x="263.6" y="200" class="mono t-key" font-size="13" xml:space="preserve">infinite</text>
+  <text x="326.0" y="200" class="mono ink" font-size="13" xml:space="preserve">;</text>
+  <text x="62" y="226" class="mono faint" font-size="12">5</text>
+  <text x="92" y="226" class="mono ink" font-size="13" xml:space="preserve">}</text>
+</svg>

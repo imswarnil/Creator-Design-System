@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img">
+  <style>
+    .bg      { fill: #fff; }
+    .surface { fill: #f8f8fa; }
+    .hair    { stroke: #e5e5ea; fill: none; stroke-width: 1; }
+    .hair2   { stroke: #f1f1f4; fill: none; stroke-width: 1; }
+    .ink     { fill: #191922; }
+    .sub     { fill: #76768a; }
+    .faint   { fill: #a5a5b2; }
+    .fill-surface { fill: #f8f8fa; }
+    .fill-line    { fill: #e5e5ea; }
+    .accent  { fill: #f04e2e; }
+    .on-accent { fill: #fff; }
+    text { font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .slate { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing: 2.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg      { fill: #08080c; }
+      .surface { fill: #101017; }
+      .hair    { stroke: #2a2a35; }
+      .hair2   { stroke: #1c1c26; }
+      .ink     { fill: #f8f8fa; }
+      .sub     { fill: #a5a5b2; }
+      .faint   { fill: #76768a; }
+      .fill-surface { fill: #16161f; }
+      .fill-line    { fill: #2a2a35; }
+    }
+  </style>
+  <rect width="1200" height="340" class="bg"/>
+  <text x="40" y="44" class="slate faint" font-size="11">THREE FACES, THREE JOBS</text>
+  <text x="40" y="118" class="ink" font-size="54" font-weight="700" letter-spacing="-1.5">Display carries the idea</text>
+  <text x="40" y="146" class="faint mono" font-size="11" letter-spacing="2">SPACE GROTESK · --font-display · HEADINGS ONLY</text>
+  <text x="40" y="206" class="ink" font-size="21">Body is for reading — a measure you can follow to the end of the line without losing it.</text>
+  <text x="40" y="234" class="faint mono" font-size="11" letter-spacing="2">INTER · --font-body · EVERYTHING YOU READ</text>
+  <text x="40" y="286" class="sub mono" font-size="15" letter-spacing="1">.nav-shell · --space-4 · 00:12:47</text>
+  <text x="40" y="312" class="faint mono" font-size="11" letter-spacing="2">IBM PLEX MONO · --font-slate · LABELS, CODE, TIMECODE</text>
+</svg>

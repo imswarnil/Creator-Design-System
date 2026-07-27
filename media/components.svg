@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img">
+  <style>
+    .bg      { fill: #fff; }
+    .surface { fill: #f8f8fa; }
+    .hair    { stroke: #e5e5ea; fill: none; stroke-width: 1; }
+    .hair2   { stroke: #f1f1f4; fill: none; stroke-width: 1; }
+    .ink     { fill: #191922; }
+    .sub     { fill: #76768a; }
+    .faint   { fill: #a5a5b2; }
+    .fill-surface { fill: #f8f8fa; }
+    .fill-line    { fill: #e5e5ea; }
+    .accent  { fill: #f04e2e; }
+    .on-accent { fill: #fff; }
+    text { font-family: system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; }
+    .mono { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+    .slate { font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; letter-spacing: 2.5px; }
+    @media (prefers-color-scheme: dark) {
+      .bg      { fill: #08080c; }
+      .surface { fill: #101017; }
+      .hair    { stroke: #2a2a35; }
+      .hair2   { stroke: #1c1c26; }
+      .ink     { fill: #f8f8fa; }
+      .sub     { fill: #a5a5b2; }
+      .faint   { fill: #76768a; }
+      .fill-surface { fill: #16161f; }
+      .fill-line    { fill: #2a2a35; }
+    }
+  </style>
+  <rect width="1200" height="300" class="bg"/>
+  <text x="40" y="44" class="slate faint" font-size="11">ONE PRIMARY PER SURFACE — THE REST RECEDE</text>
+  <rect x="40" y="62" width="118" height="40" rx="20" fill="#f04e2e"/>
+  <text x="99.0" y="88" font-size="15" font-weight="600" fill="#fff" text-anchor="middle">Primary</text>
+  <rect x="172" y="62" width="118" height="40" rx="20" class="" stroke="#191922" fill="none"/>
+  <text x="231.0" y="88" class="ink" font-size="15" font-weight="600" text-anchor="middle">Secondary</text>
+  <rect x="304" y="62" width="118" height="40" rx="20" class="hair" />
+  <text x="363.0" y="88" class="ink" font-size="15" font-weight="600" text-anchor="middle">Ghost</text>
+  <rect x="436" y="62" width="118" height="40" rx="20" fill="#fff2ef"/>
+  <text x="495.0" y="88" font-size="15" font-weight="600" fill="#b52810" text-anchor="middle">Soft</text>
+  <text x="40" y="152" class="slate faint" font-size="11">BADGES CARRY STATE, NEVER DECORATION</text>
+  <rect x="40" y="166" width="96" height="28" rx="14" class="hair fill-surface"/>
+  <circle cx="58" cy="180" r="4" fill="#f04e2e"/>
+  <text x="70" y="185" class="mono sub" font-size="10" letter-spacing="1.5">LIVE</text>
+  <rect x="148" y="166" width="96" height="28" rx="14" class="hair fill-surface"/>
+  <text x="164" y="185" class="mono sub" font-size="10" letter-spacing="1.5">SHIPPED</text>
+  <rect x="256" y="166" width="96" height="28" rx="14" class="hair fill-surface"/>
+  <text x="272" y="185" class="mono sub" font-size="10" letter-spacing="1.5">DRAFT</text>
+  <rect x="700" y="56" width="460" height="216" rx="16" class="fill-surface hair"/>
+  <rect x="700" y="56" width="460" height="96" rx="16" class="fill-line"/>
+  <rect x="700" y="136" width="460" height="16" class="fill-line"/>
+  <circle cx="930" cy="104" r="22" fill="#f04e2e"/>
+  <path d="M923 95v18l15-9-15-9Z" fill="#fff"/>
+  <text x="726" y="184" class="mono faint" font-size="10" letter-spacing="2">BUILD LOG · 12 MIN</text>
+  <text x="726" y="214" class="ink" font-size="22" font-weight="700" letter-spacing="-0.5">Rebuilding my theme from tokens</text>
+  <rect x="726" y="234" width="300" height="8" rx="4" class="fill-line"/>
+  <rect x="726" y="250" width="220" height="8" rx="4" class="fill-line"/>
+  <text x="40" y="236" class="slate faint" font-size="11">A CARD IS THE SAME OBJECT IN EVERY COLLECTION</text>
+</svg>
