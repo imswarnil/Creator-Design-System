@@ -1,0 +1,27 @@
+<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Text effects</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				Twelve. Most need the text split into spans carrying <code class="t-code">--i</code>;
+				the preview does that with five lines of JS. Without spans every effect
+				degrades to a plain fade — a safe failure. <b>One text effect per screen.</b>
+			</p>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg">
+					<div class="cluster"><button class="doc-btn" type="button" data-replay-tx>Replay text</button></div>
+					<div id="txStage" class="stack-lg">
+						<div><span class="demo-label">01 · type</span><p class="t-h3 tx-type">The build is the story</p></div>
+						<div><span class="demo-label">02 · chars</span><p class="t-h3" data-split="chars"><span class="tx-chars">Shipping the small thing today</span></p></div>
+						<div><span class="demo-label">03 · words</span><p class="t-h3" data-split="words"><span class="tx-words">Reps beat virality, every time</span></p></div>
+						<div><span class="demo-label">04 · wave</span><p class="t-h3" data-split="chars"><span class="tx-wave">Field notes</span></p></div>
+						<div><span class="demo-label">05 · shine</span><p class="t-h3 tx-shine">6 hours saved</p></div>
+						<div><span class="demo-label">06 · underline</span><p class="t-h3"><span class="tx-underline">One system, every crop</span></p></div>
+						<div><span class="demo-label">07 · highlight</span><p class="t-h3"><span class="tx-highlight">Quiet by default</span></p></div>
+						<div><span class="demo-label">08 · gradient</span><p class="t-h3 tx-gradient">Loud on purpose</p></div>
+						<div><span class="demo-label">09 · glitch</span><p class="t-h3 tx-glitch" data-text="404 — nothing here">404 — nothing here</p></div>
+						<div><span class="demo-label">10 · blur-in</span><p class="t-h3" data-split="chars"><span class="tx-blur">Resolving focus</span></p></div>
+						<div><span class="demo-label">11 · mask-up</span><p class="t-h3 tx-mask"><span style="--i:0">Lines slide out</span><span style="--i:1">from behind their own edge</span></p></div>
+						<div><span class="demo-label">12 · flip-chars</span><p class="t-h3" data-split="chars"><span class="tx-flip">00:14:22</span></p></div>
+					</div>
+				</div>
+				<p class="spec"><b>.tx-*</b> — split helper: wrap each char/word in a span with <b>--i</b>; all twelve degrade to a fade under reduced-motion</p>
+			</div>

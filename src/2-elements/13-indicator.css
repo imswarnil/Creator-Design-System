@@ -1,0 +1,152 @@
+/* =============================================================================
+   13 · INDICATORS
+   Atoms that show a quantity or a wait. No copy and no actions — a component
+   wraps them when either is needed (.alert, .empty, .btn[data-loading]).
+   ========================================================================== */
+
+/* ── Progress ────────────────────────────────────────────────────────────── */
+
+.progress {
+	position: relative;
+	height: 6px;
+	width: 100%;
+	border-radius: var(--radius-pill);
+	background: var(--bg-muted);
+	overflow: hidden;
+}
+
+.progress__bar {
+	height: 100%;
+	width: var(--value, 0%);
+	border-radius: inherit;
+	background: var(--accent);
+	transition: width var(--dur-4) var(--ease-out);
+}
+
+.progress-thin { height: 3px; }
+
+/* Indeterminate: we know it's working, not how long. */
+.progress-indeterminate .progress__bar {
+	width: 34%;
+	animation: fx-rail 1.4s var(--ease-inout) infinite;
+}
+
+/* Progress with a slate label above it (course completion, upload). */
+.progress-labelled {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+
+.progress__label {
+	display: flex;
+	justify-content: space-between;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ── Skeletons ───────────────────────────────────────────────────────────── */
+
+.skeleton {
+	border-radius: var(--radius-sm);
+	background: linear-gradient(
+		100deg,
+		var(--bg-muted) 20%,
+		color-mix(in srgb, var(--bg-muted) 55%, var(--bg-canvas)) 45%,
+		var(--bg-muted) 70%
+	);
+	background-size: 220% 100%;
+	animation: fx-shimmer 1.6s var(--ease-linear) infinite;
+}
+
+.skeleton-text { height: 0.75rem; }
+.skeleton-title { height: 1.25rem; border-radius: var(--radius-sm); }
+.skeleton-media { aspect-ratio: var(--ratio-video); border-radius: var(--radius-media); }
+.skeleton-avatar { width: var(--control-md); height: var(--control-md); border-radius: var(--radius-full); }
+
+/* Breathe: for one big unknown block. Slower and quieter than shimmer. */
+.skeleton-breathe {
+	background: var(--bg-muted);
+	animation: fx-fade 1.8s var(--ease-inout) infinite alternate;
+}
+
+/* Scanline wipe over decoding media. */
+.loading-scan {
+	position: relative;
+	overflow: hidden;
+	background: var(--bg-media);
+}
+
+.loading-scan::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 28%;
+	background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 0.07), transparent);
+	animation: fx-scan 1.5s var(--ease-inout) infinite;
+}
+
+/* Buffering dots — live/player only. */
+.buffer {
+	display: inline-flex;
+	gap: 4px;
+	align-items: center;
+}
+
+.buffer > span {
+	width: 5px;
+	height: 5px;
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	animation: fx-buffer 1.2s var(--ease-inout) infinite;
+}
+
+.buffer > span:nth-child(2) { animation-delay: 0.15s; }
+.buffer > span:nth-child(3) { animation-delay: 0.3s; }
+.buffer > span:nth-child(4) { animation-delay: 0.45s; }
+
+/* Spinner — button and inline use only. */
+.spinner {
+	display: inline-block;
+	width: var(--icon-md);
+	height: var(--icon-md);
+	border: var(--border-2) solid var(--line-strong);
+	border-top-color: var(--accent);
+	border-radius: var(--radius-full);
+	animation: fx-spin 700ms var(--ease-linear) infinite;
+}
+
+/* ── Tooltip — CSS only, content from data-tip ──────────────────────────── */
+
+.tip { position: relative; }
+
+.tip::after {
+	content: attr(data-tip);
+	position: absolute;
+	bottom: calc(100% + var(--space-2));
+	left: 50%;
+	transform: translate(-50%, 4px);
+	z-index: var(--z-tooltip);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-sm);
+	background: var(--bg-inverse);
+	color: var(--fg-on-inverse);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	white-space: nowrap;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+
+.tip:hover::after,
+.tip:focus-visible::after {
+	opacity: 1;
+	transform: translate(-50%, 0);
+}

@@ -1,0 +1,45 @@
+<header class="sec-head">
+				<span class="sec-num">25</span>
+				<h2 class="t-h1">Feedback</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Alerts, toasts and empty states — the components that wrap layer 2's
+					indicators in copy and an action.
+				</p>
+			</header>
+
+			<div class="split-half" style="align-items:start">
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<div class="alert alert-success"><div><p class="alert__title">Deploy passed</p><p>All 42 tests green in 1m 12s.</p></div></div>
+						<div class="alert alert-warning"><div><p class="alert__title">Heavy query</p><p>This report scans 8k rows.</p></div></div>
+						<div class="alert alert-danger"><div><p class="alert__title">This deletes the whole flow</p><p>Every step and its history goes with it.</p></div></div>
+						<div class="alert alert-signal"><div><p class="alert__title">Recording</p><p>Episode 7 is live right now.</p></div></div>
+					</div>
+					<p class="spec"><b>.alert</b> + <b>-success -warning -danger -info -signal</b> — the tone always carries a title too</p>
+				</div>
+
+				<div class="stack">
+					<div class="surface demo-tile">
+						<div class="demo">
+							<div class="empty">
+								<span class="eyebrow">No episodes yet</span>
+								<p class="empty__title">The first one's still rendering</p>
+								<p class="empty__body">Be the first to watch it — one email the moment it's live.</p>
+								<button class="btn btn-soft" type="button">Notify me</button>
+							</div>
+						</div>
+						<p class="spec"><b>.empty</b> — an invitation, never an apology</p>
+					</div>
+
+					<div class="surface demo-tile">
+						<div class="demo" style="display:grid;place-items:center;min-height:7rem">
+							<div class="toast" style="animation:none">
+								<span class="dot dot-sm"></span>
+								<span>Copied the embed code.</span>
+								<button class="btn btn-quiet btn-sm" type="button" style="color:inherit;margin-left:auto">Undo</button>
+							</div>
+						</div>
+						<p class="spec"><b>.toast</b> in <b>.toast-region</b></p>
+					</div>
+				</div>
+			</div>

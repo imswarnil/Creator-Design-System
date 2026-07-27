@@ -1,0 +1,134 @@
+<header class="sec-head">
+				<span class="sec-num">20</span>
+				<h2 class="t-h1">Thumbnails</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Five styles, one grammar. The grammar is what makes a row of them read
+					as one channel; the style tells you which video it is. The five differ
+					<em>only</em> in backdrop plus one device.
+				</p>
+			</header>
+
+			<div class="split-half" style="align-items:start;margin-bottom:var(--space-8)">
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">Always — the grammar</span>
+						<ul class="stack-xs" style="padding-left:1.1rem;font-size:var(--text-sm)">
+							<li>Title bottom-left · 2–3 lines · ~34 characters max</li>
+							<li>Exactly <b>one</b> accent word</li>
+							<li>Kicker above it, slate voice, ≤ 3 words</li>
+							<li>Channel mark under the title, same size every time</li>
+							<li>Subject in the right ~36%, same rectangle</li>
+							<li>Everything inside the 5.5% safe inset</li>
+						</ul>
+					</div>
+					<p class="spec"><b>.thumb__copy</b> · <b>.thumb__subject</b> · <b>.yt-kicker</b> · <b>.yt-title</b> · <b>.yt-hit</b> · <b>.yt-mark</b></p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">Never — YouTube already draws these</span>
+						<ul class="stack-xs" style="padding-left:1.1rem;font-size:var(--text-sm)">
+							<li>Video duration or a timestamp</li>
+							<li>Category or tag chips</li>
+							<li>View counts, dates, “NEW”</li>
+							<li>The channel's full name as text</li>
+							<li>A second accent colour</li>
+							<li>More than one device (frame <em>or</em> dot, not both)</li>
+						</ul>
+					</div>
+					<p class="spec">a second copy of the platform's own UI is what makes a thumbnail look homemade</p>
+				</div>
+			</div>
+
+			<div class="canvas-row">
+				<!-- 01 generic -->
+				<div>
+					<div class="yt yt-thumb thumb thumb-generic" data-guide="1280 × 720 · safe 5.5%">
+						<div class="thumb__bg bd-grid"></div>
+						<div class="thumb__subject"><span class="yt-subject__hint">subject<br />16:9 still / cut-out</span></div>
+						<div class="thumb__copy">
+							<span class="yt-kicker">Field notes</span>
+							<h3 class="yt-title">I rebuilt my site from <span class="yt-hit">nothing</span></h3>
+							<span class="yt-mark">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+						</div>
+					</div>
+					<p class="canvas-note"><b>01 · generic</b> — the default. If a video doesn't obviously belong to another style, it's this one.</p>
+				</div>
+
+				<!-- 02 build -->
+				<div>
+					<div class="yt yt-thumb thumb thumb-build" data-guide="1280 × 720 · safe 5.5%">
+						<div class="thumb__bg"></div>
+						<div class="thumb__subject"><span class="yt-subject__hint">screen recording</span></div>
+						<div class="thumb__copy">
+							<span class="yt-kicker">Build log</span>
+							<h3 class="yt-title">One query saved me <span class="yt-hit">6 hours</span></h3>
+							<span class="yt-mark">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+						</div>
+						<div class="thumb__code">SELECT id, stage, owner FROM opportunity WHERE … · apex · flow · batch · scheduled</div>
+					</div>
+					<p class="canvas-note"><b>02 · build / tutorial</b> — blueprint grid + a code strip. For anything where a screen is the subject.</p>
+				</div>
+
+				<!-- 03 travel -->
+				<div>
+					<div class="yt yt-thumb thumb thumb-travel" data-guide="1280 × 720 · safe 5.5%">
+						<div class="thumb__bg"></div>
+						<div class="thumb__horizon"></div>
+						<div class="thumb__coords">47.4979° N<br />19.0402° E</div>
+						<div class="thumb__subject"><span class="yt-subject__hint">place / wide shot</span></div>
+						<div class="thumb__copy">
+							<span class="yt-kicker">Budapest</span>
+							<h3 class="yt-title">I moved <span class="yt-hit">4,000 miles</span> to build this</h3>
+							<span class="yt-mark">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+						</div>
+					</div>
+					<p class="canvas-note"><b>03 · travel</b> — horizon rule, coordinates, amber wash. The only style that spends the craft colour.</p>
+				</div>
+
+				<!-- 04 qna -->
+				<div>
+					<div class="yt yt-thumb thumb thumb-qna" data-guide="1280 × 720 · safe 5.5%">
+						<div class="thumb__bg"></div>
+						<span class="thumb__quote" aria-hidden="true">”</span>
+						<div class="thumb__subject"><span class="yt-subject__hint">talking head</span></div>
+						<div class="thumb__copy thumb__copy-wide">
+							<span class="thumb__asker">@dev_anna asks</span>
+							<h3 class="yt-title yt-title-sm">“Is Salesforce still worth <span class="yt-hit">learning</span> in 2026?”</h3>
+							<span class="yt-mark">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+						</div>
+					</div>
+					<p class="canvas-note"><b>04 · Q&amp;A</b> — the question <em>is</em> the image. Asker's handle in slate, oversized quote mark, dotted field.</p>
+				</div>
+
+				<!-- 05 live -->
+				<div>
+					<div class="yt yt-thumb thumb thumb-live" data-guide="1280 × 720 · safe 5.5%">
+						<div class="thumb__bg"></div>
+						<span class="thumb__live">Live</span>
+						<div class="thumb__subject"><span class="yt-subject__hint">stream still</span></div>
+						<div class="thumb__copy">
+							<span class="yt-kicker yt-kicker-plain">Tonight · 20:00 CET</span>
+							<h3 class="yt-title">Shipping the theme, <span class="yt-hit">on stream</span></h3>
+							<span class="yt-mark">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+						</div>
+					</div>
+					<p class="canvas-note"><b>05 · live</b> — scanlines, red vignette, LIVE tag. The only style that fills a block with the accent.</p>
+				</div>
+
+				<!-- p1 test -->
+				<div class="surface demo-tile" style="align-self:stretch">
+					<div class="demo stack">
+						<span class="demo-label">P1 test — all five at 120px wide</span>
+						<div class="tiny-row">
+							<div class="tiny"><div class="yt yt-thumb thumb thumb-generic"><div class="thumb__bg bd-grid"></div><div class="thumb__copy" style="right:38%"><h3 class="yt-title">I rebuilt my site from <span class="yt-hit">nothing</span></h3></div></div></div>
+							<div class="tiny"><div class="yt yt-thumb thumb thumb-build"><div class="thumb__bg"></div><div class="thumb__copy" style="right:38%"><h3 class="yt-title">One query saved me <span class="yt-hit">6 hours</span></h3></div></div></div>
+							<div class="tiny"><div class="yt yt-thumb thumb thumb-travel"><div class="thumb__bg"></div><div class="thumb__horizon"></div><div class="thumb__copy" style="right:38%"><h3 class="yt-title">I moved <span class="yt-hit">4,000 miles</span></h3></div></div></div>
+							<div class="tiny"><div class="yt yt-thumb thumb thumb-qna"><div class="thumb__bg"></div><div class="thumb__copy" style="right:26%"><h3 class="yt-title yt-title-sm">“Still worth <span class="yt-hit">learning</span>?”</h3></div></div></div>
+							<div class="tiny"><div class="yt yt-thumb thumb thumb-live"><div class="thumb__bg"></div><span class="thumb__live">Live</span><div class="thumb__copy" style="right:38%"><h3 class="yt-title">Shipping it <span class="yt-hit">on stream</span></h3></div></div></div>
+						</div>
+						<p class="t-small">If the point doesn't survive here, the thumbnail is rejected — that's principle 1, and this row is the test.</p>
+					</div>
+					<p class="spec">same markup, 120px container — <b>cqw</b> means the type scales instead of breaking</p>
+				</div>
+			</div>

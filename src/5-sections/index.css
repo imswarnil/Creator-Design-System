@@ -1,0 +1,15 @@
+/* =============================================================================
+   SWARNIL DESIGN SYSTEM · 5 — SECTIONS
+   Full-width bands: a section is a component that owns its own rhythm. Cards
+   know nothing about the page; sections ARE the page. Everything here is a
+   composition of layers 1–3 — no new colours, no new type sizes, no new
+   radii. If a section needs a token that doesn't exist, the section is wrong.
+
+   Requires 1-foundation, 2-elements, 3-components.
+   ========================================================================== */
+
+@import url('./30-header.css');  /* page + section headers, collection intro  */
+@import url('./31-hero.css');    /* statement, split, band                    */
+@import url('./32-stats.css');   /* the stat grid + counters                  */
+@import url('./33-cta.css');     /* CTA band, newsletter, sponsor             */
+@import url('./34-footer.css');  /* the site footer + sign-off                */

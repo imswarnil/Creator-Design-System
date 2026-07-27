@@ -1,0 +1,69 @@
+<header class="sec-head">
+				<span class="sec-num">24</span>
+				<h2 class="t-h1">Navigation</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					One skeleton, several contexts. The active state is always the signal
+					dot or a 2px accent rule — never a colour fill.
+				</p>
+			</header>
+
+			<div class="stack-lg">
+				<div class="surface demo-tile">
+					<div class="demo" style="padding-inline:var(--space-4)">
+						<div class="nav-bar" style="position:static">
+							<span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<div class="nav-links">
+								<a class="nav-link" href="#nav" aria-current="page">Home</a>
+								<a class="nav-link" href="#nav">Videos</a>
+								<a class="nav-link" href="#nav">Blog</a>
+								<a class="nav-link" href="#nav">Projects</a>
+							</div>
+							<button class="btn btn-primary btn-sm btn-pill" type="button">Subscribe</button>
+						</div>
+					</div>
+					<p class="spec"><b>.nav-shell &gt; .nav-bar</b> · <b>.nav-series</b> (always dark) · <b>.nav-course</b> (progress rail welded to the bottom edge)</p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-lg">
+						<div>
+							<span class="demo-label">Tabs</span>
+							<div class="tabs" role="tablist">
+								<button class="tab" role="tab" aria-selected="true">Overview</button>
+								<button class="tab" role="tab" aria-selected="false">Syllabus</button>
+								<button class="tab" role="tab" aria-selected="false">Build log</button>
+							</div>
+						</div>
+						<div>
+							<span class="demo-label">Breadcrumb</span>
+							<ol class="breadcrumb" role="list">
+								<li><a href="#nav">Home</a></li>
+								<li><a href="#nav">Courses</a></li>
+								<li aria-current="page">Tokens first</li>
+							</ol>
+						</div>
+						<div>
+							<span class="demo-label">Pagination</span>
+							<div class="pagination" style="padding-block:0">
+								<button class="btn btn-ghost btn-sm" type="button">← Newer</button>
+								<div class="pagination__pages">
+									<a class="page-dot" href="#nav" aria-current="page">1</a>
+									<a class="page-dot" href="#nav">2</a>
+									<a class="page-dot" href="#nav">3</a>
+									<span>…</span>
+									<a class="page-dot" href="#nav">12</a>
+								</div>
+								<button class="btn btn-ghost btn-sm" type="button">Older →</button>
+							</div>
+						</div>
+						<div>
+							<span class="demo-label">Lesson pager</span>
+							<div class="pager">
+								<a class="pager__item" href="#nav"><span class="pager__dir">← Previous</span><span class="pager__title">02 · Naming the tokens</span></a>
+								<a class="pager__item pager__item-next" href="#nav"><span class="pager__dir">Next →</span><span class="pager__title">04 · Building the card</span></a>
+							</div>
+						</div>
+					</div>
+					<p class="spec"><b>.tabs/.tab</b> · <b>.breadcrumb</b> · <b>.pagination</b> · <b>.pager</b> · <b>.toc</b> — states via <b>aria-current</b> / <b>aria-selected</b></p>
+				</div>
+			</div>

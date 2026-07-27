@@ -1,0 +1,52 @@
+<header class="sec-head">
+				<span class="sec-num">06</span>
+				<h2 class="t-h1">Motion</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Four durations, four easings. No component may invent a duration.
+					Entrances travel 16px, not 60 — long travel reads as "loading", which
+					is a lie when the content is already there.
+				</p>
+			</header>
+
+			<div class="surface" style="overflow:hidden">
+				<div class="demo">
+					<div class="cluster" style="margin-bottom:var(--space-5)">
+						<button class="doc-btn" type="button" data-replay>Replay</button>
+						<span class="t-slate">hover the bottom row</span>
+					</div>
+					<div class="grid-auto-sm" id="fxDemo">
+						<div class="surface demo fx-rise"><p class="t-slate">fx-rise</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-fade"><p class="t-slate">fx-fade</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-slide-l"><p class="t-slate">fx-slide-l</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-scale"><p class="t-slate">fx-scale</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-blur"><p class="t-slate">fx-blur</p><p class="t-small">entrance · 560</p></div>
+						<div class="surface demo fx-clip"><p class="t-slate">fx-clip</p><p class="t-small">scene · 560</p></div>
+					</div>
+					<div class="grid-auto-sm" style="margin-top:var(--space-4)">
+						<div class="surface demo fx-lift"><p class="t-slate">fx-lift</p><p class="t-small">hover</p></div>
+						<div class="surface demo fx-glow"><p class="t-slate">fx-glow</p><p class="t-small">hover</p></div>
+						<div class="surface demo fx-tilt"><p class="t-slate">fx-tilt</p><p class="t-small">hover</p></div>
+						<div class="surface demo fx-shift" style="display:flex;align-items:center;gap:8px"><span class="t-slate">fx-shift</span><span class="fx-shift__icon">→</span></div>
+					</div>
+				</div>
+				<p class="spec"><b>--dur-1</b> 120 state flips · <b>--dur-2</b> 200 default · <b>--dur-3</b> 320 entrances · <b>--dur-4</b> 560 scenes</p>
+			</div>
+
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<div class="demo">
+					<div class="cluster" style="margin-bottom:var(--space-5)">
+						<button class="doc-btn" type="button" data-replay2>Replay</button>
+						<span class="t-slate">the rest of the ladder</span>
+					</div>
+					<div class="grid-auto-sm" id="fxDemo2">
+						<div class="surface demo fx-flip"><p class="t-slate">fx-flip</p><p class="t-small">reveal · 560</p></div>
+						<div class="surface demo fx-swing"><p class="t-slate">fx-swing</p><p class="t-small">confirm · 560</p></div>
+						<div class="surface demo fx-pop"><p class="t-slate">fx-pop</p><p class="t-small">spring · 320</p></div>
+						<div class="surface demo"><p class="t-slate">fx-draw</p><span class="fx-draw" style="display:block;height:2px;background:var(--accent);margin-top:8px"></span></div>
+						<div class="surface demo fx-mask"><p class="t-slate">fx-mask</p><p class="t-small">wipe · 560</p></div>
+						<div class="surface demo fx-zoom"><p class="t-slate">fx-zoom</p><p class="t-small">hero · 560</p></div>
+					</div>
+				</div>
+				<p class="spec"><b>.fx-flip .fx-swing .fx-pop .fx-draw .fx-mask .fx-zoom</b> — thirteen behaviours total, each with exactly one job</p>
+			</div>

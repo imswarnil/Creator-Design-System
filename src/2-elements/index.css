@@ -1,0 +1,16 @@
+/* =============================================================================
+   SWARNIL DESIGN SYSTEM · 2 — ELEMENTS
+   The atoms: type, labels, tables, indicators. An element is a single idea
+   with no internal parts and no behaviour — a blockquote, a badge, a spinner.
+
+   The moment a thing needs variants, states, or two pieces that know about
+   each other, it stops being an element and moves to layer 3.
+
+   Requires 1-foundation/index.css.
+   ========================================================================== */
+
+@import url('./10-text.css');        /* blockquote, figure, code, note, caps  */
+@import url('./11-badge.css');       /* badge, chip, eyebrow, avatar, kbd     */
+@import url('./12-table.css');       /* table, dl, rule list, steps           */
+@import url('./13-indicator.css');   /* progress, skeleton, spinner, tooltip  */
+@import url('./15-syntax.css');      /* codebox, token roles, copy affordance */

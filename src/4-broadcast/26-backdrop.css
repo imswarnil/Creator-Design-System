@@ -1,0 +1,309 @@
+/* =============================================================================
+   26 · BACKDROPS, FRAMES & BORDERS
+   Layer 1's patterns are tuned for a web page at 16px. On a 1280 × 720 canvas
+   they vanish. These are the same ideas re-cut at broadcast scale — the grid
+   is bigger, the lines are heavier, the contrast is higher, because the
+   thumbnail is competing in a grid of other people's thumbnails.
+
+   Compose: one backdrop + at most one frame. Never two frames.
+   ========================================================================== */
+
+/* ── Backdrops ──────────────────────────────────────────────────────────── */
+
+.bd { position: absolute; inset: 0; z-index: 0; }
+
+/* 01 · grid — the house default */
+.bd-grid {
+	background:
+		repeating-linear-gradient(to right, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 4.5cqw),
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 4.5cqw),
+		var(--ink-1000);
+}
+
+/* 02 · blueprint — fine grid with heavy majors */
+.bd-blueprint {
+	background:
+		repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 2.2cqw),
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 2.2cqw),
+		repeating-linear-gradient(to right, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 11cqw),
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 11cqw),
+		#0c0c14;
+}
+
+/* 03 · scanline — CRT, for live and webseries */
+.bd-scan {
+	background:
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.055) 0 1px, transparent 1px 0.6cqw),
+		var(--ink-1000);
+}
+
+/* 04 · signal bloom — accent light from the top */
+.bd-bloom {
+	background:
+		radial-gradient(ellipse 70% 60% at 50% 0%, rgb(240 78 46 / 0.32), transparent 72%),
+		var(--ink-1000);
+}
+
+/* 05 · craft bloom — the travel wash */
+.bd-craft {
+	background:
+		radial-gradient(ellipse 70% 55% at 72% 18%, rgb(217 163 58 / 0.34), transparent 68%),
+		radial-gradient(ellipse 90% 60% at 15% 100%, rgb(240 78 46 / 0.14), transparent 72%),
+		#14110c;
+}
+
+/* 06 · mesh — the only multi-hue backdrop; use it rarely */
+.bd-mesh {
+	background:
+		radial-gradient(ellipse 45% 50% at 12% 12%, rgb(240 78 46 / 0.34), transparent 70%),
+		radial-gradient(ellipse 45% 50% at 88% 22%, rgb(217 163 58 / 0.26), transparent 72%),
+		radial-gradient(ellipse 60% 55% at 62% 95%, rgb(43 123 239 / 0.22), transparent 74%),
+		var(--ink-1000);
+}
+
+/* 07 · dots */
+.bd-dots {
+	background:
+		radial-gradient(rgb(255 255 255 / 0.11) 1.6px, transparent 1.7px) 0 0 / 3.4cqw 3.4cqw,
+		var(--ink-1000);
+}
+
+/* 08 · hatch */
+.bd-hatch {
+	background:
+		repeating-linear-gradient(45deg, rgb(255 255 255 / 0.055) 0 1px, transparent 1px 2.4cqw),
+		var(--ink-1000);
+}
+
+/* 09 · rays — a diagonal light shaft, for openers */
+.bd-rays {
+	background:
+		linear-gradient(108deg, transparent 32%, rgb(255 255 255 / 0.07) 44%, transparent 50%,
+		                transparent 60%, rgb(255 255 255 / 0.05) 68%, transparent 74%),
+		var(--ink-1000);
+}
+
+/* 10 · film edge — sprockets down both sides */
+.bd-film {
+	background:
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.14) 0 2.2cqw, transparent 2.2cqw 5cqw) left / 2.2cqw 100% repeat-y,
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.14) 0 2.2cqw, transparent 2.2cqw 5cqw) right / 2.2cqw 100% repeat-y,
+		var(--ink-1000);
+}
+
+/* 11 · waveform — audio bars along the bottom, for podcast/Q&A */
+.bd-wave {
+	background:
+		repeating-linear-gradient(to right, rgb(255 255 255 / 0.16) 0 0.5cqw, transparent 0.5cqw 1.6cqw)
+			bottom / 100% 22% no-repeat,
+		var(--ink-1000);
+}
+
+/* 12 · noise — grain over anything; stack it as a second layer */
+.bd-noise {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+	background-size: 26cqw 26cqw;
+	opacity: 0.25;
+	z-index: 1;
+}
+
+/* ── Light twins ─────────────────────────────────────────────────────────
+   Every backdrop works on a light canvas too — the ink flips from white-alpha
+   to black-alpha and the blooms lose ~40% of their strength, because a tint
+   that reads as "a glow" on black reads as "a stain" on white.
+
+   These fire automatically in the light theme, and can be pinned per-canvas
+   with .yt-light / .yt-dark. Same rule as 20-canvas. */
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-grid {
+	background:
+		repeating-linear-gradient(to right, rgb(8 8 12 / 0.07) 0 1px, transparent 1px 4.5cqw),
+		repeating-linear-gradient(to bottom, rgb(8 8 12 / 0.07) 0 1px, transparent 1px 4.5cqw),
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-blueprint {
+	background:
+		repeating-linear-gradient(to right, rgb(8 8 12 / 0.05) 0 1px, transparent 1px 2.2cqw),
+		repeating-linear-gradient(to bottom, rgb(8 8 12 / 0.05) 0 1px, transparent 1px 2.2cqw),
+		repeating-linear-gradient(to right, rgb(8 8 12 / 0.12) 0 1px, transparent 1px 11cqw),
+		repeating-linear-gradient(to bottom, rgb(8 8 12 / 0.12) 0 1px, transparent 1px 11cqw),
+		#f6f6f9;
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-scan {
+	background:
+		repeating-linear-gradient(to bottom, rgb(8 8 12 / 0.05) 0 1px, transparent 1px 0.6cqw),
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-bloom {
+	background:
+		radial-gradient(ellipse 70% 60% at 50% 0%, rgb(240 78 46 / 0.18), transparent 72%),
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-craft {
+	background:
+		radial-gradient(ellipse 70% 55% at 72% 18%, rgb(217 163 58 / 0.24), transparent 68%),
+		radial-gradient(ellipse 90% 60% at 15% 100%, rgb(240 78 46 / 0.10), transparent 72%),
+		#fdfaf3;
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-mesh {
+	background:
+		radial-gradient(ellipse 45% 50% at 12% 12%, rgb(240 78 46 / 0.20), transparent 70%),
+		radial-gradient(ellipse 45% 50% at 88% 22%, rgb(217 163 58 / 0.18), transparent 72%),
+		radial-gradient(ellipse 60% 55% at 62% 95%, rgb(43 123 239 / 0.14), transparent 74%),
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-dots {
+	background:
+		radial-gradient(rgb(8 8 12 / 0.14) 1.6px, transparent 1.7px) 0 0 / 3.4cqw 3.4cqw,
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-hatch {
+	background:
+		repeating-linear-gradient(45deg, rgb(8 8 12 / 0.06) 0 1px, transparent 1px 2.4cqw),
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-rays {
+	background:
+		linear-gradient(108deg, transparent 32%, rgb(8 8 12 / 0.05) 44%, transparent 50%,
+		                transparent 60%, rgb(8 8 12 / 0.04) 68%, transparent 74%),
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-film {
+	background:
+		repeating-linear-gradient(to bottom, rgb(8 8 12 / 0.14) 0 2.2cqw, transparent 2.2cqw 5cqw) left / 2.2cqw 100% repeat-y,
+		repeating-linear-gradient(to bottom, rgb(8 8 12 / 0.14) 0 2.2cqw, transparent 2.2cqw 5cqw) right / 2.2cqw 100% repeat-y,
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-wave {
+	background:
+		repeating-linear-gradient(to right, rgb(8 8 12 / 0.16) 0 0.5cqw, transparent 0.5cqw 1.6cqw)
+			bottom / 100% 22% no-repeat,
+		var(--ink-25);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .bd-noise { opacity: 0.14; }
+
+/* Frames on light canvases: the corner brackets and hairlines invert too. */
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .fr-corners::before,
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .fr-corners::after { border-color: rgb(193 135 42 / 0.9); }
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .fr-inset::before { border-color: rgb(8 8 12 / 0.18); }
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .fr-vignette::before {
+	background: radial-gradient(ellipse 78% 78% at 50% 45%, transparent 40%, rgb(8 8 12 / 0.16) 100%);
+}
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .fr-ticks::before {
+	background: repeating-linear-gradient(to right, rgb(8 8 12 / 0.28) 0 1px, transparent 1px 2.4cqw);
+}
+
+/* ── Density modifiers ───────────────────────────────────────────────────
+   Broadcast patterns need three densities too — a 4.5cqw grid on a 1:1 IG
+   post is a completely different texture than on a 16:9 thumbnail. */
+
+.bd-sm { --bd-scale: 0.55; }
+.bd-lg { --bd-scale: 1.8; }
+
+.bd-sm.bd-grid, .bd-lg.bd-grid {
+	background-size:
+		calc(4.5cqw * var(--bd-scale, 1)) calc(4.5cqw * var(--bd-scale, 1)),
+		calc(4.5cqw * var(--bd-scale, 1)) calc(4.5cqw * var(--bd-scale, 1)),
+		auto;
+}
+
+.bd-sm.bd-dots, .bd-lg.bd-dots {
+	background-size: calc(3.4cqw * var(--bd-scale, 1)) calc(3.4cqw * var(--bd-scale, 1)), auto;
+}
+
+.bd-sm.bd-scan { background-size: 100% calc(0.6cqw * var(--bd-scale, 1)), auto; }
+.bd-lg.bd-scan { background-size: 100% calc(0.6cqw * var(--bd-scale, 1)), auto; }
+
+/* ── Frames & borders ───────────────────────────────────────────────────
+   All absolute overlays. Pick exactly one. */
+
+.fr { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+
+/* 01 · viewfinder brackets */
+.fr-corners::before,
+.fr-corners::after {
+	content: '';
+	position: absolute;
+	width: 6cqw;
+	height: 6cqw;
+	border-style: solid;
+	border-width: 0;
+	border-color: rgb(217 163 58 / 0.8);
+}
+
+.fr-corners::before { top: 4%; left: 4%; border-top-width: 0.4cqw; border-left-width: 0.4cqw; }
+.fr-corners::after { right: 4%; bottom: 4%; border-right-width: 0.4cqw; border-bottom-width: 0.4cqw; }
+
+/* 02 · hairline inset — a quiet contained edge */
+.fr-inset::before {
+	content: '';
+	position: absolute;
+	inset: 3.5%;
+	border: 0.16cqw solid rgb(255 255 255 / 0.22);
+	border-radius: 0.8cqw;
+}
+
+/* 03 · signal edge — a 2px accent rule along one side */
+.fr-edge-l { box-shadow: inset 0.7cqw 0 0 0 var(--signal-500); }
+.fr-edge-b { box-shadow: inset 0 -0.7cqw 0 0 var(--signal-500); }
+
+/* 04 · live border — full accent outline, live only */
+.fr-live { box-shadow: inset 0 0 0 0.5cqw rgb(240 78 46 / 0.6); }
+
+/* 05 · letterbox — cinematic bars, for the webseries */
+.fr-letterbox::before,
+.fr-letterbox::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 7.5%;
+	background: var(--pure-black);
+}
+
+.fr-letterbox::before { top: 0; }
+.fr-letterbox::after { bottom: 0; }
+
+/* 06 · vignette — pulls the eye to the middle; safe under text */
+.fr-vignette::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(ellipse 78% 78% at 50% 45%, transparent 40%, rgb(0 0 0 / 0.55) 100%);
+}
+
+/* 07 · timecode edge — film ticks along the bottom */
+.fr-ticks::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 1.6cqw;
+	background: repeating-linear-gradient(to right, rgb(255 255 255 / 0.28) 0 1px, transparent 1px 2.4cqw);
+}
+
+/* 08 · rec bug — the top-left recording indicator, for live scenes */
+.fr-rec::before {
+	content: '';
+	position: absolute;
+	left: 3.5%;
+	top: 3.5%;
+	width: 1.6cqw;
+	height: 1.6cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	box-shadow: 0 0 0 0.5cqw rgb(240 78 46 / 0.25);
+	animation: fx-pulse 1.6s var(--ease-inout) infinite;
+}

@@ -1,0 +1,59 @@
+<header class="sec-head">
+				<span class="sec-num">20</span>
+				<h2 class="t-h1">Buttons</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					The intent picks itself: <b>primary</b> is the one thing this screen is
+					for, <b>secondary</b> is the other real action, <b>ghost</b> and
+					<b>quiet</b> are navigation-ish, <b>danger</b> is always confirmed.
+					One primary per surface.
+				</p>
+			</header>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg">
+					<div>
+						<span class="demo-label">Intents</span>
+						<div class="cluster">
+							<button class="btn btn-primary" type="button">Watch the latest</button>
+							<button class="btn btn-secondary" type="button">Read the blog</button>
+							<button class="btn btn-ghost" type="button">Browse everything</button>
+							<button class="btn btn-soft" type="button">Notify me</button>
+							<button class="btn btn-quiet" type="button">Skip</button>
+							<button class="btn btn-danger" type="button">Delete flow</button>
+						</div>
+					</div>
+					<div>
+						<span class="demo-label">Sizes · icon · pill · live</span>
+						<div class="cluster">
+							<button class="btn btn-primary btn-sm" type="button">Small</button>
+							<button class="btn btn-primary" type="button">Medium</button>
+							<button class="btn btn-primary btn-lg" type="button">Large</button>
+							<button class="btn btn-ghost btn-icon" type="button" aria-label="Search"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-search"/></svg></button>
+							<button class="btn btn-ghost btn-pill" type="button">Pill</button>
+							<button class="btn btn-primary btn-live" type="button">Go live</button>
+						</div>
+					</div>
+					<div>
+						<span class="demo-label">States</span>
+						<div class="cluster">
+							<button class="btn btn-primary" type="button" data-loading aria-busy="true">Publishing</button>
+							<button class="btn btn-ghost" type="button" data-loading aria-busy="true">Loading</button>
+							<button class="btn btn-primary" type="button" disabled>Disabled</button>
+							<button class="btn btn-ghost fx-shift" type="button">Next lesson <span class="fx-shift__icon">→</span></button>
+							<button class="btn btn-ghost hx-swipe" type="button">With a swipe</button>
+						</div>
+					</div>
+					<div>
+						<span class="demo-label">Group · block</span>
+						<div class="stack-sm">
+							<div class="btn-group" role="group" aria-label="View">
+								<button class="btn" type="button" aria-pressed="true">Grid</button>
+								<button class="btn" type="button" aria-pressed="false">List</button>
+								<button class="btn" type="button" aria-pressed="false">Timeline</button>
+							</div>
+							<button class="btn btn-primary btn-block" type="button">Subscribe to the build log</button>
+						</div>
+					</div>
+				</div>
+				<p class="spec"><b>.btn</b> + <b>-primary -secondary -ghost -soft -quiet -danger</b> · <b>-sm -lg -block -icon -pill</b> · <b>[data-loading]</b> · <b>.btn-live</b> · <b>.btn-group</b></p>
+			</div>

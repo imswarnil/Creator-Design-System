@@ -1,0 +1,27 @@
+/* =============================================================================
+   SWARNIL DESIGN SYSTEM · 3 — COMPONENTS
+   Composed UI: things with variants, states, and parts that know about each
+   other. A button is a component because it has six intents and five states;
+   a badge is an element because it is a word in a shape.
+
+   23-collection.css is the one that matters most — it is the theme's
+   routes.yaml turned into cards, so every collection the site publishes has a
+   defined shape instead of an improvised one.
+
+   Requires 1-foundation and 2-elements.
+   ========================================================================== */
+
+@import url('./20-button.css');      /* 6 intents, 3 sizes, states, groups    */
+@import url('./21-form.css');        /* field = label + control + hint + error*/
+@import url('./22-card.css');        /* the base card and its layouts         */
+@import url('./23-collection.css');  /* one card per routes.yaml collection   */
+@import url('./24-nav.css');         /* island, tabs, crumbs, pager, toc      */
+@import url('./25-feedback.css');    /* alert, toast, empty state             */
+@import url('./26-media.css');       /* player, poster, episode row, promo    */
+@import url('./27-composite.css');   /* curriculum, episodes, buildlog, trip  */
+@import url('./28-disclosure.css');  /* close, collapse, accordion, dropdown, list group, carousel, marquee */
+@import url('./29-overlay.css');     /* modal, offcanvas, popover             */
+@import url('./30-form-plus.css');   /* range, floating labels                */
+@import url('./31-content.css');     /* long-form content — headings … kg-cards */
+@import url('./32-editorial.css');   /* rail, chat, release, share            */
+@import url('./33-navbar.css');      /* alignment, dropdown, mega, sheet, contexts */

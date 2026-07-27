@@ -1,0 +1,15 @@
+{
+	"name": "Swarnil — Ghost theme",
+	"description": "The full creator theme: videos, courses with syllabus, web series, projects with build logs, travel and docs.",
+	"price": "$49",
+	"url": "https://imswarnil.com/shop/",
+	"platform": "Ghost",
+	"author": "Swarnil Singhai",
+	"preview": "",
+	"features": [
+		"21 post layouts behind one dispatcher",
+		"Every collection routed and styled",
+		"Light and dark from the same tokens",
+		"Demo content included"
+	]
+}

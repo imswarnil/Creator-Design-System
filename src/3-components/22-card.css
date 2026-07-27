@@ -1,0 +1,221 @@
+/* =============================================================================
+   13 · CARD
+   The workhorse. Every collection on the site is a deck of these — designed at
+   thumbnail scale first (P1), so the title survives a 120px crop.
+   ========================================================================== */
+
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background: var(--bg-surface);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	overflow: hidden;
+	transition: var(--t-colors), var(--t-transform), var(--t-shadow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.card:hover {
+		transform: translate3d(0, -3px, 0);
+		box-shadow: var(--shadow-2);
+		border-color: var(--line-strong);
+	}
+}
+
+/* Whole-card link. The <a> stays on the title (so the accessible name and the
+   tab stop are right) and its ::after covers the card. */
+.card__link { text-decoration: none; color: inherit; }
+
+.card__link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: var(--z-raised);
+}
+
+/* Anything that must stay clickable above the cover (a tag, a play button). */
+.card__above { position: relative; z-index: calc(var(--z-raised) + 1); }
+
+/* ── Media ───────────────────────────────────────────────────────────────── */
+
+.card__media {
+	position: relative;
+	aspect-ratio: var(--ratio-video);
+	background: var(--bg-media);
+	overflow: hidden;
+	flex: none;
+}
+
+.card__media > img,
+.card__media > video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform var(--dur-4) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.card:hover .card__media > img { transform: scale(1.03); }
+}
+
+.card__media-square { aspect-ratio: var(--ratio-square); }
+.card__media-photo  { aspect-ratio: var(--ratio-photo); }
+.card__media-poster { aspect-ratio: var(--ratio-poster); }
+
+/* Corner slots on the media — runtime bottom-right, status top-left. */
+.card__media-tr,
+.card__media-br,
+.card__media-tl {
+	position: absolute;
+	z-index: var(--z-raised);
+}
+
+.card__media-tl { top: var(--space-3); left: var(--space-3); }
+.card__media-tr { top: var(--space-3); right: var(--space-3); }
+.card__media-br { bottom: var(--space-3); right: var(--space-3); }
+
+/* ── Body ────────────────────────────────────────────────────────────────── */
+
+.card__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	padding: var(--space-5);
+	flex: 1;
+}
+
+.card__meta {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+}
+
+.card__title {
+	font-family: var(--font-heading-effective);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-bold);
+	line-height: var(--leading-snug);
+	letter-spacing: var(--tracking-tight);
+	color: var(--fg-default);
+	text-wrap: balance;
+}
+
+.card__excerpt {
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+	color: var(--fg-muted);
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+}
+
+.card__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-5);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	margin-top: auto;
+	font-size: var(--text-xs);
+	color: var(--fg-subtle);
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+
+/* Featured: an accent hairline and a soft tint. Used for exactly one card in
+   a deck — the editor's pick, the newest episode. */
+.card-featured {
+	border-color: var(--line-accent);
+	background: var(--bg-surface);
+}
+
+.card-featured .card__title { color: var(--fg-default); }
+
+/* Inverse: for the cinematic decks (webseries, videos). Always dark. */
+.card-inverse {
+	background: var(--ink-950);
+	border-color: rgb(255 255 255 / 0.10);
+	color: var(--ink-50);
+}
+
+.card-inverse .card__title { color: var(--ink-50); }
+.card-inverse .card__excerpt { color: var(--ink-400); }
+.card-inverse .card__footer { border-top-color: rgb(255 255 255 / 0.08); }
+
+/* Row: media left, body right. Search results, "up next", episode lists. */
+.card-row {
+	flex-direction: row;
+	align-items: stretch;
+}
+
+.card-row > .card__media {
+	width: 40%;
+	max-width: 14rem;
+	aspect-ratio: var(--ratio-video);
+}
+
+.card-row > .card__body { padding: var(--space-4); }
+
+@media (max-width: 34rem) {
+	.card-row { flex-direction: column; }
+	.card-row > .card__media { width: 100%; max-width: none; }
+}
+
+/* Compact: no media, tight padding. Changelog, snippets, guestbook. */
+.card-compact > .card__body { padding: var(--space-4); gap: var(--space-1); }
+.card-compact .card__title { font-size: var(--text-base); }
+
+/* Bare: no border or background — a card in a list that already has rules. */
+.card-bare {
+	background: transparent;
+	border-color: transparent;
+	border-radius: 0;
+}
+
+.card-bare:hover { transform: none; box-shadow: none; }
+
+/* Poster: the Netflix-style tile. Title lives on the image. */
+.card-poster {
+	border: 0;
+	background: var(--bg-media);
+	border-radius: var(--radius-media);
+}
+
+.card-poster > .card__media {
+	aspect-ratio: var(--ratio-poster);
+	border-radius: inherit;
+}
+
+.card-poster .card__body {
+	position: absolute;
+	inset: auto 0 0 0;
+	padding: var(--space-4);
+	gap: var(--space-1);
+	background: linear-gradient(to top, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0.35) 55%, transparent);
+	color: var(--pure-white);
+}
+
+.card-poster .card__title { color: var(--pure-white); font-size: var(--text-base); }
+.card-poster .card__meta { color: rgb(255 255 255 / 0.72); }
+
+/* ── Deck ────────────────────────────────────────────────────────────────
+   The default grid a collection renders into. */
+
+.deck {
+	display: grid;
+	gap: var(--grid-gap);
+	grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr));
+}
+
+.deck-sm { grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); }
+.deck-lg { grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr)); }

@@ -1,0 +1,285 @@
+/* =============================================================================
+   20 · BROADCAST CANVAS
+   Real export surfaces: thumbnails, banners, avatars, scenes.
+
+   HOW THIS WORKS — every canvas is a CSS container, and every size inside it is
+   in `cqw` (1cqw = 1% of the canvas width). So a canvas rendered 480px wide in
+   this preview is pixel-identical, proportionally, to the same canvas rendered
+   at 1280 or 2560. Design once, screenshot at any export size.
+
+   EXPORT SIZES
+     thumbnail   1280 × 720    16:9   ≤ 2MB   jpg/png
+     banner      2560 × 1440   16:9   ≤ 6MB   safe area 1546 × 423 (centred)
+     avatar       800 × 800     1:1           renders as a circle
+     scene       1920 × 1080   16:9           intro, outro, live, lower-third
+     short       1080 × 1920   9:16
+   ========================================================================== */
+
+.yt {
+	container-type: inline-size;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	isolation: isolate;
+	background: var(--ink-1000);
+	color: var(--pure-white);
+	color-scheme: dark;
+	border-radius: var(--radius-media);
+	/* Broadcast surfaces are always dark, in every site theme. */
+	--yt-ink: var(--pure-white);
+	--yt-dim: rgb(255 255 255 / 0.62);
+	--yt-faint: rgb(255 255 255 / 0.34);
+	--yt-line: rgb(255 255 255 / 0.16);
+}
+
+/* Square edges — how it actually exports. The preview rounds them for display
+   only; add .yt-flush wherever you're taking the real screenshot. */
+.yt-flush { border-radius: 0; }
+
+.yt-thumb  { aspect-ratio: 16 / 9; }
+.yt-banner { aspect-ratio: 16 / 9; }
+.yt-scene  { aspect-ratio: 16 / 9; }
+.yt-avatar { aspect-ratio: 1 / 1; border-radius: var(--radius-full); }
+.yt-short  { aspect-ratio: 9 / 16; }
+
+/* ── Safe areas ───────────────────────────────────────────────────────────
+   Thumbnail: keep everything inside 5.5% — YouTube overlays a duration chip
+   bottom-right and a progress bar along the bottom edge in some surfaces.
+   Banner: the notorious 1546 × 423 centre box, the only region visible on
+   every device. */
+
+.yt__safe {
+	position: absolute;
+	inset: 5.5%;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 1.6cqw;
+}
+
+.yt__safe-banner {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 60.4%;   /* 1546 / 2560 */
+	height: 29.4%;  /* 423 / 1440  */
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1cqw;
+}
+
+/* Guide overlay — toggled from the preview page, never exported. */
+.yt-guides::after {
+	content: '';
+	position: absolute;
+	inset: 5.5%;
+	z-index: 9;
+	border: 1px dashed rgb(255 255 255 / 0.45);
+	pointer-events: none;
+}
+
+.yt-banner.yt-guides::after {
+	inset: 35.3% 19.8%;
+	border-color: var(--signal-400);
+}
+
+.yt-guides::before {
+	content: attr(data-guide);
+	position: absolute;
+	left: 5.5%;
+	top: 2%;
+	z-index: 9;
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.5);
+	pointer-events: none;
+}
+
+/* ── Type roles, canvas-relative ─────────────────────────────────────────
+   Same names as the site's roles, but scaled in cqw so they hold at any
+   export size. Nothing here uses rem — a thumbnail has no browser context. */
+
+.yt-kicker {
+	display: flex;
+	align-items: center;
+	gap: 1.1cqw;
+	font-family: var(--font-slate);
+	font-size: 1.85cqw;
+	font-weight: 500;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+	line-height: 1;
+}
+
+.yt-kicker::before {
+	content: '';
+	width: 1.1cqw;
+	height: 1.1cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	flex: none;
+}
+
+.yt-kicker-plain::before { display: none; }
+
+/* P1: legible at 120px wide. That means the title is BIG — 7-9cqw, three
+   lines maximum, and never more than about 34 characters. */
+.yt-title {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 8.4cqw;
+	line-height: 0.98;
+	letter-spacing: -0.03em;
+	text-wrap: balance;
+	margin: 0;
+}
+
+.yt-title-sm { font-size: 6.4cqw; }
+.yt-title-lg { font-size: 11cqw; }
+
+/* The one accent word per thumbnail. Never two. */
+.yt-hit { color: var(--signal-400); }
+
+.yt-sub {
+	font-size: 2.6cqw;
+	line-height: 1.35;
+	color: var(--yt-dim);
+	max-width: 30ch;
+	margin: 0;
+}
+
+.yt-slate {
+	font-family: var(--font-slate);
+	font-size: 1.7cqw;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+.yt-num {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 16cqw;
+	line-height: 0.82;
+	letter-spacing: -0.05em;
+	font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* ── Channel mark ────────────────────────────────────────────────────────
+   The wordmark lockup, canvas-scaled. Bottom-left on thumbnails, always the
+   same size and position — this is most of what makes a channel look like a
+   channel. */
+
+/* Same markup as .logo — Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l
+   — but sized in cqw so it holds at any export size. The tittle tokens are
+   re-declared here because .logo isn't the ancestor. */
+.yt-mark {
+	--logo-dot: 0.2em;
+	--logo-lift: 0.68em;
+	--logo-nudge: 0em;
+	--logo-dot-color: var(--signal-500);
+	display: inline-flex;
+	align-items: baseline;
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 3cqw;
+	letter-spacing: -0.045em;
+	line-height: 1;
+	color: var(--yt-ink);
+	white-space: nowrap;
+}
+
+.yt-mark-lg { font-size: 6cqw; }
+.yt-mark-sm { font-size: 2.2cqw; }
+
+/* ── Layout helpers, canvas-relative ─────────────────────────────────────── */
+
+.yt-stack { display: flex; flex-direction: column; gap: 1.6cqw; }
+.yt-row   { display: flex; align-items: center; gap: 1.6cqw; }
+.yt-between { display: flex; align-items: center; justify-content: space-between; gap: 1.6cqw; }
+.yt-push  { margin-top: auto; }
+
+/* The split every thumbnail uses: copy left, subject right. */
+.yt-split {
+	position: absolute;
+	inset: 5.5%;
+	z-index: 3;
+	display: grid;
+	grid-template-columns: 1.15fr 1fr;
+	gap: 3cqw;
+	align-items: center;
+}
+
+.yt-split > .yt-copy { display: flex; flex-direction: column; gap: 1.8cqw; justify-content: center; }
+
+/* Subject slot — where the photo/still/screenshot of you goes. */
+.yt-subject {
+	position: relative;
+	height: 100%;
+	border-radius: 1.6cqw;
+	overflow: hidden;
+	background: rgb(255 255 255 / 0.05);
+	display: grid;
+	place-items: center;
+}
+
+.yt-subject__hint {
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.28);
+	text-align: center;
+	padding: 2cqw;
+}
+
+/* ── Light canvases ──────────────────────────────────────────────────────
+   THE RULE: artwork follows the theme. Dark theme → dark assets. Light theme →
+   light assets. You pick one thing and everything on the page — page chrome,
+   thumbnails, banners, scenes, backdrops, frames — moves together.
+
+   Two escape hatches, for the cases where the artwork must NOT follow:
+     .yt-light   pin this canvas light   (a quote card destined for a bright feed)
+     .yt-dark    pin this canvas dark    (the webseries — always cinema)
+
+   Everything below is written as :is(pinned-light, light-theme-and-not-pinned),
+   which is why one toggle drives the whole page. */
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) {
+	background: var(--ink-25);
+	color: var(--ink-900);
+	color-scheme: light;
+	--yt-ink: var(--ink-900);
+	--yt-dim: var(--ink-600);
+	--yt-faint: var(--ink-500);
+	--yt-line: rgb(8 8 12 / 0.14);
+}
+
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .yt-hit { color: var(--signal-600); }
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .yt-subject { background: rgb(8 8 12 / 0.05); }
+:is(.yt-light, [data-theme='light'] .yt:not(.yt-dark)) .yt-subject__hint { color: rgb(8 8 12 / 0.34); }
+
+/* ── Social ratios ───────────────────────────────────────────────────────
+   The crops the channel actually posts into. Instagram's feed favours 4:5 —
+   it takes the most vertical space allowed, so it wins the scroll. */
+
+.yt-square   { aspect-ratio: 1 / 1; }        /* 1080 × 1080 · IG post, carousel */
+.yt-portrait { aspect-ratio: 4 / 5; }        /* 1080 × 1350 · IG feed, best reach */
+.yt-story    { aspect-ratio: 9 / 16; }       /* 1080 × 1920 · story, reel cover */
+
+/* ── Export scaffolding ──────────────────────────────────────────────────
+   Wrap a canvas in .yt-export to pin it to its real pixel size for a
+   screenshot: <div class="yt-export" style="--w:1280px"> … </div> */
+
+.yt-export {
+	width: var(--w, 1280px);
+	max-width: none;
+}

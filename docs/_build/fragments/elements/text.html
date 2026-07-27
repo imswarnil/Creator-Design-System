@@ -1,0 +1,56 @@
+<header class="sec-head">
+				<span class="sec-num">10</span>
+				<h2 class="t-h1">Text elements</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Things made of type and a rule. They drop straight into Ghost's
+					<code class="t-code">{{content}}</code> without a wrapper, which is the
+					real test of whether something is an element.
+				</p>
+			</header>
+
+			<div class="split-half" style="align-items:start">
+				<div class="surface demo-tile">
+					<div class="demo stack-lg">
+						<blockquote class="pullquote">
+							<p class="pullquote__text">The trick was never a faster computer. It was cutting the decisions I make after the shoot to almost zero.</p>
+							<cite class="pullquote__cite">Episode 07 · 04:12</cite>
+						</blockquote>
+
+						<p class="note">A margin note: not an alert, not a warning — an aside that shouldn't interrupt the sentence beside it.</p>
+						<p class="note note-craft">The craft variant, for asides about how something was made.</p>
+						<p class="note note-signal">And the signal variant, for the one that actually matters.</p>
+					</div>
+					<p class="spec"><b>.pullquote</b> · <b>.note</b> + <b>-craft -signal</b></p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-lg">
+						<figure class="figure">
+							<div class="pattern pattern-halftone" style="aspect-ratio:3/2;border-radius:var(--radius-media);background:var(--bg-sunken)"></div>
+							<figcaption class="figure__caption">Budapest · take 03 — the caption always leads with a craft dot.</figcaption>
+						</figure>
+
+						<div class="code-block">
+							<div class="code-block__head"><span>tokens.css</span><span>css</span></div>
+							<pre>--accent: var(--signal-500);
+--radius-card: 16px;</pre>
+						</div>
+					</div>
+					<p class="spec"><b>.figure</b> / <b>.figure__caption</b> · <b>.code-block</b></p>
+				</div>
+			</div>
+
+			<div class="surface demo-tile" style="margin-top:var(--space-6)">
+				<div class="demo measure">
+					<p class="t-body drop-cap">
+						Designed at thumbnail scale first. If the headline dies at 120px wide it
+						is rejected, and that single rule decides more of this system than any
+						colour choice does. The <span class="mark">marked phrase</span> is the
+						static twin of the highlight animation, the
+						<code class="t-code">.t-code</code> inline is for a token or a class
+						name, and a footnote reference looks like this.<a class="fn-ref" href="#text">1</a>
+					</p>
+					<p class="fn" style="margin-top:var(--space-5)">1 · Footnotes sit under a hairline, one size down, in muted ink.</p>
+				</div>
+				<p class="spec"><b>.drop-cap</b> · <b>.mark</b> · <b>.t-code</b> · <b>.fn-ref</b> / <b>.fn</b> — one drop cap per article, at most</p>
+			</div>

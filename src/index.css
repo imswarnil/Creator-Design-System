@@ -1,0 +1,23 @@
+/* =============================================================================
+   CREATOR DESIGN SYSTEM
+   Frame & Signal — a token-first design system for creators building their site.
+
+   This is the whole system. Import it and you get tokens, elements,
+   components, sections and utilities. To take less, import a layer directly:
+
+       @import "creator-design-system/foundation";   tokens only
+       @import "creator-design-system/components";   + the components
+
+   Broadcast (layer 4) is NOT included here: it ships to YouTube and Instagram,
+   not to a website. Import it explicitly if you export channel art:
+
+       @import "creator-design-system/broadcast";
+
+   Docs: https://swarnil.github.io/Creator-Design-System/
+   ========================================================================== */
+
+@import url('./1-foundation/index.css');
+@import url('./2-elements/index.css');
+@import url('./3-components/index.css');
+@import url('./5-sections/index.css');
+@import url('./6-utilities/index.css');

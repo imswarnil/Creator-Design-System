@@ -1,0 +1,690 @@
+/* =============================================================================
+   23 · SCENES
+   Full-frame 1920 × 1080 cards that live inside the video: the opener, title
+   cards, point lists, quotes, section breaks, the outro, and the live screens.
+
+   These are built to be screenshotted or screen-recorded and dropped on the
+   timeline, so every one of them is a single self-contained element.
+   ========================================================================== */
+
+/* ── Intro opener ────────────────────────────────────────────────────────
+   The first three seconds. Wordmark, one line of promise, and a rule that
+   wipes in. Nothing else — the opener is not a place for information. */
+
+.scene-open {
+	display: grid;
+	place-items: center;
+	text-align: center;
+	background:
+		radial-gradient(ellipse 60% 55% at 50% 12%, rgb(240 78 46 / 0.18), transparent 70%),
+		var(--ink-1000);
+}
+
+.scene-open__in {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2.4cqw;
+	z-index: 3;
+}
+
+.scene-open__rule {
+	width: 22cqw;
+	height: 0.28cqw;
+	background: var(--signal-500);
+	border-radius: 1cqw;
+	animation: sceneRule var(--dur-4) var(--ease-out) both;
+}
+
+@keyframes sceneRule {
+	from { transform: scaleX(0); }
+	to   { transform: scaleX(1); }
+}
+
+/* ── Title card ─────────────────────────────────────────────────────────
+   Between-chapter card: a number, a title, and the chapter's one-line promise.
+   Left-aligned, so it never competes with the opener's centred lockup. */
+
+.scene-title {
+	display: grid;
+	align-content: center;
+	padding: 0 9cqw;
+	background:
+		repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 5cqw),
+		var(--ink-1000);
+}
+
+.scene-title__no {
+	font-family: var(--font-slate);
+	font-size: 2cqw;
+	letter-spacing: 0.3em;
+	color: var(--signal-400);
+	margin-bottom: 1.6cqw;
+}
+
+/* ── Points ─────────────────────────────────────────────────────────────
+   The list scene. Rows reveal on a stagger; the active row is the only one at
+   full opacity, so the frame always says "we are here". */
+
+.scene-points {
+	display: grid;
+	align-content: center;
+	padding: 0 9cqw;
+	gap: 2.4cqw;
+	background: var(--ink-1000);
+}
+
+.scene-points__row {
+	display: grid;
+	grid-template-columns: 5cqw 1fr;
+	align-items: baseline;
+	gap: 2.4cqw;
+	opacity: 0.32;
+	transition: opacity var(--dur-3) var(--ease-out);
+}
+
+.scene-points__row[data-on] { opacity: 1; }
+
+.scene-points__no {
+	font-family: var(--font-slate);
+	font-size: 1.9cqw;
+	letter-spacing: 0.16em;
+	color: var(--signal-400);
+	font-variant-numeric: tabular-nums;
+}
+
+.scene-points__text {
+	font-family: var(--font-display);
+	font-weight: 600;
+	font-size: 4.4cqw;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+}
+
+.scene-points__row[data-on] .scene-points__text::after {
+	content: '';
+	display: block;
+	width: 6cqw;
+	height: 0.22cqw;
+	margin-top: 1cqw;
+	background: var(--signal-500);
+	border-radius: 1cqw;
+}
+
+/* ── Quote ──────────────────────────────────────────────────────────── */
+
+.scene-quote {
+	display: grid;
+	align-content: center;
+	padding: 0 12cqw;
+	background:
+		radial-gradient(ellipse 60% 50% at 20% 20%, rgb(217 163 58 / 0.12), transparent 70%),
+		var(--ink-1000);
+}
+
+.scene-quote__text {
+	font-family: var(--font-display);
+	font-weight: 600;
+	font-size: 5.4cqw;
+	line-height: 1.14;
+	letter-spacing: -0.025em;
+	text-wrap: balance;
+	border-left: 0.35cqw solid var(--signal-500);
+	padding-left: 3cqw;
+}
+
+.scene-quote__cite {
+	margin-top: 2.4cqw;
+	padding-left: 3.35cqw;
+	font-family: var(--font-slate);
+	font-size: 1.7cqw;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+	font-style: normal;
+}
+
+/* ── Lower third ────────────────────────────────────────────────────────
+   Overlay, not a full frame: transparent canvas, content bottom-left, enters
+   from the left. Export with a transparent background (PNG sequence) or
+   screen-record over the video. */
+
+.scene-lower {
+	background: transparent;
+	display: flex;
+	align-items: flex-end;
+}
+
+.lower-third {
+	margin: 0 0 8cqh 6cqw;
+	display: inline-flex;
+	align-items: stretch;
+	gap: 1.6cqw;
+	padding: 1.6cqw 2.4cqw 1.6cqw 0;
+	background: linear-gradient(to right, rgb(8 8 12 / 0.92), rgb(8 8 12 / 0.72));
+	border-radius: 0 0.9cqw 0.9cqw 0;
+	animation: fx-slide-l var(--dur-3) var(--ease-out) both;
+}
+
+.lower-third::before {
+	content: '';
+	width: 0.4cqw;
+	background: var(--signal-500);
+	border-radius: 1cqw;
+	flex: none;
+	margin-left: 1.6cqw;
+}
+
+.lower-third__name {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 3.2cqw;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+}
+
+.lower-third__role {
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+	margin-top: 0.5cqw;
+}
+
+/* ── Section break ─────────────────────────────────────────────────────
+   The two-second breather between chapters. Big numeral, thin rule, nothing
+   to read. */
+
+.scene-break {
+	display: grid;
+	place-items: center;
+	background:
+		repeating-linear-gradient(45deg, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 3cqw),
+		var(--ink-1000);
+}
+
+.scene-break__no {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 22cqw;
+	line-height: 1;
+	letter-spacing: -0.05em;
+	color: rgb(255 255 255 / 0.9);
+}
+
+.scene-break__label {
+	margin-top: 1.6cqw;
+	font-family: var(--font-slate);
+	font-size: 1.8cqw;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: var(--signal-400);
+	text-align: center;
+}
+
+/* ── End screen / outro ────────────────────────────────────────────────
+   YouTube's end-screen elements are placed in the last 5-20s. The slots below
+   match the real click targets: two video cards on the right, a subscribe
+   target on the left. Keep the safe margins or the elements get clipped.  */
+
+.scene-end {
+	display: grid;
+	grid-template-columns: 1fr 1.05fr;
+	align-items: center;
+	gap: 5cqw;
+	padding: 0 7cqw;
+	background:
+		radial-gradient(ellipse 55% 60% at 22% 50%, rgb(240 78 46 / 0.16), transparent 72%),
+		var(--ink-1000);
+}
+
+.end__slots {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 2.4cqw;
+}
+
+/* A real end-screen video slot: YouTube overlays its own thumbnail here, so
+   this is a hole, not a design — mark it, don't decorate it. */
+.end__slot {
+	aspect-ratio: 16 / 9;
+	border: 0.25cqw dashed rgb(255 255 255 / 0.3);
+	border-radius: 1cqw;
+	display: grid;
+	place-items: center;
+	text-align: center;
+	font-family: var(--font-slate);
+	font-size: 1.4cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.4);
+	padding: 1.6cqw;
+}
+
+.end__sub {
+	display: flex;
+	flex-direction: column;
+	gap: 2cqw;
+	align-items: flex-start;
+}
+
+/* The subscribe target — a circle YouTube can overlay its own button onto. */
+.end__target {
+	width: 14cqw;
+	height: 14cqw;
+	border-radius: 50%;
+	border: 0.3cqw dashed rgb(255 255 255 / 0.32);
+	display: grid;
+	place-items: center;
+	text-align: center;
+	font-family: var(--font-slate);
+	font-size: 1.3cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.45);
+}
+
+/* ── Live stream screen ────────────────────────────────────────────────
+   The "we're live" holding frame: topic, LIVE tag, a ticker, and room on the
+   right for the chat overlay. */
+
+.scene-live {
+	display: grid;
+	grid-template-columns: 1fr 26cqw;
+	background:
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 0.6cqw),
+		radial-gradient(ellipse 70% 55% at 40% 0%, rgb(240 78 46 / 0.22), transparent 70%),
+		var(--ink-1000);
+}
+
+.scene-live__main {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 2.4cqw;
+	padding: 0 6cqw;
+}
+
+.live-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 1cqw;
+	align-self: flex-start;
+	padding: 0.8cqw 1.6cqw;
+	border-radius: 0.7cqw;
+	background: var(--signal-500);
+	color: var(--pure-white);
+	font-family: var(--font-slate);
+	font-size: 1.6cqw;
+	font-weight: 600;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	line-height: 1;
+}
+
+.live-tag::before {
+	content: '';
+	width: 1.1cqw;
+	height: 1.1cqw;
+	border-radius: 50%;
+	background: currentColor;
+	animation: fx-pulse 1.6s var(--ease-inout) infinite;
+}
+
+.live-stat {
+	display: flex;
+	gap: 3.2cqw;
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Ticker strip along the bottom — topics, links, "type !links in chat". */
+.ticker {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 4;
+	display: flex;
+	align-items: center;
+	gap: 3cqw;
+	height: 5.4cqw;
+	padding: 0 3cqw;
+	background: rgb(8 8 12 / 0.88);
+	border-top: 1px solid rgb(255 255 255 / 0.10);
+	font-family: var(--font-slate);
+	font-size: 1.45cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ticker__pill {
+	padding: 0.5cqw 1.2cqw;
+	border-radius: 0.5cqw;
+	background: var(--signal-500);
+	color: var(--pure-white);
+	font-weight: 600;
+	flex: none;
+}
+
+/* =============================================================================
+   LIVE · FIVE SCENES
+   The five arrangements a stream actually cycles through. Each has a real
+   camera slot and a real share slot, so OBS scene collections map 1:1 onto
+   them: put the capture source where the placeholder is.
+
+     1 · standby      topic + countdown, no share yet
+     2 · share-right  screen share large, camera bottom-right (the default)
+     3 · share-left   mirrored, for right-handed webcam framing
+     4 · duo          50/50 — pair programming, guest, reaction
+     5 · focus        camera full frame, share as a small inset — Q&A moments
+   ========================================================================== */
+
+.live-stage {
+	position: relative;
+	display: grid;
+	gap: 1.4cqw;
+	padding: 1.4cqw;
+	height: 100%;
+	background:
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 0.65cqw),
+		radial-gradient(ellipse 70% 60% at 50% 0%, rgb(240 78 46 / 0.16), transparent 72%),
+		var(--ink-1000);
+}
+
+/* The two source slots. Dashed, labelled, never decorated — they are holes
+   for a capture source, exactly like the end-screen slots. */
+.src {
+	position: relative;
+	border-radius: 1.2cqw;
+	background: rgb(255 255 255 / 0.04);
+	border: 0.2cqw dashed rgb(255 255 255 / 0.22);
+	display: grid;
+	place-items: center;
+	text-align: center;
+	overflow: hidden;
+}
+
+.src__label {
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.38);
+	padding: 1.6cqw;
+}
+
+.src-cam { border-style: solid; border-color: rgb(255 255 255 / 0.14); }
+
+/* A camera slot always carries the name tag — the viewer joining at minute 40
+   should never have to wonder who is talking. */
+.src__tag {
+	position: absolute;
+	left: 0.9cqw;
+	bottom: 0.9cqw;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.8cqw;
+	padding: 0.7cqw 1.2cqw;
+	border-radius: 0.6cqw;
+	background: rgb(8 8 12 / 0.82);
+	font-family: var(--font-slate);
+	font-size: 1.2cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.88);
+}
+
+.src__tag::before {
+	content: '';
+	width: 0.9cqw;
+	height: 0.9cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+}
+
+/* Scene 1 · standby */
+.live-1 { grid-template-columns: 1fr; place-items: center; }
+
+/* Scene 2 · share right — share takes the golden share of the width. */
+.live-2 { grid-template-columns: 1.618fr 1fr; grid-template-rows: 1fr auto; }
+.live-2 > .src-share { grid-row: 1 / -1; }
+.live-2 > .src-cam { aspect-ratio: 16 / 9; align-self: start; }
+
+/* Scene 3 · share left — mirrored. */
+.live-3 { grid-template-columns: 1fr 1.618fr; grid-template-rows: 1fr auto; }
+.live-3 > .src-share { grid-column: 2; grid-row: 1 / -1; }
+.live-3 > .src-cam { grid-column: 1; grid-row: 1; aspect-ratio: 16 / 9; align-self: start; }
+
+/* Scene 4 · duo — equal halves, for a guest or a pairing session. */
+.live-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* Scene 5 · focus — camera full, share as a picture-in-picture inset. */
+.live-5 { grid-template-columns: 1fr; }
+
+.live-5 > .src-share {
+	position: absolute;
+	right: 2.4cqw;
+	bottom: 2.4cqw;
+	width: 26%;
+	aspect-ratio: 16 / 9;
+	z-index: 3;
+	box-shadow: var(--shadow-4);
+}
+
+/* Scene header — the strip along the top of every live scene. Fixed height,
+   so cutting between scenes doesn't make the topic jump. */
+.live-head {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 4;
+	display: flex;
+	align-items: center;
+	gap: 2cqw;
+	height: 6cqw;
+	padding: 0 2.4cqw;
+	background: linear-gradient(to bottom, rgb(8 8 12 / 0.9), transparent);
+}
+
+.live-head__topic {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 2.4cqw;
+	letter-spacing: -0.02em;
+}
+
+.live-head__meta {
+	margin-left: auto;
+	font-family: var(--font-slate);
+	font-size: 1.4cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.55);
+	font-variant-numeric: tabular-nums;
+}
+
+/* =============================================================================
+   END SCREENS · FIVE STYLES
+   All five keep YouTube's element geometry: two 16:9 slots and one circular
+   subscribe target, none of them within 6% of an edge.
+   ========================================================================== */
+
+/* 1 · classic — the original: subscribe left, two slots right. (.scene-end) */
+
+/* 2 · centred — the mark in the middle, slots flanking. Best when the video
+   ended on a strong statement and you don't want to talk over it. */
+.end-2 {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: 4cqw;
+	padding: 0 7cqw;
+	background:
+		radial-gradient(ellipse 50% 60% at 50% 45%, rgb(240 78 46 / 0.16), transparent 70%),
+		var(--ink-1000);
+}
+
+.end-2__mid { display: flex; flex-direction: column; align-items: center; gap: 2cqw; text-align: center; }
+
+/* 3 · list — "what to watch next" as a ruled list beside the slots. Works
+   when the two next videos need explaining. */
+.end-3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	gap: 5cqw;
+	padding: 0 7cqw;
+	background: var(--ink-1000);
+}
+
+.end-list { display: flex; flex-direction: column; }
+
+.end-list__row {
+	display: flex;
+	align-items: baseline;
+	gap: 1.6cqw;
+	padding: 1.6cqw 0;
+	border-bottom: 1px solid rgb(255 255 255 / 0.12);
+	font-size: 2.2cqw;
+}
+
+.end-list__row:last-child { border-bottom: 0; }
+
+.end-list__no {
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.18em;
+	color: var(--signal-400);
+}
+
+/* 4 · newsletter — the end screen that asks for an email instead of a click.
+   The highest-value ask, and the one most channels never make. */
+.end-4 {
+	display: grid;
+	grid-template-columns: 1.2fr 1fr;
+	align-items: center;
+	gap: 5cqw;
+	padding: 0 7cqw;
+	background:
+		radial-gradient(ellipse 60% 60% at 20% 50%, rgb(217 163 58 / 0.14), transparent 72%),
+		var(--ink-1000);
+}
+
+/* 5 · minimal — one slot, one target, and a lot of black. For essays and
+   anything that would be cheapened by a wall of cards. */
+.end-5 {
+	display: grid;
+	place-items: center;
+	gap: 3cqw;
+	padding: 0 12cqw;
+	text-align: center;
+	background: var(--ink-1000);
+}
+
+.end-5 .end__slot { width: 46%; }
+
+/* =============================================================================
+   TITLE SCENES · FIVE STYLES
+   Between-chapter cards. One per video, or one per chapter — never both.
+   ========================================================================== */
+
+/* 1 · left rule (.scene-title, already defined) */
+
+/* 2 · numeral — a huge chapter number with the title beside it. */
+.title-2 {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 5cqw;
+	padding: 0 9cqw;
+	background: var(--ink-1000);
+}
+
+.title-2__no {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 20cqw;
+	line-height: 0.8;
+	letter-spacing: -0.06em;
+	color: rgb(255 255 255 / 0.12);
+	font-variant-numeric: tabular-nums;
+}
+
+/* 3 · centred with rules — the line effect, at scene scale. */
+.title-3 {
+	display: grid;
+	place-items: center;
+	text-align: center;
+	padding: 0 10cqw;
+	background:
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 0.7cqw),
+		var(--ink-1000);
+}
+
+.title-3__in {
+	display: flex;
+	flex-direction: column;
+	gap: 2.4cqw;
+	align-items: center;
+	padding-block: 2.4cqw;
+	border-block: 1px solid rgb(255 255 255 / 0.35);
+}
+
+/* 4 · lower band — the title arrives in a band across the lower third, so the
+   footage keeps playing above it. */
+.title-4 {
+	display: flex;
+	align-items: flex-end;
+	background: transparent;
+}
+
+.title-4__band {
+	width: 100%;
+	padding: 3cqw 7cqw;
+	background: linear-gradient(to top, rgb(8 8 12 / 0.95), rgb(8 8 12 / 0.7) 70%, transparent);
+	border-top: 0.2cqw solid var(--signal-500);
+}
+
+/* 5 · quote-title — the chapter opens on a line of speech instead of a label.
+   Use it once per video at most. */
+.title-5 {
+	display: grid;
+	align-content: center;
+	padding: 0 12cqw;
+	background:
+		radial-gradient(ellipse 55% 50% at 78% 30%, rgb(43 123 239 / 0.12), transparent 70%),
+		var(--ink-1000);
+}
+
+/* ── BRB / starting soon ───────────────────────────────────────────────── */
+
+.scene-brb {
+	display: grid;
+	place-items: center;
+	text-align: center;
+	background:
+		radial-gradient(ellipse 60% 60% at 50% 50%, rgb(255 255 255 / 0.05), transparent 70%),
+		var(--ink-1000);
+}
+
+.scene-brb__timer {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 14cqw;
+	line-height: 1;
+	letter-spacing: -0.04em;
+	font-variant-numeric: tabular-nums;
+}

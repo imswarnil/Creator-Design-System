@@ -1,0 +1,78 @@
+<header class="sec-head">
+				<span class="sec-num">23d</span>
+				<h2 class="t-h1">Five live scenes</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					The five arrangements a stream actually cycles through. Every dashed
+					region is a capture source — put the OBS scene there and the framing
+					is already correct.
+				</p>
+			</header>
+
+			<div class="canvas-row">
+				<div>
+					<div class="yt yt-scene" data-guide="scene 1 · standby">
+						<div class="live-stage live-1">
+							<div class="live-head"><span class="live-head__topic">Starting soon</span><span class="live-head__meta">Ep. 07 · 20:00 CET</span></div>
+							<div class="stack" style="align-items:center;text-align:center;z-index:2">
+								<span class="live-tag">Live in 4:32</span>
+								<h3 class="yt-title" style="font-size:5cqw">Rebuilding the theme, <span class="yt-hit">token by token</span></h3>
+								<span class="yt-slate" style="font-size:1.6cqw">Chat's open · say hello</span>
+							</div>
+						</div>
+					</div>
+					<p class="canvas-note"><b>1 · standby</b> — topic and countdown, no share yet</p>
+				</div>
+
+				<div>
+					<div class="yt yt-scene" data-guide="scene 2 · share right">
+						<div class="live-stage live-2">
+							<div class="live-head"><span class="live-head__topic">Chapter 2 — naming the tokens</span><span class="live-head__meta">● 1,248 watching</span></div>
+							<div class="src src-share"><span class="src__label">screen share<br />1920×1080 capture</span></div>
+							<div class="src src-cam"><span class="src__label">camera</span><span class="src__tag">Swarnil</span></div>
+						</div>
+					</div>
+					<p class="canvas-note"><b>2 · share right</b> — share takes the golden share of the width. The default.</p>
+				</div>
+
+				<div>
+					<div class="yt yt-scene" data-guide="scene 3 · share left">
+						<div class="live-stage live-3">
+							<div class="live-head"><span class="live-head__topic">Live debugging</span><span class="live-head__meta">42 min</span></div>
+							<div class="src src-cam"><span class="src__label">camera</span><span class="src__tag">Swarnil</span></div>
+							<div class="src src-share"><span class="src__label">screen share</span></div>
+						</div>
+					</div>
+					<p class="canvas-note"><b>3 · share left</b> — mirrored, for right-handed webcam framing</p>
+				</div>
+
+				<div>
+					<div class="yt yt-scene" data-guide="scene 4 · duo">
+						<div class="live-stage live-4">
+							<div class="live-head"><span class="live-head__topic">Guest — pairing on the grid</span><span class="live-head__meta">● live</span></div>
+							<div class="src src-cam"><span class="src__label">camera A</span><span class="src__tag">Swarnil</span></div>
+							<div class="src src-cam"><span class="src__label">camera B</span><span class="src__tag">Guest</span></div>
+						</div>
+					</div>
+					<p class="canvas-note"><b>4 · duo</b> — equal halves: guest, reaction, pairing</p>
+				</div>
+
+				<div>
+					<div class="yt yt-scene" data-guide="scene 5 · focus">
+						<div class="live-stage live-5">
+							<div class="live-head"><span class="live-head__topic">Answering chat</span><span class="live-head__meta">Q&amp;A</span></div>
+							<div class="src src-cam"><span class="src__label">camera — full frame</span><span class="src__tag">Swarnil</span></div>
+							<div class="src src-share"><span class="src__label">share · PiP</span></div>
+						</div>
+					</div>
+					<p class="canvas-note"><b>5 · focus</b> — camera full, share as a picture-in-picture. Q&amp;A moments.</p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">Why the header strip is fixed height</span>
+						<p class="t-small">Every scene carries the same 6cqw strip with the topic on the left and the state on the right. Cutting between scenes then never makes the topic jump — the only thing that changes is what's underneath it. That's the whole trick to a stream that looks produced.</p>
+						<p class="t-small">The chat rail from the live screen composes with any of these: drop <code class="t-code">.chat</code> into the grid as a final column.</p>
+					</div>
+					<p class="spec"><b>.live-stage</b> + <b>.live-1…5</b> · <b>.src-share</b> / <b>.src-cam</b> · <b>.live-head</b> · <b>.src__tag</b></p>
+				</div>
+			</div>

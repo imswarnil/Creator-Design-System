@@ -1,0 +1,180 @@
+/* =============================================================================
+   10 · ICONS
+   The icon system: one grid, one stroke, four variants. Icons are inline SVG
+   from a sprite — no icon font, no external requests, and they inherit colour
+   from the text they sit in.
+
+   THE GRID
+     24 × 24 viewBox, 2px padding → 20px live area
+     1.5px stroke, round caps, round joins
+     corner radius 2px, never sharper
+     optical centring beats geometric centring — nudge, don't calculate
+
+   A 16px icon is the 24px icon scaled, NOT redrawn. If a glyph dies at 16px
+   it is too detailed; simplify the drawing rather than adding a second size.
+   ========================================================================== */
+
+:root {
+	--icon-stroke: 1.5;
+	--icon-stroke-thin: 1.25;
+	--icon-stroke-bold: 2;
+}
+
+.icon {
+	display: inline-block;
+	width: var(--icon-md);
+	height: var(--icon-md);
+	flex: none;
+	vertical-align: -0.125em;   /* sits on the text baseline, not below it */
+	fill: none;
+	stroke: currentColor;
+	stroke-width: var(--icon-stroke);
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	color: inherit;
+}
+
+/* ── Sizes — the same ladder as everything else ─────────────────────────── */
+
+.icon-xs { width: var(--icon-xs); height: var(--icon-xs); stroke-width: var(--icon-stroke-bold); }
+.icon-sm { width: var(--icon-sm); height: var(--icon-sm); }
+.icon-md { width: var(--icon-md); height: var(--icon-md); }
+.icon-lg { width: var(--icon-lg); height: var(--icon-lg); }
+.icon-xl { width: var(--icon-xl); height: var(--icon-xl); stroke-width: var(--icon-stroke-thin); }
+
+/* Small icons need a heavier stroke to hold; large icons need a lighter one.
+   That's optics, not maths — hence the overrides above. */
+
+/* ── Variants ────────────────────────────────────────────────────────────
+   line     the default — outline only
+   solid    filled, for active/selected states
+   duotone  outline plus a 12% fill of the same colour, for feature blocks
+   ghost    the outline at 45%, for disabled and decorative use */
+
+.icon-line   { fill: none; stroke: currentColor; }
+.icon-solid  { fill: currentColor; stroke: none; }
+.icon-duo    { fill: color-mix(in srgb, currentColor 14%, transparent); stroke: currentColor; }
+.icon-ghost  { opacity: 0.45; }
+
+/* Accent an icon without touching its markup. */
+.icon-accent { color: var(--accent); }
+.icon-muted  { color: var(--fg-muted); }
+
+/* ── Containers ──────────────────────────────────────────────────────────
+   An icon that needs to be tappable, or that carries a status. */
+
+.icon-box {
+	display: inline-grid;
+	place-items: center;
+	width: var(--control-md);
+	height: var(--control-md);
+	border-radius: var(--radius-control);
+	background: var(--bg-sunken);
+	border: var(--border-hair) solid var(--line-default);
+	color: var(--fg-muted);
+	transition: var(--t-colors);
+}
+
+.icon-box:hover { color: var(--fg-default); border-color: var(--line-strong); }
+.icon-box-round { border-radius: var(--radius-full); }
+.icon-box-sm { width: var(--control-sm); height: var(--control-sm); }
+.icon-box-lg { width: var(--control-lg); height: var(--control-lg); }
+
+.icon-box-accent {
+	background: var(--accent-soft);
+	border-color: transparent;
+	color: var(--accent-soft-fg);
+}
+
+.icon-box-inverse {
+	background: var(--bg-inverse);
+	border-color: transparent;
+	color: var(--fg-on-inverse);
+}
+
+/* Feature icon — the big one at the top of a card or section. */
+.icon-feature {
+	display: grid;
+	place-items: center;
+	width: 3rem;
+	height: 3rem;
+	border-radius: var(--radius-lg);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+}
+
+/* ── Badged icon — a count or a status dot on the corner ─────────────────── */
+
+.icon-badged { position: relative; display: inline-flex; }
+
+.icon-badged__dot {
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	width: var(--dot-md);
+	height: var(--dot-md);
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	box-shadow: 0 0 0 var(--border-2) var(--bg-canvas);
+}
+
+.icon-badged__n {
+	position: absolute;
+	top: -6px;
+	right: -8px;
+	min-width: 1rem;
+	height: 1rem;
+	padding-inline: 3px;
+	display: grid;
+	place-items: center;
+	border-radius: var(--radius-pill);
+	background: var(--accent);
+	color: var(--fg-on-accent);
+	font-family: var(--font-slate);
+	font-size: 10px;
+	line-height: 1;
+	box-shadow: 0 0 0 var(--border-2) var(--bg-canvas);
+}
+
+/* ── Motion ──────────────────────────────────────────────────────────────
+   Icons animate on the parent's state, never on their own. Three behaviours,
+   and that's the whole vocabulary. */
+
+.icon-spin { animation: fx-spin 700ms var(--ease-linear) infinite; }
+
+@media (hover: hover) and (pointer: fine) {
+	.icon-nudge { transition: var(--t-transform); }
+	*:hover > .icon-nudge { transform: translate3d(2px, 0, 0); }
+
+	.icon-lift { transition: var(--t-transform); }
+	*:hover > .icon-lift { transform: translate3d(0, -2px, 0); }
+}
+
+/* ── Sprite ──────────────────────────────────────────────────────────────
+   Icons live in one inline <svg> sprite at the top of <body>, referenced with
+   <svg class="icon"><use href="#i-play"></use></svg>. One request, cacheable,
+   and every glyph inherits currentColor.
+
+   The sprite element itself must never be visible or focusable. */
+
+.icon-sprite {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+/* ── Icon + label ────────────────────────────────────────────────────────
+   The pairing rule: icon first, 8px gap, label optically aligned to the
+   icon's centre — never its box. */
+
+.icon-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+/* An icon with no visible label MUST carry an aria-label on its control, and
+   the svg itself must be aria-hidden. This class is a reminder in the markup. */
+.icon-only > .icon { pointer-events: none; }

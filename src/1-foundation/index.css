@@ -1,0 +1,27 @@
+/* =============================================================================
+   SWARNIL DESIGN SYSTEM · 1 — FOUNDATION
+   Single entry point. Import order matters: tokens are defined before anything
+   consumes them, and the reset runs first so nothing has to un-do a default.
+
+   Consumed two ways:
+     1. the /design/ preview pages link this file directly (raw foundation)
+     2. later, assets/css/tailwind.css will @import it above @tailwind base
+
+   Nothing in this layer is theme-specific markup. No components live here —
+   these are the primitives everything else is built from.
+   ========================================================================== */
+
+@import url('./00-reset.css');
+@import url('./01-color.css');       /* ramps → aliases → themes → the maths   */
+@import url('./02-typography.css');  /* 3 faces, fluid scale, text roles       */
+@import url('./03-space.css');       /* space · radius · size · z · ratios     */
+@import url('./04-elevation.css');   /* shadows, rings, surface recipes        */
+@import url('./05-motion.css');      /* 13 animations + 12 text effects        */
+@import url('./06-layout.css');      /* containers, grids, gaps, canvases      */
+@import url('./07-pattern.css');     /* 28 CSS-only background patterns        */
+@import url('./08-a11y.css');        /* focus, sr-only, forced-colours, print  */
+@import url('./09-logo.css');        /* the tittle mark, lockups, favicons     */
+@import url('./10-icon.css');        /* icon grid, sizes, variants, sprite     */
+@import url('./11-shape.css');       /* geometry: nested radii, primitives     */
+@import url('./12-frame.css');       /* window chrome, viewfinder, shutter     */
+@import url('./13-cutout.css');     /* paper-craft + neo-brutal shapes       */

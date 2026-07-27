@@ -1,0 +1,218 @@
+/* =============================================================================
+   25 · CHANNEL BRANDING
+   Banner, avatar, watermark. The three assets YouTube asks for once and then
+   shows on every device you don't control.
+
+   BANNER — 2560 × 1440, 16:9, ≤ 6MB, JPG/PNG/GIF/BMP.
+   YouTube crops it differently everywhere:
+       TV          2560 × 1440   the whole image
+       desktop     2560 × 423    a horizontal band
+       tablet      1855 × 423
+       mobile      1546 × 423    ← the SAFE AREA, centred
+   So: every word and mark lives inside the centre 1546 × 423 box. Everything
+   outside it is texture that may be cropped away, and must be able to be.
+
+   AVATAR — 800 × 800, ≤ 4MB. Rendered as a circle at ~48-88px in most places,
+   which means: one shape, no words. The record dot is the whole idea.
+
+   WATERMARK — 150 × 150 PNG with transparency, shown bottom-right in the
+   player as a subscribe target.
+   ========================================================================== */
+
+/* ── Banner ─────────────────────────────────────────────────────────────── */
+
+.banner {
+	background:
+		radial-gradient(ellipse 50% 60% at 50% 45%, rgb(240 78 46 / 0.16), transparent 70%),
+		var(--ink-1000);
+}
+
+/* Texture outside the safe box — the part that only TV and desktop ever see.
+   Built so that losing it costs nothing. */
+.banner__field {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background:
+		repeating-linear-gradient(to right, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 3.2cqw),
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.05) 0 1px, transparent 1px 3.2cqw);
+	mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 26%, #000 72%);
+}
+
+/* Corner brackets sized for the TV crop — pure decoration, safely croppable. */
+.banner__frame {
+	position: absolute;
+	inset: 7%;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.banner__frame::before,
+.banner__frame::after {
+	content: '';
+	position: absolute;
+	width: 5cqw;
+	height: 5cqw;
+	border-style: solid;
+	border-width: 0;
+	border-color: rgb(217 163 58 / 0.55);
+}
+
+.banner__frame::before { top: 0; left: 0; border-top-width: 0.22cqw; border-left-width: 0.22cqw; }
+.banner__frame::after { right: 0; bottom: 0; border-right-width: 0.22cqw; border-bottom-width: 0.22cqw; }
+
+/* Inside the safe box. Centred, because the mobile crop is centred. */
+.banner__lockup {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 1.2cqw;
+	height: 100%;
+}
+
+.banner__name {
+	--logo-dot: 0.2em;
+	--logo-lift: 0.68em;
+	--logo-nudge: 0em;
+	--logo-dot-color: var(--signal-500);
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 6.4cqw;
+	line-height: 1;
+	letter-spacing: -0.045em;
+	display: inline-flex;
+	align-items: baseline;
+}
+
+.banner__tag {
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.36em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.banner__meta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1.4cqw;
+	/* One line, always — the safe box is only 1546px wide and letterspaced
+	   mono eats width fast. Two short facts, not three. */
+	flex-wrap: nowrap;
+	white-space: nowrap;
+	font-family: var(--font-slate);
+	font-size: 1cqw;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+	margin-top: 0.6cqw;
+}
+
+.banner__meta > span { display: inline-flex; align-items: center; gap: 0.8cqw; }
+
+.banner__meta > span + span::before {
+	content: '';
+	width: 0.35cqw;
+	height: 0.35cqw;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.3);
+}
+
+/* Crop rulers — preview only, never exported. Shows where each device cuts. */
+.banner-rulers::before,
+.banner-rulers::after {
+	position: absolute;
+	z-index: 8;
+	pointer-events: none;
+	font-family: var(--font-slate);
+	font-size: 1.05cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.45);
+}
+
+/* desktop band: 2560 × 423 → full width, centre 29.4% tall */
+.banner-rulers::before {
+	content: 'desktop crop · 2560 × 423';
+	left: 1.6cqw;
+	top: 35.3%;
+	transform: translateY(-140%);
+}
+
+.banner-rulers::after {
+	content: '';
+	left: 0;
+	right: 0;
+	top: 35.3%;
+	height: 29.4%;
+	border-top: 1px dashed rgb(255 255 255 / 0.35);
+	border-bottom: 1px dashed rgb(255 255 255 / 0.35);
+}
+
+/* ── Avatar ─────────────────────────────────────────────────────────────
+   800 × 800. Four variants of one idea: the record light. At 48px only the
+   dot survives, so the dot has to be the logo. */
+
+.avatar-yt {
+	display: grid;
+	place-items: center;
+	background: var(--ink-1000);
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+/* Mark 1 — the dot alone. The correct one for the channel avatar. */
+.mark-dot {
+	width: 34cqw;
+	height: 34cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	box-shadow: 0 0 0 6cqw rgb(240 78 46 / 0.14), 0 0 0 12cqw rgb(240 78 46 / 0.07);
+}
+
+/* Mark 2 — S with the tittle moved to its top-right shoulder. Holds down to
+   about 64px, and it is the same dot, relocated — not a new drawing. */
+.mark-s {
+	position: relative;
+	display: inline-block;
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 44cqw;
+	line-height: 1;
+	letter-spacing: -0.06em;
+	color: var(--pure-white);
+	padding-right: 12cqw;
+}
+
+.mark-s::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 47%;
+	width: 9cqw;
+	height: 9cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	/* 1 o'clock — the same relationship as .logo-s. */
+	translate: 6.5cqw -23cqw;
+	translate: calc(sin(30deg) * 0.5em - 4.5cqw) calc(cos(30deg) * -0.5em - 4.5cqw);
+}
+
+/* Mark 4 — inverted, for light backgrounds and print. */
+.avatar-yt-light { background: var(--pure-white); }
+.avatar-yt-light .mark-s { color: var(--ink-1000); }
+.avatar-yt-light .mark-s { color: var(--ink-1000); }
+
+/* ── Player watermark ───────────────────────────────────────────────────
+   150 × 150, transparent. Sits bottom-right over the video, so it must read
+   on any frame: white mark, soft dark halo, no box. */
+
+.watermark {
+	background: transparent;
+	display: grid;
+	place-items: center;
+	filter: drop-shadow(0 0 3cqw rgb(0 0 0 / 0.85));
+}

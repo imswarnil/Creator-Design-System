@@ -1,0 +1,387 @@
+/* =============================================================================
+   27 · INSTAGRAM & CROSS-POSTING
+   The same system, cropped for a feed instead of a grid of thumbnails.
+
+   WHAT CHANGES ON INSTAGRAM
+     · 4:5 beats 1:1 — it takes the most vertical space the feed allows
+     · the first slide has to work with no title text underneath it
+     · the bottom ~14% of a 4:5 post is where the caption sits in the UI, so
+       keep the payoff above it
+     · a carousel is read in swipes, not at a glance: slide 1 hooks, slides
+       2-n deliver, the last slide asks
+     · light artwork outperforms dark in a bright feed — that's why every
+       canvas here has a .yt-light twin
+
+   SIZES  post 1080×1350 (4:5) · square 1080×1080 · story/reel 1080×1920
+   ========================================================================== */
+
+/* ── Post ────────────────────────────────────────────────────────────────── */
+
+.ig {
+	--ig-pad: 7%;
+}
+
+.ig__safe {
+	position: absolute;
+	inset: var(--ig-pad);
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	gap: 2cqw;
+}
+
+/* Caption-safe: on a 4:5 post the last 14% is visually crowded by the UI. */
+.ig-caption-safe .ig__safe { bottom: 16%; }
+
+.ig__kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.4cqw;
+	font-family: var(--font-slate);
+	font-size: 2.4cqw;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.ig__kicker::before {
+	content: '';
+	width: 1.6cqw;
+	height: 1.6cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	flex: none;
+}
+
+.ig__title {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 9cqw;
+	line-height: 1.02;
+	letter-spacing: -0.035em;
+	text-wrap: balance;
+	margin: 0;
+}
+
+.ig__body {
+	font-size: 3.2cqw;
+	line-height: 1.45;
+	color: var(--yt-dim);
+	margin: 0;
+	max-width: 28ch;
+}
+
+/* Handle bar — bottom of every post. Same position every time; this is what
+   makes a grid look like a grid rather than a scrapbook. */
+.ig__handle {
+	margin-top: auto;
+	display: flex;
+	align-items: center;
+	gap: 1.6cqw;
+	font-family: var(--font-slate);
+	font-size: 2.2cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+}
+
+.ig__handle .logo { font-size: 4cqw; }
+
+/* ── Carousel ────────────────────────────────────────────────────────────
+   Slide roles, in order. The system enforces the shape of the story:
+     hook → point → point → point → ask
+   Every slide carries the same handle bar and the same page counter. */
+
+.ig-slide { position: relative; }
+
+.ig__page {
+	position: absolute;
+	top: var(--ig-pad);
+	right: var(--ig-pad);
+	z-index: 4;
+	font-family: var(--font-slate);
+	font-size: 2.2cqw;
+	letter-spacing: 0.2em;
+	color: var(--yt-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Swipe affordance on slide 1 — an arrow that leans right. Nothing else on
+   the slide moves, so it reads as an instruction. */
+.ig__swipe {
+	position: absolute;
+	right: var(--ig-pad);
+	bottom: var(--ig-pad);
+	z-index: 4;
+	display: inline-flex;
+	align-items: center;
+	gap: 1.2cqw;
+	padding: 1.4cqw 2.2cqw;
+	border-radius: 100cqw;
+	background: var(--signal-500);
+	color: var(--pure-white);
+	font-family: var(--font-slate);
+	font-size: 2cqw;
+	font-weight: 600;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.ig__swipe::after { content: '→'; animation: igNudge 1.8s var(--ease-inout) infinite; }
+
+@keyframes igNudge {
+	0%, 100% { transform: translateX(0); }
+	50%      { transform: translateX(0.6cqw); }
+}
+
+/* Big slide numeral, for point slides. */
+.ig__no {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 14cqw;
+	line-height: 0.85;
+	letter-spacing: -0.05em;
+	color: color-mix(in srgb, var(--signal-500) 90%, transparent);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Pagination dots, for previewing a set as a strip. Not exported. */
+.ig-dots {
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+	padding-block: var(--space-3);
+}
+
+.ig-dots > span {
+	width: 6px;
+	height: 6px;
+	border-radius: var(--radius-full);
+	background: var(--line-strong);
+}
+
+.ig-dots > span[data-on] { background: var(--accent); }
+
+/* Carousel strip — how the set reads in the preview. */
+.ig-strip {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(12rem, 1fr);
+	gap: var(--space-3);
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	padding-bottom: var(--space-2);
+}
+
+.ig-strip::-webkit-scrollbar { display: none; }
+.ig-strip > * { scroll-snap-align: start; }
+
+/* ── Story / reel cover ──────────────────────────────────────────────────
+   9:16, with the platform's own furniture blocked out: the top ~14% holds the
+   profile row and the bottom ~18% holds the reply bar. Neither is yours. */
+
+.ig-story .ig__safe {
+	inset: 15% 8% 19%;
+	justify-content: center;
+}
+
+.ig-story__ui-top,
+.ig-story__ui-bottom {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	pointer-events: none;
+	border: 1px dashed rgb(255 255 255 / 0.22);
+	font-family: var(--font-slate);
+	font-size: 1.8cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.35);
+	display: grid;
+	place-items: center;
+}
+
+.ig-story__ui-top { top: 0; height: 14%; }
+.ig-story__ui-bottom { bottom: 0; height: 18%; }
+
+/* Progress pips at the top of a story. */
+.ig-story__pips {
+	position: absolute;
+	top: 3%;
+	left: 4%;
+	right: 4%;
+	z-index: 6;
+	display: flex;
+	gap: 0.8cqw;
+}
+
+.ig-story__pips > span {
+	flex: 1;
+	height: 0.5cqw;
+	border-radius: 1cqw;
+	background: rgb(255 255 255 / 0.3);
+}
+
+.ig-story__pips > span[data-on] { background: var(--pure-white); }
+
+/* ── Profile grid preview ────────────────────────────────────────────────
+   The real test of a set: nine posts in a 3-up grid. If two adjacent posts
+   look identical, the set is wrong. */
+
+.ig-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 2px;
+	background: var(--line-default);
+	padding: 2px;
+	border-radius: var(--radius-md);
+}
+
+/* ── Follow / CTA components ─────────────────────────────────────────────
+   Burned into artwork, so they're canvas-scaled like everything in layer 3. */
+
+.ig-follow {
+	display: inline-flex;
+	align-items: center;
+	gap: 2cqw;
+	padding: 1.6cqw 2.4cqw;
+	border-radius: 100cqw;
+	background: rgb(255 255 255 / 0.08);
+	border: 0.2cqw solid rgb(255 255 255 / 0.16);
+	backdrop-filter: blur(10px);
+}
+
+.ig-follow__av {
+	width: 7cqw;
+	height: 7cqw;
+	border-radius: 50%;
+	background: var(--ink-1000);
+	display: grid;
+	place-items: center;
+	flex: none;
+}
+
+.ig-follow__who {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 3cqw;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+}
+
+.ig-follow__meta {
+	font-family: var(--font-slate);
+	font-size: 2cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+}
+
+.ig-follow__cta {
+	padding: 1.1cqw 2.2cqw;
+	border-radius: 100cqw;
+	background: var(--signal-500);
+	color: var(--pure-white);
+	font-family: var(--font-slate);
+	font-size: 2cqw;
+	font-weight: 600;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+/* Handles row — every place the channel exists, in one line. Order is fixed:
+   the site first, because it's the only one that's actually yours. */
+.handles {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 2.4cqw;
+	font-family: var(--font-slate);
+	font-size: 2cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.handles__item { display: inline-flex; align-items: center; gap: 1cqw; }
+
+.handles__item[data-primary] {
+	color: var(--yt-ink);
+	font-weight: 600;
+}
+
+.handles__item::before {
+	content: '';
+	width: 1.2cqw;
+	height: 1.2cqw;
+	border-radius: 50%;
+	background: currentColor;
+	opacity: 0.5;
+}
+
+.handles__item[data-primary]::before { background: var(--signal-500); opacity: 1; }
+
+/* ── Share sheet ─────────────────────────────────────────────────────────
+   The "send this to someone" moment, drawn as UI so it can sit inside a
+   scene or a story. */
+
+.share-sheet {
+	display: flex;
+	flex-direction: column;
+	gap: 2cqw;
+	padding: 2.4cqw;
+	border-radius: 2cqw;
+	background: rgb(255 255 255 / 0.07);
+	border: 0.18cqw solid rgb(255 255 255 / 0.14);
+	backdrop-filter: blur(12px);
+}
+
+.share-row { display: flex; gap: 1.6cqw; }
+
+.share-btn {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1cqw;
+	padding: 1.6cqw 1.2cqw;
+	border-radius: 1.2cqw;
+	background: rgb(255 255 255 / 0.06);
+	font-family: var(--font-slate);
+	font-size: 1.6cqw;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.share-btn__glyph {
+	font-size: 3cqw;
+	line-height: 1;
+	color: var(--yt-ink);
+}
+
+.share-btn[data-primary] {
+	background: var(--signal-500);
+	color: var(--pure-white);
+}
+
+.share-btn[data-primary] .share-btn__glyph { color: var(--pure-white); }
+
+/* Copy-link row — the honest share action. */
+.share-link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.6cqw;
+	padding: 1.4cqw 1.8cqw;
+	border-radius: 1cqw;
+	background: rgb(0 0 0 / 0.35);
+	font-family: var(--font-slate);
+	font-size: 1.8cqw;
+	color: var(--yt-dim);
+}
+
+.share-link__url { color: var(--yt-ink); }

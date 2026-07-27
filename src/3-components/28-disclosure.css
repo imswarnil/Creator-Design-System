@@ -1,0 +1,300 @@
+/* =============================================================================
+   28 · DISCLOSURE
+   Things that open, close, cycle and slide: close button, collapse, accordion,
+   dropdown, list group, carousel, marquee. Everything rides native elements —
+   <details>, scroll-snap — so it all works with zero JS.
+   ========================================================================== */
+
+/* ── Close button ────────────────────────────────────────────────────────── */
+
+.btn-close {
+	width: var(--control-sm);
+	height: var(--control-sm);
+	flex: none;
+	display: inline-grid;
+	place-items: center;
+	border: 0;
+	background: transparent;
+	border-radius: var(--radius-md);
+	color: var(--fg-subtle);
+	cursor: pointer;
+	position: relative;
+	transition: var(--t-colors);
+}
+
+.btn-close::before,
+.btn-close::after {
+	content: '';
+	position: absolute;
+	width: 1rem;
+	height: var(--border-2);
+	background: currentColor;
+	border-radius: var(--radius-full);
+	transform: rotate(45deg);
+}
+
+.btn-close::after { transform: rotate(-45deg); }
+.btn-close:hover { color: var(--fg-default); background: var(--bg-sunken); }
+.btn-close-inverse { color: var(--fg-on-inverse); }
+.btn-close-inverse:hover { color: var(--fg-on-inverse); background: rgb(255 255 255 / 0.12); }
+
+/* ── Collapse — one <details>, styled ────────────────────────────────────── */
+
+.collapse {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-md);
+	background: var(--bg-surface);
+}
+
+.collapse > summary {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	font-weight: var(--weight-medium);
+	font-size: var(--text-sm);
+	transition: var(--t-colors);
+}
+
+.collapse > summary::-webkit-details-marker { display: none; }
+.collapse > summary:hover { background: var(--bg-sunken); }
+
+.collapse > summary::after {
+	content: '';
+	margin-left: auto;
+	width: 0.45rem;
+	height: 0.45rem;
+	border-right: var(--border-2) solid var(--fg-faint);
+	border-bottom: var(--border-2) solid var(--fg-faint);
+	transform: rotate(45deg) translateY(-2px);
+	transition: var(--t-transform);
+	flex: none;
+}
+
+.collapse[open] > summary::after { transform: rotate(-135deg) translateY(-2px); }
+
+.collapse__body {
+	padding: var(--space-1) var(--space-4) var(--space-4);
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	line-height: var(--leading-relaxed);
+}
+
+/* ── Accordion — a stack of collapses welded into one surface ────────────── */
+
+.acc {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	overflow: hidden;
+}
+
+.acc > .collapse { border: 0; border-radius: 0; background: none; }
+.acc > .collapse + .collapse { border-top: var(--border-hair) solid var(--line-subtle); }
+.acc > .collapse[open] > summary { color: var(--fg-default); }
+
+/* The signal marks the open panel — one dot, as always. */
+.acc > .collapse[open] > summary::before {
+	content: '';
+	width: var(--dot-sm, 6px);
+	height: var(--dot-sm, 6px);
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	flex: none;
+}
+
+/* ── Dropdown — <details> again, panel absolutely positioned ─────────────── */
+
+.dropdown { position: relative; display: inline-block; }
+.dropdown > summary { list-style: none; cursor: pointer; }
+.dropdown > summary::-webkit-details-marker { display: none; }
+
+/* Caret on the trigger button. */
+.dropdown > summary .btn::after,
+.dropdown > summary.btn::after {
+	content: '';
+	width: 0.4rem;
+	height: 0.4rem;
+	border-right: var(--border-2) solid currentColor;
+	border-bottom: var(--border-2) solid currentColor;
+	transform: rotate(45deg) translateY(-1px);
+	margin-left: var(--space-1);
+	transition: var(--t-transform);
+}
+
+.dropdown[open] > summary .btn::after,
+.dropdown[open] > summary.btn::after { transform: rotate(-135deg) translateY(-1px); }
+
+.dropdown__menu {
+	position: absolute;
+	top: calc(100% + var(--space-2));
+	left: 0;
+	min-width: 12rem;
+	z-index: var(--z-popover, 40);
+	background: var(--bg-surface);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-3);
+	padding: var(--space-2);
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}
+
+.dropdown-end .dropdown__menu { left: auto; right: 0; }
+
+.dropdown__item {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-sm);
+	font-size: var(--text-sm);
+	color: var(--fg-default);
+	text-decoration: none;
+	white-space: nowrap;
+	transition: var(--t-colors);
+}
+
+.dropdown__item:hover { background: var(--bg-sunken); }
+.dropdown__item[aria-current] { font-weight: var(--weight-semibold); }
+.dropdown__item .icon { width: 1rem; height: 1rem; opacity: 0.7; }
+
+.dropdown__divider { height: var(--border-hair); background: var(--line-subtle); margin: var(--space-1) 0; border: 0; }
+
+.dropdown__head {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	padding: var(--space-2) var(--space-3) var(--space-1);
+}
+
+/* ── List group ──────────────────────────────────────────────────────────── */
+
+.list-group {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.list-group__item {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	font-size: var(--text-sm);
+	color: var(--fg-default);
+	text-decoration: none;
+}
+
+.list-group__item + .list-group__item { border-top: var(--border-hair) solid var(--line-subtle); }
+
+a.list-group__item,
+button.list-group__item { cursor: pointer; transition: var(--t-colors); }
+a.list-group__item:hover,
+button.list-group__item:hover { background: var(--bg-sunken); }
+
+.list-group__item[aria-current] {
+	font-weight: var(--weight-semibold);
+	box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.list-group__item[aria-disabled='true'] { color: var(--fg-faint); pointer-events: none; }
+.list-group__item > .badge { margin-left: auto; }
+
+/* Flush — no outer chrome, for use inside cards and rails. */
+.list-group-flush { border: 0; border-radius: 0; background: none; }
+
+/* ── Carousel — scroll-snap rail with page dots ──────────────────────────── */
+
+.carousel { position: relative; }
+
+.carousel__track {
+	display: flex;
+	gap: var(--space-4);
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	overscroll-behavior-x: contain;
+	/* Vertical wheel must keep scrolling the page — the trap from the theme's
+	   backlog. touch-action pans both axes. */
+	touch-action: pan-x pan-y;
+	scroll-padding-inline: var(--space-1);
+	padding-bottom: var(--space-2);
+}
+
+.carousel__track::-webkit-scrollbar { display: none; }
+
+.carousel__slide {
+	flex: 0 0 min(18rem, 85%);
+	scroll-snap-align: start;
+}
+
+.carousel-full .carousel__slide { flex-basis: 100%; }
+
+.carousel__nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	margin-top: var(--space-2);
+}
+
+.carousel__dot {
+	width: 6px;
+	height: 6px;
+	border-radius: var(--radius-full);
+	border: 0;
+	padding: 0;
+	background: var(--line-strong);
+	cursor: pointer;
+	transition: var(--t-colors), var(--t-transform);
+}
+
+.carousel__dot[aria-current] { background: var(--accent); transform: scale(1.25); }
+
+/* ── Marquee — the looping strip. Duplicate the run, hide the twin from AT. ──
+   <div class="marquee"><div class="marquee__run">…</div>
+   <div class="marquee__run" aria-hidden="true">…</div></div>
+   ------------------------------------------------------------------------- */
+
+.marquee {
+	display: flex;
+	overflow: hidden;
+	gap: var(--marquee-gap, var(--space-8));
+	mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__run {
+	display: flex;
+	align-items: center;
+	gap: var(--marquee-gap, var(--space-8));
+	flex: none;
+	min-width: 100%;
+	animation: marquee var(--marquee-dur, 28s) linear infinite;
+}
+
+@keyframes marquee {
+	to { transform: translateX(calc(-100% - var(--marquee-gap, var(--space-8)))); }
+}
+
+.marquee:hover .marquee__run { animation-play-state: paused; }
+.marquee-reverse .marquee__run { animation-direction: reverse; }
+.marquee-fast { --marquee-dur: 14s; }
+.marquee-slow { --marquee-dur: 48s; }
+
+@media (prefers-reduced-motion: reduce) {
+	.marquee { mask-image: none; overflow-x: auto; }
+	.marquee__run { animation: none; }
+	.marquee__run[aria-hidden] { display: none; }
+}

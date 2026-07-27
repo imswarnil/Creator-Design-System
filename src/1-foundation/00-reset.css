@@ -1,0 +1,150 @@
+/* =============================================================================
+   00 · RESET
+   A small, opinionated reset. Tuned for Ghost: content coming out of the
+   editor must look right without a wrapper class doing the work.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+html {
+	-moz-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	scroll-behavior: smooth;
+	/* Anchors land below the sticky nav rather than under it. */
+	scroll-padding-top: calc(var(--nav-h, 4rem) + var(--space-6, 1.5rem));
+	tab-size: 4;
+}
+
+body {
+	min-height: 100svh;
+	background: var(--bg-canvas);
+	color: var(--fg-default);
+	overflow-wrap: break-word;
+	/* A page must never scroll sideways. Wide things scroll inside themselves. */
+	overflow-x: clip;
+}
+
+/* Media defaults: block-level, never overflowing, never distorted. */
+img,
+picture,
+video,
+canvas,
+svg,
+iframe {
+	display: block;
+	max-width: 100%;
+}
+
+img,
+video {
+	height: auto;
+}
+
+/* Forms inherit type instead of falling back to the browser's 13px Arial. */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	color: inherit;
+	letter-spacing: inherit;
+}
+
+button {
+	background: none;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+textarea {
+	resize: vertical;
+	min-height: 6rem;
+}
+
+a {
+	color: inherit;
+	text-decoration-thickness: max(1px, 0.06em);
+	text-underline-offset: 0.16em;
+}
+
+ul[role='list'],
+ol[role='list'] {
+	list-style: none;
+	padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+/* Long strings (URLs, code) break instead of blowing out the layout. */
+p, li, dd, dt, figcaption, blockquote, h1, h2, h3, h4, h5, h6 {
+	overflow-wrap: break-word;
+}
+
+pre {
+	overflow-x: auto;
+	max-width: 100%;
+}
+
+hr {
+	border: 0;
+}
+
+/* Ghost editor card widths — required by gscan, kept in the foundation so the
+   reading column and the cards share one source of truth. */
+.kg-width-wide {
+	max-width: 85vw;
+}
+
+.kg-width-full {
+	max-width: 100vw;
+}
+
+/* Native details marker replaced by our own chevron in components. */
+summary {
+	cursor: pointer;
+	list-style: none;
+}
+
+summary::-webkit-details-marker {
+	display: none;
+}
+
+::selection {
+	background: var(--selection-bg);
+	color: var(--selection-fg);
+}
+
+/* Scrollbars: thin, ink-coloured, theme-aware. */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--line-strong);
+	border: 3px solid transparent;
+	background-clip: content-box;
+	border-radius: var(--radius-pill);
+}

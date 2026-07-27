@@ -1,0 +1,57 @@
+<header class="sec-head">
+				<span class="sec-num">22</span>
+				<h2 class="t-h1">The base card</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					One skeleton with six layouts. Every collection below extends it and
+					changes exactly one thing.
+				</p>
+			</header>
+
+			<div class="deck">
+				<article class="card">
+					<div class="card__media pattern pattern-grid pattern-media pattern-lg"></div>
+					<div class="card__body">
+						<p class="card__meta"><span class="dot dot-sm"></span> Default</p>
+						<h3 class="card__title"><a class="card__link" href="#card">Media, meta, title, excerpt</a></h3>
+						<p class="card__excerpt">The shape everything else is a variation of.</p>
+					</div>
+					<div class="card__footer"><span>24 Jul 2026</span><span>8 min</span></div>
+				</article>
+
+				<article class="card card-featured">
+					<div class="card__media pattern pattern-mesh">
+						<span class="card__media-tl card__above"><span class="badge badge-signal">Featured</span></span>
+					</div>
+					<div class="card__body">
+						<p class="card__meta">Featured</p>
+						<h3 class="card__title"><a class="card__link" href="#card">One per deck, never two</a></h3>
+					</div>
+				</article>
+
+				<article class="card card-inverse">
+					<div class="card__media pattern pattern-scanline pattern-media"></div>
+					<div class="card__body">
+						<p class="card__meta">Inverse</p>
+						<h3 class="card__title"><a class="card__link" href="#card">For the cinematic decks</a></h3>
+					</div>
+				</article>
+			</div>
+
+			<div class="split-half" style="align-items:start;margin-top:var(--space-6)">
+				<article class="card card-row">
+					<div class="card__media pattern pattern-blueprint pattern-media"></div>
+					<div class="card__body">
+						<p class="card__meta">Row</p>
+						<h3 class="card__title"><a class="card__link" href="#card">Search results, up next</a></h3>
+					</div>
+				</article>
+				<article class="card card-compact">
+					<div class="card__body">
+						<p class="card__meta">Compact · no media</p>
+						<h3 class="card__title">Changelog, snippets, guestbook</h3>
+					</div>
+				</article>
+			</div>
+			<div class="surface" style="margin-top:var(--space-6)">
+				<p class="spec" style="border-radius:var(--radius-card)"><b>.card</b> + <b>__media __body __title __meta __excerpt __footer</b> · <b>-featured -inverse -row -compact -poster -bare</b> · whole-card link via <b>.card__link::after</b></p>
+			</div>

@@ -1,0 +1,46 @@
+<header class="sec-head">
+				<span class="sec-num">03</span>
+				<h2 class="t-h1">Typography</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Space Grotesk (display) · Inter (body) · IBM Plex Mono (the slate).
+					The scale is fluid, so no component ever needs a breakpoint-specific
+					font size.
+				</p>
+			</header>
+
+			<div class="stack-lg">
+				<div class="t-display-1">Display One</div>
+				<div class="t-display-2">Display Two</div>
+				<div class="t-h1">Heading 1 — Rebuilding my Ghost theme</div>
+				<div class="t-h2">Heading 2 — Shipping in public</div>
+				<div class="t-h3">Heading 3 — Field notes</div>
+				<div class="t-h4">Heading 4 — Episode summary</div>
+				<p class="t-lead">Lead — the trick was never a faster computer. It was cutting the decisions I make after the shoot to almost zero.</p>
+				<p class="t-body">Body — Inter at 17px, 1.65 line-height, capped to a 68ch measure. The invisible workhorse: you should never notice it, which is the whole job.</p>
+				<p class="t-slate">Label · slate voice · ep.07</p>
+				<p class="t-numeric" style="color:var(--fg-muted)">00:14:22 · TAKE 03 · 1080p60</p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-10);overflow:hidden">
+				<div class="demo cluster-lg" style="row-gap:var(--space-5)">
+					<a href="#type" class="t-link">Animated underline link</a>
+					<code class="t-code">const build = story</code>
+					<blockquote class="t-quote" style="max-width:32ch">Reps beat virality, every time.</blockquote>
+					<span class="t-stat">180+</span>
+				</div>
+				<p class="spec"><b>.t-link</b> · <b>.t-code</b> · <b>.t-quote</b> · <b>.t-stat</b> — roles, not sizes</p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<table class="spec-table">
+					<thead><tr><th>Token</th><th>Size</th><th>Job</th></tr></thead>
+					<tbody>
+						<tr><td><code class="t-code">--text-6xl</code></td><td>52 → 112px</td><td>display one</td></tr>
+						<tr><td><code class="t-code">--text-4xl</code></td><td>36 → 60px</td><td>h1, stat numbers</td></tr>
+						<tr><td><code class="t-code">--text-2xl</code></td><td>24 → 32px</td><td>h3</td></tr>
+						<tr><td><code class="t-code">--text-md</code></td><td>17px</td><td>long-form body</td></tr>
+						<tr><td><code class="t-code">--text-xs</code></td><td>12px</td><td>the slate voice</td></tr>
+					</tbody>
+				</table>
+				<p class="spec"><b>fluid</b> — clamp() between a 360px and a 1440px viewport · mono is never body · display is never under 20px</p>
+			</div>

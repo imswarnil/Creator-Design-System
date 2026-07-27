@@ -1,0 +1,90 @@
+/* =============================================================================
+   16 · FEEDBACK
+   Alerts, toasts, progress, loading, empty states, tooltips.
+
+   Loading has five treatments, each mapped to a KIND of wait:
+     shimmer  · content whose shape we know      (cards, text)
+     breathe  · one big unknown block            (hero, media)
+     scanline · media decoding                   (player, poster)
+     progress · a known duration                 (upload, course)
+     buffer   · a live stream catching up        (player)
+   A spinner is a button state only — never a page.
+   ========================================================================== */
+
+/* ── Alert / callout ─────────────────────────────────────────────────────── */
+
+.alert {
+	display: flex;
+	gap: var(--space-3);
+	padding: var(--space-4) var(--space-5);
+	border-radius: var(--radius-lg);
+	background: var(--bg-sunken);
+	box-shadow: inset var(--border-3) 0 0 0 var(--line-strong);
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+}
+
+.alert__title {
+	font-weight: var(--weight-semibold);
+	margin-bottom: 2px;
+}
+
+/* Tone also carries an icon/label in the markup — colour is never alone. */
+.alert-success { background: var(--success-bg); color: var(--success-fg); box-shadow: inset var(--border-3) 0 0 0 var(--success-line); }
+.alert-warning { background: var(--warning-bg); color: var(--warning-fg); box-shadow: inset var(--border-3) 0 0 0 var(--warning-line); }
+.alert-danger  { background: var(--danger-bg);  color: var(--danger-fg);  box-shadow: inset var(--border-3) 0 0 0 var(--danger-line); }
+.alert-info    { background: var(--info-bg);    color: var(--info-fg);    box-shadow: inset var(--border-3) 0 0 0 var(--info-line); }
+.alert-signal  { background: var(--accent-soft); color: var(--accent-soft-fg); box-shadow: inset var(--border-3) 0 0 0 var(--accent); }
+
+/* ── Toast ───────────────────────────────────────────────────────────────── */
+
+.toast-region {
+	position: fixed;
+	right: var(--space-4);
+	bottom: var(--space-4);
+	z-index: var(--z-toast);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	pointer-events: none;
+}
+
+.toast {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	min-width: 16rem;
+	max-width: min(24rem, calc(100vw - var(--space-8)));
+	padding: var(--space-3) var(--space-4);
+	border-radius: var(--radius-md);
+	background: var(--bg-inverse);
+	color: var(--fg-on-inverse);
+	box-shadow: var(--shadow-4);
+	font-size: var(--text-sm);
+	pointer-events: auto;
+	animation: fx-rise var(--dur-3) var(--ease-out) both;
+}
+
+/* ── Empty state ─────────────────────────────────────────────────────────
+   An invitation, never an apology. Always offers the next action. */
+
+.empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-3);
+	text-align: center;
+	padding: var(--space-12) var(--space-6);
+	border: var(--border-2) dashed var(--line-default);
+	border-radius: var(--radius-card);
+	color: var(--fg-muted);
+}
+
+.empty__title {
+	font-family: var(--font-heading-effective);
+	font-size: var(--text-xl);
+	font-weight: var(--weight-semibold);
+	color: var(--fg-default);
+}
+
+.empty__body { font-size: var(--text-sm); max-width: 40ch; }

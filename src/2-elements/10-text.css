@@ -1,0 +1,153 @@
+/* =============================================================================
+   10 · TEXT ELEMENTS
+   The typographic atoms: things made of type and a rule, nothing more. They
+   compose nothing, they have no states, and they drop straight into Ghost's
+   {{content}} without a wrapper.
+
+   If it needs a variant, a state, or a second part that knows about the first,
+   it is a component and it lives in layer 3.
+   ========================================================================== */
+
+/* ── Figure & pull-quote ─────────────────────────────────────────────────── */
+
+.figure { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.figure > img { border-radius: var(--radius-media); width: 100%; }
+
+.figure__caption {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	color: var(--fg-subtle);
+	display: flex;
+	gap: var(--space-2);
+	align-items: baseline;
+}
+
+.figure__caption::before {
+	content: '';
+	width: var(--dot-sm);
+	height: var(--dot-sm);
+	border-radius: var(--radius-full);
+	background: var(--craft);
+	flex: none;
+	transform: translateY(-1px);
+}
+
+.pullquote {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	padding-left: var(--space-5);
+	border-left: var(--border-3) solid var(--accent);
+}
+
+.pullquote__text {
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-medium);
+	line-height: var(--leading-snug);
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+}
+
+.pullquote__cite {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	font-style: normal;
+}
+
+/* ── Code block ──────────────────────────────────────────────────────────── */
+
+.code-block {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-lg);
+	background: var(--bg-sunken);
+	overflow: hidden;
+}
+
+.code-block__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-2) var(--space-4);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+.code-block > pre {
+	margin: 0;
+	padding: var(--space-4);
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	line-height: var(--leading-normal);
+	overflow-x: auto;
+}
+
+/* ── Inline atoms ────────────────────────────────────────────────────────── */
+
+/* Marked text — the static version of the .tx-highlight animation. */
+.mark {
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+	padding-inline: 0.14em;
+	border-radius: 0.12em;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+
+/* An aside that isn't an alert: a margin note, a caveat, a correction. */
+.note {
+	border-left: var(--border-2) solid var(--line-default);
+	padding-left: var(--space-4);
+	color: var(--fg-muted);
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+}
+
+.note-craft { border-left-color: var(--craft); }
+.note-signal { border-left-color: var(--accent); }
+
+/* Footnotes */
+.fn-ref {
+	font-family: var(--font-slate);
+	font-size: 0.7em;
+	vertical-align: super;
+	color: var(--fg-accent);
+	text-decoration: none;
+}
+
+.fn {
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	padding-top: var(--space-3);
+}
+
+/* Drop cap — one per article, at most. */
+.drop-cap::first-letter {
+	float: left;
+	font-family: var(--font-display);
+	font-size: 3.4em;
+	line-height: 0.82;
+	font-weight: var(--weight-bold);
+	padding-right: 0.08em;
+	color: var(--fg-default);
+}
+
+/* Keyboard-driven list of definitions, for docs and the changelog. */
+.term {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}

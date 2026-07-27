@@ -1,0 +1,268 @@
+<header class="sec-head">
+				<span class="sec-num">06</span>
+				<h2 class="t-h1">Motion</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Four durations, four easings. No component may invent a duration.
+					Entrances travel 16px, not 60 — long travel reads as "loading", which
+					is a lie when the content is already there.
+				</p>
+			</header>
+
+			<div class="surface" style="overflow:hidden">
+				<div class="demo">
+					<div class="cluster" style="margin-bottom:var(--space-5)">
+						<button class="doc-btn" type="button" data-replay>Replay</button>
+						<span class="t-slate">hover the bottom row</span>
+					</div>
+					<div class="grid-auto-sm" id="fxDemo">
+						<div class="surface demo fx-rise"><p class="t-slate">fx-rise</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-fade"><p class="t-slate">fx-fade</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-slide-l"><p class="t-slate">fx-slide-l</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-scale"><p class="t-slate">fx-scale</p><p class="t-small">entrance · 320</p></div>
+						<div class="surface demo fx-blur"><p class="t-slate">fx-blur</p><p class="t-small">entrance · 560</p></div>
+						<div class="surface demo fx-clip"><p class="t-slate">fx-clip</p><p class="t-small">scene · 560</p></div>
+					</div>
+					<div class="grid-auto-sm" style="margin-top:var(--space-4)">
+						<div class="surface demo fx-lift"><p class="t-slate">fx-lift</p><p class="t-small">hover</p></div>
+						<div class="surface demo fx-glow"><p class="t-slate">fx-glow</p><p class="t-small">hover</p></div>
+						<div class="surface demo fx-tilt"><p class="t-slate">fx-tilt</p><p class="t-small">hover</p></div>
+						<div class="surface demo fx-shift" style="display:flex;align-items:center;gap:8px"><span class="t-slate">fx-shift</span><span class="fx-shift__icon">→</span></div>
+					</div>
+				</div>
+				<p class="spec"><b>--dur-1</b> 120 state flips · <b>--dur-2</b> 200 default · <b>--dur-3</b> 320 entrances · <b>--dur-4</b> 560 scenes</p>
+			</div>
+
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<div class="demo">
+					<div class="cluster" style="margin-bottom:var(--space-5)">
+						<button class="doc-btn" type="button" data-replay2>Replay</button>
+						<span class="t-slate">the rest of the ladder</span>
+					</div>
+					<div class="grid-auto-sm" id="fxDemo2">
+						<div class="surface demo fx-flip"><p class="t-slate">fx-flip</p><p class="t-small">reveal · 560</p></div>
+						<div class="surface demo fx-swing"><p class="t-slate">fx-swing</p><p class="t-small">confirm · 560</p></div>
+						<div class="surface demo fx-pop"><p class="t-slate">fx-pop</p><p class="t-small">spring · 320</p></div>
+						<div class="surface demo"><p class="t-slate">fx-draw</p><span class="fx-draw" style="display:block;height:2px;background:var(--accent);margin-top:8px"></span></div>
+						<div class="surface demo fx-mask"><p class="t-slate">fx-mask</p><p class="t-small">wipe · 560</p></div>
+						<div class="surface demo fx-zoom"><p class="t-slate">fx-zoom</p><p class="t-small">hero · 560</p></div>
+					</div>
+				</div>
+				<p class="spec"><b>.fx-flip .fx-swing .fx-pop .fx-draw .fx-mask .fx-zoom</b> — thirteen behaviours total, each with exactly one job</p>
+			</div>
+
+			<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Text effects</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				Twelve. Most need the text split into spans carrying <code class="t-code">--i</code>;
+				the preview does that with five lines of JS. Without spans every effect
+				degrades to a plain fade — a safe failure. <b>One text effect per screen.</b>
+			</p>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg">
+					<div class="cluster"><button class="doc-btn" type="button" data-replay-tx>Replay text</button></div>
+					<div id="txStage" class="stack-lg">
+						<div><span class="demo-label">01 · type</span><p class="t-h3 tx-type">The build is the story</p></div>
+						<div><span class="demo-label">02 · chars</span><p class="t-h3" data-split="chars"><span class="tx-chars">Shipping the small thing today</span></p></div>
+						<div><span class="demo-label">03 · words</span><p class="t-h3" data-split="words"><span class="tx-words">Reps beat virality, every time</span></p></div>
+						<div><span class="demo-label">04 · wave</span><p class="t-h3" data-split="chars"><span class="tx-wave">Field notes</span></p></div>
+						<div><span class="demo-label">05 · shine</span><p class="t-h3 tx-shine">6 hours saved</p></div>
+						<div><span class="demo-label">06 · underline</span><p class="t-h3"><span class="tx-underline">One system, every crop</span></p></div>
+						<div><span class="demo-label">07 · highlight</span><p class="t-h3"><span class="tx-highlight">Quiet by default</span></p></div>
+						<div><span class="demo-label">08 · gradient</span><p class="t-h3 tx-gradient">Loud on purpose</p></div>
+						<div><span class="demo-label">09 · glitch</span><p class="t-h3 tx-glitch" data-text="404 — nothing here">404 — nothing here</p></div>
+						<div><span class="demo-label">10 · blur-in</span><p class="t-h3" data-split="chars"><span class="tx-blur">Resolving focus</span></p></div>
+						<div><span class="demo-label">11 · mask-up</span><p class="t-h3 tx-mask"><span style="--i:0">Lines slide out</span><span style="--i:1">from behind their own edge</span></p></div>
+						<div><span class="demo-label">12 · flip-chars</span><p class="t-h3" data-split="chars"><span class="tx-flip">00:14:22</span></p></div>
+					</div>
+				</div>
+				<p class="spec"><b>.tx-*</b> — split helper: wrap each char/word in a span with <b>--i</b>; all twelve degrade to a fade under reduced-motion</p>
+			</div>
+
+
+			<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Annotations — the hand-drawn layer</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				Marks that look like someone reached in and drew on the page. One trick
+				behind all of them: an SVG stroke with <code class="t-code">stroke-dasharray</code>
+				equal to its own length, animating <code class="t-code">dashoffset</code> to
+				zero. Because the path is <em>drawn</em> rather than faded in, the eye reads
+				it as a gesture instead of an effect.
+			</p>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg" id="anStage">
+					<div class="cluster"><button class="doc-btn" type="button" data-replay-an>Replay</button></div>
+
+					<p class="t-h3" style="line-height:2">
+						The one rule:
+						<span class="an an-circle">aliases only<svg viewBox="0 0 220 70" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="110" cy="35" rx="103" ry="27" pathLength="100" /></svg></span>
+						— never a raw hex.
+					</p>
+
+					<p class="t-h3" style="line-height:2">
+						Designed at
+						<span class="an an-underline an-craft">thumbnail scale<svg viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 15 C 60 6, 150 22, 216 9" pathLength="100" /></svg></span>
+						first.
+					</p>
+
+					<p class="t-h3" style="line-height:2">
+						<span class="an an-strike">Just use a framework<svg viewBox="0 0 260 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12 C 70 6, 180 16, 257 8" pathLength="100" /></svg></span>
+					</p>
+
+					<p class="t-h3" style="line-height:2.4">
+						Everything inside
+						<span class="an an-box">the safe area<svg viewBox="0 0 230 70" preserveAspectRatio="none" aria-hidden="true"><path d="M8 12 C 70 5, 170 6, 222 11 C 226 28, 225 44, 221 58 C 150 64, 70 63, 10 58 C 5 42, 5 26, 8 12" pathLength="100" /></svg></span>
+					</p>
+
+					<p class="t-h3" style="line-height:2">
+						<span class="an an-circle an-circle-2 an-craft">Two loops<svg viewBox="0 0 200 70" preserveAspectRatio="none" aria-hidden="true"><path d="M100 8 C 40 8, 6 22, 8 38 C 10 56, 60 64, 108 62 C 160 60, 194 48, 190 32 C 187 16, 140 7, 96 10 C 52 13, 22 24, 24 38" pathLength="100" /></svg></span>
+						when you really mean it.
+					</p>
+
+					<p class="t-h3" style="line-height:1.8">
+						Loudness is a
+						<span class="tx-highlight">budget you spend</span>, not a texture you apply.
+					</p>
+				</div>
+				<p class="spec"><b>.an-circle</b> · <b>.an-circle-2</b> · <b>.an-underline</b> · <b>.an-strike</b> · <b>.an-box</b> · <b>.an-arrow</b> — <b>pathLength="100"</b> normalises every path so one rule drives them all</p>
+			</div>
+
+			<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Micro-interactions</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				Eight hover behaviours. All pointer-gated, all one property, none longer
+				than 200ms. A hover tells you something is interactive, then gets out of
+				the way. <b>Hover the tiles.</b>
+			</p>
+
+			<div class="surface demo-tile">
+				<div class="demo grid-4 gap-4">
+					<span class="surface demo hx-swipe" style="cursor:pointer"><span class="t-slate">hx-swipe</span><p class="t-small" style="margin-top:6px">underline runs in</p></span>
+					<span class="surface demo hx-wipe" style="cursor:pointer"><span class="t-slate">hx-wipe</span><p class="t-small" style="margin-top:6px">fills from below</p></span>
+					<span class="surface demo hx-sheen" style="cursor:pointer"><span class="t-slate">hx-sheen</span><p class="t-small" style="margin-top:6px">one specular pass</p></span>
+					<span class="surface demo hx-press" style="cursor:pointer"><span class="t-slate">hx-press</span><p class="t-small" style="margin-top:6px">key travel</p></span>
+					<span class="surface demo hx-magnet" style="cursor:pointer"><span class="t-slate">hx-magnet</span><p class="t-small" style="margin-top:6px">leans to the pointer</p></span>
+					<span class="surface demo hx-trace" style="cursor:pointer"><span class="t-slate">hx-trace</span><p class="t-small" style="margin-top:6px">border draws itself</p></span>
+					<span class="surface hx-reveal" style="cursor:pointer;min-height:5.5rem">
+						<span class="demo"><span class="t-slate">hx-reveal</span></span>
+						<span class="hx-reveal__panel spec" style="border-radius:0">caption slides up</span>
+					</span>
+					<span class="surface demo" style="cursor:pointer;display:flex;align-items:center;gap:8px">
+						<span class="t-slate">hx-swap</span>
+						<span class="hx-swap" style="width:1.2em;height:1.2em"><span>→</span><span style="color:var(--accent)">✓</span></span>
+					</span>
+				</div>
+				<p class="spec"><b>.hx-*</b> — swipe · wipe · sheen · press · magnet · trace · reveal · swap</p>
+			</div>
+
+			<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Section presets</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				Five ways for a whole block to arrive. Put one on a
+				<code class="t-code">&lt;section&gt;</code>; its children carry
+				<code class="t-code">--i</code> for the stagger. Add
+				<code class="t-code">.sec-on-scroll</code> and they fire on scroll instead
+				of on load, natively — no observer.
+			</p>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg">
+					<div class="cluster"><button class="doc-btn" type="button" data-replay-sec>Replay</button></div>
+					<div id="secStage" class="stack-lg">
+						<div>
+							<span class="demo-label">1 · cascade — card decks</span>
+							<div class="grid-4 gap-3 sec-cascade">
+								<span class="surface demo" style="--i:0"><span class="t-slate">01</span></span>
+								<span class="surface demo" style="--i:1"><span class="t-slate">02</span></span>
+								<span class="surface demo" style="--i:2"><span class="t-slate">03</span></span>
+								<span class="surface demo" style="--i:3"><span class="t-slate">04</span></span>
+							</div>
+						</div>
+						<div>
+							<span class="demo-label">2 · curtain — heroes</span>
+							<div class="surface demo sec-curtain"><p class="t-h4">Wiped down from the top edge.</p></div>
+						</div>
+						<div>
+							<span class="demo-label">3 · split — comparisons</span>
+							<div class="grid-2 gap-3 sec-split">
+								<span class="surface demo" style="--i:0"><span class="t-slate">from the left</span></span>
+								<span class="surface demo" style="--i:1"><span class="t-slate">from the right</span></span>
+							</div>
+						</div>
+						<div>
+							<span class="demo-label">4 · focus — single statements</span>
+							<div class="surface demo sec-focus"><p class="t-h4">Resolves out of blur, like a lens finding it.</p></div>
+						</div>
+						<div>
+							<span class="demo-label">5 · lift — galleries, stat grids</span>
+							<div class="grid-3 gap-3 sec-lift">
+								<span class="surface demo" style="--i:0"><span class="t-stat">180+</span></span>
+								<span class="surface demo" style="--i:1"><span class="t-stat">6.2k</span></span>
+								<span class="surface demo" style="--i:2"><span class="t-stat">14</span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p class="spec"><b>.sec-cascade</b> · <b>.sec-curtain</b> · <b>.sec-split</b> · <b>.sec-focus</b> · <b>.sec-lift</b> · + <b>.sec-on-scroll</b></p>
+			</div>
+
+			<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Stings</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				The three-second brand hit — the <em>tudum</em> problem. Five idents, one
+				per context. Each ends on the wordmark, so the last frame is always the
+				same image; that repetition is the entire point of an ident.
+			</p>
+
+			<div class="grid-3 gap-4" id="stingStage">
+				<div>
+					<div class="sting sting-drop">
+						<span class="sting__dot"></span>
+						<span class="sting__word logo logo-xl" style="--logo-color:#fff">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+					</div>
+					<p class="canvas-note t-slate-sm" style="margin-top:var(--space-2)">1 · drop — the dot falls, lands hard, the wordmark shocks out of the impact. The house ident.</p>
+				</div>
+				<div>
+					<div class="sting sting-static">
+						<span class="sting__dot"></span>
+						<span class="sting__word logo logo-xl" style="--logo-color:#fff">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+					</div>
+					<p class="canvas-note t-slate-sm" style="margin-top:var(--space-2)">2 · static — tunes in through TV noise. Videos.</p>
+				</div>
+				<div>
+					<div class="sting sting-shutter">
+						<span class="sting__dot"></span>
+						<span class="sting__word logo logo-xl" style="--logo-color:#fff">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+					</div>
+					<p class="canvas-note t-slate-sm" style="margin-top:var(--space-2)">3 · shutter — the iris opens onto the mark. Travel, photography.</p>
+				</div>
+				<div>
+					<div class="sting sting-type">
+						<span class="sting__dot"></span>
+						<span class="sting__word logo logo-lg" style="--logo-color:#fff">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+					</div>
+					<p class="canvas-note t-slate-sm" style="margin-top:var(--space-2)">4 · type — the mark types itself. Build logs, docs.</p>
+				</div>
+				<div>
+					<div class="sting sting-sweep">
+						<span class="sting__dot"></span>
+						<span class="sting__word logo logo-xl" style="--logo-color:#fff">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+					</div>
+					<p class="canvas-note t-slate-sm" style="margin-top:var(--space-2)">5 · sweep — a light bar passes and leaves the mark. Essays, newsletter.</p>
+				</div>
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">Using them</span>
+						<p class="t-small">A sting is 1.2–1.6s. Longer and people skip it; shorter and it doesn't register. Pick <b>one</b> for the channel and use it every single time — an ident works by repetition, not by variety.</p>
+						<button class="doc-btn" type="button" data-replay-sting style="align-self:flex-start">Replay all</button>
+					</div>
+					<p class="spec"><b>.sting</b> + <b>-drop -static -shutter -type -sweep</b></p>
+				</div>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<div class="demo t-small">
+					<b style="color:var(--fg-default)">Reduced motion.</b>
+					Every effect degrades to a 160ms opacity fade — the reveal still
+					happens, it just stops moving. Loops (the record-dot pulse, spinners)
+					stop entirely. Try it: System Settings → Accessibility → Reduce motion.
+				</div>
+				<p class="spec"><b>prefers-reduced-motion</b> · <b>--ease-out</b> arriving · <b>--ease-in</b> leaving · <b>--ease-spring</b> confirmations only</p>
+			</div>

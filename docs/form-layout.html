@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Form layout — Creator Design System</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/2-elements/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/3-components/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/5-sections/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds10" />
+<link rel="stylesheet" href="./preview.css?v=cds10" />
+<script src="./preview.js?v=cds10" defer></script>
+</head>
+<body class="">
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 5.5L20 7"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7l1.2-2h6.2l1.2 2h1.7A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"/><circle cx="12" cy="12.5" r="3.2"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8.5 8.5-4 3.7 4 3.8M15.5 8.5l4 3.7-4 3.8M13.5 5l-3 14"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M20 5 4 11.5l5.5 2M20 5l-3.5 14-3-6.5M20 5 9.5 13.5v4.2l3-3.7"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1Z"/><path d="m13.5 7.5 3 3"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m8.8 10.8 6.4-3.1M8.8 13.2l6.4 3.1"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></symbol>
+</svg>
+<aside class="doc-side">
+	<div class="doc-side__head">
+		<a class="doc-logo" href="./index.html" title="Home"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span></a>
+		<button class="doc-btn doc-side__hide" type="button" data-side-toggle aria-label="Hide menu" title="Hide menu">«</button>
+	</div>
+	<div class="doc-search">
+		<svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+		<input id="docSearch" type="search" placeholder="Search the system…" aria-label="Search the design system"
+		       autocomplete="off" role="combobox" aria-expanded="false" aria-controls="docResults" />
+		<kbd class="kbd">/</kbd>
+	</div>
+	<div class="doc-results" id="docResults" role="listbox" hidden></div>
+
+	<nav class="doc-side__nav" aria-label="Creator Design System">
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>Start</span></summary>
+			<a href="./introduction.html">Introduction</a>
+			<a href="./why.html">Why this system</a>
+			<a href="./principles.html">Principles</a>
+			<a href="./usage.html">Usage — CSS · SCSS · Tailwind</a>
+			<a href="./components.html">Components explorer</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Getting started</span></summary>
+			<a href="./install.html">Installation</a>
+			<a href="./setup.html">Setup & theming</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l">Project</span></summary>
+			<a href="./showcase.html">Showcase</a>
+			<a href="./templates.html">Templates</a>
+			<a href="./sponsor.html">Sponsor</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/></svg>Foundation</span></summary>
+			<a href="./f-logo.html">Logo</a>
+			<a href="./f-color.html">Color</a>
+			<a href="./f-type.html">Typography</a>
+			<a href="./f-space.html">Spacing & radius</a>
+			<a href="./f-elevation.html">Elevation</a>
+			<a href="./f-pattern.html">Patterns</a>
+			<a href="./breakpoints.html">Breakpoints</a>
+			<a href="./f-a11y.html">Accessibility</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h13"/></svg>Elements</span></summary>
+			<a href="./reboot.html">Reboot</a>
+			<a href="./typography.html">Type roles</a>
+			<a href="./text-elements.html">Text elements</a>
+			<a href="./images.html">Images & figures</a>
+			<a href="./tables.html">Tables</a>
+			<a href="./quotes.html">Quotes</a>
+			<a href="./code.html">Code & syntax</a>
+			<a href="./content.html">Long-form content</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></svg>Icons</span></summary>
+			<a href="./f-icons.html">Guidelines</a>
+			<a href="./icon-set.html">Icon set</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l7 16H5l7-16Z"/></svg>Shape & Cutout</span></summary>
+			<a href="./f-shape.html">Shapes</a>
+			<a href="./cutouts.html">Cutouts</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg>Grid & Layout</span></summary>
+			<a href="./containers.html">Containers</a>
+			<a href="./grid.html">Grid</a>
+			<a href="./columns.html">Columns & gutters</a>
+			<a href="./f-layout.html">Composition</a>
+			<a href="./z-index.html">Z-index</a>
+			</details>
+			<details class="doc-group" open><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="5" rx="1.5"/><rect x="4" y="14" width="16" height="5" rx="1.5"/></svg>Forms</span></summary>
+			<a href="./forms.html">Overview</a>
+			<a href="./form-control.html">Form control</a>
+			<a href="./select.html">Select</a>
+			<a href="./checks-radios.html">Checks & radios</a>
+			<a href="./range.html">Range</a>
+			<a href="./input-group.html">Input group</a>
+			<a href="./floating-labels.html">Floating labels</a>
+			<a href="./form-layout.html" aria-current="page">Layout</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/><path d="M13 7.5h7M7.5 13v7"/></svg>Components</span></summary>
+			<a href="./accordion.html">Accordion</a>
+			<a href="./alerts.html">Alerts</a>
+			<a href="./badge.html">Badge</a>
+			<a href="./breadcrumb.html">Breadcrumb</a>
+			<a href="./buttons.html">Buttons</a>
+			<a href="./button-group.html">Button group</a>
+			<a href="./card.html">Card</a>
+			<a href="./collection-cards.html">Collection cards</a>
+			<a href="./carousel.html">Carousel</a>
+			<a href="./close-button.html">Close button</a>
+			<a href="./collapse.html">Collapse</a>
+			<a href="./f-devices.html">Devices</a>
+			<a href="./dropdowns.html">Dropdowns</a>
+			<a href="./f-frames.html">Frames</a>
+			<a href="./list-group.html">List group</a>
+			<a href="./marquee.html">Marquee</a>
+			<a href="./modal.html">Modal</a>
+			<a href="./navbar.html">Navbar</a>
+			<a href="./navs-tabs.html">Navs & tabs</a>
+			<a href="./offcanvas.html">Offcanvas</a>
+			<a href="./pagination.html">Pagination</a>
+			<a href="./popovers.html">Popovers</a>
+			<a href="./progress.html">Progress</a>
+			<a href="./scrollspy.html">Scrollspy</a>
+			<a href="./spinners.html">Spinners</a>
+			<a href="./toasts.html">Toasts</a>
+			<a href="./tooltips.html">Tooltips</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14M5 12h14M5 18h9"/><circle cx="19" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg>Composites</span></summary>
+			<a href="./syllabus.html">Syllabus</a>
+			<a href="./episode-panel.html">Episode panel</a>
+			<a href="./build-log.html">Build log</a>
+			<a href="./itinerary.html">Itinerary</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="12" width="16" height="8" rx="1"/></svg>Sections</span></summary>
+			<a href="./page-header.html">Page header</a>
+			<a href="./hero.html">Hero</a>
+			<a href="./stats.html">Stats</a>
+			<a href="./cta.html">CTA</a>
+			<a href="./footer.html">Footer</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M14 9v11"/></svg>Layouts</span></summary>
+			<a href="./layouts.html">Overview</a>
+			<a href="./l-core.html">Core</a>
+			<a href="./l-watch.html">Watch</a>
+			<a href="./l-learn.html">Learn</a>
+			<a href="./l-build.html">Build</a>
+			<a href="./l-road.html">Road</a>
+			<a href="./l-pages.html">Pages</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg>Animation & Motion</span></summary>
+			<a href="./m-basics.html">Motion basics</a>
+			<a href="./m-text-effects.html">Text effects</a>
+			<a href="./m-annotations.html">Annotations</a>
+			<a href="./m-micro.html">Micro-interactions</a>
+			<a href="./m-presets.html">Section presets</a>
+			<a href="./m-stings.html">Logo sting</a>
+			<a href="./page-transitions.html">Page transitions</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" stroke="none"/><rect x="3.5" y="5.5" width="17" height="13" rx="3"/></svg>Broadcast · YouTube</span></summary>
+			<a href="./yt-thumbs.html">Thumbnails</a>
+			<a href="./yt-layouts.html">Thumb layouts</a>
+			<a href="./yt-categories.html">Categories</a>
+			<a href="./yt-series.html">Series art</a>
+			<a href="./yt-livescenes.html">Live scenes</a>
+			<a href="./yt-screens.html">Screens</a>
+			<a href="./yt-scenes.html">Scenes</a>
+			<a href="./yt-live.html">Live</a>
+			<a href="./yt-end.html">End screens</a>
+			<a href="./yt-subs.html">Subscribe</a>
+			<a href="./yt-engage.html">Engagement</a>
+			<a href="./yt-brand.html">Branding</a>
+			<a href="./yt-backdrops.html">Backdrops</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg>Broadcast · Social</span></summary>
+			<a href="./ig-posts.html">Posts</a>
+			<a href="./ig-carousel.html">Carousel</a>
+			<a href="./ig-story.html">Stories</a>
+			<a href="./ig-grid.html">Grid</a>
+			<a href="./ig-follow.html">Follow</a>
+			<a href="./ig-share.html">Share</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 0-5.6 5L4 16.5V20h3.5l5-4.9a4 4 0 0 0 5-5.6l-2.6 2.6-2.4-2.4 2.5-2.6Z"/></svg>Helpers & Utilities</span></summary>
+			<a href="./u-background.html">Background</a>
+			<a href="./u-borders.html">Borders</a>
+			<a href="./u-colors.html">Colors</a>
+			<a href="./u-display.html">Display</a>
+			<a href="./u-flex.html">Flex</a>
+			<a href="./u-float.html">Float</a>
+			<a href="./u-interactions.html">Interactions</a>
+			<a href="./u-overflow.html">Overflow</a>
+			<a href="./u-position.html">Position</a>
+			<a href="./u-shadows.html">Shadows</a>
+			<a href="./u-sizing.html">Sizing</a>
+			<a href="./u-spacing.html">Spacing</a>
+			<a href="./u-text.html">Text</a>
+			<a href="./u-valign.html">Vertical align</a>
+			<a href="./u-visibility.html">Visibility</a>
+			</details>
+	</nav>
+	<div class="doc-side__foot">
+		<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
+			<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
+		</button>
+	</div>
+</aside>
+<div class="doc-scrim" aria-hidden="true"></div>
+<button class="doc-btn doc-reopen" type="button" data-side-toggle aria-label="Show menu">☰</button>
+<header class="doc-top">
+	<button class="doc-btn" type="button" data-nav-toggle aria-label="Open navigation">☰ Menu</button>
+	<span class="doc-logo">Form layout</span>
+</header>
+<main id="main">
+	<div class="container section">
+		<header class="docs-head">
+			<span class="t-slate" style="color:var(--fg-faint)">Forms · Creator Design System</span>
+			<h1 class="t-display-2" style="margin-top:var(--space-3)">Form layout</h1>
+			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">Rows that pair, fieldsets that group, and the one-line subscribe. Forms compose from the same gap ladder as everything else.</p>
+		</header>
+
+		<div class="surface demo-tile u-mb-6"><div class="demo">
+<form class="stack" style="max-width:34rem" onsubmit="return false"><div class="form-row"><div class="field"><label class="label" for="fl-1">First name</label><input class="input" id="fl-1" type="text" /></div><div class="field"><label class="label" for="fl-2">Last name</label><input class="input" id="fl-2" type="text" /></div></div><div class="field"><label class="label" for="fl-3">Email</label><input class="input" id="fl-3" type="email" placeholder="you@domain.com" /></div><div class="field"><label class="label" for="fl-4">Topic</label><select class="select" id="fl-4"><option>Sponsorship</option><option>Collab</option><option>Just saying hi</option></select></div><label class="check"><input type="checkbox" checked /> <span>Reply by email, not a call</span></label><div class="cluster-sm"><button class="btn btn-primary" type="submit">Send it</button><button class="btn btn-quiet" type="reset">Clear</button></div></form>
+		</div><p class="spec"><b>.form-row</b> pairs fields · actions cluster at the end, primary first</p></div>
+
+		<nav class="docs-pager" aria-label="Pages">
+			<a class="docs-pager__link" href="./floating-labels.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Floating labels</span></a>
+			<a class="docs-pager__link docs-pager__link-next" href="./accordion.html"><span class="docs-pager__dir">Next →</span><span class="docs-pager__title">Accordion</span></a>
+		</nav>
+
+		<footer class="section-sm" style="padding-bottom:0">
+			<hr class="rule" style="margin-bottom:var(--space-6)" />
+			<div class="row-between">
+				<p class="t-slate" style="display:flex;align-items:center;gap:8px">Creator Design System <span class="dot dot-sm"></span></p>
+				<p class="t-slate-sm">Frame &amp; Signal · for creators building their site.</p>
+			</div>
+		</footer>
+	</div>
+</main>
+<script>
+(function () {
+	var root = document.documentElement, btn = document.getElementById('themeToggle'),
+		label = document.getElementById('themeLabel');
+	var sync = function () {
+		var d = root.getAttribute('data-theme') === 'dark';
+		label.textContent = d ? 'Dark' : 'Light';
+		btn.setAttribute('aria-pressed', String(d));
+	};
+	sync();
+	btn.addEventListener('click', function () {
+		root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+		sync();
+	});
+})();
+</script>
+</body>
+</html>

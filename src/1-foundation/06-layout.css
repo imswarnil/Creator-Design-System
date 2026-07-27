@@ -1,0 +1,418 @@
+/* =============================================================================
+   06 · LAYOUT
+   Container scale, a 12-column fluid grid, four composition primitives, and
+   the media canvases. "One system, every crop" lives here.
+   ========================================================================== */
+
+:root {
+	--grid-cols: 12;
+	--grid-gap: var(--space-6);
+	--grid-gap-tight: var(--space-4);
+}
+
+/* ── Containers ────────────────────────────────────────────────────────────
+   One class, four crops. Gutter comes from the token so the nav island and the
+   content column always share an edge. */
+
+.container,
+.container-prose,
+.container-narrow,
+.container-wide,
+.container-full {
+	width: 100%;
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+.container        { max-width: calc(var(--w-site) + var(--gutter) * 2); }
+.container-prose  { max-width: calc(var(--w-prose) + var(--gutter) * 2); }
+.container-narrow { max-width: calc(var(--w-narrow) + var(--gutter) * 2); }
+.container-wide   { max-width: calc(var(--w-wide) + var(--gutter) * 2); }
+.container-full   { max-width: none; }
+
+/* Break a child out of a prose column to the full container width. */
+.bleed-wide {
+	width: min(var(--w-site), 100vw - var(--gutter) * 2);
+	margin-inline: calc(50% - min(var(--w-site), 100vw - var(--gutter) * 2) / 2);
+}
+
+.bleed-full {
+	width: 100vw;
+	margin-inline: calc(50% - 50vw);
+}
+
+/* ── Section rhythm ───────────────────────────────────────────────────────── */
+
+.section    { padding-block: var(--section-md); }
+.section-sm { padding-block: var(--section-sm); }
+.section-lg { padding-block: var(--section-lg); }
+
+/* ── 12-column grid ────────────────────────────────────────────────────────
+   Fluid, no breakpoint classes: columns collapse to full width below 48rem
+   using a container-query-free min() trick on the span. */
+
+.grid-12 {
+	display: grid;
+	grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+	gap: var(--grid-gap);
+}
+
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 62rem) {
+	.col-3, .col-4, .col-5 { grid-column: span 6; }
+	.col-7, .col-8, .col-9, .col-10 { grid-column: span 12; }
+}
+
+@media (max-width: 40rem) {
+	.grid-12 > [class^='col-'] { grid-column: span 12; }
+}
+
+/* ── Auto grids ────────────────────────────────────────────────────────────
+   For card decks, where "how many fit" beats "how many columns". */
+
+.grid-auto {
+	display: grid;
+	gap: var(--grid-gap);
+	grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+}
+
+.grid-auto-sm {
+	display: grid;
+	gap: var(--grid-gap-tight);
+	grid-template-columns: repeat(auto-fill, minmax(min(12rem, 100%), 1fr));
+}
+
+.grid-auto-lg {
+	display: grid;
+	gap: var(--grid-gap);
+	grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr));
+}
+
+/* ── The φ split ───────────────────────────────────────────────────────────
+   Hero and article layouts split on the golden ratio rather than 2/3, so the
+   sidebar never competes with the main column. Collapses at 62rem. */
+
+.split-phi {
+	display: grid;
+	gap: var(--space-10);
+	grid-template-columns: 1.618fr 1fr;
+	align-items: start;
+}
+
+.split-phi-reverse {
+	display: grid;
+	gap: var(--space-10);
+	grid-template-columns: 1fr 1.618fr;
+	align-items: start;
+}
+
+.split-half {
+	display: grid;
+	gap: var(--space-8);
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 62rem) {
+	.split-phi,
+	.split-phi-reverse,
+	.split-half {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* ── Composition primitives ────────────────────────────────────────────────
+   Stack (vertical rhythm), cluster (wrapping inline row), sidebar-y things.
+   Nearly every layout in the theme is one of these three. */
+
+.stack       { display: flex; flex-direction: column; gap: var(--space-4); }
+.stack-xs    { display: flex; flex-direction: column; gap: var(--space-2); }
+.stack-sm    { display: flex; flex-direction: column; gap: var(--space-3); }
+.stack-lg    { display: flex; flex-direction: column; gap: var(--space-6); }
+.stack-xl    { display: flex; flex-direction: column; gap: var(--space-10); }
+
+/* Each cluster size stands alone — no base class required, same as .stack-*. */
+.cluster,
+.cluster-sm,
+.cluster-lg {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+.cluster-sm { gap: var(--space-2); }
+.cluster-lg { gap: var(--space-5); }
+
+.row-between {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-4);
+}
+
+.center-x { display: grid; justify-items: center; }
+
+/* Sticky rail (course sidebars, TOCs). Offsets by the nav height token so it
+   never hides under a sticky header. */
+.sticky-rail {
+	position: sticky;
+	top: calc(var(--nav-h, 4rem) + var(--space-6));
+	align-self: start;
+}
+
+/* ── Canvases ──────────────────────────────────────────────────────────────
+   Real social/media crops with the safe area baked in, so a thumbnail
+   designed here survives being cropped by a platform. */
+
+.canvas {
+	position: relative;
+	overflow: hidden;
+	background: var(--bg-media);
+	border-radius: var(--radius-media);
+	isolation: isolate;
+}
+
+.canvas-thumb  { aspect-ratio: var(--ratio-video); }
+.canvas-short  { aspect-ratio: var(--ratio-short); }
+.canvas-square { aspect-ratio: var(--ratio-square); }
+.canvas-poster { aspect-ratio: var(--ratio-poster); }
+.canvas-cinema { aspect-ratio: var(--ratio-cinema); }
+
+/* Content inside a canvas lives here. 6% inset ≈ every platform's safe area. */
+.canvas__safe {
+	position: absolute;
+	inset: 6%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: var(--space-2);
+}
+
+.canvas > img,
+.canvas > video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Legibility scrim under canvas text — a gradient, never a flat overlay. */
+.canvas__scrim::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: var(--z-below);
+	background: linear-gradient(
+		to top,
+		rgb(0 0 0 / 0.72) 0%,
+		rgb(0 0 0 / 0.32) 38%,
+		rgb(0 0 0 / 0) 68%
+	);
+}
+
+/* ── The frame ─────────────────────────────────────────────────────────────
+   Viewfinder brackets. Signature device #2: it wraps the thing being shown.
+   Corner length scales with --frame-size; colour defaults to the craft amber. */
+
+.frame {
+	--frame-size: 22px;
+	--frame-inset: 10px;
+	--frame-color: var(--craft);
+	--frame-weight: var(--border-2);
+	position: relative;
+}
+
+.frame::before,
+.frame::after {
+	content: '';
+	position: absolute;
+	width: var(--frame-size);
+	height: var(--frame-size);
+	pointer-events: none;
+}
+
+.frame::before {
+	top: var(--frame-inset);
+	left: var(--frame-inset);
+	border-top: var(--frame-weight) solid var(--frame-color);
+	border-left: var(--frame-weight) solid var(--frame-color);
+}
+
+.frame::after {
+	right: var(--frame-inset);
+	bottom: var(--frame-inset);
+	border-right: var(--frame-weight) solid var(--frame-color);
+	border-bottom: var(--frame-weight) solid var(--frame-color);
+}
+
+/* Four-corner variant — needs two inner spans to carry the other two corners. */
+.frame-4 > .frame__tr,
+.frame-4 > .frame__bl {
+	position: absolute;
+	width: var(--frame-size);
+	height: var(--frame-size);
+	pointer-events: none;
+}
+
+.frame-4 > .frame__tr {
+	top: var(--frame-inset);
+	right: var(--frame-inset);
+	border-top: var(--frame-weight) solid var(--frame-color);
+	border-right: var(--frame-weight) solid var(--frame-color);
+}
+
+.frame-4 > .frame__bl {
+	bottom: var(--frame-inset);
+	left: var(--frame-inset);
+	border-bottom: var(--frame-weight) solid var(--frame-color);
+	border-left: var(--frame-weight) solid var(--frame-color);
+}
+
+.frame-signal { --frame-color: var(--accent); }
+.frame-ink    { --frame-color: var(--line-strong); }
+
+/* ── Aspect + media helpers ──────────────────────────────────────────────── */
+
+.ratio-video  { aspect-ratio: var(--ratio-video); }
+.ratio-photo  { aspect-ratio: var(--ratio-photo); }
+.ratio-square { aspect-ratio: var(--ratio-square); }
+.ratio-short  { aspect-ratio: var(--ratio-short); }
+
+.object-cover    { width: 100%; height: 100%; object-fit: cover; }
+.object-contain  { width: 100%; height: 100%; object-fit: contain; }
+
+/* ── Gap & flow helpers ──────────────────────────────────────────────────
+   Gap is the only spacing mechanism in layouts — no margins between siblings,
+   ever. These map the spacing ladder onto grid and flex containers. */
+
+.gap-0  { gap: var(--space-0); }
+.gap-1  { gap: var(--space-1); }
+.gap-2  { gap: var(--space-2); }
+.gap-3  { gap: var(--space-3); }
+.gap-4  { gap: var(--space-4); }
+.gap-6  { gap: var(--space-6); }
+.gap-8  { gap: var(--space-8); }
+.gap-12 { gap: var(--space-12); }
+.gap-16 { gap: var(--space-16); }
+
+.gap-x-4 { column-gap: var(--space-4); }
+.gap-x-6 { column-gap: var(--space-6); }
+.gap-y-4 { row-gap: var(--space-4); }
+.gap-y-8 { row-gap: var(--space-8); }
+
+/* The owl: vertical rhythm inside flowing content (Ghost's {{content}}), where
+   you can't put a class on every child. */
+.flow > * + * { margin-block-start: var(--flow, var(--space-5)); }
+.flow-tight { --flow: var(--space-3); }
+.flow-loose { --flow: var(--space-8); }
+
+/* ── Grid helpers ────────────────────────────────────────────────────────
+   Named placements, so templates never write raw grid-column values. */
+
+.grid { display: grid; gap: var(--grid-gap); }
+
+.grid-2 { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-6 { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+@media (max-width: 62rem) {
+	.grid-3, .grid-4, .grid-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 40rem) {
+	.grid-2, .grid-3, .grid-4, .grid-6 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Content + rail, the article shape. Rail collapses under the content. */
+.grid-rail {
+	display: grid;
+	gap: var(--space-10);
+	grid-template-columns: minmax(0, 1fr) 18rem;
+	align-items: start;
+}
+
+/* The mirrored rail. Standalone on purpose — it carries the base properties
+   too, so `.grid-rail-left` alone works and can't silently stack. */
+.grid-rail-left {
+	display: grid;
+	gap: var(--space-10);
+	align-items: start;
+	grid-template-columns: 18rem minmax(0, 1fr);
+}
+
+@media (max-width: 68rem) {
+	.grid-rail,
+	.grid-rail-left { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Editorial grid — a prose column that can bleed wide or full without any
+   wrapper divs. Children opt in by class. */
+.grid-editorial {
+	display: grid;
+	grid-template-columns:
+		[full-start] minmax(var(--gutter), 1fr)
+		[wide-start] minmax(0, 12rem)
+		[text-start] min(var(--w-prose), 100% - var(--gutter) * 2) [text-end]
+		minmax(0, 12rem) [wide-end]
+		minmax(var(--gutter), 1fr) [full-end];
+}
+
+.grid-editorial > *          { grid-column: text; }
+.grid-editorial > .col-wide  { grid-column: wide; }
+.grid-editorial > .col-full  { grid-column: full; }
+
+/* Masonry-ish: equal columns that fill by height. For the tag pile and the
+   guestbook, where order doesn't matter. */
+.grid-cols-fill {
+	column-count: 3;
+	column-gap: var(--grid-gap);
+}
+
+.grid-cols-fill > * { break-inside: avoid; margin-bottom: var(--grid-gap); }
+
+@media (max-width: 62rem) { .grid-cols-fill { column-count: 2; } }
+@media (max-width: 40rem) { .grid-cols-fill { column-count: 1; } }
+
+/* Placement */
+.place-center { display: grid; place-items: center; }
+.self-start { align-self: start; }
+.self-end { align-self: end; }
+.justify-between { justify-content: space-between; }
+.items-start { align-items: start; }
+.items-center { align-items: center; }
+
+/* ── Divider ───────────────────────────────────────────────────────────────
+   The house rule: a horizontal rule fades out at both ends, so a page never
+   feels boxed in. */
+
+.rule {
+	height: var(--border-hair);
+	border: 0;
+	background: linear-gradient(
+		to right,
+		transparent,
+		var(--line-default) 12%,
+		var(--line-default) 88%,
+		transparent
+	);
+}
+
+.rule-solid {
+	height: var(--border-hair);
+	border: 0;
+	background: var(--line-default);
+}

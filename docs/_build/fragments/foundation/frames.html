@@ -1,0 +1,98 @@
+<header class="sec-head">
+				<span class="sec-num">12</span>
+				<h2 class="t-h1">Frames &amp; window chrome</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Containers that say what a thing <em>is</em> before you read it: a Mac
+					window says “app”, a terminal says “command”, a viewfinder says
+					“footage”, a book says “something you can finish”.
+				</p>
+			</header>
+
+			<div class="grid-2 gap-6" style="align-items:start">
+				<div class="win win-mac">
+					<div class="win__bar"><span class="win__dots win__dots-color"><span></span><span></span><span></span></span><span class="win__title">imswarnil.com — design</span></div>
+					<div class="win__body pattern pattern-grid" style="min-height:9rem;padding:var(--space-5)">
+						<p class="t-h4">A window is a frame with a job.</p>
+						<p class="t-small" style="margin-top:var(--space-2)">Screenshots of the site go here, and they stop looking like screenshots.</p>
+					</div>
+				</div>
+
+				<div class="win win-code">
+					<div class="win__bar"><span class="win__dots"><span></span><span></span><span></span></span><span class="win__title">tokens.css</span></div>
+					<div class="win-code__tabs">
+						<span class="win-code__tab" aria-selected="true">01-color.css</span>
+						<span class="win-code__tab">02-typography.css</span>
+					</div>
+					<div class="win-code__body">
+						<div class="win-code__gutter">1<br />2<br />3<br />4</div>
+						<div class="win-code__lines"><span class="tok-com">/* aliases only */</span>
+<span class="tok-key">--accent</span>: <span class="tok-fn">var</span>(<span class="tok-str">--signal-500</span>);
+<span class="tok-key">--radius-card</span>: <span class="tok-num">16px</span>;
+<span class="tok-key">--dur-2</span>: <span class="tok-num">200ms</span>;</div>
+					</div>
+				</div>
+
+				<div class="win win-term">
+					<div class="win__bar"><span class="win__dots"><span></span><span></span><span></span></span><span class="win__title">zsh — swarnil</span></div>
+					<div class="win-term__body"><span class="win-term__prompt">npm run build:css</span>
+<span style="color:#6ee7ad">✓ built in 412ms</span>
+<span class="win-term__prompt"></span><span class="win-term__cursor"></span></div>
+				</div>
+
+				<div class="win win-browser">
+					<div class="win__bar">
+						<span class="win__dots"><span></span><span></span><span></span></span>
+						<span class="win-browser__url">imswarnil.com/design</span>
+					</div>
+					<div class="win__body pattern pattern-dots" style="min-height:8rem"></div>
+				</div>
+			</div>
+
+			<div class="grid-3 gap-6" style="margin-top:var(--space-6);align-items:start">
+				<div>
+					<div class="vf vf-thirds canvas canvas-thumb" style="--vf-color:rgb(255 255 255/.75)">
+						<span class="pattern pattern-scanline pattern-media" style="position:absolute;inset:0"></span>
+						<span class="vf__tr"></span><span class="vf__bl"></span><span class="vf__grid"></span>
+						<span class="vf__rec">Rec</span>
+					</div>
+					<p class="canvas-note t-slate-sm" style="margin-top:var(--space-2)">.vf · .vf-thirds · .vf__rec — corners and the bug, nothing in the middle</p>
+				</div>
+
+				<div>
+					<div class="shutter canvas canvas-thumb pattern pattern-mesh" id="shutterDemo">
+						<span class="shutter__blades"><span></span><span></span><span></span><span></span><span></span><span></span></span>
+					</div>
+					<button class="doc-btn" type="button" data-shutter style="margin-top:var(--space-2)">Fire shutter</button>
+				</div>
+
+				<div class="polaroid">
+					<div class="polaroid__img pattern pattern-halftone"></div>
+					<div class="polaroid__caption">Budapest · take 03</div>
+				</div>
+			</div>
+
+			<div class="grid-3 gap-6" style="margin-top:var(--space-8);align-items:end">
+				<article class="book">
+					<div class="book__cover pattern pattern-grid">
+						<span class="book__kicker">Course · 06</span>
+						<h4 class="book__title">Ghost themes, from tokens up</h4>
+						<span class="book__foot"><span class="logo logo-xs logo-inverse">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span></span>
+					</div>
+				</article>
+
+				<article class="book" style="background:var(--accent)">
+					<div class="book__cover">
+						<span class="book__kicker">Guide</span>
+						<h4 class="book__title">The 120px test</h4>
+						<span class="book__foot"><span class="logo logo-xs" style="--logo-color:#fff;--logo-dot-color:#fff">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span></span>
+					</div>
+				</article>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">The book</span>
+						<p class="t-small">A spine gradient down the left edge and a striped page edge on the right — that's the entire trick that makes a flat rectangle read as a thing you can finish. Courses, guides, the resume.</p>
+					</div>
+					<p class="spec"><b>.book</b> · <b>.book__cover</b> · <b>.book-shelf</b> — hover tilts it off the shelf</p>
+				</div>
+			</div>

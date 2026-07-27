@@ -1,0 +1,122 @@
+/* =============================================================================
+   30 · HEADERS
+   Two jobs: open a page (.page-head) and open a section within a page
+   (.sec-head-row). Both speak the same voice — slate eyebrow, display face,
+   one optional action on the right — so a collection index and a homepage
+   band read as the same publication.
+   ========================================================================== */
+
+/* ── Page header — the top of a collection index ─────────────────────────── */
+
+.page-head {
+	padding-block: var(--space-12) var(--space-10);
+	border-bottom: var(--border-hair) solid var(--line-default);
+}
+
+.page-head__kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--accent);
+	margin-bottom: var(--space-4);
+}
+
+.page-head__kicker .icon { width: 1rem; height: 1rem; }
+
+.page-head__title {
+	font-family: var(--font-display);
+	font-size: var(--text-5xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tighter);
+	line-height: var(--leading-tight);
+	max-width: 16ch;
+	text-wrap: balance;
+}
+
+.page-head__desc {
+	margin-top: var(--space-4);
+	font-size: var(--text-lg);
+	line-height: var(--leading-relaxed);
+	color: var(--fg-subtle);
+	max-width: var(--measure-lead);
+}
+
+/* The meta row: count, feed link, filters — quiet, mono, bottom-aligned. */
+.page-head__meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3) var(--space-5);
+	margin-top: var(--space-8);
+}
+
+.page-head__count {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.page-head__count b { color: var(--fg-default); font-weight: var(--weight-medium); }
+
+/* Compact page header — child pages (a lesson index, a tag) breathe less. */
+.page-head-sm { padding-block: var(--space-8) var(--space-6); }
+.page-head-sm .page-head__title { font-size: var(--text-3xl); }
+.page-head-sm .page-head__desc { font-size: var(--text-base); margin-top: var(--space-3); }
+.page-head-sm .page-head__meta { margin-top: var(--space-5); }
+
+/* ── Section header — a band's opening line ──────────────────────────────── */
+
+.sec-head-row {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: var(--space-4);
+	margin-bottom: var(--space-8);
+}
+
+.sec-head-row__title {
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-tight);
+}
+
+.sec-head-row__kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-bottom: var(--space-2);
+}
+
+/* "View all →" — the one action a band is allowed. */
+.sec-head-row__more {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	text-decoration: none;
+	white-space: nowrap;
+	padding-bottom: 2px;
+	transition: var(--t-colors);
+}
+
+.sec-head-row__more .icon { width: 0.9em; height: 0.9em; transition: var(--t-transform); }
+.sec-head-row__more:hover { color: var(--fg-default); }
+.sec-head-row__more:hover .icon { transform: translateX(3px); }

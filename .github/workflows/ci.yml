@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: npm ci
+      - name: Lint the CSS
+        run: npm run lint
+      - name: Build the bundles
+        run: npm run build:css && npm run build:min
+      - name: Regenerate the docs
+        run: npm run docs
+      - name: Fail if the docs are out of date
+        run: |
+          if [ -n "$(git status --porcelain docs)" ]; then
+            echo "::error::docs/ is stale — run 'npm run docs' and commit the result."
+            git --no-pager diff --stat docs
+            exit 1
+          fi
+      - run: npm run size

@@ -1,0 +1,61 @@
+{
+  "name": "creator-design-system",
+  "version": "0.1.0",
+  "description": "Frame & Signal — a token-first, dependency-free CSS design system for creators building their site. Almost monochrome, so one colour can mean something.",
+  "keywords": [
+    "css", "design-system", "ui-kit", "creator", "tokens",
+    "design-tokens", "component-library", "ghost-theme", "dark-mode"
+  ],
+  "homepage": "https://swarnil.github.io/Creator-Design-System/",
+  "bugs": "https://github.com/swarnil/Creator-Design-System/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swarnil/Creator-Design-System.git"
+  },
+  "author": {
+    "name": "Swarnil Singhai",
+    "url": "https://imswarnil.com"
+  },
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "style": "dist/creator.css",
+  "main": "dist/creator.css",
+  "exports": {
+    ".": "./dist/creator.css",
+    "./css": "./dist/creator.css",
+    "./min": "./dist/creator.min.css",
+    "./foundation": "./src/1-foundation/index.css",
+    "./elements": "./src/2-elements/index.css",
+    "./components": "./src/3-components/index.css",
+    "./broadcast": "./src/4-broadcast/index.css",
+    "./sections": "./src/5-sections/index.css",
+    "./utilities": "./src/6-utilities/index.css",
+    "./src/*": "./src/*",
+    "./icons/*": "./icons/*",
+    "./package.json": "./package.json"
+  },
+  "files": ["src", "dist", "icons", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "npm run build:css && npm run build:min && npm run docs",
+    "build:css": "postcss src/index.css -o dist/creator.css",
+    "build:min": "postcss src/index.css -o dist/creator.min.css --env production",
+    "docs": "python3 docs/_build/build.py",
+    "dev": "npm run docs && python3 -m http.server 8080 --directory docs",
+    "lint": "stylelint \"src/**/*.css\"",
+    "size": "gzip -c dist/creator.min.css | wc -c | awk '{printf \"gzipped: %.1f KB\\n\", $1/1024}'",
+    "prepublishOnly": "npm run build:css && npm run build:min"
+  },
+  "devDependencies": {
+    "cssnano": "^7.0.0",
+    "postcss": "^8.4.0",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  },
+  "engines": { "node": ">=18" },
+  "funding": [
+    { "type": "github", "url": "https://github.com/sponsors/swarnil" }
+  ]
+}

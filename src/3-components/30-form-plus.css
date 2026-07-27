@@ -1,0 +1,114 @@
+/* =============================================================================
+   30 · FORM PLUS
+   The controls 21-form doesn't cover: range and floating labels.
+   ========================================================================== */
+
+/* ── Range ───────────────────────────────────────────────────────────────── */
+
+.range {
+	appearance: none;
+	width: 100%;
+	height: var(--control-sm);
+	background: transparent;
+	cursor: pointer;
+}
+
+.range::-webkit-slider-runnable-track {
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background: linear-gradient(to right, var(--accent) var(--value, 50%), var(--line-default) var(--value, 50%));
+}
+
+.range::-moz-range-track {
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background: var(--line-default);
+}
+
+.range::-moz-range-progress { height: 4px; border-radius: var(--radius-pill); background: var(--accent); }
+
+.range::-webkit-slider-thumb {
+	appearance: none;
+	width: 1.05rem;
+	height: 1.05rem;
+	margin-top: calc((4px - 1.05rem) / 2);
+	border-radius: var(--radius-full);
+	background: var(--bg-canvas);
+	border: var(--border-2) solid var(--accent);
+	box-shadow: var(--shadow-1);
+	transition: var(--t-transform);
+}
+
+.range::-moz-range-thumb {
+	width: 1.05rem;
+	height: 1.05rem;
+	border-radius: var(--radius-full);
+	background: var(--bg-canvas);
+	border: var(--border-2) solid var(--accent);
+	box-shadow: var(--shadow-1);
+}
+
+.range:active::-webkit-slider-thumb { transform: scale(1.15); }
+.range:focus-visible { outline: var(--border-2) solid var(--accent-ring); outline-offset: 4px; border-radius: var(--radius-pill); }
+.range:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Floating label ──────────────────────────────────────────────────────────
+   <label class="float-field"><input class="input" placeholder=" " />
+   <span class="float-field__label">Email</span></label>
+   The placeholder must be a single space — :placeholder-shown drives the drop.
+   ------------------------------------------------------------------------- */
+
+.float-field { position: relative; display: block; }
+
+.float-field > .input,
+.float-field > .textarea,
+.float-field > .select {
+	padding-top: 1.15rem;
+	padding-bottom: 0.35rem;
+	height: auto;
+	min-height: var(--control-lg);
+}
+
+.float-field__label {
+	position: absolute;
+	left: var(--space-3);
+	top: 0.4rem;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	pointer-events: none;
+	transition: var(--t-all);
+	transform-origin: left top;
+}
+
+/* Resting state: the label sits where the value will be. */
+.float-field > :placeholder-shown:not(:focus) ~ .float-field__label {
+	top: 50%;
+	transform: translateY(-50%);
+	font-family: var(--font-body, inherit);
+	font-size: var(--text-sm);
+	letter-spacing: normal;
+	text-transform: none;
+	color: var(--fg-faint);
+}
+
+.float-field > :focus ~ .float-field__label { color: var(--accent); }
+
+/* ── Input-group affix text (docs discovered the gap) ────────────────────── */
+
+.input-group__text {
+	display: inline-flex;
+	align-items: center;
+	padding-inline: var(--space-3);
+	border: var(--border-hair) solid var(--line-default);
+	background: var(--bg-sunken);
+	color: var(--fg-subtle);
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	white-space: nowrap;
+}
+
+.input-group > .input-group__text:first-child { border-radius: var(--radius-control) 0 0 var(--radius-control); border-right: 0; }
+.input-group > .input-group__text:last-child { border-radius: 0 var(--radius-control) var(--radius-control) 0; border-left: 0; }

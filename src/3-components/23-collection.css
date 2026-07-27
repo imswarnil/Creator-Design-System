@@ -1,0 +1,577 @@
+/* =============================================================================
+   23 · COLLECTION CARDS
+   routes.yaml, turned into cards. Every collection the site publishes gets a
+   defined shape here, so a template never has to improvise one.
+
+   THE RULE: each collection extends .card and changes exactly ONE thing — the
+   device that says what kind of thing this is. Same padding, same title scale,
+   same meta position, same hover. That is what makes a mixed archive page or a
+   search result list look deliberate instead of like six different websites.
+
+     collection      tag              the one device
+     ─────────────────────────────────────────────────────────────────────────
+     videos          #video           duration pill + play disc
+     blog            #blog            reading time, no media
+     projects        #project         logo tile + stack row
+     project-detail  #project-detail  step number
+     courses         #course          book spine + lesson count
+     lessons         #lesson          progress tick + position
+     webseries       #webseries       letterbox bars
+     episodes        #episode         big ghost numeral
+     products        #product         price + group tag
+     shop            #shop            price + ticket notch
+     timeline        #timeline        year gutter + node
+     changelog       #changelog       version chip + type dot
+     newsletters     #newsletter      issue number + envelope rule
+     snippets        #snippet         language tag + code preview
+     prompts         #prompt          chat bubble
+     experiences     #experience      photo-first, caption below
+     travel (trip)   #trip            coordinates + country
+     travel (post)   #travel          day number
+     docs            #docs            section label + arrow
+     guides          #guide           step count
+     tags / authors  —                count + avatar
+   ========================================================================== */
+
+/* Shared spine for every collection card. */
+.c {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background: var(--bg-surface);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	overflow: hidden;
+	transition: var(--t-colors), var(--t-transform), var(--t-shadow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.c:hover {
+		transform: translate3d(0, -3px, 0);
+		box-shadow: var(--shadow-2);
+		border-color: var(--line-strong);
+	}
+}
+
+.c__media {
+	position: relative;
+	aspect-ratio: var(--ratio-video);
+	background: var(--bg-media);
+	overflow: hidden;
+	flex: none;
+}
+
+.c__body { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5); flex: 1; }
+
+.c__meta {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+}
+
+.c__title {
+	font-family: var(--font-heading-effective);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-bold);
+	line-height: var(--leading-snug);
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+}
+
+.c__excerpt {
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+	color: var(--fg-muted);
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+}
+
+.c__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-5);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	margin-top: auto;
+	font-size: var(--text-xs);
+	color: var(--fg-subtle);
+}
+
+/* Whole-card link: the <a> stays on the title, its ::after covers the card. */
+.c__link { text-decoration: none; color: inherit; }
+.c__link::after { content: ''; position: absolute; inset: 0; z-index: var(--z-raised); }
+.c__above { position: relative; z-index: calc(var(--z-raised) + 1); }
+
+/* ── videos · #video ─────────────────────────────────────────────────────
+   Duration pill bottom-right of the media, play disc on hover. The only
+   collection that shows a runtime, because a video is the one thing where
+   "how long is this" changes the decision. */
+
+.c-video .c__media::after {
+	content: attr(data-runtime);
+	position: absolute;
+	right: var(--space-3);
+	bottom: var(--space-3);
+	z-index: var(--z-raised);
+	padding: 2px 6px;
+	border-radius: var(--radius-sm);
+	background: rgb(0 0 0 / 0.78);
+	color: var(--pure-white);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	font-variant-numeric: tabular-nums;
+}
+
+.c-video .c__play {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	z-index: var(--z-raised);
+	opacity: 0;
+	transition: opacity var(--dur-2) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.c-video:hover .c__play { opacity: 1; }
+}
+
+/* ── blog · #blog ────────────────────────────────────────────────────────
+   No media by default — an essay's thumbnail is its first sentence. */
+
+.c-blog .c__body { padding: var(--space-6); gap: var(--space-3); }
+.c-blog .c__title { font-size: var(--text-xl); }
+
+/* ── projects · #project ─────────────────────────────────────────────────
+   A logo tile instead of a hero image, because a project is a thing, not a
+   scene. */
+
+.c-project .c__logo {
+	width: 3rem;
+	height: 3rem;
+	border-radius: var(--radius-md);
+	background: var(--bg-muted);
+	display: grid;
+	place-items: center;
+	flex: none;
+	overflow: hidden;
+}
+
+.c-project .c__body { flex-direction: row; gap: var(--space-4); align-items: flex-start; }
+.c-project .c__stack { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+
+/* ── project build-log · #project-detail ─────────────────────────────────── */
+
+.c-projectlog { box-shadow: inset var(--border-3) 0 0 0 var(--line-default); }
+.c-projectlog .c__step {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	color: var(--fg-accent);
+}
+
+/* ── courses · #course ───────────────────────────────────────────────────
+   A spine down the left edge — the book device from layer 1, at card scale. */
+
+.c-course { padding-left: 0.9rem; }
+
+.c-course::before {
+	content: '';
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 0.9rem;
+	background:
+		linear-gradient(to right, rgb(0 0 0 / 0.22), rgb(0 0 0 / 0.06) 55%, rgb(255 255 255 / 0.10));
+	background-color: var(--accent);
+}
+
+.c-course .c__progress { width: 100%; }
+
+/* ── lessons · #lesson ───────────────────────────────────────────────────
+   A row, not a card: lessons are read as a list inside their course. */
+
+.c-lesson {
+	flex-direction: row;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	border-radius: var(--radius-lg);
+	border-color: transparent;
+	background: transparent;
+}
+
+.c-lesson:hover { background: var(--hover-wash); transform: none; box-shadow: none; }
+
+.c-lesson[aria-current='true'] {
+	background: var(--accent-soft);
+	box-shadow: inset var(--border-3) 0 0 0 var(--accent);
+}
+
+.c-lesson__no {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+	flex: none;
+	width: 2ch;
+}
+
+.c-lesson__tick {
+	width: var(--icon-sm);
+	height: var(--icon-sm);
+	border-radius: var(--radius-full);
+	border: var(--border-2) solid var(--line-strong);
+	flex: none;
+}
+
+.c-lesson[data-done] .c-lesson__tick { background: var(--accent); border-color: var(--accent); }
+
+/* ── webseries · #webseries ──────────────────────────────────────────────
+   Always cinema: dark, letterboxed, regardless of theme. */
+
+.c-series {
+	background: var(--ink-950);
+	border-color: rgb(255 255 255 / 0.10);
+	color: var(--ink-50);
+	color-scheme: dark;
+}
+
+.c-series .c__title { color: var(--ink-50); }
+.c-series .c__excerpt { color: var(--ink-400); }
+.c-series .c__foot { border-top-color: rgb(255 255 255 / 0.08); }
+
+.c-series .c__media::before,
+.c-series .c__media::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 8%;
+	background: var(--pure-black);
+	z-index: var(--z-raised);
+}
+
+.c-series .c__media::before { top: 0; }
+.c-series .c__media::after { bottom: 0; }
+
+/* ── episodes · #episode ─────────────────────────────────────────────────
+   The ghost numeral, at card scale. */
+
+.c-episode .c__no {
+	position: absolute;
+	right: var(--space-3);
+	top: var(--space-1);
+	font-family: var(--font-display);
+	font-size: 3.5rem;
+	font-weight: var(--weight-bold);
+	line-height: 1;
+	letter-spacing: var(--tracking-tighter);
+	color: var(--line-subtle);
+	font-variant-numeric: tabular-nums;
+	pointer-events: none;
+}
+
+/* ── products I use · #product ───────────────────────────────────────────
+   Small tiles with a price and a group tag; the sidebar filters on #group-*. */
+
+.c-product { flex-direction: row; align-items: center; gap: var(--space-3); padding: var(--space-3); }
+.c-product .c__body { padding: 0; gap: 2px; }
+.c-product .c__title { font-size: var(--text-base); }
+
+.c-product .c__thumb {
+	width: 3.25rem;
+	height: 3.25rem;
+	border-radius: var(--radius-md);
+	background: var(--bg-muted);
+	flex: none;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+}
+
+.c-product .c__price {
+	margin-left: auto;
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	color: var(--fg-default);
+	font-variant-numeric: tabular-nums;
+	flex: none;
+}
+
+/* ── shop · #shop ────────────────────────────────────────────────────────
+   A ticket notch, so a paid thing never looks like a free thing. */
+
+.c-shop {
+	mask-image:
+		radial-gradient(circle at 0 62%, transparent 0 10px, #000 10px),
+		radial-gradient(circle at 100% 62%, transparent 0 10px, #000 10px);
+	mask-composite: intersect;
+	-webkit-mask-composite: source-in;
+}
+
+.c-shop .c__price {
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-bold);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ── timeline · #timeline ────────────────────────────────────────────────
+   A year gutter and a node on the rail. The card itself is bare. */
+
+.c-timeline {
+	flex-direction: row;
+	gap: var(--space-5);
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	padding-bottom: var(--space-8);
+}
+
+.c-timeline:hover { transform: none; box-shadow: none; }
+
+.c-timeline__year {
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	letter-spacing: var(--tracking-slate);
+	color: var(--fg-subtle);
+	width: 4rem;
+	flex: none;
+	padding-top: 2px;
+	font-variant-numeric: tabular-nums;
+}
+
+.c-timeline__rail {
+	position: relative;
+	width: var(--border-hair);
+	background: var(--line-default);
+	flex: none;
+}
+
+.c-timeline__rail::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 50%;
+	width: var(--dot-lg);
+	height: var(--dot-lg);
+	transform: translateX(-50%);
+	border-radius: var(--radius-full);
+	background: var(--bg-canvas);
+	border: var(--border-2) solid var(--accent);
+}
+
+.c-timeline .c__body { padding: 0 0 0 var(--space-2); }
+
+/* ── changelog · #changelog ──────────────────────────────────────────────
+   Version chip plus a type dot: shipped / fixed / broke. */
+
+.c-changelog { flex-direction: row; align-items: baseline; gap: var(--space-4); padding: var(--space-4) var(--space-5); }
+.c-changelog .c__body { padding: 0; }
+
+.c-changelog__v {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	padding: 2px 6px;
+	border-radius: var(--radius-sm);
+	background: var(--bg-sunken);
+	border: var(--border-hair) solid var(--line-subtle);
+	flex: none;
+	font-variant-numeric: tabular-nums;
+}
+
+.c-changelog[data-type='shipped'] .c-changelog__v { color: var(--success-fg); }
+.c-changelog[data-type='fixed'] .c-changelog__v { color: var(--info-fg); }
+.c-changelog[data-type='broke'] .c-changelog__v { color: var(--danger-fg); }
+
+/* ── newsletters · #newsletter ───────────────────────────────────────────
+   Issue number and a rule that reads as a folded edge. */
+
+.c-newsletter { background: var(--bg-sunken); }
+
+.c-newsletter::before {
+	content: '';
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 2px;
+	background: repeating-linear-gradient(to right, var(--line-strong) 0 8px, transparent 8px 14px);
+}
+
+.c-newsletter .c__issue {
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-bold);
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+	color: var(--fg-faint);
+}
+
+/* ── snippets · #snippet ─────────────────────────────────────────────────
+   Language tag plus two lines of the code itself as the preview. */
+
+.c-snippet .c__code {
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	line-height: 1.7;
+	background: var(--bg-sunken);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	padding: var(--space-3) var(--space-5);
+	white-space: pre;
+	overflow: hidden;
+	color: var(--fg-muted);
+	max-height: 4.6rem;
+	-webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+	mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
+.c-snippet .c__lang {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-accent);
+}
+
+/* ── prompts · #prompt ───────────────────────────────────────────────────
+   A chat bubble, because that is what a prompt actually is. */
+
+.c-prompt .c__bubble {
+	position: relative;
+	background: var(--bg-sunken);
+	border: var(--border-hair) solid var(--line-subtle);
+	border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-xs);
+	padding: var(--space-4);
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+	margin: var(--space-5) var(--space-5) 0;
+}
+
+.c-prompt .c__model {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+/* ── experiences · #experience ───────────────────────────────────────────
+   Photo first, caption under it — a moment, not an article. */
+
+.c-experience { border: 0; background: transparent; }
+.c-experience:hover { transform: none; box-shadow: none; }
+.c-experience .c__media { border-radius: var(--radius-media); aspect-ratio: var(--ratio-photo); }
+.c-experience .c__body { padding: var(--space-3) 0 0; }
+.c-experience .c__title { font-size: var(--text-base); font-weight: var(--weight-semibold); }
+
+/* ── travel · trip container · #trip ─────────────────────────────────────
+   Coordinates and a country, the same devices as the travel thumbnail. */
+
+.c-trip .c__coords {
+	position: absolute;
+	right: var(--space-3);
+	top: var(--space-3);
+	z-index: var(--z-raised);
+	text-align: right;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-wide);
+	color: var(--craft);
+	line-height: 1.5;
+	text-shadow: 0 1px 6px rgb(0 0 0 / 0.6);
+}
+
+.c-trip .c__media::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 62%;
+	height: 1px;
+	background: linear-gradient(to right, transparent, rgb(217 163 58 / 0.7) 20%, rgb(217 163 58 / 0.7) 80%, transparent);
+}
+
+/* ── travel post · #travel ───────────────────────────────────────────────── */
+
+.c-travel .c__day {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--craft-fg);
+}
+
+/* ── docs · #docs ────────────────────────────────────────────────────────
+   A row with a section label and an arrow. No media, ever. */
+
+.c-doc {
+	flex-direction: row;
+	align-items: center;
+	gap: var(--space-4);
+	padding: var(--space-4) var(--space-5);
+}
+
+.c-doc .c__body { padding: 0; }
+.c-doc .c__arrow { margin-left: auto; color: var(--fg-faint); flex: none; }
+.c-doc:hover .c__arrow { color: var(--fg-accent); }
+
+/* ── guides · #guide ─────────────────────────────────────────────────────── */
+
+.c-guide .c__steps {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.c-guide .c__steps::before {
+	content: '';
+	width: var(--space-8);
+	height: 3px;
+	border-radius: var(--radius-pill);
+	background: linear-gradient(to right, var(--accent) var(--value, 40%), var(--bg-muted) 0);
+}
+
+/* ── tags & authors ──────────────────────────────────────────────────────── */
+
+.c-tag {
+	flex-direction: row;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	border-radius: var(--radius-pill);
+}
+
+.c-tag .c__count {
+	margin-left: auto;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+.c-author { flex-direction: row; align-items: center; gap: var(--space-4); padding: var(--space-4); }
+.c-author .c__body { padding: 0; gap: 2px; }
+
+/* ── The deck ────────────────────────────────────────────────────────────
+   What a collection template renders into. Sizes match the density each
+   collection wants. */
+
+.deck-c { display: grid; gap: var(--grid-gap); grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr)); }
+.deck-c-sm { grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); }
+.deck-c-lg { grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr)); }
+.deck-c-list { display: flex; flex-direction: column; gap: var(--space-2); }

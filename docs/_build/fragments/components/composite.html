@@ -1,0 +1,91 @@
+<div class="sec-head">
+				<span class="sec-num">08</span>
+				<h2 class="t-h2">Composites</h2>
+				<p class="t-subtle" style="margin-top:var(--space-2);max-width:var(--measure-lead)">
+					The container-module organs: a course's curriculum, a series' episode
+					panel, a project's build log, a trip's itinerary. Same idea four
+					times — an ordered list that knows where you are — wearing each
+					collection's clothes. State lives in <code class="t-code">aria-current</code>
+					and <code class="t-code">[data-done]</code>, never in a styling class.
+				</p>
+			</div>
+
+			<div class="grid-2" style="align-items:start;gap:var(--space-6)">
+				<div class="surface demo-tile">
+					<div class="demo" style="padding:var(--space-4)">
+						<section class="curriculum" style="border:0">
+							<header class="curriculum__head" style="padding-inline:var(--space-2)">
+								<div>
+									<h3 class="curriculum__title">Syllabus</h3>
+									<span class="curriculum__meta">2 modules · 7 lessons · 1h 44m</span>
+								</div>
+								<div class="progress progress-thin" style="--value:43%;flex:1 1 100%"><span class="progress__bar"></span></div>
+							</header>
+							<details class="curriculum__module" open>
+								<summary><span class="curriculum__no">01</span><span class="curriculum__module-title">Tokens before templates</span><span class="curriculum__count">4 · 52m</span></summary>
+								<ol class="curriculum__lessons">
+									<li><a class="lesson-row" href="#composite" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">Why the PDF was right</span><span class="lesson-row__len">09:12</span></a></li>
+									<li><a class="lesson-row" href="#composite" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The ink ladder</span><span class="lesson-row__len">11:04</span></a></li>
+									<li><a class="lesson-row" href="#composite" aria-current="true"><span class="lesson-row__tick"></span><span class="lesson-row__title">One accent, rationed</span><span class="lesson-row__len">14:30</span></a></li>
+									<li><a class="lesson-row" href="#composite"><span class="lesson-row__tick"></span><span class="lesson-row__title">Spacing is a ladder</span><span class="lesson-row__len">08:47</span><span class="lesson-row__free">Free</span></a></li>
+								</ol>
+							</details>
+							<details class="curriculum__module">
+								<summary><span class="curriculum__no">02</span><span class="curriculum__module-title">Shipping the system</span><span class="curriculum__count">3 · 52m</span></summary>
+								<ol class="curriculum__lessons">
+									<li><a class="lesson-row" href="#composite"><span class="lesson-row__tick"></span><span class="lesson-row__title">The one inverse band</span><span class="lesson-row__len">15:02</span></a></li>
+								</ol>
+							</details>
+						</section>
+					</div>
+					<p class="spec"><b>.curriculum</b> — native <b>&lt;details&gt;</b> modules · <b>.lesson-row</b> ticks off with <b>[data-done]</b></p>
+				</div>
+
+				<div class="stack">
+					<div class="surface demo-tile">
+						<div class="demo" style="padding:var(--space-4)">
+							<div class="ep-panel" style="border:0;max-height:14rem">
+								<header class="ep-panel__head" style="padding-inline:var(--space-2)">
+									<span class="ep-panel__title">Season 02</span>
+									<span class="ep-panel__count">8 episodes</span>
+								</header>
+								<div class="ep-panel__list">
+									<a class="episode" href="#composite" aria-current="true"><span class="episode__thumb pattern pattern-grid pattern-media"></span><span><span class="episode__title">Rebuilding from tokens</span><span class="episode__meta">Ep.07 · 14:22</span></span></a>
+									<a class="episode" href="#composite"><span class="episode__thumb pattern pattern-hatch pattern-media"></span><span><span class="episode__title">One query, six hours saved</span><span class="episode__meta">Ep.06 · 09:41</span></span></a>
+									<a class="episode" href="#composite"><span class="episode__thumb pattern pattern-dots pattern-media"></span><span><span class="episode__title">The curriculum question</span><span class="episode__meta">Ep.05 · 12:03</span></span></a>
+								</div>
+							</div>
+						</div>
+						<p class="spec"><b>.ep-panel</b> — header + self-scrolling list of 26-media's <b>.episode</b> rows</p>
+					</div>
+
+					<div class="surface demo-tile">
+						<div class="demo">
+							<ol class="buildlog">
+								<li class="buildlog__step" data-kind="start" data-done><span class="buildlog__node"></span><a class="buildlog__link" href="#composite">Kick-off — scope &amp; sketches<span class="buildlog__date">Day 1 · Jun 02</span></a></li>
+								<li class="buildlog__step" data-done><span class="buildlog__node">2</span><a class="buildlog__link" href="#composite">Foundation tokens land<span class="buildlog__date">Day 4 · Jun 05</span></a></li>
+								<li class="buildlog__step" aria-current="step"><span class="buildlog__node">3</span><a class="buildlog__link" href="#composite">Components pass<span class="buildlog__date">Day 9 · Jun 10</span></a></li>
+								<li class="buildlog__step" data-kind="ship"><span class="buildlog__node"></span><a class="buildlog__link" href="#composite">Ship v1<span class="buildlog__date">Day 14 · target</span></a></li>
+							</ol>
+						</div>
+						<p class="spec"><b>.buildlog</b> — ▸ start, numbered middles, ✓ ship · <b>[aria-current]</b> rings the node</p>
+					</div>
+
+					<div class="surface demo-tile">
+						<div class="demo">
+							<ol class="itinerary">
+								<li class="itinerary__day"><span class="itinerary__chip"><b>1</b><span>day</span></span>
+									<h4 class="itinerary__title">Land in Tbilisi, walk the old town</h4>
+									<p class="itinerary__note">Sulphur baths before the jet lag wins.</p>
+									<div class="itinerary__stops"><span class="badge">Abanotubani</span><span class="badge">Funicular</span></div>
+								</li>
+								<li class="itinerary__day"><span class="itinerary__chip"><b>2</b><span>day</span></span>
+									<h4 class="itinerary__title">Kazbegi day trip</h4>
+									<div class="itinerary__stops"><span class="badge">Ananuri</span><span class="badge">Stepantsminda</span></div>
+								</li>
+							</ol>
+						</div>
+						<p class="spec"><b>.itinerary</b> — day chips on the same rail; stops are badges</p>
+					</div>
+				</div>
+			</div>

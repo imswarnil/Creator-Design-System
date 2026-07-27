@@ -1,0 +1,88 @@
+<header class="sec-head">
+				<span class="sec-num">11</span>
+				<h2 class="t-h1">Shape</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					The geometry the system is allowed to draw, and the maths behind it.
+					The rule that matters most: <b>inner radius = outer radius − padding</b>,
+					or nested corners look parallel instead of concentric.
+				</p>
+			</header>
+
+			<div class="surface demo-tile">
+				<div class="demo cluster-lg" style="align-items:flex-end;gap:var(--space-8)">
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-dot" style="--shape-fill:var(--accent)"></span><span class="t-slate-sm">dot</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-ring" style="--shape-fill:var(--fg-muted)"></span><span class="t-slate-sm">ring</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-arc" style="--shape-fill:var(--accent)"></span><span class="t-slate-sm">arc</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-squircle" style="--shape-fill:var(--fg-default)"></span><span class="t-slate-sm">squircle</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-pill" style="--shape-fill:var(--bg-muted)"></span><span class="t-slate-sm">pill</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-play" style="--shape-fill:var(--accent)"></span><span class="t-slate-sm">play</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-blob" style="--shape-fill:var(--accent-soft)"></span><span class="t-slate-sm">blob</span></span>
+					<span class="stack-xs" style="align-items:center"><span class="shape shape-golden" style="--shape-fill:var(--bg-muted)"></span><span class="t-slate-sm">φ rect</span></span>
+				</div>
+				<p class="spec"><b>.shape-*</b> — every one is a single element, no SVG</p>
+			</div>
+
+			<div class="surface demo-tile" style="margin-top:var(--space-6)">
+				<div class="demo stack-lg">
+					<div>
+						<span class="demo-label">2D — regular polygons on the unit circle</span>
+						<div class="cluster-lg" style="align-items:flex-end;gap:var(--space-8)">
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-triangle" style="--shape-fill:var(--accent)"></span><span class="t-slate-sm">triangle</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-diamond-4" style="--shape-fill:var(--fg-default)"></span><span class="t-slate-sm">rhombus</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-pentagon" style="--shape-fill:var(--fg-muted)"></span><span class="t-slate-sm">pentagon</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-hexagon" style="--shape-fill:var(--craft)"></span><span class="t-slate-sm">hexagon</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-hexagon-v" style="--shape-fill:var(--bg-muted)"></span><span class="t-slate-sm">hex · pointy</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-octagon" style="--shape-fill:var(--fg-default)"></span><span class="t-slate-sm">octagon</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-star" style="--shape-fill:var(--craft)"></span><span class="t-slate-sm">star</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-arrow" style="--shape-fill:var(--accent)"></span><span class="t-slate-sm">arrow</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-plus" style="--shape-fill:var(--fg-muted)"></span><span class="t-slate-sm">plus</span></span>
+						</div>
+					</div>
+					<div>
+						<span class="demo-label">Rings from conic gradients — no SVG, no JS</span>
+						<div class="cluster-lg" style="align-items:flex-end;gap:var(--space-8)">
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-ring-progress" style="--shape-fill:var(--accent);--value:.62"></span><span class="t-slate-sm">62%</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-ring-progress" style="--shape-fill:var(--craft);--value:.25"></span><span class="t-slate-sm">25%</span></span>
+							<span class="stack-xs" style="align-items:center"><span class="shape shape-donut" style="--shape-fill:var(--fg-default)"></span><span class="t-slate-sm">φ turn</span></span>
+						</div>
+					</div>
+				</div>
+				<p class="spec"><b>.shape-triangle .shape-pentagon .shape-hexagon .shape-octagon .shape-star .shape-arrow .shape-plus</b> · <b>.shape-ring-progress</b> — point n = (50% + 50%·cos θ, 50% + 50%·sin θ), θ stepping by 360/n from −90°</p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<table class="spec-table">
+					<thead><tr><th>Constant</th><th class="num">Value</th><th>Where it's used</th></tr></thead>
+					<tbody>
+						<tr><td><code class="t-code">--r-golden</code></td><td class="num">1.618</td><td>hero splits, article rails</td></tr>
+						<tr><td><code class="t-code">--r-silver</code></td><td class="num">1.414</td><td>print, A-series, the resume</td></tr>
+						<tr><td><code class="t-code">--r-wide</code></td><td class="num">1.778</td><td>16:9 — everything broadcast</td></tr>
+						<tr><td><code class="t-code">--r-cinema</code></td><td class="num">2.333</td><td>21:9 — the webseries letterbox</td></tr>
+						<tr><td><code class="t-code">--a-iso</code></td><td class="num">30°</td><td>isometric grids</td></tr>
+						<tr><td><code class="t-code">--a-blade</code></td><td class="num">60°</td><td>shutter blades — 360 ÷ 6</td></tr>
+						<tr><td><code class="t-code">--optic-triangle</code></td><td class="num">1.10</td><td>a triangle needs ~10% more area to read as the same size</td></tr>
+					</tbody>
+				</table>
+				<p class="spec">the numbers are tokens so a new shape is <b>derived</b>, not eyeballed</p>
+			</div>
+
+			<div class="split-half" style="align-items:start;margin-top:var(--space-6)">
+				<div class="surface demo-tile">
+					<div class="demo nest" style="background:var(--bg-sunken)">
+						<div class="nest__inner" style="background:var(--bg-canvas);padding:var(--space-4);border:var(--border-hair) solid var(--line-default)">
+							<p class="t-small">Inner radius = outer − padding. Corners stay concentric.</p>
+						</div>
+					</div>
+					<p class="spec"><b>.nest</b> / <b>.nest__inner</b> · set <b>--nest-pad</b></p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-lg">
+						<hr class="div-fade" />
+						<div class="div-dot"><span class="dot dot-sm"></span></div>
+						<hr class="div-notch" />
+						<hr class="div-ticks" />
+					</div>
+					<p class="spec"><b>.div-fade</b> · <b>.div-dot</b> · <b>.div-notch</b> · <b>.div-ticks</b></p>
+				</div>
+			</div>

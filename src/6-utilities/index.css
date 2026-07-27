@@ -1,0 +1,188 @@
+/* =============================================================================
+   SWARNIL / CREATOR DESIGN SYSTEM · 6 — UTILITIES
+   Single-purpose classes, all `u-` prefixed so they can never collide with
+   Tailwind while both live in the theme. Every value comes off a foundation
+   ladder — a utility is a token with a classname, nothing more.
+   Spacing scale here is the 4px ladder: 0 1 2 3 4 5 6 8 10 12 16.
+   ========================================================================== */
+
+/* ── Display ─────────────────────────────────────────────────────────────── */
+.u-block { display: block; } .u-inline { display: inline; }
+.u-inline-block { display: inline-block; }
+.u-flex { display: flex; } .u-inline-flex { display: inline-flex; }
+.u-grid { display: grid; } .u-none { display: none; }
+.u-contents { display: contents; }
+
+/* ── Visibility (kept in the a11y tree vs removed) ───────────────────────── */
+.u-invisible { visibility: hidden; }
+.u-visible { visibility: visible; }
+.u-sr-only {
+	position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+	overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* ── Flex ────────────────────────────────────────────────────────────────── */
+.u-row { flex-direction: row; } .u-col { flex-direction: column; }
+.u-wrap { flex-wrap: wrap; } .u-nowrap-flex { flex-wrap: nowrap; }
+.u-items-start { align-items: flex-start; } .u-items-center { align-items: center; }
+.u-items-end { align-items: flex-end; } .u-items-baseline { align-items: baseline; }
+.u-justify-start { justify-content: flex-start; } .u-justify-center { justify-content: center; }
+.u-justify-end { justify-content: flex-end; } .u-justify-between { justify-content: space-between; }
+.u-grow { flex-grow: 1; } .u-grow-0 { flex-grow: 0; }
+.u-shrink-0 { flex-shrink: 0; } .u-flex-1 { flex: 1 1 0%; }
+.u-self-start { align-self: flex-start; } .u-self-center { align-self: center; }
+.u-self-end { align-self: flex-end; } .u-self-stretch { align-self: stretch; }
+.u-order-first { order: -1; } .u-order-last { order: 999; }
+
+/* ── Float ───────────────────────────────────────────────────────────────── */
+.u-float-start { float: inline-start; } .u-float-end { float: inline-end; }
+.u-float-none { float: none; }
+.u-clearfix::after { content: ''; display: block; clear: both; }
+
+/* ── Position ────────────────────────────────────────────────────────────── */
+.u-static { position: static; } .u-relative { position: relative; }
+.u-absolute { position: absolute; } .u-fixed { position: fixed; }
+.u-sticky { position: sticky; top: var(--space-4); }
+.u-inset-0 { inset: 0; }
+.u-top-0 { top: 0; } .u-bottom-0 { bottom: 0; }
+.u-start-0 { inset-inline-start: 0; } .u-end-0 { inset-inline-end: 0; }
+
+/* ── Z-index (the foundation ladder only) ────────────────────────────────── */
+.u-z-below { z-index: -1; } .u-z-0 { z-index: 0; }
+.u-z-raised { z-index: var(--z-raised, 10); } .u-z-nav { z-index: var(--z-nav, 100); }
+.u-z-overlay { z-index: var(--z-overlay, 200); } .u-z-top { z-index: var(--z-top, 999); }
+
+/* ── Overflow ────────────────────────────────────────────────────────────── */
+.u-overflow-auto { overflow: auto; } .u-overflow-hidden { overflow: hidden; }
+.u-overflow-visible { overflow: visible; }
+.u-overflow-x-auto { overflow-x: auto; } .u-overflow-y-auto { overflow-y: auto; }
+.u-scroll-thin { scrollbar-width: thin; }
+
+/* ── Sizing ──────────────────────────────────────────────────────────────── */
+.u-w-full { width: 100%; } .u-w-fit { width: fit-content; }
+.u-w-min { width: min-content; } .u-w-max { width: max-content; }
+.u-h-full { height: 100%; } .u-h-dvh { height: 100dvh; }
+.u-max-w-full { max-width: 100%; }
+.u-max-w-prose { max-width: var(--measure-prose); }
+.u-max-w-lead { max-width: var(--measure-lead); }
+.u-max-w-ui { max-width: var(--measure-ui); }
+.u-min-w-0 { min-width: 0; }
+
+/* ── Spacing — margin ────────────────────────────────────────────────────── */
+.u-m-0 { margin: 0; } .u-m-auto { margin: auto; }
+.u-mx-auto { margin-inline: auto; }
+.u-mt-0 { margin-top: 0; } .u-mt-1 { margin-top: var(--space-1); }
+.u-mt-2 { margin-top: var(--space-2); } .u-mt-3 { margin-top: var(--space-3); }
+.u-mt-4 { margin-top: var(--space-4); } .u-mt-5 { margin-top: var(--space-5); }
+.u-mt-6 { margin-top: var(--space-6); } .u-mt-8 { margin-top: var(--space-8); }
+.u-mt-10 { margin-top: var(--space-10); } .u-mt-12 { margin-top: var(--space-12); }
+.u-mt-16 { margin-top: var(--space-16); }
+.u-mb-0 { margin-bottom: 0; } .u-mb-1 { margin-bottom: var(--space-1); }
+.u-mb-2 { margin-bottom: var(--space-2); } .u-mb-3 { margin-bottom: var(--space-3); }
+.u-mb-4 { margin-bottom: var(--space-4); } .u-mb-5 { margin-bottom: var(--space-5); }
+.u-mb-6 { margin-bottom: var(--space-6); } .u-mb-8 { margin-bottom: var(--space-8); }
+.u-mb-10 { margin-bottom: var(--space-10); } .u-mb-12 { margin-bottom: var(--space-12); }
+.u-ms-auto { margin-inline-start: auto; } .u-me-auto { margin-inline-end: auto; }
+
+/* ── Spacing — padding ───────────────────────────────────────────────────── */
+.u-p-0 { padding: 0; } .u-p-1 { padding: var(--space-1); }
+.u-p-2 { padding: var(--space-2); } .u-p-3 { padding: var(--space-3); }
+.u-p-4 { padding: var(--space-4); } .u-p-5 { padding: var(--space-5); }
+.u-p-6 { padding: var(--space-6); } .u-p-8 { padding: var(--space-8); }
+.u-px-2 { padding-inline: var(--space-2); } .u-px-3 { padding-inline: var(--space-3); }
+.u-px-4 { padding-inline: var(--space-4); } .u-px-6 { padding-inline: var(--space-6); }
+.u-py-2 { padding-block: var(--space-2); } .u-py-3 { padding-block: var(--space-3); }
+.u-py-4 { padding-block: var(--space-4); } .u-py-6 { padding-block: var(--space-6); }
+
+/* ── Gap ─────────────────────────────────────────────────────────────────── */
+.u-gap-1 { gap: var(--space-1); } .u-gap-2 { gap: var(--space-2); }
+.u-gap-3 { gap: var(--space-3); } .u-gap-4 { gap: var(--space-4); }
+.u-gap-5 { gap: var(--space-5); } .u-gap-6 { gap: var(--space-6); }
+.u-gap-8 { gap: var(--space-8); }
+
+/* ── Text ────────────────────────────────────────────────────────────────── */
+.u-text-start { text-align: start; } .u-text-center { text-align: center; }
+.u-text-end { text-align: end; }
+.u-uppercase { text-transform: uppercase; } .u-capitalize { text-transform: capitalize; }
+.u-normal-case { text-transform: none; }
+.u-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.u-nowrap { white-space: nowrap; } .u-break { overflow-wrap: anywhere; }
+.u-balance { text-wrap: balance; } .u-pretty { text-wrap: pretty; }
+.u-tabular { font-variant-numeric: tabular-nums; }
+.u-weight-regular { font-weight: var(--weight-regular); }
+.u-weight-medium { font-weight: var(--weight-medium); }
+.u-weight-semibold { font-weight: var(--weight-semibold); }
+.u-weight-bold { font-weight: var(--weight-bold); }
+.u-italic { font-style: italic; } .u-underline { text-decoration: underline; }
+.u-no-underline { text-decoration: none; }
+
+/* ── Vertical align (inline / table cells) ───────────────────────────────── */
+.u-align-baseline { vertical-align: baseline; } .u-align-top { vertical-align: top; }
+.u-align-middle { vertical-align: middle; } .u-align-bottom { vertical-align: bottom; }
+.u-align-text-top { vertical-align: text-top; } .u-align-text-bottom { vertical-align: text-bottom; }
+
+/* ── Colors (semantic only — never raw ramp steps in markup) ─────────────── */
+.u-fg-default { color: var(--fg-default); } .u-fg-subtle { color: var(--fg-subtle); }
+.u-fg-muted { color: var(--fg-muted); } .u-fg-faint { color: var(--fg-faint); }
+.u-fg-accent { color: var(--fg-accent); } .u-fg-on-inverse { color: var(--fg-on-inverse); }
+
+/* ── Background ──────────────────────────────────────────────────────────── */
+.u-bg-canvas { background: var(--bg-canvas); } .u-bg-surface { background: var(--bg-surface); }
+.u-bg-sunken { background: var(--bg-sunken); } .u-bg-raised { background: var(--bg-raised); }
+.u-bg-inverse { background: var(--bg-inverse); color: var(--fg-on-inverse); }
+.u-bg-accent { background: var(--accent); color: var(--fg-on-accent); }
+.u-bg-accent-soft { background: var(--accent-soft); color: var(--accent-soft-fg); }
+.u-bg-transparent { background: transparent; }
+
+/* ── Borders ─────────────────────────────────────────────────────────────── */
+.u-border { border: var(--border-hair) solid var(--line-default); }
+.u-border-0 { border: 0; }
+.u-border-top { border-top: var(--border-hair) solid var(--line-default); }
+.u-border-bottom { border-bottom: var(--border-hair) solid var(--line-default); }
+.u-border-subtle { border-color: var(--line-subtle); }
+.u-border-strong { border-color: var(--line-strong); }
+.u-border-accent { border-color: var(--line-accent); }
+.u-rounded-none { border-radius: var(--radius-none); }
+.u-rounded-sm { border-radius: var(--radius-sm); } .u-rounded { border-radius: var(--radius-md); }
+.u-rounded-lg { border-radius: var(--radius-lg); } .u-rounded-card { border-radius: var(--radius-card); }
+.u-rounded-pill { border-radius: var(--radius-pill); } .u-rounded-full { border-radius: var(--radius-full); }
+
+/* ── Shadows ─────────────────────────────────────────────────────────────── */
+.u-shadow-0 { box-shadow: var(--shadow-0); } .u-shadow-1 { box-shadow: var(--shadow-1); }
+.u-shadow-2 { box-shadow: var(--shadow-2); } .u-shadow-3 { box-shadow: var(--shadow-3); }
+.u-shadow-4 { box-shadow: var(--shadow-4); } .u-shadow-5 { box-shadow: var(--shadow-5); }
+.u-shadow-none { box-shadow: none; }
+
+/* ── Interactions ────────────────────────────────────────────────────────── */
+.u-pointer { cursor: pointer; } .u-cursor-default { cursor: default; }
+.u-not-allowed { cursor: not-allowed; }
+.u-pe-none { pointer-events: none; } .u-pe-auto { pointer-events: auto; }
+.u-select-none { user-select: none; } .u-select-all { user-select: all; }
+.u-select-text { user-select: text; }
+.u-touch-pan { touch-action: pan-x pan-y; }
+
+/* ── Object fit (images/video in frames) ─────────────────────────────────── */
+.u-object-cover { object-fit: cover; } .u-object-contain { object-fit: contain; }
+
+/* ── Responsive display — the one breakpoint pair that earns utilities ───── */
+@media (max-width: 47.999rem) {
+	.u-md-down-none { display: none; }
+}
+@media (min-width: 48rem) {
+	.u-md-up-none { display: none; }
+}
+@media (max-width: 63.999rem) {
+	.u-lg-down-none { display: none; }
+}
+@media (min-width: 64rem) {
+	.u-lg-up-none { display: none; }
+}
+
+/* ── Aspect ratio — media boxes reserve their space before the image loads,
+   so a slow network can never shift the layout. ──────────────────────────── */
+.u-ratio-square { aspect-ratio: 1 / 1; }
+.u-ratio-video { aspect-ratio: 16 / 9; }
+.u-ratio-wide { aspect-ratio: 21 / 9; }
+.u-ratio-portrait { aspect-ratio: 4 / 5; }
+.u-ratio-poster { aspect-ratio: 2 / 3; }
+.u-ratio-story { aspect-ratio: 9 / 16; }

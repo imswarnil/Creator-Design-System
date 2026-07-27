@@ -1,0 +1,63 @@
+<header class="sec-head">
+				<span class="sec-num">07</span>
+				<h2 class="t-h1">Layout &amp; canvas</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					A 12-column fluid grid, a golden-ratio split for hero and article
+					pages, and real media canvases with the platform safe area baked in.
+				</p>
+			</header>
+
+			<div class="surface" style="overflow:hidden">
+				<div class="demo">
+					<div class="grid-12 grid-demo" style="gap:var(--space-2)">
+						<div class="col-12">col-12</div>
+						<div class="col-8">col-8</div>
+						<div class="col-4">col-4</div>
+						<div class="col-6">col-6</div>
+						<div class="col-3">col-3</div>
+						<div class="col-3">col-3</div>
+					</div>
+				</div>
+				<p class="spec"><b>.grid-12</b> · collapses to 6-wide at 62rem, full-width at 40rem — no breakpoint classes in templates</p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<div class="demo split-phi">
+					<div class="surface-sunken demo"><p class="t-slate">main · 1.618fr</p></div>
+					<div class="surface-sunken demo"><p class="t-slate">rail · 1fr</p></div>
+				</div>
+				<p class="spec"><b>.split-phi</b> — the sidebar never competes with the main column</p>
+			</div>
+
+			<div class="grid-auto" style="margin-top:var(--space-6);align-items:start">
+				<div class="surface demo-tile">
+					<div class="canvas canvas-thumb canvas__scrim pattern pattern-grid pattern-media pattern-lg" style="border-radius:0">
+						<div class="canvas__safe">
+							<span class="t-slate" style="color:#fff;display:flex;align-items:center;gap:6px"><span class="dot dot-sm dot-live"></span> ep.07 · 14:22</span>
+							<span style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:#fff;line-height:1.1">Rebuilding my Ghost theme <span style="color:var(--signal-400)">from tokens</span></span>
+						</div>
+					</div>
+					<p class="spec"><b>.canvas-thumb</b> 16:9 · content lives in <b>.canvas__safe</b></p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="canvas canvas-short canvas__scrim pattern pattern-mesh" style="border-radius:0;max-height:22rem;margin-inline:auto">
+						<div class="canvas__safe">
+							<span style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:#fff;line-height:1.1">One query,<br />6 hours saved</span>
+							<span class="t-slate" style="color:rgb(255 255 255 / 0.7)">Shorts</span>
+						</div>
+					</div>
+					<p class="spec"><b>.canvas-short</b> 9:16</p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="canvas canvas-square pattern pattern-blueprint frame frame-4" style="border-radius:0;background:var(--bg-surface);display:grid;place-items:center">
+						<span class="frame__tr"></span><span class="frame__bl"></span>
+						<div style="text-align:center">
+							<span style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl)">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<p class="t-slate" style="margin-top:6px">The build is the story</p>
+						</div>
+					</div>
+					<p class="spec"><b>.frame-4</b> over <b>.pattern-blueprint</b> — the end-card lockup</p>
+				</div>
+			</div>

@@ -1,0 +1,173 @@
+/* =============================================================================
+   13 · CUTOUT
+   Paper-craft and neo-brutal shapes: things that look cut, stuck, stamped or
+   printed. Where 11-shape is geometry, cutout is *material*. All sizes ride
+   --cut-off (the offset) and --cut-bw (the border) so one modifier scales the
+   whole style.
+   ========================================================================== */
+
+.cut {
+	--cut-off: 5px;
+	--cut-bw: var(--border-2);
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-3) var(--space-4);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+}
+
+.cut-sm { --cut-off: 3px; --cut-bw: 1.5px; padding: var(--space-2) var(--space-3); font-size: var(--text-sm); }
+.cut-lg { --cut-off: 8px; --cut-bw: 3px; padding: var(--space-4) var(--space-6); font-size: var(--text-lg); }
+
+/* ── Sticker — the neo-brutal core: hard border, hard offset shadow ──────── */
+
+.cut-sticker {
+	border: var(--cut-bw) solid var(--fg-default);
+	border-radius: var(--radius-md);
+	box-shadow: var(--cut-off) var(--cut-off) 0 0 var(--fg-default);
+	transition: var(--t-transform), var(--t-shadow);
+}
+
+.cut-sticker:active,
+a.cut-sticker:hover,
+button.cut-sticker:hover {
+	transform: translate(2px, 2px);
+	box-shadow: calc(var(--cut-off) - 2px) calc(var(--cut-off) - 2px) 0 0 var(--fg-default);
+}
+
+.cut-sticker-accent { box-shadow: var(--cut-off) var(--cut-off) 0 0 var(--accent); }
+
+/* ── Stamp — perforated edge, like a postage stamp ───────────────────────── */
+
+.cut-stamp {
+	border: 0;
+	background:
+		radial-gradient(circle at 50% 50%, transparent 0.28em, var(--bg-surface) 0.3em);
+	background-color: transparent;
+	padding: calc(var(--space-3) + 0.3em) calc(var(--space-4) + 0.3em);
+	-webkit-mask: radial-gradient(circle 0.28em at 0.3em 0.3em, transparent 98%, #000) -0.3em -0.3em / 0.6em 0.6em round;
+	mask: radial-gradient(circle 0.28em, transparent 96%, #000 100%) 50% / 0.75em 0.75em round;
+	background-color: var(--bg-surface);
+	outline: var(--border-hair) solid var(--line-default);
+	outline-offset: -0.05em;
+}
+
+/* ── Ticket — side notches ───────────────────────────────────────────────── */
+
+.cut-ticket {
+	border: var(--cut-bw) solid var(--fg-default);
+	border-radius: var(--radius-md);
+	-webkit-mask: radial-gradient(circle 0.5em at 0 50%, transparent 98%, #000) ,
+		radial-gradient(circle 0.5em at 100% 50%, transparent 98%, #000);
+	-webkit-mask-composite: source-in;
+	mask:
+		radial-gradient(circle 0.5em at 0 50%, transparent 98%, #000 100%) intersect,
+		radial-gradient(circle 0.5em at 100% 50%, transparent 98%, #000 100%);
+	padding-inline: calc(var(--space-6) + 0.5em);
+}
+
+/* ── Corner-cut — one clipped corner, like a folded slide ────────────────── */
+
+.cut-corner {
+	border: var(--cut-bw) solid var(--fg-default);
+	clip-path: polygon(0 0, calc(100% - 1em) 0, 100% 1em, 100% 100%, 0 100%);
+}
+
+.cut-corner::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1em;
+	height: 1em;
+	background: var(--fg-default);
+	clip-path: polygon(0 0, 100% 100%, 0 100%);
+	opacity: 0.18;
+}
+
+/* ── Tab — a file-folder tab welded to the top edge ──────────────────────── */
+
+.cut-tab {
+	border: var(--cut-bw) solid var(--fg-default);
+	border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+	margin-top: 1.4em;
+}
+
+.cut-tab::before {
+	content: attr(data-tab);
+	position: absolute;
+	bottom: calc(100% - var(--cut-bw));
+	left: calc(-1 * var(--cut-bw));
+	padding: 0.15em 0.7em;
+	background: var(--bg-surface);
+	border: var(--cut-bw) solid var(--fg-default);
+	border-bottom: 0;
+	border-radius: var(--radius-md) var(--radius-md) 0 0;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+}
+
+/* ── Tape — two strips of translucent tape over the corners ──────────────── */
+
+.cut-tape { border: var(--border-hair) solid var(--line-default); box-shadow: var(--shadow-1); }
+
+.cut-tape::before,
+.cut-tape::after {
+	content: '';
+	position: absolute;
+	width: 3.2em;
+	height: 1em;
+	background: color-mix(in srgb, var(--amber-300, #e6c37c) 55%, transparent);
+	border-inline: 1px dashed rgb(0 0 0 / 0.12);
+	transform: rotate(-40deg);
+}
+
+.cut-tape::before { top: -0.45em; left: -1.1em; }
+.cut-tape::after { bottom: -0.45em; right: -1.1em; transform: rotate(-40deg); }
+
+/* ── Punched — ring-binder holes down the left edge ──────────────────────── */
+
+.cut-punch {
+	border: var(--cut-bw) solid var(--fg-default);
+	border-radius: var(--radius-md);
+	padding-left: calc(var(--space-6) + 0.6em);
+	-webkit-mask: radial-gradient(circle 0.22em at 0.55em 50%, transparent 96%, #000 100%) 0 0 / 100% 1.1em repeat-y;
+	mask: radial-gradient(circle 0.22em at 0.55em 50%, transparent 96%, #000 100%) 0 0 / 100% 1.1em repeat-y;
+}
+
+/* ── Speech — a brutal speech bubble ─────────────────────────────────────── */
+
+.cut-speech {
+	border: var(--cut-bw) solid var(--fg-default);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--cut-off) var(--cut-off) 0 0 var(--fg-default);
+	margin-bottom: 1em;
+}
+
+.cut-speech::after {
+	content: '';
+	position: absolute;
+	bottom: calc(-0.8em - var(--cut-bw));
+	left: 1.4em;
+	width: 1em;
+	height: 1em;
+	background: var(--bg-surface);
+	border-right: var(--cut-bw) solid var(--fg-default);
+	border-bottom: var(--cut-bw) solid var(--fg-default);
+	transform: skewX(24deg) rotate(45deg);
+}
+
+/* On ink, the cutouts flip: paper shapes on a dark desk. */
+[data-surface='inverse'] .cut,
+.cut-inverse {
+	background: var(--bg-inverse);
+	color: var(--fg-on-inverse);
+	border-color: var(--fg-on-inverse);
+}
+
+[data-surface='inverse'] .cut-sticker,
+.cut-inverse.cut-sticker { box-shadow: var(--cut-off) var(--cut-off) 0 0 var(--accent); }

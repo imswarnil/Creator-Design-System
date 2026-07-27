@@ -1,0 +1,117 @@
+<header class="sec-head">
+				<span class="sec-num">01</span>
+				<h2 class="t-h1">Logo &amp; marks</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					The dot over a lowercase <i>i</i> is called a <b>tittle</b>. The whole
+					identity is that the tittle is the record light — so the mark isn't a
+					wordmark plus a dot, the dot is already part of the word and it just
+					happens to be red and alive.
+				</p>
+			</header>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg">
+					<div>
+						<span class="demo-label">Sizes — one ladder</span>
+						<div class="cluster-lg" style="align-items:baseline">
+							<span class="logo logo-xs">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-md">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-lg">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-xl">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+						</div>
+					</div>
+
+					<div>
+						<span class="demo-label">Degradation — Swarnıl → Sıl → S• → •</span>
+						<div class="cluster-lg" style="align-items:baseline">
+							<span class="logo logo-lg">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-lg logo-short">S<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo-s" style="--logo-size:2.25rem">S</span>
+							<span class="logo-dot" style="font-size:1.6rem"></span>
+						</div>
+						<p class="t-small" style="margin-top:var(--space-3);max-width:56ch">
+							There is no “Sı” — a lone dotless ı is just a stick and it reads as an l.
+							The compact mark is a capital <b>S</b> with the tittle moved to its
+							top-right shoulder: the same dot, relocated, which is why it still reads
+							as the same logo.
+						</p>
+					</div>
+
+					<div>
+						<span class="demo-label">Responsive — the markup carries all three, CSS chooses</span>
+						<div class="stack-sm">
+							<div class="surface-sunken demo" style="padding:var(--space-4)">
+								<span class="logo-responsive" aria-label="Swarnil — home">
+									<span class="logo__full logo logo-md">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+									<span class="logo__abbr logo logo-md logo-short">S<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+									<span class="logo__mark logo-s" style="--logo-size:1.5rem">S</span>
+								</span>
+							</div>
+							<p class="t-small">Full above 48rem · Sıl below it · S• below 26rem. No JS, no layout shift, and the accessible name never changes — only the visual form does.</p>
+						</div>
+					</div>
+
+					<div>
+						<span class="demo-label">Lockups</span>
+						<div class="cluster-lg" style="align-items:center;gap:var(--space-10)">
+							<span class="logo-stack">
+								<span class="logo logo-lg">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+								<span class="logo__tag">The build is the story</span>
+							</span>
+							<span class="logo-inline">
+								<span class="logo logo-md">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+								<span class="logo__rule"></span>
+								<span class="t-slate">Design system</span>
+							</span>
+							<span class="logo-badge logo-badge-round"><span class="logo-dot" style="font-size:0.9rem"></span></span>
+							<span class="logo-badge"><span class="logo-s" style="--logo-size:1.25rem;--logo-color:var(--fg-on-inverse)">S</span></span>
+						</div>
+					</div>
+
+					<div>
+						<span class="demo-label">States &amp; colour</span>
+						<div class="cluster-lg" style="align-items:center">
+							<span class="logo logo-md logo-live">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-md logo-mono">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span class="logo logo-md logo-ghost">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							<span data-surface="inverse" style="padding:var(--space-3) var(--space-4);border-radius:var(--radius-md)">
+								<span class="logo logo-md logo-inverse">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<p class="spec"><b>.logo</b> · <b>.logo__i</b> + <b>.logo__tittle</b> — the i is set with the dotless ı (U+0131) and the tittle is drawn, so it can be any colour and can pulse</p>
+			</div>
+
+			<div class="split-half" style="align-items:start;margin-top:var(--space-6)">
+				<div class="surface demo-tile">
+					<div class="demo cluster-lg" style="align-items:flex-end">
+						<span class="stack-xs" style="align-items:center"><span class="favicon favicon-16"><span class="logo-s">S</span></span><span class="t-slate-sm">16</span></span>
+						<span class="stack-xs" style="align-items:center"><span class="favicon favicon-32"><span class="logo-s">S</span></span><span class="t-slate-sm">32</span></span>
+						<span class="stack-xs" style="align-items:center"><span class="favicon favicon-48"><span class="logo-s">S</span></span><span class="t-slate-sm">48</span></span>
+						<span class="stack-xs" style="align-items:center"><span class="favicon favicon-64"><span class="logo-s">S</span></span><span class="t-slate-sm">64</span></span>
+						<span class="stack-xs" style="align-items:center"><span class="favicon favicon-180"><span class="logo-s">S</span></span><span class="t-slate-sm">180 · 512</span></span>
+					</div>
+					<p class="spec"><b>.favicon-*</b> — the S sits centred in the tile and the dot rides at 1 o’clock; below 32px the mark gets proportionally bigger and blunter, or it turns to mush</p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo cluster-lg" style="align-items:center">
+						<span class="logo-clear"><span class="logo logo-md">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span></span>
+						<span class="logo-dot logo-dot-halo" style="font-size:1.4rem"></span>
+						
+					</div>
+					<p class="spec"><b>.logo-clear</b> clear space = one tittle diameter · <b>.logo-dot-halo</b> for the dot over photos</p>
+				</div>
+			</div>
+
+			<div class="surface demo-tile" style="margin-top:var(--space-6)">
+				<div class="demo cluster-lg" style="align-items:center">
+					<span class="logo logo-md logo-dont-stretch">Swarnıl</span>
+					<span class="logo logo-md logo-dont-rotate">Swarnıl</span>
+					<span class="logo logo-md logo-dont-recolor">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+					<span class="logo logo-md logo-dont-outline">Swarnıl</span>
+				</div>
+				<p class="spec" style="color:var(--danger-fg)">never — stretch · rotate · recolour the tittle · outline. The tittle is the only red thing on the mark, always.</p>
+			</div>

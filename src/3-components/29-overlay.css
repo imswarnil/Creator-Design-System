@@ -1,0 +1,151 @@
+/* =============================================================================
+   29 · OVERLAY
+   Things that float above the page: modal, offcanvas, popover. All three ride
+   the platform — <dialog> and the Popover API — so focus trapping, ESC and
+   light-dismiss come free.
+   ========================================================================== */
+
+/* ── Modal — <dialog class="modal"> ──────────────────────────────────────── */
+
+.modal {
+	margin: auto;
+	width: min(30rem, calc(100vw - 2 * var(--space-4)));
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-sheet);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	box-shadow: var(--shadow-5);
+	padding: 0;
+}
+
+.modal::backdrop {
+	background: var(--bg-scrim, rgb(8 8 12 / 0.55));
+	backdrop-filter: blur(3px);
+}
+
+.modal[open] { animation: modal-in var(--dur-2) var(--ease-out); }
+
+@keyframes modal-in {
+	from { opacity: 0; transform: translateY(10px) scale(0.98); }
+}
+
+.modal__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-4) var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+}
+
+.modal__title {
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+}
+
+.modal__body {
+	padding: var(--space-5);
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: var(--fg-subtle);
+}
+
+.modal__foot {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--space-2);
+	padding: var(--space-4) var(--space-5);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	background: var(--bg-sunken);
+	border-radius: 0 0 var(--radius-sheet) var(--radius-sheet);
+}
+
+.modal-lg { width: min(44rem, calc(100vw - 2 * var(--space-4))); }
+
+/* ── Offcanvas — <dialog class="offcanvas"> docked to an edge ────────────── */
+
+.offcanvas {
+	margin: 0;
+	margin-left: auto;
+	inset-block: 0;
+	height: 100dvh;
+	max-height: none;
+	width: min(20rem, 85vw);
+	border: 0;
+	border-left: var(--border-hair) solid var(--line-default);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	box-shadow: var(--shadow-5);
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.offcanvas:not([open]) { display: none; }
+.offcanvas::backdrop { background: var(--bg-scrim, rgb(8 8 12 / 0.55)); }
+
+.offcanvas[open] { animation: offcanvas-in var(--dur-3) var(--ease-out); }
+
+@keyframes offcanvas-in { from { transform: translateX(100%); } }
+
+.offcanvas-start {
+	margin-left: 0;
+	margin-right: auto;
+	border-left: 0;
+	border-right: var(--border-hair) solid var(--line-default);
+}
+
+.offcanvas-start[open] { animation-name: offcanvas-in-start; }
+@keyframes offcanvas-in-start { from { transform: translateX(-100%); } }
+
+.offcanvas__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-4) var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	flex: none;
+}
+
+.offcanvas__title { font-weight: var(--weight-semibold); }
+.offcanvas__body { padding: var(--space-5); overflow-y: auto; font-size: var(--text-sm); }
+
+/* ── Popover — [popover] via the Popover API, anchored by the trigger ────── */
+
+.pop {
+	position: fixed;
+	inset: unset;
+	margin: 0;
+	max-width: 18rem;
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-lg);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	box-shadow: var(--shadow-3);
+	padding: 0;
+}
+
+.pop:popover-open { animation: modal-in var(--dur-1) var(--ease-out); }
+
+.pop__head {
+	font-weight: var(--weight-semibold);
+	font-size: var(--text-sm);
+	padding: var(--space-3) var(--space-4);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	background: var(--bg-sunken);
+	border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.pop__body {
+	padding: var(--space-3) var(--space-4);
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: var(--fg-subtle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.modal[open], .offcanvas[open], .pop:popover-open { animation: none; }
+}

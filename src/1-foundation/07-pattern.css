@@ -1,0 +1,457 @@
+/* =============================================================================
+   07 · BACKGROUND PATTERNS
+   16 CSS-only textures. Zero images, zero requests. Each paints on a ::before
+   layer so the element keeps its own background, border and content.
+
+   Usage:  <div class="surface pattern pattern-grid pattern-lg fade-corners">
+   Compose:  size (--sm/--lg) · ink (--signal/--craft) · fade (mask) · strength
+   ========================================================================== */
+
+.pattern {
+	--p-size: 28px;
+	--p-ink: var(--pattern-ink);
+	--p-ink-2: var(--pattern-ink-2);
+	--p-opacity: 1;
+	position: relative;
+	isolation: isolate;
+}
+
+.pattern::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: var(--z-below);
+	opacity: var(--p-opacity);
+	pointer-events: none;
+	border-radius: inherit;
+	background-repeat: repeat;
+}
+
+/* ── Size modifiers ───────────────────────────────────────────────────────── */
+.pattern-xs { --p-size: 12px; }
+.pattern-sm { --p-size: 18px; }
+.pattern-lg { --p-size: 44px; }
+.pattern-xl { --p-size: 72px; }
+
+/* ── Ink modifiers ────────────────────────────────────────────────────────── */
+/* On a media canvas the surface is near-black in BOTH themes, so the pattern
+   ink can't follow the theme — it is always light. */
+.pattern-media  { --p-ink: rgb(255 255 255 / 0.08); --p-ink-2: rgb(255 255 255 / 0.14); }
+.pattern-signal { --p-ink: rgb(240 78 46 / 0.16); --p-ink-2: rgb(240 78 46 / 0.28); }
+.pattern-craft  { --p-ink: rgb(217 163 58 / 0.28); --p-ink-2: rgb(217 163 58 / 0.45); }
+.pattern-strong { --p-opacity: 1.6; }
+.pattern-faint  { --p-opacity: 0.5; }
+
+/* ── Fades — a pattern should never end on a hard edge ────────────────────── */
+.fade-corners::before {
+	mask-image: radial-gradient(ellipse 78% 78% at 50% 50%, #000 30%, transparent 100%);
+}
+.fade-b::before {
+	mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+}
+.fade-t::before {
+	mask-image: linear-gradient(to top, #000 0%, transparent 92%);
+}
+.fade-r::before {
+	mask-image: linear-gradient(to right, #000 20%, transparent 100%);
+}
+.fade-center::before {
+	mask-image: radial-gradient(ellipse at 50% 50%, transparent 8%, #000 72%);
+}
+
+/* ── 01 · grid — the default surface texture, graph paper ─────────────────── */
+.pattern-grid::before {
+	background-image:
+		linear-gradient(to right, var(--p-ink) var(--border-hair), transparent var(--border-hair)),
+		linear-gradient(to bottom, var(--p-ink) var(--border-hair), transparent var(--border-hair));
+	background-size: var(--p-size) var(--p-size);
+}
+
+/* ── 02 · blueprint — fine grid with a heavier major line every 5th ───────── */
+.pattern-blueprint::before {
+	background-image:
+		linear-gradient(to right, var(--p-ink) var(--border-hair), transparent var(--border-hair)),
+		linear-gradient(to bottom, var(--p-ink) var(--border-hair), transparent var(--border-hair)),
+		linear-gradient(to right, var(--p-ink-2) var(--border-hair), transparent var(--border-hair)),
+		linear-gradient(to bottom, var(--p-ink-2) var(--border-hair), transparent var(--border-hair));
+	background-size:
+		var(--p-size) var(--p-size),
+		var(--p-size) var(--p-size),
+		calc(var(--p-size) * 5) calc(var(--p-size) * 5),
+		calc(var(--p-size) * 5) calc(var(--p-size) * 5);
+}
+
+/* ── 03 · dots ────────────────────────────────────────────────────────────── */
+.pattern-dots::before {
+	background-image: radial-gradient(var(--p-ink-2) 1.2px, transparent 1.3px);
+	background-size: var(--p-size) var(--p-size);
+}
+
+/* ── 04 · halftone — dots that grow toward the bottom-right ───────────────── */
+.pattern-halftone::before {
+	background-image: radial-gradient(var(--p-ink-2) 22%, transparent 23%);
+	background-size: var(--p-size) var(--p-size);
+	mask-image: linear-gradient(135deg, transparent 20%, #000 100%);
+}
+
+/* ── 05 · golden — construction circles on the φ split ────────────────────── */
+.pattern-golden::before {
+	background-image:
+		radial-gradient(circle at 38.2% 50%, transparent calc(var(--p-size) * 1.6),
+			var(--p-ink-2) calc(var(--p-size) * 1.6 + 1px),
+			transparent calc(var(--p-size) * 1.6 + 2px)),
+		radial-gradient(circle at 61.8% 50%, transparent calc(var(--p-size) * 1.6),
+			var(--p-ink-2) calc(var(--p-size) * 1.6 + 1px),
+			transparent calc(var(--p-size) * 1.6 + 2px)),
+		linear-gradient(to right, transparent 38.1%, var(--p-ink) 38.1%, var(--p-ink) 38.3%, transparent 38.3%),
+		linear-gradient(to bottom, transparent 49.9%, var(--p-ink) 49.9%, var(--p-ink) 50.1%, transparent 50.1%);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* ── 06 · scanline — CRT horizontals, for media surfaces ──────────────────── */
+.pattern-scanline::before {
+	background-image: repeating-linear-gradient(
+		to bottom,
+		var(--p-ink) 0 1px,
+		transparent 1px calc(var(--p-size) / 5)
+	);
+}
+
+/* ── 07 · timecode — a film edge, ticks with a taller mark every 5th ──────── */
+.pattern-timecode::before {
+	background-image:
+		repeating-linear-gradient(to right, var(--p-ink-2) 0 1px, transparent 1px var(--p-size)),
+		repeating-linear-gradient(to right, var(--p-ink-2) 0 1px, transparent 1px calc(var(--p-size) * 5));
+	background-size: 100% 12px, 100% 22px;
+	background-position: 0 100%, 0 100%;
+	background-repeat: repeat-x;
+}
+
+/* ── 08 · filmstrip — sprocket holes down both edges ──────────────────────── */
+.pattern-filmstrip::before {
+	background-image:
+		repeating-linear-gradient(
+			to bottom,
+			var(--p-ink-2) 0 calc(var(--p-size) * 0.4),
+			transparent calc(var(--p-size) * 0.4) var(--p-size)
+		),
+		repeating-linear-gradient(
+			to bottom,
+			var(--p-ink-2) 0 calc(var(--p-size) * 0.4),
+			transparent calc(var(--p-size) * 0.4) var(--p-size)
+		);
+	background-size: calc(var(--p-size) * 0.5) 100%, calc(var(--p-size) * 0.5) 100%;
+	background-position: 0 0, 100% 0;
+	background-repeat: repeat-y;
+}
+
+/* ── 09 · hatch — 45° single-direction rule ───────────────────────────────── */
+.pattern-hatch::before {
+	background-image: repeating-linear-gradient(
+		45deg,
+		var(--p-ink) 0 1px,
+		transparent 1px calc(var(--p-size) / 3)
+	);
+}
+
+/* ── 10 · crosshatch ──────────────────────────────────────────────────────── */
+.pattern-crosshatch::before {
+	background-image:
+		repeating-linear-gradient(45deg,  var(--p-ink) 0 1px, transparent 1px calc(var(--p-size) / 3)),
+		repeating-linear-gradient(-45deg, var(--p-ink) 0 1px, transparent 1px calc(var(--p-size) / 3));
+}
+
+/* ── 11 · waveform — audio bars, heights driven by a repeating gradient ───── */
+.pattern-waveform::before {
+	background-image: repeating-linear-gradient(
+		to right,
+		var(--p-ink-2) 0 2px,
+		transparent 2px calc(var(--p-size) / 4)
+	);
+	mask-image: repeating-linear-gradient(
+		to right,
+		#000 0 2px,
+		transparent 2px calc(var(--p-size) / 4)
+	), linear-gradient(to top, #000 12%, rgb(0 0 0 / 0.35) 60%, rgb(0 0 0 / 0.6) 100%);
+	mask-composite: intersect;
+	-webkit-mask-composite: source-in;
+}
+
+/* ── 12 · rays — a soft diagonal light shaft ──────────────────────────────── */
+.pattern-rays::before {
+	background-image: linear-gradient(
+		108deg,
+		transparent 30%,
+		var(--p-ink) 44%,
+		transparent 48%,
+		transparent 58%,
+		var(--p-ink) 68%,
+		transparent 74%
+	);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* ── 13 · arcs — concentric rings, a lens diagram ─────────────────────────── */
+.pattern-arcs::before {
+	background-image: repeating-radial-gradient(
+		circle at 50% 50%,
+		var(--p-ink-2) 0 1px,
+		transparent 1px calc(var(--p-size) * 0.9)
+	);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* ── 14 · glow — a single warm bloom, for hero corners ────────────────────── */
+.pattern-glow::before {
+	background-image: radial-gradient(
+		ellipse 60% 52% at 50% 6%,
+		var(--glow-color, rgb(240 78 46 / 0.16)) 0%,
+		transparent 70%
+	);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.pattern-glow.pattern-craft { --glow-color: rgb(217 163 58 / 0.18); }
+
+/* ── 15 · mesh — multi-point soft gradient, the only "colourful" texture ──── */
+.pattern-mesh::before {
+	background-image:
+		radial-gradient(ellipse 42% 46% at 12% 8%,  rgb(240 78 46 / 0.20) 0%, transparent 70%),
+		radial-gradient(ellipse 40% 44% at 88% 14%, rgb(217 163 58 / 0.16) 0%, transparent 72%),
+		radial-gradient(ellipse 55% 50% at 62% 92%, rgb(43 123 239 / 0.12) 0%, transparent 74%);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* ── 16 · noise — film grain, an inline SVG turbulence ────────────────────── */
+.pattern-noise::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+	background-size: 140px 140px;
+	/* No blend mode: overlay vanishes on a near-black surface, which is exactly
+	   where grain is most wanted. Plain alpha reads on both. */
+	opacity: 0.22;
+}
+
+/* =============================================================================
+   PATTERNS · PART 2
+   Size is not just scale. A 12px grid wants a hairline; a 72px grid wants a
+   heavier, more confident line or it looks like dust. So --p-line rides along
+   with --p-size, and the size modifiers set both.
+   ========================================================================== */
+
+.pattern { --p-line: 1px; }
+
+.pattern-xs { --p-size: 12px; --p-line: 1px; --p-opacity: 0.8; }
+.pattern-sm { --p-size: 18px; --p-line: 1px; }
+.pattern-lg { --p-size: 44px; --p-line: 1.5px; }
+.pattern-xl { --p-size: 72px; --p-line: 2px; --p-opacity: 1.15; }
+
+/* Line-style modifiers — they change the CHARACTER of the rule, not its size. */
+.pattern-hairline { --p-line: 0.5px; --p-opacity: 0.85; }
+.pattern-heavy    { --p-line: 2px; }
+.pattern-dashed::before { mask-image: repeating-linear-gradient(to right, #000 0 6px, transparent 6px 12px); }
+
+/* The grid family, redrawn against --p-line so every size stays crisp. */
+.pattern-grid::before {
+	background-image:
+		linear-gradient(to right, var(--p-ink) var(--p-line), transparent var(--p-line)),
+		linear-gradient(to bottom, var(--p-ink) var(--p-line), transparent var(--p-line));
+	background-size: var(--p-size) var(--p-size);
+}
+
+/* Vertical-only and horizontal-only rules — for tables, timelines, tickers. */
+.pattern-cols::before {
+	background-image: linear-gradient(to right, var(--p-ink) var(--p-line), transparent var(--p-line));
+	background-size: var(--p-size) 100%;
+}
+
+.pattern-rows::before {
+	background-image: linear-gradient(to bottom, var(--p-ink) var(--p-line), transparent var(--p-line));
+	background-size: 100% var(--p-size);
+}
+
+/* Scanline, three densities. fine = 3px pitch (a real CRT), coarse = 12px
+   (a stylised one). The default sits between. */
+.pattern-scanline-fine::before {
+	background-image: repeating-linear-gradient(to bottom, var(--p-ink) 0 1px, transparent 1px 3px);
+}
+
+.pattern-scanline-coarse::before {
+	background-image: repeating-linear-gradient(to bottom, var(--p-ink-2) 0 2px, transparent 2px 12px);
+}
+
+/* 17 · isometric — a 30° grid. Projects, architecture-ish pages. */
+.pattern-iso::before {
+	background-image:
+		repeating-linear-gradient(30deg, var(--p-ink) 0 var(--p-line), transparent var(--p-line) var(--p-size)),
+		repeating-linear-gradient(-30deg, var(--p-ink) 0 var(--p-line), transparent var(--p-line) var(--p-size)),
+		repeating-linear-gradient(to bottom, var(--p-ink) 0 var(--p-line), transparent var(--p-line) var(--p-size));
+}
+
+/* 18 · plus — surveyor's crosses at each intersection. Quieter than a grid,
+   and the best texture under long-form text. */
+.pattern-plus::before {
+	background-image:
+		linear-gradient(to right, transparent calc(50% - 3px), var(--p-ink-2) calc(50% - 3px), var(--p-ink-2) calc(50% + 3px), transparent calc(50% + 3px)),
+		linear-gradient(to bottom, transparent calc(50% - 3px), var(--p-ink-2) calc(50% - 3px), var(--p-ink-2) calc(50% + 3px), transparent calc(50% + 3px));
+	background-size: var(--p-size) var(--p-size);
+	mask-image:
+		linear-gradient(to right, #000 var(--p-line), transparent var(--p-line)),
+		linear-gradient(to bottom, #000 var(--p-line), transparent var(--p-line));
+	mask-size: var(--p-size) var(--p-size);
+	mask-composite: add;
+	-webkit-mask-composite: source-over;
+}
+
+/* 19 · stripes — 45° bands. The "work in progress" texture; use it for
+   drafts, skeletons and empty states. */
+.pattern-stripes::before {
+	background-image: repeating-linear-gradient(
+		45deg,
+		var(--p-ink) 0 calc(var(--p-size) / 4),
+		transparent calc(var(--p-size) / 4) calc(var(--p-size) / 2)
+	);
+}
+
+/* 20 · checker — for transparency, image placeholders, "no artwork yet". */
+.pattern-checker::before {
+	background-image:
+		linear-gradient(45deg, var(--p-ink) 25%, transparent 25% 75%, var(--p-ink) 75%),
+		linear-gradient(45deg, var(--p-ink) 25%, transparent 25% 75%, var(--p-ink) 75%);
+	background-size: var(--p-size) var(--p-size);
+	background-position: 0 0, calc(var(--p-size) / 2) calc(var(--p-size) / 2);
+}
+
+/* 21 · topo — contour lines. Travel pages, trip headers, maps. */
+.pattern-topo::before {
+	background-image:
+		repeating-radial-gradient(ellipse 60% 45% at 22% 30%, var(--p-ink) 0 var(--p-line), transparent var(--p-line) calc(var(--p-size) * 0.8)),
+		repeating-radial-gradient(ellipse 55% 50% at 78% 72%, var(--p-ink) 0 var(--p-line), transparent var(--p-line) calc(var(--p-size) * 0.9));
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* 22 · circuit — right-angled traces with pads. Build logs, code pages. */
+.pattern-circuit::before {
+	background-image:
+		linear-gradient(to right, var(--p-ink) var(--p-line), transparent var(--p-line)),
+		linear-gradient(to bottom, var(--p-ink) var(--p-line), transparent var(--p-line)),
+		radial-gradient(var(--p-ink-2) 2px, transparent 2.5px);
+	background-size:
+		calc(var(--p-size) * 2) calc(var(--p-size) * 2),
+		calc(var(--p-size) * 2) calc(var(--p-size) * 2),
+		calc(var(--p-size) * 2) calc(var(--p-size) * 2);
+	mask-image: linear-gradient(115deg, #000 20%, transparent 78%);
+}
+
+/* 23 · equaliser — bars of varying height along the bottom. Audio, podcast,
+   the newsletter block. */
+.pattern-eq::before {
+	background-image:
+		repeating-linear-gradient(to right, var(--p-ink-2) 0 calc(var(--p-size) / 5), transparent calc(var(--p-size) / 5) calc(var(--p-size) / 2.2));
+	background-size: 100% 46%;
+	background-position: 0 100%;
+	background-repeat: repeat-x;
+	mask-image: linear-gradient(to top, #000 30%, transparent 100%);
+}
+
+/* 24 · sprocket — film perforations along the top and bottom edges. */
+.pattern-sprocket::before {
+	background-image:
+		repeating-linear-gradient(to right, var(--p-ink-2) 0 calc(var(--p-size) / 3), transparent calc(var(--p-size) / 3) calc(var(--p-size) / 1.4)),
+		repeating-linear-gradient(to right, var(--p-ink-2) 0 calc(var(--p-size) / 3), transparent calc(var(--p-size) / 3) calc(var(--p-size) / 1.4));
+	background-size: 100% calc(var(--p-size) / 2.6), 100% calc(var(--p-size) / 2.6);
+	background-position: 0 0, 0 100%;
+	background-repeat: repeat-x;
+}
+
+/* 25 · matrix — a dot grid with a heavier dot every fifth. Reads as a screen
+   rather than as paper. */
+.pattern-matrix::before {
+	background-image:
+		radial-gradient(var(--p-ink) 1px, transparent 1.2px),
+		radial-gradient(var(--p-ink-2) 1.6px, transparent 1.8px);
+	background-size: var(--p-size) var(--p-size), calc(var(--p-size) * 5) calc(var(--p-size) * 5);
+}
+
+/* 26 · spotlight — a single soft pool of light, following --p-x/--p-y. Set
+   those from JS for a cursor-tracking hero, or leave them for a static wash. */
+.pattern-spotlight::before {
+	background-image: radial-gradient(
+		circle 42% at var(--p-x, 50%) var(--p-y, 22%),
+		color-mix(in srgb, var(--accent) 14%, transparent),
+		transparent 70%
+	);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* 27 · ruler — measurement ticks with a heavier mark every fifth. Timelines,
+   changelogs, the resume. */
+.pattern-ruler::before {
+	background-image:
+		repeating-linear-gradient(to right, var(--p-ink) 0 var(--p-line), transparent var(--p-line) var(--p-size)),
+		repeating-linear-gradient(to right, var(--p-ink-2) 0 var(--p-line), transparent var(--p-line) calc(var(--p-size) * 5));
+	background-size: 100% 8px, 100% 16px;
+	background-position: 0 0, 0 0;
+	background-repeat: repeat-x;
+}
+
+/* 28 · corners — tick marks at the four corners only. The lightest possible
+   "this is a frame" signal, for cards that shouldn't shout. */
+.pattern-corners::before {
+	background-image:
+		linear-gradient(to right, var(--p-ink-2) 0 var(--p-size), transparent var(--p-size)),
+		linear-gradient(to bottom, var(--p-ink-2) 0 var(--p-size), transparent var(--p-size)),
+		linear-gradient(to left, var(--p-ink-2) 0 var(--p-size), transparent var(--p-size)),
+		linear-gradient(to top, var(--p-ink-2) 0 var(--p-size), transparent var(--p-size));
+	background-size: 100% var(--p-line), var(--p-line) 100%, 100% var(--p-line), var(--p-line) 100%;
+	background-position: 0 0, 0 0, 100% 100%, 100% 100%;
+	background-repeat: no-repeat;
+}
+
+/* ── Platform accents ────────────────────────────────────────────────────
+   The signature devices, re-cut for the places the channel actually lives.
+   Each is a small overlay, not a full texture. */
+
+/* Instagram: the gradient ring, as a border only. */
+.ring-ig {
+	position: relative;
+	border-radius: var(--radius-full);
+	padding: 3px;
+	background: conic-gradient(from 200deg, #f9a03f, #f04e2e, #d92d4e, #a12ea6, #f9a03f);
+}
+
+.ring-ig > * { border-radius: inherit; display: block; background: var(--bg-canvas); padding: 2px; }
+
+/* A live ring — the same idea in the house accent, for "streaming now". */
+.ring-live {
+	padding: 3px;
+	border-radius: var(--radius-full);
+	background: conic-gradient(from 0deg, var(--accent), color-mix(in srgb, var(--accent) 25%, transparent), var(--accent));
+	animation: fx-spin 3.2s var(--ease-linear) infinite;
+}
+
+.ring-live > * { animation: fx-spin 3.2s var(--ease-linear) infinite reverse; }
+
+/* ── The signal dot ────────────────────────────────────────────────────────
+   Signature device #1. Pattern file because it is pure ornament-with-meaning,
+   and because every component that shows "live" reuses exactly this. */
+
+.dot {
+	display: inline-block;
+	width: var(--dot-md);
+	height: var(--dot-md);
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	flex: none;
+}
+
+.dot-sm { width: var(--dot-sm); height: var(--dot-sm); }
+.dot-lg { width: var(--dot-lg); height: var(--dot-lg); }
+.dot-live { animation: fx-pulse 1.6s var(--ease-inout) infinite; }
+.dot-muted { background: var(--fg-faint); }

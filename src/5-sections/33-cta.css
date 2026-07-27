@@ -1,0 +1,117 @@
+/* =============================================================================
+   33 · CTA
+   The ask. One per page, near the end, and it earns its contrast by being the
+   only inverse band in view. Three shapes: the plain band, the newsletter
+   (band + form), and the sponsor strip (quiet, bordered, not inverse — money
+   asks politely).
+   ========================================================================== */
+
+.cta {
+	position: relative;
+	background: var(--bg-inverse);
+	color: var(--fg-on-inverse);
+	border-radius: var(--radius-sheet);
+	padding: var(--space-12) var(--space-8);
+	overflow: hidden;
+	text-align: center;
+}
+
+.cta__kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	opacity: 0.65;
+}
+
+.cta__title {
+	font-family: var(--font-display);
+	font-size: var(--text-3xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-tight);
+	text-wrap: balance;
+	max-width: 22ch;
+	margin: var(--space-4) auto 0;
+}
+
+.cta__title em { font-style: normal; color: var(--accent); }
+
+.cta__body {
+	margin: var(--space-4) auto 0;
+	max-width: var(--measure-lead);
+	line-height: var(--leading-relaxed);
+	opacity: 0.75;
+}
+
+.cta__actions {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: var(--space-8);
+}
+
+/* Fine print under the actions — the honest line. */
+.cta__fine {
+	margin-top: var(--space-4);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: 0.05em;
+	opacity: 0.5;
+}
+
+/* Left-aligned variant for column layouts. */
+.cta-left { text-align: left; }
+.cta-left .cta__title,
+.cta-left .cta__body { margin-inline: 0; }
+.cta-left .cta__actions { justify-content: flex-start; }
+
+/* ── Newsletter — the band with a form in it ─────────────────────────────── */
+
+.cta-newsletter__form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--space-2);
+	margin-top: var(--space-8);
+}
+
+.cta-newsletter__form .input {
+	flex: 1 1 14rem;
+	max-width: 22rem;
+	background: color-mix(in srgb, var(--fg-on-inverse) 8%, transparent);
+	border-color: var(--line-inverse);
+	color: var(--fg-on-inverse);
+}
+
+.cta-newsletter__form .input::placeholder { color: var(--fg-on-inverse); opacity: 0.45; }
+
+.cta-left .cta-newsletter__form { justify-content: flex-start; }
+
+/* ── Sponsor strip — quiet, bordered, on the paper ───────────────────────── */
+
+.cta-sponsor {
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	padding: var(--space-6);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-4);
+	text-align: left;
+}
+
+.cta-sponsor .cta__title { font-size: var(--text-lg); margin: var(--space-1) 0 0; max-width: none; }
+.cta-sponsor .cta__kicker { color: var(--fg-faint); opacity: 1; }
+.cta-sponsor .cta__actions { margin-top: 0; }
+
+@media (max-width: 40rem) {
+	.cta { padding: var(--space-10) var(--space-5); }
+}

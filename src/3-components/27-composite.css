@@ -1,0 +1,358 @@
+/* =============================================================================
+   27 · COMPOSITES
+   The container-module organs: a course's curriculum, a series' episode
+   panel, a project's build log, a trip's itinerary. Each one is the same
+   idea — an ordered list that knows where you are — wearing its collection's
+   clothes. All state lives in ARIA (aria-current, [data-done]), never in a
+   styling-only class.
+   ========================================================================== */
+
+/* ── Curriculum — the course syllabus ────────────────────────────────────────
+   <section class="curriculum">
+     <header class="curriculum__head"> title · meta · .progress </header>
+     <details class="curriculum__module" open>
+       <summary> … </summary>
+       <ol class="curriculum__lessons"> <li><a class="lesson-row"> … </ol>
+     </details>
+   </section>
+   ------------------------------------------------------------------------- */
+
+.curriculum {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	overflow: hidden;
+}
+
+.curriculum__head {
+	padding: var(--space-5) var(--space-6);
+	border-bottom: var(--border-hair) solid var(--line-default);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3) var(--space-5);
+}
+
+.curriculum__title {
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+}
+
+.curriculum__meta {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.curriculum__head .progress { flex: 1 1 100%; }
+
+/* Module = one <details>. The summary is the module row. */
+.curriculum__module { border-bottom: var(--border-hair) solid var(--line-subtle); }
+.curriculum__module:last-child { border-bottom: 0; }
+
+.curriculum__module > summary {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-3);
+	padding: var(--space-4) var(--space-6);
+	transition: var(--t-colors);
+}
+
+.curriculum__module > summary::-webkit-details-marker { display: none; }
+.curriculum__module > summary:hover { background: var(--bg-sunken); }
+
+.curriculum__no {
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+.curriculum__module-title {
+	font-weight: var(--weight-semibold);
+	font-size: var(--text-sm);
+	flex: 1;
+}
+
+.curriculum__count {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	white-space: nowrap;
+}
+
+/* The chevron is drawn, not shipped: two strokes that fold. */
+.curriculum__module > summary::after {
+	content: '';
+	align-self: center;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-right: var(--border-2) solid var(--fg-faint);
+	border-bottom: var(--border-2) solid var(--fg-faint);
+	transform: rotate(45deg);
+	transition: var(--t-transform);
+	flex: none;
+	margin-top: -0.25rem;
+}
+
+.curriculum__module[open] > summary::after { transform: rotate(-135deg); margin-top: 0.15rem; }
+
+.curriculum__lessons {
+	list-style: none;
+	margin: 0;
+	padding: 0 0 var(--space-3);
+}
+
+/* One lesson row. aria-current="true" = you are here; [data-done] = watched. */
+.lesson-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-2) var(--space-6) var(--space-2) var(--space-8);
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.lesson-row:hover { color: var(--fg-default); background: var(--bg-sunken); }
+
+/* The tick circle: empty ring → filled on done → accent ring when current. */
+.lesson-row__tick {
+	width: 1.1rem;
+	height: 1.1rem;
+	flex: none;
+	border: var(--border-2) solid var(--line-strong);
+	border-radius: var(--radius-full);
+	display: grid;
+	place-items: center;
+	font-size: 0.6rem;
+	color: var(--fg-on-accent);
+	transition: var(--t-colors);
+}
+
+.lesson-row[data-done] .lesson-row__tick {
+	background: var(--fg-default);
+	border-color: var(--fg-default);
+}
+
+.lesson-row[data-done] .lesson-row__tick::before { content: '✓'; color: var(--bg-canvas); }
+
+.lesson-row[aria-current] {
+	color: var(--fg-default);
+	font-weight: var(--weight-semibold);
+}
+
+.lesson-row[aria-current] .lesson-row__tick {
+	border-color: var(--accent);
+	box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.lesson-row__title { flex: 1; min-width: 0; }
+
+.lesson-row__len {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Free-preview lessons advertise it. */
+.lesson-row__free {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-accent);
+}
+
+/* ── Episode panel — the list beside a player ────────────────────────────────
+   Wraps 26-media's .episode rows with a header + its own scroll.
+   ------------------------------------------------------------------------- */
+
+.ep-panel {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	max-height: 28rem;
+}
+
+.ep-panel__head {
+	padding: var(--space-4) var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-default);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	flex: none;
+}
+
+.ep-panel__title { font-weight: var(--weight-semibold); font-size: var(--text-sm); }
+
+.ep-panel__count {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.ep-panel__list {
+	overflow-y: auto;
+	padding: var(--space-2);
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	scrollbar-width: thin;
+}
+
+/* ── Build log — the project timeline ────────────────────────────────────────
+   <ol class="buildlog"> <li class="buildlog__step" data-kind="start|ship"> …
+   A vertical rail; the segment above the current step is "walked".
+   ------------------------------------------------------------------------- */
+
+.buildlog {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+.buildlog::before {
+	content: '';
+	position: absolute;
+	left: 0.7rem;
+	top: 0.5rem;
+	bottom: 0.5rem;
+	width: var(--border-hair);
+	background: var(--line-default);
+}
+
+.buildlog__step { position: relative; padding: var(--space-2) 0 var(--space-2) var(--space-8); }
+
+.buildlog__node {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1.45rem;
+	height: 1.45rem;
+	border-radius: var(--radius-full);
+	border: var(--border-2) solid var(--line-strong);
+	background: var(--bg-canvas);
+	display: grid;
+	place-items: center;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-subtle);
+	font-variant-numeric: tabular-nums;
+}
+
+.buildlog__step[data-kind='start'] .buildlog__node::before { content: '▸'; }
+.buildlog__step[data-kind='ship'] .buildlog__node::before { content: '✓'; }
+
+.buildlog__step[data-done] .buildlog__node {
+	background: var(--fg-default);
+	border-color: var(--fg-default);
+	color: var(--bg-canvas);
+}
+
+.buildlog__step[aria-current] .buildlog__node {
+	border-color: var(--accent);
+	color: var(--accent);
+	box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.buildlog__link {
+	display: block;
+	text-decoration: none;
+	color: var(--fg-subtle);
+	font-size: var(--text-sm);
+	transition: var(--t-colors);
+}
+
+.buildlog__link:hover { color: var(--fg-default); }
+.buildlog__step[aria-current] .buildlog__link { color: var(--fg-default); font-weight: var(--weight-semibold); }
+
+.buildlog__date {
+	display: block;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	margin-top: 2px;
+}
+
+/* ── Itinerary — the trip, day by day ────────────────────────────────────────
+   Same rail as the build log, but the node is the day chip and each entry
+   can carry a photo strip.
+   ------------------------------------------------------------------------- */
+
+.itinerary { list-style: none; margin: 0; padding: 0; position: relative; }
+
+.itinerary::before {
+	content: '';
+	position: absolute;
+	left: 1.1rem;
+	top: 1rem;
+	bottom: 1rem;
+	width: var(--border-hair);
+	background: var(--line-default);
+}
+
+.itinerary__day { position: relative; padding: var(--space-3) 0 var(--space-3) var(--space-12); }
+
+.itinerary__chip {
+	position: absolute;
+	left: 0;
+	top: var(--space-3);
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: var(--radius-md);
+	border: var(--border-hair) solid var(--line-default);
+	background: var(--bg-surface);
+	display: grid;
+	place-content: center;
+	text-align: center;
+	line-height: 1;
+}
+
+.itinerary__chip b {
+	font-family: var(--font-display);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-bold);
+	font-variant-numeric: tabular-nums;
+}
+
+.itinerary__chip span {
+	font-family: var(--font-slate);
+	font-size: 0.55rem;
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.itinerary__title { font-weight: var(--weight-semibold); font-size: var(--text-sm); }
+
+.itinerary__note {
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	margin-top: 2px;
+	max-width: var(--measure-ui);
+}
+
+.itinerary__stops {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-1);
+	margin-top: var(--space-2);
+}

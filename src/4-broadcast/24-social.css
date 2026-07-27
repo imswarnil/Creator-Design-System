@@ -1,0 +1,505 @@
+/* =============================================================================
+   24 · ENGAGEMENT & OVERLAYS
+   Subscribe / like / comment calls, chat UI, and the website promotion. These
+   are the elements that get burned into the video, so they are sized in cqw
+   like everything else in this layer.
+
+   The honest version of the rule: an on-screen "SUBSCRIBE" is loudness spent.
+   Spend it once per video, and put it where the point just landed — not at the
+   start, where nobody has a reason yet.
+   ========================================================================== */
+
+/* ── Subscribe · style 1 · the pill ──────────────────────────────────────
+   The default. Filled accent, one dot, no exclamation marks. */
+
+.sub-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.2cqw;
+	padding: 1.3cqw 2.6cqw;
+	border-radius: 100cqw;
+	background: var(--signal-500);
+	color: var(--pure-white);
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 2.4cqw;
+	letter-spacing: -0.01em;
+	line-height: 1;
+}
+
+.sub-pill::before {
+	content: '';
+	width: 1.5cqw;
+	height: 1.5cqw;
+	border-radius: 50%;
+	background: currentColor;
+	flex: none;
+}
+
+/* ── Subscribe · style 2 · the slate bar ─────────────────────────────────
+   Quieter. For videos where the accent is already spent elsewhere. */
+
+.sub-bar {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.6cqw;
+	padding: 1.2cqw 2cqw;
+	border-radius: 0.8cqw;
+	background: rgb(8 8 12 / 0.86);
+	border: 0.18cqw solid rgb(255 255 255 / 0.18);
+	box-shadow: inset 0.35cqw 0 0 0 var(--signal-500);
+	font-family: var(--font-slate);
+	font-size: 1.6cqw;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--yt-ink);
+}
+
+/* ── Subscribe · style 3 · the counter ───────────────────────────────────
+   Shows the number climbing. Only honest if it's the real number. */
+
+.sub-count {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.6cqw;
+	padding: 1.2cqw 1.2cqw 1.2cqw 2cqw;
+	border-radius: 100cqw;
+	background: rgb(255 255 255 / 0.08);
+	backdrop-filter: blur(8px);
+	border: 0.15cqw solid rgb(255 255 255 / 0.16);
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.sub-count__n {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 2.4cqw;
+	letter-spacing: -0.02em;
+	color: var(--yt-ink);
+	font-variant-numeric: tabular-nums;
+}
+
+.sub-count__cta {
+	padding: 0.8cqw 1.6cqw;
+	border-radius: 100cqw;
+	background: var(--signal-500);
+	color: var(--pure-white);
+	font-weight: 600;
+	letter-spacing: 0.16em;
+}
+
+/* ── Subscribe · style 4 · the corner bug ────────────────────────────────
+   Persistent, tiny, bottom-right. The one you leave up for a whole video. */
+
+.sub-bug {
+	display: inline-flex;
+	align-items: center;
+	gap: 1cqw;
+	padding: 0.9cqw 1.4cqw;
+	border-radius: 0.6cqw;
+	background: rgb(8 8 12 / 0.6);
+	font-family: var(--font-slate);
+	font-size: 1.2cqw;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.72);
+}
+
+.sub-bug__dot {
+	width: 0.9cqw;
+	height: 0.9cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	animation: fx-pulse 1.6s var(--ease-inout) infinite;
+}
+
+/* ── Subscribe · style 5 · the card ──────────────────────────────────────
+   The full ask, for an end screen: avatar, name, what they get, and the
+   button. The only version that explains WHY, which is why it converts. */
+
+.sub-card {
+	display: flex;
+	align-items: center;
+	gap: 2.4cqw;
+	padding: 2.4cqw;
+	border-radius: 1.6cqw;
+	background: rgb(255 255 255 / 0.06);
+	border: 0.15cqw solid rgb(255 255 255 / 0.14);
+	backdrop-filter: blur(10px);
+}
+
+.sub-card__av {
+	width: 9cqw;
+	height: 9cqw;
+	border-radius: 50%;
+	background: var(--ink-1000);
+	display: grid;
+	place-items: center;
+	flex: none;
+}
+
+.sub-card__who {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 3cqw;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+}
+
+.sub-card__what {
+	font-family: var(--font-slate);
+	font-size: 1.5cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+	margin-top: 0.6cqw;
+}
+
+.sub-card__cta { margin-left: auto; flex: none; }
+
+/* ── Engagement — three styles each for like, comment and share ──────────
+   Style A · bar      all three in one pill (the compact overlay)
+   Style B · stack    vertical column, right edge — the Shorts/Reels idiom
+   Style C · tile     large individual tiles, for an end screen or a still
+   Colour rule: only the ACTIVE one takes the accent. */
+
+/* B · vertical stack */
+.engage-stack {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2.4cqw;
+}
+
+.engage-stack__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.8cqw;
+	font-family: var(--font-slate);
+	font-size: 1.4cqw;
+	letter-spacing: 0.12em;
+	color: rgb(255 255 255 / 0.86);
+	font-variant-numeric: tabular-nums;
+}
+
+.engage-stack__disc {
+	display: grid;
+	place-items: center;
+	width: 6cqw;
+	height: 6cqw;
+	border-radius: 50%;
+	background: rgb(8 8 12 / 0.55);
+	border: 0.15cqw solid rgb(255 255 255 / 0.18);
+	font-size: 2.6cqw;
+	line-height: 1;
+	backdrop-filter: blur(6px);
+}
+
+.engage-stack__item[data-on] .engage-stack__disc {
+	background: var(--signal-500);
+	border-color: var(--signal-500);
+	color: var(--pure-white);
+}
+
+/* C · tiles */
+.engage-tiles { display: flex; gap: 2cqw; }
+
+.engage-tile {
+	display: flex;
+	flex-direction: column;
+	gap: 1cqw;
+	padding: 2cqw 2.4cqw;
+	border-radius: 1.2cqw;
+	background: rgb(255 255 255 / 0.06);
+	border: 0.15cqw solid rgb(255 255 255 / 0.14);
+	min-width: 18cqw;
+}
+
+.engage-tile__glyph { font-size: 3.4cqw; line-height: 1; }
+
+.engage-tile__n {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 3cqw;
+	letter-spacing: -0.02em;
+	font-variant-numeric: tabular-nums;
+}
+
+.engage-tile__label {
+	font-family: var(--font-slate);
+	font-size: 1.4cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.engage-tile[data-on] {
+	background: color-mix(in srgb, var(--signal-500) 20%, transparent);
+	border-color: var(--signal-500);
+}
+
+/* Like burst — the one celebratory animation in the whole system. Fires once,
+   on the like tile, and never loops. */
+.engage-burst { position: relative; }
+
+.engage-burst::after {
+	content: '';
+	position: absolute;
+	inset: -12%;
+	border-radius: inherit;
+	border: 0.2cqw solid var(--signal-500);
+	opacity: 0;
+	animation: engageBurst 700ms var(--ease-out) both;
+}
+
+@keyframes engageBurst {
+	0%   { opacity: 0.9; transform: scale(0.85); }
+	100% { opacity: 0; transform: scale(1.25); }
+}
+
+/* ── Engagement row — like · comment · share ────────────────────────────
+   Icons are drawn as glyphs in the markup so nothing external is needed. */
+
+.engage {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.6cqw;
+	padding: 1.1cqw 1.6cqw;
+	border-radius: 100cqw;
+	background: rgb(8 8 12 / 0.78);
+	border: 0.15cqw solid rgb(255 255 255 / 0.14);
+}
+
+.engage__item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.8cqw;
+	font-family: var(--font-slate);
+	font-size: 1.4cqw;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+	font-variant-numeric: tabular-nums;
+}
+
+.engage__item[data-on] { color: var(--signal-400); }
+
+.engage__glyph { font-size: 1.9cqw; line-height: 1; }
+
+.engage__sep {
+	width: 0.12cqw;
+	height: 2.4cqw;
+	background: rgb(255 255 255 / 0.14);
+}
+
+/* A single big "leave a comment" prompt, for the ask-a-question moment. */
+.comment-prompt {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.6cqw;
+	padding: 1.4cqw 2.2cqw;
+	border-radius: 1cqw;
+	background: rgb(255 255 255 / 0.07);
+	border: 0.15cqw solid rgb(255 255 255 / 0.16);
+	backdrop-filter: blur(10px);
+	max-width: 46cqw;
+}
+
+.comment-prompt__q {
+	font-family: var(--font-display);
+	font-weight: 600;
+	font-size: 2.2cqw;
+	line-height: 1.2;
+	letter-spacing: -0.015em;
+}
+
+.comment-prompt__hint {
+	font-family: var(--font-slate);
+	font-size: 1.3cqw;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+	margin-top: 0.6cqw;
+}
+
+/* ── Live chat panel ───────────────────────────────────────────────────
+   The right-hand rail on a live scene, or a standalone overlay. Messages are
+   rows, not bubbles — bubbles waste width and this rail is narrow. */
+
+.chat {
+	/* Positioned: a chat rail almost always sits over a .bd backdrop, and a
+	   static element would paint underneath it. */
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	background: rgb(8 8 12 / 0.78);
+	border-left: 1px solid rgb(255 255 255 / 0.10);
+	height: 100%;
+}
+
+.chat__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.2cqw;
+	padding: 1.8cqw 1.8cqw 1.2cqw;
+	border-bottom: 1px solid rgb(255 255 255 / 0.10);
+	font-family: var(--font-slate);
+	font-size: 1.3cqw;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.chat__list {
+	display: flex;
+	flex-direction: column;
+	gap: 1.4cqw;
+	padding: 1.6cqw 1.8cqw;
+	overflow: hidden;
+	flex: 1;
+}
+
+.chat__msg {
+	display: grid;
+	grid-template-columns: 2.6cqw 1fr;
+	gap: 1cqw;
+	align-items: start;
+	font-size: 1.35cqw;
+	line-height: 1.4;
+	color: rgb(255 255 255 / 0.86);
+}
+
+.chat__av {
+	width: 2.6cqw;
+	height: 2.6cqw;
+	border-radius: 50%;
+	background: rgb(255 255 255 / 0.16);
+	display: grid;
+	place-items: center;
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 1.2cqw;
+	color: rgb(255 255 255 / 0.8);
+}
+
+.chat__who {
+	font-family: var(--font-slate);
+	font-size: 1.2cqw;
+	letter-spacing: 0.1em;
+	color: var(--yt-faint);
+	margin-right: 0.6cqw;
+}
+
+/* Roles. Mod and member get a colour; the accent is reserved for the host. */
+.chat__msg[data-role='host'] .chat__who { color: var(--signal-400); }
+.chat__msg[data-role='mod'] .chat__who { color: #93c2ff; }
+.chat__msg[data-role='member'] .chat__who { color: #6ee7ad; }
+
+/* Pinned / super chat — the only chat row allowed a filled background. */
+.chat__msg-pinned {
+	grid-column: 1 / -1;
+	display: block;
+	padding: 1.2cqw 1.4cqw;
+	border-radius: 0.7cqw;
+	background: rgb(240 78 46 / 0.16);
+	box-shadow: inset 0.25cqw 0 0 0 var(--signal-500);
+}
+
+.chat__foot {
+	display: flex;
+	align-items: center;
+	gap: 1cqw;
+	padding: 1.4cqw 1.8cqw;
+	border-top: 1px solid rgb(255 255 255 / 0.10);
+	font-family: var(--font-slate);
+	font-size: 1.2cqw;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--yt-faint);
+}
+
+/* ── Website promotion ──────────────────────────────────────────────────
+   The bar that says where the writing lives. Two versions: a strip for mid-roll
+   and a card for the end screen. Both name the actual URL — a QR code or a
+   "link in description" is a lost click. */
+
+.promo-strip {
+	display: inline-flex;
+	align-items: center;
+	gap: 2cqw;
+	padding: 1.2cqw 2cqw;
+	border-radius: 0.9cqw;
+	background: rgb(8 8 12 / 0.88);
+	border: 0.15cqw solid rgb(255 255 255 / 0.16);
+	box-shadow: inset 0 -0.3cqw 0 0 var(--signal-500);
+}
+
+.promo-strip__url {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 2.2cqw;
+	letter-spacing: -0.015em;
+}
+
+.promo-strip__what {
+	font-family: var(--font-slate);
+	font-size: 1.3cqw;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+}
+
+.promo-card {
+	display: flex;
+	flex-direction: column;
+	gap: 1.4cqw;
+	padding: 2.4cqw;
+	border-radius: 1.2cqw;
+	background: rgb(255 255 255 / 0.06);
+	border: 0.15cqw solid rgb(255 255 255 / 0.14);
+	backdrop-filter: blur(10px);
+}
+
+.promo-card__title {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 2.8cqw;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+}
+
+.promo-card__list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8cqw;
+	font-family: var(--font-slate);
+	font-size: 1.4cqw;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--yt-dim);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.promo-card__list > li {
+	display: flex;
+	align-items: center;
+	gap: 1cqw;
+}
+
+.promo-card__list > li::before {
+	content: '';
+	width: 0.9cqw;
+	height: 0.9cqw;
+	border-radius: 50%;
+	background: var(--signal-500);
+	flex: none;
+}

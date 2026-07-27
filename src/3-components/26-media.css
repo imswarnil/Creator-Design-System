@@ -1,0 +1,228 @@
+/* =============================================================================
+   17 · MEDIA
+   Player chrome, play affordances, episode rows, quote and figure blocks.
+   This is the part of the system the site is actually about.
+   ========================================================================== */
+
+/* ── Player ──────────────────────────────────────────────────────────────── */
+
+.player {
+	position: relative;
+	background: var(--bg-media);
+	border-radius: var(--radius-media);
+	overflow: hidden;
+	aspect-ratio: var(--ratio-video);
+	isolation: isolate;
+	color-scheme: dark;
+}
+
+.player > img,
+.player > video,
+.player > iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border: 0;
+}
+
+/* Control bar. Appears on hover/focus-within, always visible on touch. */
+.player__bar {
+	position: absolute;
+	inset: auto 0 0 0;
+	z-index: var(--z-raised);
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	background: linear-gradient(to top, rgb(0 0 0 / 0.82), transparent);
+	color: var(--pure-white);
+	opacity: 1;
+	transition: opacity var(--dur-2) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.player__bar { opacity: 0; }
+	.player:hover .player__bar,
+	.player:focus-within .player__bar { opacity: 1; }
+}
+
+.player__rail {
+	position: relative;
+	flex: 1;
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background: rgb(255 255 255 / 0.28);
+	cursor: pointer;
+}
+
+.player__played {
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: var(--value, 0%);
+	border-radius: inherit;
+	background: var(--accent);
+}
+
+/* The scrub head only appears when the rail is hovered — quiet by default. */
+.player__played::after {
+	content: '';
+	position: absolute;
+	right: -5px;
+	top: 50%;
+	width: 10px;
+	height: 10px;
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	transform: translateY(-50%) scale(0);
+	transition: transform var(--dur-1) var(--ease-out);
+}
+
+.player__rail:hover .player__played::after { transform: translateY(-50%) scale(1); }
+
+.player__time {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--tracking-wide);
+	color: rgb(255 255 255 / 0.82);
+	white-space: nowrap;
+}
+
+/* ── Play button ─────────────────────────────────────────────────────────
+   Centred over a poster. Grows on hover; the triangle is drawn in CSS. */
+
+.play {
+	position: absolute;
+	inset: 0;
+	z-index: var(--z-raised);
+	display: grid;
+	place-items: center;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+
+.play__disc {
+	display: grid;
+	place-items: center;
+	width: 4rem;
+	height: 4rem;
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	box-shadow: var(--shadow-3);
+	transition: var(--t-transform), var(--t-shadow);
+}
+
+.play__disc::before {
+	content: '';
+	width: 0;
+	height: 0;
+	margin-left: 4px;
+	border-left: 14px solid var(--fg-on-accent);
+	border-top: 9px solid transparent;
+	border-bottom: 9px solid transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.play:hover .play__disc { transform: scale(1.08); box-shadow: var(--shadow-signal), var(--shadow-3); }
+}
+
+.play-sm .play__disc { width: 2.75rem; height: 2.75rem; }
+.play-sm .play__disc::before { border-left-width: 10px; border-top-width: 6px; border-bottom-width: 6px; }
+
+/* Ghost variant for use over busy artwork. */
+.play-ghost .play__disc {
+	background: rgb(0 0 0 / 0.5);
+	backdrop-filter: blur(6px);
+	box-shadow: inset 0 0 0 var(--border-2) rgb(255 255 255 / 0.55);
+}
+
+.play-ghost .play__disc::before { border-left-color: var(--pure-white); }
+
+/* ── Poster ──────────────────────────────────────────────────────────────
+   A still with the slate baked in — the thumbnail as it ships to a platform. */
+
+.poster {
+	position: relative;
+	aspect-ratio: var(--ratio-video);
+	border-radius: var(--radius-media);
+	overflow: hidden;
+	background: var(--bg-media);
+}
+
+.poster__label {
+	position: absolute;
+	left: var(--space-4);
+	bottom: var(--space-4);
+	right: var(--space-4);
+	z-index: var(--z-raised);
+	color: var(--pure-white);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+
+.poster::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0.15) 55%, transparent);
+}
+
+.poster__label { z-index: calc(var(--z-raised) + 1); }
+
+/* ── Episode row ─────────────────────────────────────────────────────────
+   The list beside a player. Current row carries the accent edge. */
+
+.episode {
+	display: grid;
+	grid-template-columns: 7.5rem 1fr;
+	gap: var(--space-3);
+	align-items: start;
+	padding: var(--space-3);
+	border-radius: var(--radius-lg);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+.episode:hover { background: var(--hover-wash); }
+
+.episode[aria-current='true'] {
+	background: var(--accent-soft);
+	box-shadow: inset var(--border-3) 0 0 0 var(--accent);
+}
+
+.episode__thumb {
+	position: relative;
+	aspect-ratio: var(--ratio-video);
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+	background: var(--bg-media);
+}
+
+.episode__title {
+	font-size: var(--text-sm);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-snug);
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+}
+
+.episode__meta {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	margin-top: 2px;
+}
+
+@media (max-width: 26rem) {
+	.episode { grid-template-columns: 5rem 1fr; }
+}

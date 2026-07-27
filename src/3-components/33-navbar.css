@@ -1,0 +1,500 @@
+/* =============================================================================
+   33 · NAVBAR
+   The site's chrome, in every shape it takes. 24-nav.css holds the primitives
+   (the island, links, tabs, crumbs, pager, toc); this file is the navigation
+   SYSTEM built on them: alignment, active styles, dropdowns, the mega panel,
+   the mobile sheet, and the contextual bars each collection swaps in.
+
+   HOUSE RULES
+   · Active is a dot or a 2px rule — never a filled pill.
+   · One level of dropdown. A second level is a mega panel, not a fly-out.
+   · Every panel is a <details> or a <dialog>: keyboard and ESC come free.
+   · Contextual bars replace the site bar, never stack on top of it.
+   ========================================================================== */
+
+/* ── Alignment ───────────────────────────────────────────────────────────────
+   Two honest choices, because "same width as the content" means two different
+   things and picking silently is how navs end up looking 16px wrong.
+
+   .nav-shell        the island's BORDER aligns with the content column edge
+                     (default — the island reads as a floating object)
+   .nav-shell-flush  the island's CONTENT aligns with the page's text, so the
+                     wordmark sits directly above the page title
+   .nav-shell-full   no island: a full-bleed bar with a hairline underneath
+   ------------------------------------------------------------------------- */
+
+.nav-shell-flush .nav-bar { padding-inline: 0; border-inline: 0; border-radius: 0; background: none; backdrop-filter: none; box-shadow: none; }
+.nav-shell-flush .nav-bar { border-top: 0; border-bottom: var(--border-hair) solid var(--line-default); }
+
+.nav-shell-full {
+	max-width: none;
+	padding-inline: 0;
+	top: 0;
+}
+
+.nav-shell-full .nav-bar {
+	max-width: calc(var(--w-site) + var(--gutter) * 2);
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+	border-radius: 0;
+	border-inline: 0;
+	border-top: 0;
+	box-shadow: none;
+}
+
+/* Scrolled state — the island tightens. Toggle `data-scrolled` from JS. */
+.nav-shell[data-scrolled] .nav-bar {
+	background: color-mix(in srgb, var(--bg-canvas) 94%, transparent);
+	box-shadow: var(--shadow-2);
+}
+
+/* ── Active styles ───────────────────────────────────────────────────────────
+   The dot is the default. Two alternates for contexts where a dot reads as
+   decoration — a docs bar, a player bar.
+   ------------------------------------------------------------------------- */
+
+/* Rule: a 2px accent underline instead of the dot. */
+.nav-links-rule .nav-link[aria-current]::before { display: none; }
+
+.nav-links-rule .nav-link {
+	border-radius: 0;
+	border-bottom: var(--border-2) solid transparent;
+	padding-inline: var(--space-2);
+}
+
+.nav-links-rule .nav-link[aria-current] { border-bottom-color: var(--accent); }
+
+/* Soft: a sunken wash. For dense bars where neither dot nor rule survives. */
+.nav-links-soft .nav-link[aria-current]::before { display: none; }
+.nav-links-soft .nav-link[aria-current] { background: var(--bg-sunken); }
+
+/* ── Dropdown ────────────────────────────────────────────────────────────────
+   <details class="nav-menu">
+     <summary class="nav-link">Learn</summary>
+     <div class="nav-menu__panel"> … .dropdown__item … </div>
+   </details>
+   ------------------------------------------------------------------------- */
+
+.nav-menu { position: relative; }
+
+.nav-menu > summary {
+	list-style: none;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.nav-menu > summary::-webkit-details-marker { display: none; }
+
+.nav-menu > summary::after {
+	content: '';
+	width: 0.35rem;
+	height: 0.35rem;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(45deg) translateY(-1px);
+	transition: var(--t-transform);
+	opacity: 0.6;
+}
+
+.nav-menu[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
+
+.nav-menu__panel {
+	position: absolute;
+	top: calc(100% + var(--space-3));
+	left: 50%;
+	transform: translateX(-50%);
+	min-width: 14rem;
+	z-index: var(--z-popover, 40);
+	background: var(--bg-surface);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-3);
+	padding: var(--space-2);
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	animation: nav-drop var(--dur-2) var(--ease-out);
+}
+
+@keyframes nav-drop {
+	from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+}
+
+/* ── Mega panel ──────────────────────────────────────────────────────────────
+   A full-width sheet under the island. Columns of links plus one featured
+   card, because a mega menu that is only links is a dropdown wearing a costume.
+   ------------------------------------------------------------------------- */
+
+.nav-mega { position: static; }        /* so the panel can span the island */
+
+.nav-mega__panel {
+	position: absolute;
+	top: calc(100% + var(--space-3));
+	left: 0;
+	right: 0;
+	z-index: var(--z-popover, 40);
+	background: var(--bg-surface);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-sheet);
+	box-shadow: var(--shadow-4);
+	padding: var(--space-6);
+	display: grid;
+	gap: var(--space-6);
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	animation: nav-mega-in var(--dur-2) var(--ease-out);
+	transform-origin: top center;
+}
+
+@keyframes nav-mega-in {
+	from { opacity: 0; transform: translateY(-8px) scaleY(0.98); }
+}
+
+.nav-mega__col { display: flex; flex-direction: column; gap: var(--space-1); }
+
+.nav-mega__title {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-bottom: var(--space-2);
+}
+
+.nav-mega__link {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-3);
+	padding: var(--space-2);
+	border-radius: var(--radius-md);
+	text-decoration: none;
+	color: var(--fg-default);
+	transition: var(--t-colors);
+}
+
+.nav-mega__link:hover { background: var(--bg-sunken); }
+.nav-mega__link .icon { margin-top: 2px; opacity: 0.7; flex: none; }
+.nav-mega__link b { display: block; font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+.nav-mega__link span { display: block; font-size: var(--text-xs); color: var(--fg-subtle); }
+
+/* The featured cell — one promoted thing, on the sunken surface. */
+.nav-mega__feature {
+	grid-column: span 1;
+	background: var(--bg-sunken);
+	border-radius: var(--radius-lg);
+	padding: var(--space-4);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	text-decoration: none;
+	color: inherit;
+}
+
+.nav-mega__feature img,
+.nav-mega__feature .pattern {
+	border-radius: var(--radius-md);
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	width: 100%;
+}
+
+/* ── Mobile sheet ────────────────────────────────────────────────────────────
+   <dialog class="nav-sheet"> — opens like a lens: the panel irises out from
+   the button, a scanline sweeps down, and the items rack into focus one after
+   another. All CSS; <dialog> gives focus trapping and ESC.
+   ------------------------------------------------------------------------- */
+
+.nav-sheet {
+	margin: 0;
+	inset: 0;
+	width: 100%;
+	max-width: none;
+	height: 100dvh;
+	max-height: none;
+	border: 0;
+	padding: 0;
+	background: var(--bg-canvas);
+	color: var(--fg-default);
+	overflow: hidden;
+}
+
+.nav-sheet::backdrop { background: var(--bg-scrim); }
+
+.nav-sheet[open] { animation: nav-iris var(--dur-4) var(--ease-out); }
+
+/* The iris: a circular reveal from the top-right, where the button lives. */
+@keyframes nav-iris {
+	from { clip-path: circle(0% at calc(100% - 2.5rem) 2.5rem); }
+	to   { clip-path: circle(150% at calc(100% - 2.5rem) 2.5rem); }
+}
+
+.nav-sheet__in {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: var(--space-5);
+	position: relative;
+}
+
+/* The scanline that sweeps the panel once on open — the "recording started"
+   beat. Purely decorative, and gone under reduced motion. */
+.nav-sheet__scan {
+	position: absolute;
+	inset-inline: 0;
+	top: 0;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--accent), transparent);
+	opacity: 0.9;
+	animation: nav-scan 900ms var(--ease-out) 120ms both;
+	pointer-events: none;
+}
+
+@keyframes nav-scan {
+	from { transform: translateY(0); opacity: 0; }
+	20%  { opacity: 0.9; }
+	to   { transform: translateY(100dvh); opacity: 0; }
+}
+
+.nav-sheet__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	flex: none;
+	padding-block: var(--space-2);
+}
+
+.nav-sheet__links {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	margin-top: var(--space-8);
+	flex: 1;
+	overflow-y: auto;
+}
+
+/* Each row racks into focus, staggered — like a lens finding its subject. */
+.nav-sheet__links > * {
+	animation: nav-rack var(--dur-3) var(--ease-out) both;
+	animation-delay: calc(120ms + var(--i, 0) * 45ms);
+}
+
+@keyframes nav-rack {
+	from { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+	to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.nav-sheet__link {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	padding: var(--space-4) var(--space-2);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+	color: var(--fg-default);
+	text-decoration: none;
+}
+
+.nav-sheet__link .icon { width: 1.25rem; height: 1.25rem; opacity: 0.5; flex: none; }
+
+.nav-sheet__link[aria-current] { color: var(--accent); }
+.nav-sheet__link[aria-current] .icon { opacity: 1; }
+
+.nav-sheet__foot {
+	flex: none;
+	padding-top: var(--space-5);
+	border-top: var(--border-hair) solid var(--line-default);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav-sheet[open] { animation: none; }
+	.nav-sheet__scan { display: none; }
+	.nav-sheet__links > * { animation: none; }
+	.nav-menu__panel,
+	.nav-mega__panel { animation: none; }
+}
+
+/* ── Contextual bars ─────────────────────────────────────────────────────────
+   A container module replaces the site bar with chrome for the thing you are
+   inside. One base, `.nav-context`, plus the slots every player needs.
+   ------------------------------------------------------------------------- */
+
+.nav-context {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	position: relative;
+	overflow: hidden;
+}
+
+/* The middle slot: what you are in, and where you are in it. */
+.nav-context__where {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+.nav-context__title {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-semibold);
+	letter-spacing: normal;
+	text-transform: none;
+	color: var(--fg-default);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.nav-context__pos { flex: none; font-variant-numeric: tabular-nums; }
+
+/* The progress rail welded to the bottom edge. Drive it with --value. */
+.nav-rail {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: var(--border-2);
+	width: var(--value, 0%);
+	background: var(--accent);
+	border-radius: var(--radius-pill);
+	transition: width var(--dur-4) var(--ease-out);
+}
+
+/* Per-collection skins. Each one changes only what the medium demands —
+   never the geometry, so cutting between them never moves the chrome. */
+
+/* Course & guide — paper, a progress rail, prev/next. */
+.nav-course,
+.nav-guide { background: color-mix(in srgb, var(--bg-canvas) 94%, transparent); }
+
+/* Lesson — same as course, but the accent marks that you are mid-lesson. */
+.nav-lesson .nav-context__pos { color: var(--accent); }
+
+/* Series & episode — always ink. It is cinema, and cinema is dark. */
+.nav-episode {
+	background: var(--ink-950);
+	border-color: rgb(255 255 255 / 0.12);
+	color: var(--ink-50);
+	color-scheme: dark;
+}
+
+.nav-episode .nav-context__title { color: var(--pure-white, #fff); }
+.nav-episode .nav-context__where { color: rgb(255 255 255 / 0.6); }
+
+/* Video — ink too, but keeps the site links: you are still browsing. */
+.nav-video .nav-context__pos { font-family: var(--font-slate); }
+
+/* Travel — the trip's name leads, the day counts. */
+.nav-trip .nav-context__pos::before { content: 'DAY '; opacity: 0.6; }
+
+/* Docs — dense, so the active link takes the rule rather than the dot. */
+.nav-docs { background: var(--bg-surface); }
+
+/* Shop — the cart is the only action that matters. */
+.nav-shop .nav-context__where { justify-content: flex-end; }
+
+/* ── Hamburger ───────────────────────────────────────────────────────────────
+   The button that opens the sheet. Three bars that become an X — one element,
+   two pseudo-elements, no icon font and no swapped SVG.
+
+     <button class="nav-burger" aria-expanded="false" aria-controls="menu">
+       <span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
+       <span class="u-sr-only">Menu</span>
+     </button>
+
+   Drive it with aria-expanded — the same attribute a screen reader reads.
+   ------------------------------------------------------------------------- */
+
+.nav-burger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--control-sm);
+	height: var(--control-sm);
+	padding: 0;
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-full);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	cursor: pointer;
+	transition: var(--t-colors);
+}
+
+.nav-burger:hover { border-color: var(--line-strong); background: var(--bg-sunken); }
+
+.nav-burger__box { position: relative; width: 1rem; height: 0.75rem; }
+
+.nav-burger__bars,
+.nav-burger__bars::before,
+.nav-burger__bars::after {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 1.5px;
+	background: currentColor;
+	border-radius: var(--radius-pill);
+	transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-1) linear;
+}
+
+.nav-burger__bars { top: calc(50% - 0.75px); }
+.nav-burger__bars::before { content: ''; top: -5px; }
+.nav-burger__bars::after { content: ''; top: 5px; }
+
+/* Open: the middle bar vanishes, the outer two cross. */
+.nav-burger[aria-expanded='true'] .nav-burger__bars { background: transparent; }
+.nav-burger[aria-expanded='true'] .nav-burger__bars::before { transform: translateY(5px) rotate(45deg); }
+.nav-burger[aria-expanded='true'] .nav-burger__bars::after { transform: translateY(-5px) rotate(-45deg); }
+
+/* Squeeze — the bars pull to the centre before crossing. */
+.nav-burger-squeeze .nav-burger__bars::before,
+.nav-burger-squeeze .nav-burger__bars::after { transition-duration: var(--dur-3); }
+.nav-burger-squeeze[aria-expanded='true'] .nav-burger__bars::before,
+.nav-burger-squeeze[aria-expanded='true'] .nav-burger__bars::after { width: 90%; left: 5%; }
+
+/* Aperture — the bars rotate as one, like a lens closing. Pairs with the
+   sheet's iris. */
+.nav-burger-aperture .nav-burger__box { transition: transform var(--dur-3) var(--ease-spring); }
+.nav-burger-aperture[aria-expanded='true'] .nav-burger__box { transform: rotate(90deg); }
+
+/* Bare — no ring, for bars that already have a border. */
+.nav-burger-bare { border: 0; background: none; }
+
+/* Labelled — the word beside the bars, on roomy bars. */
+.nav-burger-labelled {
+	width: auto;
+	border-radius: var(--radius-pill);
+	padding-inline: var(--space-3);
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+}
+
+/* ── Responsive collapse ─────────────────────────────────────────────────────
+   Put `.nav-collapse` on the island: the link row hides and the burger
+   appears below the breakpoint. Above it, the burger is gone and the links
+   are back — no duplicate markup, no JS.
+   ------------------------------------------------------------------------- */
+
+.nav-collapse .nav-burger { display: none; }
+
+@media (max-width: 48rem) {
+	.nav-collapse .nav-links { display: none; }
+	.nav-collapse .nav-burger { display: inline-flex; }
+}

@@ -1,0 +1,70 @@
+<header class="sec-head">
+				<span class="sec-num">08</span>
+				<h2 class="t-h1">Background patterns</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					16 textures, pure CSS, zero requests. Each paints on a
+					<code class="t-code">::before</code> layer, so the element keeps its own
+					background, border and content. Compose size · ink · fade.
+				</p>
+			</header>
+
+			<div class="grid-auto-sm">
+				<div class="pattern-tile pattern pattern-grid"><code>pattern-grid</code></div>
+				<div class="pattern-tile pattern pattern-blueprint pattern-sm"><code>pattern-blueprint</code></div>
+				<div class="pattern-tile pattern pattern-dots"><code>pattern-dots</code></div>
+				<div class="pattern-tile pattern pattern-halftone"><code>pattern-halftone</code></div>
+				<div class="pattern-tile pattern pattern-golden pattern-craft"><code>pattern-golden</code></div>
+				<div class="pattern-tile pattern pattern-scanline"><code>pattern-scanline</code></div>
+				<div class="pattern-tile pattern pattern-timecode"><code>pattern-timecode</code></div>
+				<div class="pattern-tile pattern pattern-filmstrip pattern-lg"><code>pattern-filmstrip</code></div>
+				<div class="pattern-tile pattern pattern-hatch"><code>pattern-hatch</code></div>
+				<div class="pattern-tile pattern pattern-crosshatch"><code>pattern-crosshatch</code></div>
+				<div class="pattern-tile pattern pattern-waveform"><code>pattern-waveform</code></div>
+				<div class="pattern-tile pattern pattern-rays"><code>pattern-rays</code></div>
+				<div class="pattern-tile pattern pattern-arcs pattern-xl"><code>pattern-arcs</code></div>
+				<div class="pattern-tile pattern pattern-glow"><code>pattern-glow</code></div>
+				<div class="pattern-tile pattern pattern-mesh"><code>pattern-mesh</code></div>
+				<div class="pattern-tile pattern pattern-noise" style="background:var(--ink-950)"><code>pattern-noise</code></div>
+				<div class="pattern-tile pattern pattern-iso"><code>pattern-iso</code></div>
+				<div class="pattern-tile pattern pattern-plus pattern-lg"><code>pattern-plus</code></div>
+				<div class="pattern-tile pattern pattern-stripes"><code>pattern-stripes</code></div>
+				<div class="pattern-tile pattern pattern-checker pattern-sm"><code>pattern-checker</code></div>
+				<div class="pattern-tile pattern pattern-topo pattern-xl"><code>pattern-topo</code></div>
+				<div class="pattern-tile pattern pattern-circuit"><code>pattern-circuit</code></div>
+				<div class="pattern-tile pattern pattern-eq"><code>pattern-eq</code></div>
+				<div class="pattern-tile pattern pattern-sprocket pattern-lg"><code>pattern-sprocket</code></div>
+				<div class="pattern-tile pattern pattern-matrix"><code>pattern-matrix</code></div>
+				<div class="pattern-tile pattern pattern-spotlight"><code>pattern-spotlight</code></div>
+				<div class="pattern-tile pattern pattern-ruler"><code>pattern-ruler</code></div>
+				<div class="pattern-tile pattern pattern-corners pattern-xl"><code>pattern-corners</code></div>
+			</div>
+
+			<h3 class="t-h4" style="margin:var(--space-10) 0 var(--space-4)">Size changes the line, not just the scale</h3>
+			<div class="grid-4 gap-4">
+				<div class="pattern-tile pattern pattern-grid pattern-xs"><code>xs · hairline</code></div>
+				<div class="pattern-tile pattern pattern-grid pattern-sm"><code>sm</code></div>
+				<div class="pattern-tile pattern pattern-grid pattern-lg"><code>lg · 1.5px</code></div>
+				<div class="pattern-tile pattern pattern-grid pattern-xl"><code>xl · 2px</code></div>
+				<div class="pattern-tile pattern pattern-scanline-fine"><code>scanline-fine</code></div>
+				<div class="pattern-tile pattern pattern-scanline"><code>scanline</code></div>
+				<div class="pattern-tile pattern pattern-scanline-coarse"><code>scanline-coarse</code></div>
+				<div class="pattern-tile pattern pattern-grid pattern-lg pattern-dashed"><code>+ dashed</code></div>
+			</div>
+
+			<h3 class="t-h4" style="margin:var(--space-10) 0 var(--space-4)">Platform accents</h3>
+			<div class="surface demo-tile">
+				<div class="demo cluster-lg" style="align-items:center">
+					<span class="ring-ig" style="width:4rem;height:4rem"><span class="place-center" style="width:100%;height:100%;background:var(--bg-inverse);color:var(--fg-on-inverse)"><span class="logo-s" style="--logo-size:1rem;--logo-color:var(--fg-on-inverse)">S</span></span></span>
+					<span class="ring-live" style="width:4rem;height:4rem"><span class="place-center" style="width:100%;height:100%;background:var(--bg-inverse);border-radius:50%"><span class="logo-dot" style="font-size:1rem"></span></span></span>
+					<span class="t-small">Instagram ring · live ring — both are borders, never fills, so the avatar inside stays untouched.</span>
+				</div>
+				<p class="spec"><b>.ring-ig</b> · <b>.ring-live</b></p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<div class="demo pattern pattern-grid pattern-lg fade-corners" style="min-height:9rem;display:grid;align-content:center">
+					<p class="t-h3">Compose: size, ink, fade.</p>
+					<p class="t-small" style="margin-top:8px">A pattern should never end on a hard edge.</p>
+				</div>
+				<p class="spec"><b>.pattern .pattern-grid .pattern-lg .fade-corners</b> — also <b>--sm/xs/xl</b> · <b>-signal/-craft</b> · <b>.fade-b/.fade-t/.fade-center</b></p>
+			</div>

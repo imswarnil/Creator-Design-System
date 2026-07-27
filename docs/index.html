@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Creator Design System — Frame &amp; Signal</title>
+<meta name="description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site." />
+<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/2-elements/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/3-components/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/5-sections/index.css?v=cds10" />
+<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds10" />
+<link rel="stylesheet" href="./preview.css?v=cds10" />
+<script src="./preview.js?v=cds10" defer></script>
+<style>
+	.lp-nav { position: sticky; top: 0; z-index: var(--z-nav); background: color-mix(in srgb, var(--bg-canvas) 88%, transparent); backdrop-filter: saturate(160%) blur(12px); border-bottom: var(--border-hair) solid var(--line-default); }
+	.lp-nav__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3); }
+	.lp-nav nav { display: none; }
+	@media (min-width: 56rem) { .lp-nav nav { display: flex; } }
+	.lp-hero { display: grid; gap: var(--space-10); align-items: center; padding-block: var(--section-lg); }
+	@media (min-width: 64rem) { .lp-hero { grid-template-columns: 1fr 1fr; } }
+	.lp-hero__title { font-family: var(--font-display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }
+	.lp-hero__title em { font-style: normal; color: var(--accent); }
+	.lp-illo { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }
+	@keyframes lp-scan { 0%,100% { transform: translateY(0); } 50% { transform: translateY(160px); } }
+	@keyframes lp-blink { 0%,70%,100% { opacity: 1; } 82% { opacity: .2; } }
+	@keyframes lp-type { 0% { width: 0; } 55%,100% { width: 212px; } }
+	@keyframes lp-orbit { to { transform: rotate(360deg); } }
+	@keyframes lp-float { 0%,100% { transform: translate(505px, 120px); } 50% { transform: translate(505px, 108px); } }
+	.lp-scan { animation: lp-scan 6s var(--ease-inout) infinite; }
+	.lp-rec { animation: lp-blink 2.4s linear infinite; }
+	.lp-type { animation: lp-type 6s var(--ease-inout) infinite; }
+	.lp-orbit { transform-origin: 340px 150px; animation: lp-orbit 26s linear infinite; }
+	.lp-chip { animation: lp-float 5s var(--ease-inout) infinite; }
+	@media (prefers-reduced-motion: reduce) { .lp-illo * { animation: none !important; } }
+	.lp-feats { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(16rem,100%), 1fr)); }
+	.lp-feat { border: var(--border-hair) solid var(--line-default); border-radius: var(--radius-card); background: var(--bg-surface); padding: var(--space-5); }
+	.lp-feat__ico { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); background: var(--accent-soft); color: var(--accent-soft-fg); margin-bottom: var(--space-3); }
+	.lp-feat__icon { width: 1.25rem; height: 1.25rem; }
+	.lp-install .tabs { margin-bottom: var(--space-4); }
+	[data-gh-stars] { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="lp">
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 5.5L20 7"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7l1.2-2h6.2l1.2 2h1.7A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"/><circle cx="12" cy="12.5" r="3.2"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8.5 8.5-4 3.7 4 3.8M15.5 8.5l4 3.7-4 3.8M13.5 5l-3 14"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M20 5 4 11.5l5.5 2M20 5l-3.5 14-3-6.5M20 5 9.5 13.5v4.2l3-3.7"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1Z"/><path d="m13.5 7.5 3 3"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m8.8 10.8 6.4-3.1M8.8 13.2l6.4 3.1"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></symbol>
+</svg>
+
+<header class="lp-nav">
+	<div class="container lp-nav__in">
+		<span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+		<nav class="cluster-sm">
+			<a class="nav-link" href="./introduction.html">Docs</a>
+			<a class="nav-link" href="./components.html">Components</a>
+			<a class="nav-link" href="./showcase.html">Showcase</a>
+			<a class="nav-link" href="./templates.html">Templates</a>
+		</nav>
+		<div class="cluster-sm">
+			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
+				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
+			</button>
+			<a class="btn btn-secondary btn-sm" href="https://github.com/swarnil/Creator-Design-System"
+			   rel="noopener" target="_blank">
+				<svg class="icon btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+				GitHub <span class="badge" data-gh-stars>★</span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<main id="main">
+	<section class="container lp-hero pattern pattern-grid pattern-lg fade-corners">
+		<div class="lp-hero__copy">
+			<span class="eyebrow"><span class="dot dot-sm dot-live"></span> MIT · v0.1 · dependency-free CSS</span>
+			<h1 class="lp-hero__title">The design system for people who <em>make things</em>.</h1>
+			<p class="t-lead u-mt-5">
+				Videos, courses, build logs, trips — every shape a creator publishes,
+				decided once in tokens and reused everywhere. Almost monochrome, so
+				one colour can mean <em class="t-accent">live</em>.
+			</p>
+			<div class="cluster u-mt-8">
+				<a class="btn btn-primary btn-lg" href="./introduction.html">Read the docs</a>
+				<a class="btn btn-secondary btn-lg" href="./components.html">Browse components</a>
+			</div>
+			<p class="t-slate-sm u-mt-5" style="color:var(--fg-faint)">
+				No framework · no runtime · no build step required
+			</p>
+		</div>
+		<div class="lp-hero__art">
+<svg class="lp-illo" viewBox="0 0 680 300" role="img"
+     aria-label="A viewfinder framing a page being built: a scanning line, a record light, and a title typing itself">
+	<rect width="680" height="300" fill="var(--bg-sunken)"/>
+	<g stroke="var(--line-default)" stroke-width="1">
+		<path d="M0 60h680M0 150h680M0 240h680M170 0v300M340 0v300M510 0v300"/>
+	</g>
+	<g class="lp-orbit" fill="none" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="4 7">
+		<circle cx="340" cy="150" r="112"/>
+	</g>
+	<g fill="none" stroke="var(--fg-default)" stroke-width="4.5" stroke-linecap="round">
+		<path d="M212 66v-14a12 12 0 0 1 12-12h18M468 66v-14a12 12 0 0 0-12-12h-18M212 234v14a12 12 0 0 0 12 12h18M468 234v14a12 12 0 0 1-12 12h-18"/>
+	</g>
+	<g class="lp-scan"><path d="M222 72h236" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/></g>
+	<circle class="lp-rec" cx="458" cy="52" r="8" fill="var(--accent)"/>
+	<rect x="222" y="168" width="212" height="16" rx="4" fill="var(--line-default)"/>
+	<rect class="lp-type" x="222" y="168" height="16" rx="4" fill="var(--fg-default)"/>
+	<rect x="222" y="196" width="150" height="10" rx="3" fill="var(--line-default)"/>
+	<text x="222" y="156" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="2.5" fill="var(--fg-faint)">TAKE 47 · 00:12:47</text>
+	<g class="lp-chip" transform="translate(505 120)">
+		<rect width="120" height="26" rx="13" fill="var(--bg-surface)" stroke="var(--line-default)"/>
+		<circle cx="16" cy="13" r="4" fill="var(--accent)"/>
+		<text x="30" y="17" font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="1.6" fill="var(--fg-subtle)">--accent</text>
+	</g>
+</svg></div>
+	</section>
+
+	<section class="container section">
+		<div class="sec-head-row">
+			<div><span class="sec-head-row__kicker">Why it exists</span>
+			<h2 class="sec-head-row__title">Opinions, so you can stop having them</h2></div>
+		</div>
+		<div class="lp-feats"><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/><path d="M12 12v9M12 12 4 7.5M12 12l8-4.5"/></svg></span><h3 class="t-h4">Token-first</h3><p class="t-small u-fg-subtle u-mt-2">Every value is a variable off a ladder. Change three and the whole site rebrands — site, player, thumbnails.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 4"/></svg></span><h3 class="t-h4">One rationed accent</h3><p class="t-small u-fg-subtle u-mt-2">Near-monochrome ink so a single colour can mean <em>live</em>. Attention is budgeted, not sprayed.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><rect x="3.5" y="4.5" width="17" height="13" rx="2"/><path d="M3.5 8.5h17M12 17.5V20M8 20h8"/></svg></span><h3 class="t-h4">The platform first</h3><p class="t-small u-fg-subtle u-mt-2">&lt;details&gt;, &lt;dialog&gt;, the Popover API and native inputs. Keyboard and focus come free.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg></span><h3 class="t-h4">Honest motion</h3><p class="t-small u-fg-subtle u-mt-2">Under 200ms for feedback, one property at a time, and every animation off under reduced-motion.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></span><h3 class="t-h4">Light and dark</h3><p class="t-small u-fg-subtle u-mt-2">Both themes from the same variables. Ink and paper flip; the record-red is the one hue that stays.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m3.5 15 4.5-4 4 3.5 3-2.5 5.5 4.5"/><circle cx="9" cy="9.5" r="1.3"/></svg></span><h3 class="t-h4">Site and channel</h3><p class="t-small u-fg-subtle u-mt-2">The same tokens export to YouTube thumbnails, banners and Instagram posts. One brand, not two.</p></div></div>
+	</section>
+
+	<section class="container section">
+		<div class="grid-2" style="gap:var(--space-10);align-items:center">
+			<div>
+				<span class="sec-head-row__kicker">Install</span>
+				<h2 class="sec-head-row__title u-mb-4">Three lines, any stack</h2>
+				<p class="u-fg-subtle" style="max-width:var(--measure-ui)">
+					It is a stylesheet. Use it with plain CSS, SCSS, Tailwind, Ghost,
+					Astro or a single HTML file — then override three variables and
+					it is yours.
+				</p>
+				<a class="t-link fx-shift u-inline-block u-mt-4" href="./install.html">
+					Full install guide <span class="fx-shift__icon">→</span></a>
+			</div>
+			<div class="lp-install"><div class="tabs" role="tablist" aria-label="Install"><button class="tab" role="tab" aria-selected="true" data-install-tab="npm">npm</button><button class="tab" role="tab" aria-selected="false" data-install-tab="cdn">CDN</button><button class="tab" role="tab" aria-selected="false" data-install-tab="css">Download</button></div><div data-install-panel="npm"><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">npm install creator-design-system</span></code></pre></figure><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class='tok-key'>@import</span> <span class='tok-str'>&quot;creator-design-system&quot;</span>;</span></code></pre></figure></div><div data-install-panel="cdn" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">&lt;<span class='tok-key'>link</span> rel=<span class='tok-str'>&quot;stylesheet&quot;</span></span><span class="ln">      href=<span class='tok-str'>&quot;https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css&quot;</span>&gt;</span></code></pre></figure></div><div data-install-panel="css" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">curl -O https://unpkg.com/creator-design-system/dist/creator.css</span><span class="ln"><span class='tok-com'># link it. that is the whole installation.</span></span></code></pre></figure></div></div>
+		</div>
+	</section>
+
+	<section class="container section">
+		<div class="sec-head-row">
+			<div><span class="sec-head-row__kicker">Built with it</span>
+			<h2 class="sec-head-row__title">Showcase</h2></div>
+			<a class="sec-head-row__more fx-shift" href="./showcase.html">All sites <span class="fx-shift__icon">→</span></a>
+		</div>
+		<div class="deck-c"><a class="card" href="https://imswarnil.com" rel="noopener" target="_blank"><span class="card__media pattern pattern-grid pattern-media"></span><span class="card__body"><span class="card__meta">Swarnil Singhai</span><span class="card__title">imswarnil.com</span><span class="card__excerpt">The site the system was built for — videos, courses, build logs and trips under one identity.</span></span></a></div>
+	</section>
+
+	<section class="container section">
+		<div class="sec-head-row">
+			<div><span class="sec-head-row__kicker">Start from a finished thing</span>
+			<h2 class="sec-head-row__title">Templates</h2></div>
+			<a class="sec-head-row__more fx-shift" href="./templates.html">All templates <span class="fx-shift__icon">→</span></a>
+		</div>
+		<div class="stack"><a class="card card-row" href="https://imswarnil.com/shop/" rel="noopener" target="_blank"><span class="card__body"><span class="card__meta">Ghost · <b>$49</b></span><span class="card__title">Swarnil — Ghost theme</span><span class="card__excerpt">The full creator theme: videos, courses with syllabus, web series, projects with build logs, travel and docs.</span></span></a></div>
+	</section>
+
+	<section class="container section">
+		<div class="cta pattern pattern-grid" data-surface="inverse">
+			<span class="cta__kicker">Open source</span>
+			<h2 class="cta__title">Free forever. <em>Sponsored</em> keeps it maintained.</h2>
+			<p class="cta__body">
+				MIT-licensed and built in public. If it saved you a weekend, sponsorship
+				pays for the next component — and templates fund the rest.
+			</p>
+			<div class="cta__actions">
+				<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/swarnil" rel="noopener" target="_blank">Sponsor the project</a>
+				<a class="btn btn-secondary btn-lg" href="https://github.com/swarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
+			</div>
+			<p class="cta__fine">Or contribute — issues and pull requests are genuinely welcome.</p>
+		</div>
+	</section>
+
+	<footer class="container footer">
+		<div class="footer__grid">
+			<div class="footer__brand">
+				<span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span>
+				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
+			</div>
+			<div><h2 class="footer__head">Docs</h2><div class="footer__links">
+				<a href="./introduction.html">Introduction</a><a href="./principles.html">Principles</a>
+				<a href="./install.html">Install</a><a href="./components.html">Components</a></div></div>
+			<div><h2 class="footer__head">Project</h2><div class="footer__links">
+				<a href="https://github.com/swarnil/Creator-Design-System" rel="noopener">GitHub</a>
+				<a href="https://github.com/swarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
+				<a href="https://github.com/swarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
+			<div><h2 class="footer__head">More</h2><div class="footer__links">
+				<a href="./showcase.html">Showcase</a><a href="./templates.html">Templates</a>
+				<a href="https://github.com/sponsors/swarnil" rel="noopener">Sponsor</a></div></div>
+		</div>
+		<div class="footer__signoff">
+			<span>MIT © 2026 Swarnil Singhai</span>
+			<span class="footer__rec"><span class="dot dot-sm dot-live"></span> still rolling</span>
+		</div>
+	</footer>
+</main>
+
+<script>
+(function () {
+	var root = document.documentElement, btn = document.getElementById('themeToggle'),
+		label = document.getElementById('themeLabel');
+	var sync = function () {
+		var d = root.getAttribute('data-theme') === 'dark';
+		label.textContent = d ? 'Dark' : 'Light';
+		btn.setAttribute('aria-pressed', String(d));
+	};
+	try { var t = localStorage.getItem('cds-theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+	sync();
+	btn.addEventListener('click', function () {
+		var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		root.setAttribute('data-theme', next);
+		try { localStorage.setItem('cds-theme', next); } catch (e) {}
+		sync();
+	});
+
+	// Install tabs
+	document.querySelectorAll('[data-install-tab]').forEach(function (tab) {
+		tab.addEventListener('click', function () {
+			var k = tab.getAttribute('data-install-tab');
+			document.querySelectorAll('[data-install-tab]').forEach(function (t) {
+				t.setAttribute('aria-selected', String(t === tab));
+			});
+			document.querySelectorAll('[data-install-panel]').forEach(function (p) {
+				p.hidden = p.getAttribute('data-install-panel') !== k;
+			});
+		});
+	});
+
+	// Live star count — falls back to the star glyph if the API is unreachable.
+	var stars = document.querySelector('[data-gh-stars]');
+	if (stars) {
+		fetch('https://api.github.com/repos/swarnil/Creator-Design-System')
+			.then(function (r) { return r.ok ? r.json() : null; })
+			.then(function (d) {
+				if (d && typeof d.stargazers_count === 'number') {
+					stars.textContent = '★ ' + d.stargazers_count.toLocaleString();
+				}
+			})
+			.catch(function () {});
+	}
+})();
+</script>
+</body>
+</html>

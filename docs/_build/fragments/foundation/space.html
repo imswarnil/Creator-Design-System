@@ -1,0 +1,69 @@
+<header class="sec-head">
+				<span class="sec-num">04</span>
+				<h2 class="t-h1">Spacing</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					4px base unit, 8px rhythm, closed ladders. If the value you need isn't
+					on the ladder, the ladder is wrong — fix the ladder.
+				</p>
+			</header>
+
+			<div class="surface" style="overflow:hidden">
+				<div class="demo stack-sm">
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-1</span><div class="bar" style="width:4px"></div><span class="sw__val">4px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-2</span><div class="bar" style="width:8px"></div><span class="sw__val">8px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-3</span><div class="bar" style="width:12px"></div><span class="sw__val">12px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-4</span><div class="bar" style="width:16px"></div><span class="sw__val">16px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-6</span><div class="bar" style="width:24px"></div><span class="sw__val">24px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-8</span><div class="bar" style="width:32px"></div><span class="sw__val">32px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-12</span><div class="bar" style="width:48px"></div><span class="sw__val">48px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-16</span><div class="bar" style="width:64px"></div><span class="sw__val">64px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-24</span><div class="bar" style="width:96px"></div><span class="sw__val">96px</span></div>
+					<div class="cluster" style="align-items:center"><span class="t-slate" style="width:5rem">space-32</span><div class="bar" style="width:128px"></div><span class="sw__val">128px</span></div>
+				</div>
+				<p class="spec"><b>--space-*</b> · section rhythm is fluid: <b>--section-sm/md/lg</b></p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<div class="demo">
+					<div class="grid-4 gap-4">
+						<div class="grid-demo"><div>grid-4</div></div>
+						<div class="grid-demo"><div>grid-4</div></div>
+						<div class="grid-demo"><div>grid-4</div></div>
+						<div class="grid-demo"><div>grid-4</div></div>
+					</div>
+					<div class="grid-rail gap-4" style="margin-top:var(--space-4)">
+						<div class="grid-demo"><div>content</div></div>
+						<div class="grid-demo"><div>rail 18rem</div></div>
+					</div>
+				</div>
+				<p class="spec"><b>.grid-2/3/4/6</b> · <b>.grid-rail</b> · <b>.grid-editorial</b> (text · wide · full) · <b>.gap-*</b> · <b>.flow</b> — gap is the only spacing mechanism; siblings never carry margins</p>
+			</div>
+
+			<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Radius</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">A closed ladder plus four named intents. Custom radii are forbidden — if nothing fits, the ladder is wrong.</p>
+
+			<div class="surface" style="overflow:hidden">
+				<div class="demo cluster cluster-lg">
+					<div><div class="rad" style="border-radius:var(--radius-sm)"></div><p class="t-slate" style="margin-top:8px">sm · 4</p></div>
+					<div><div class="rad" style="border-radius:var(--radius-md)"></div><p class="t-slate" style="margin-top:8px">md · 8</p></div>
+					<div><div class="rad" style="border-radius:var(--radius-lg)"></div><p class="t-slate" style="margin-top:8px">lg · 12</p></div>
+					<div><div class="rad" style="border-radius:var(--radius-xl)"></div><p class="t-slate" style="margin-top:8px">xl · 16</p></div>
+					<div><div class="rad" style="border-radius:var(--radius-2xl)"></div><p class="t-slate" style="margin-top:8px">2xl · 24</p></div>
+					<div><div class="rad" style="border-radius:var(--radius-3xl)"></div><p class="t-slate" style="margin-top:8px">3xl · 32</p></div>
+					<div><div class="rad" style="border-radius:var(--radius-full)"></div><p class="t-slate" style="margin-top:8px">full</p></div>
+				</div>
+				<p class="spec"><b>--radius-control</b> = md · <b>--radius-card</b> = xl · <b>--radius-media</b> = lg · <b>--radius-sheet</b> = 2xl — custom radii are forbidden</p>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<table class="spec-table">
+					<thead><tr><th>Container</th><th>Width</th><th>Used by</th></tr></thead>
+					<tbody>
+						<tr><td><code class="t-code">--w-prose</code></td><td>44rem</td><td>articles, lessons</td></tr>
+						<tr><td><code class="t-code">--w-narrow</code></td><td>56rem</td><td>forms, sign-in</td></tr>
+						<tr><td><code class="t-code">--w-site</code></td><td>71rem</td><td>the default column</td></tr>
+						<tr><td><code class="t-code">--w-wide</code></td><td>82rem</td><td>galleries, 4-up grids</td></tr>
+					</tbody>
+				</table>
+				<p class="spec"><b>--gutter</b> clamp(16px → 32px) — the nav island and the content column derive their edges from the same two tokens</p>
+			</div>

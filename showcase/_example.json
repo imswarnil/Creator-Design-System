@@ -1,0 +1,10 @@
+{
+	"name": "Example Creator",
+	"url": "https://example.com",
+	"author": "Your Name",
+	"authorUrl": "https://example.com/about",
+	"description": "A one-sentence description of the site, 120 characters or fewer.",
+	"tags": ["ghost", "portfolio"],
+	"screenshot": "",
+	"accent": "#f04e2e"
+}

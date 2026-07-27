@@ -1,0 +1,298 @@
+/* =============================================================================
+   12 · FORMS
+   Every control is the same height as a button, so a field and a submit sit on
+   one line without shimming. Errors say what happened AND how to fix it.
+   ========================================================================== */
+
+/* ── Field wrapper ───────────────────────────────────────────────────────── */
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+
+.label {
+	font-size: var(--text-sm);
+	font-weight: var(--weight-semibold);
+	color: var(--fg-default);
+}
+
+.label-optional {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	font-weight: var(--weight-regular);
+	margin-left: var(--space-2);
+}
+
+.hint {
+	font-size: var(--text-xs);
+	color: var(--fg-subtle);
+}
+
+/* Error copy. Never just "invalid" — say what to do. */
+.error-text {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	font-size: var(--text-xs);
+	color: var(--danger-fg);
+}
+
+.error-text::before {
+	content: '!';
+	display: inline-grid;
+	place-items: center;
+	width: 1rem;
+	height: 1rem;
+	flex: none;
+	border-radius: var(--radius-full);
+	background: var(--danger-line);
+	color: var(--pure-white);
+	font-family: var(--font-slate);
+	font-size: 10px;
+	line-height: 1;
+}
+
+/* ── Text controls ───────────────────────────────────────────────────────── */
+
+.input,
+.textarea,
+.select {
+	width: 100%;
+	height: var(--control-md);
+	padding-inline: var(--space-3);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-control);
+	background: var(--bg-sunken);
+	color: var(--fg-default);
+	font-size: var(--text-sm);
+	transition: var(--t-colors), var(--t-shadow);
+	appearance: none;
+}
+
+.textarea {
+	height: auto;
+	min-height: 7rem;
+	padding-block: var(--space-3);
+	line-height: var(--leading-normal);
+	resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder { color: var(--fg-faint); }
+
+.input:hover,
+.textarea:hover,
+.select:hover { border-color: var(--line-strong); }
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+	outline: none;
+	border-color: var(--accent);
+	box-shadow: 0 0 0 3px var(--accent-ring);
+	background: var(--bg-surface);
+}
+
+.input:disabled,
+.textarea:disabled,
+.select:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Invalid state is driven by aria-invalid, so the styling and the screen
+   reader can never disagree. */
+.input[aria-invalid='true'],
+.textarea[aria-invalid='true'],
+.select[aria-invalid='true'] {
+	border-color: var(--danger-line);
+}
+
+.input[aria-invalid='true']:focus,
+.textarea[aria-invalid='true']:focus {
+	box-shadow: 0 0 0 3px var(--danger-bg);
+}
+
+/* Select needs its own chevron since appearance is reset. */
+.select {
+	padding-right: var(--space-8);
+	background-image:
+		linear-gradient(45deg, transparent 50%, currentColor 50%),
+		linear-gradient(135deg, currentColor 50%, transparent 50%);
+	background-position:
+		calc(100% - 18px) calc(50% + 2px),
+		calc(100% - 13px) calc(50% + 2px);
+	background-size: 5px 5px, 5px 5px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+/* Search field with a leading icon slot */
+.input-search { padding-left: var(--space-8); }
+
+.field-icon { position: relative; }
+
+.field-icon > svg,
+.field-icon > .field-icon__glyph {
+	position: absolute;
+	left: var(--space-3);
+	top: 50%;
+	transform: translateY(-50%);
+	width: var(--icon-sm);
+	height: var(--icon-sm);
+	color: var(--fg-faint);
+	pointer-events: none;
+}
+
+/* ── Inline group — input + button on one line (the subscribe form) ─────── */
+
+.input-group {
+	display: flex;
+	gap: var(--space-2);
+	align-items: center;
+}
+
+.input-group > .input { flex: 1 1 12rem; min-width: 0; }
+
+@media (max-width: 30rem) {
+	.input-group { flex-wrap: wrap; }
+	.input-group > .btn { width: 100%; }
+}
+
+/* ── Checkbox & radio ────────────────────────────────────────────────────
+   Real inputs, restyled — not divs pretending. Keyboard and forms just work. */
+
+.check,
+.radio {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-3);
+	font-size: var(--text-sm);
+	cursor: pointer;
+	user-select: none;
+}
+
+.check > input,
+.radio > input {
+	appearance: none;
+	width: 1.125rem;
+	height: 1.125rem;
+	flex: none;
+	margin: 0;
+	border: var(--border-2) solid var(--line-strong);
+	background: var(--bg-surface);
+	cursor: pointer;
+	transition: var(--t-colors);
+	display: grid;
+	place-items: center;
+}
+
+.check > input { border-radius: var(--radius-xs); }
+.radio > input { border-radius: var(--radius-full); }
+
+.check > input:hover,
+.radio > input:hover { border-color: var(--accent); }
+
+.check > input:checked,
+.radio > input:checked {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+.check > input:checked::after {
+	content: '';
+	width: 0.55rem;
+	height: 0.3rem;
+	border-left: var(--border-2) solid var(--fg-on-accent);
+	border-bottom: var(--border-2) solid var(--fg-on-accent);
+	transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.radio > input:checked::after {
+	content: '';
+	width: 0.4rem;
+	height: 0.4rem;
+	border-radius: var(--radius-full);
+	background: var(--fg-on-accent);
+}
+
+.check > input:disabled,
+.radio > input:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Switch — for settings that take effect immediately ─────────────────── */
+
+.switch {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-3);
+	font-size: var(--text-sm);
+	cursor: pointer;
+	user-select: none;
+}
+
+.switch > input {
+	appearance: none;
+	position: relative;
+	width: 2.5rem;
+	height: 1.5rem;
+	flex: none;
+	margin: 0;
+	border-radius: var(--radius-pill);
+	background: var(--line-strong);
+	cursor: pointer;
+	transition: background-color var(--dur-2) var(--ease-out);
+}
+
+.switch > input::after {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 1.125rem;
+	height: 1.125rem;
+	border-radius: var(--radius-full);
+	background: var(--pure-white);
+	box-shadow: var(--shadow-1);
+	transition: transform var(--dur-2) var(--ease-out);
+}
+
+.switch > input:checked { background: var(--accent); }
+.switch > input:checked::after { transform: translateX(1rem); }
+.switch > input:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Fieldset ────────────────────────────────────────────────────────────── */
+
+.fieldset {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+.fieldset > legend {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+	padding: 0;
+	margin-bottom: var(--space-2);
+}
+
+/* Two-up form row that stacks on small screens. */
+.form-row {
+	display: grid;
+	gap: var(--space-5);
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 40rem) {
+	.form-row { grid-template-columns: minmax(0, 1fr); }
+}

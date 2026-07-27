@@ -1,0 +1,10 @@
+{
+	"name": "Example Starter",
+	"description": "A one-sentence description of what the template gives you.",
+	"price": "Free",
+	"url": "https://example.com/template",
+	"platform": "HTML",
+	"author": "Your Name",
+	"preview": "",
+	"features": ["Light and dark", "Every collection layout", "Demo content"]
+}

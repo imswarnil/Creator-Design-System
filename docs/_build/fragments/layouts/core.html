@@ -1,0 +1,92 @@
+<div class="sec-head"><span class="sec-num">01</span><h2 class="t-h2">Core</h2></div>
+			<div class="lay-grid">
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<i class="w-hero"></i>
+						<div class="w-row"><i></i><i></i><i></i></div>
+						<div class="w-row"><i class="w-media"></i><i class="w-media"></i><i class="w-media"></i></div>
+						<i class="w-ink" style="height:16%"></i>
+						<div class="w-row" style="flex:0 0 10%"><i></i><i></i><i></i><i></i></div>
+					</div>
+					<span class="lay__name">Home <span class="lay__tpl">home.hbs</span></span>
+					<p class="wire-note">Hero split → recent band per collection → one inverse CTA → footer. Sections, not a feed.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<i style="height:14%;width:70%"></i>
+						<div class="w-row">
+							<i class="w-grow"></i>
+							<i class="w-rail w-accent"></i>
+						</div>
+					</div>
+					<span class="lay__name">Post <span class="lay__tpl">post.hbs</span></span>
+					<p class="wire-note">Prose column at measure, sticky rail: TOC + ads. JSON-LD Article.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<i style="height:16%;width:55%"></i>
+						<i class="w-grow"></i>
+					</div>
+					<span class="lay__name">Page <span class="lay__tpl">page.hbs</span></span>
+					<p class="wire-note">Same prose engine as post, no rail, no meta — quiet by design.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<i class="w-hero" style="flex-basis:22%"></i>
+						<div class="w-row"><i class="w-media"></i><i class="w-media"></i><i class="w-media"></i><i class="w-media"></i></div>
+						<div class="w-row"><i class="w-media"></i><i class="w-media"></i><i class="w-media"></i><i class="w-media"></i></div>
+					</div>
+					<span class="lay__name">Collection index <span class="lay__tpl">blog/videos/…</span></span>
+					<p class="wire-note">.page-head + the collection's own card from layer 3 (23-collection), paginated.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<div class="w-row" style="flex:0 0 24%"><i class="w-grow"></i><i class="w-media w-rail" style="flex-basis:38%"></i></div>
+						<div class="w-row"><i class="w-media"></i><i class="w-media"></i><i class="w-media"></i></div>
+					</div>
+					<span class="lay__name">Tag <span class="lay__tpl">tag.hbs</span></span>
+					<p class="wire-note">Tag hero (description + feature image right) → card grid. Rail ads at 2xl.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<div class="w-row"><i></i><i style="flex:2" class="w-media"></i><i></i></div>
+						<div class="w-row"><i></i><i></i><i></i><i></i></div>
+						<div class="w-row"><i></i><i style="flex:1.6"></i><i></i></div>
+					</div>
+					<span class="lay__name">Tags <span class="lay__tpl">tags.hbs</span></span>
+					<p class="wire-note">Tile pile of every public tag; the biggest tag takes a 2×2 photo tile.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<div class="w-row" style="flex:0 0 14%"><i></i><i style="flex:0 0 22%"></i></div>
+						<div class="w-row" style="flex:0 0 12%"><i></i><i style="flex:0 0 22%" class="w-media"></i></div>
+						<div class="w-row" style="flex:0 0 12%"><i></i><i style="flex:0 0 22%"></i></div>
+						<i class="w-grow" style="background:none;border-style:dashed"></i>
+					</div>
+					<span class="lay__name">Archive <span class="lay__tpl">archive.hbs</span></span>
+					<p class="wire-note">Every post as a dated row — thumbnail, collection badge, primary tag.</p>
+				</div>
+
+				<div class="lay">
+					<div class="wire">
+						<i class="w-nav"></i>
+						<i class="w-grow w-ink" style="display:grid;place-items:center"></i>
+					</div>
+					<span class="lay__name">404 <span class="lay__tpl">error-404.hbs</span></span>
+					<p class="wire-note">Full-bleed dark stage: sarcastic headline, searchlight, excuse reel.</p>
+				</div>
+			</div>

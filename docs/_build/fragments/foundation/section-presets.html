@@ -1,0 +1,49 @@
+<h3 class="t-h2" style="margin:var(--space-12) 0 var(--space-4)">Section presets</h3>
+			<p class="t-lead" style="margin-bottom:var(--space-6)">
+				Five ways for a whole block to arrive. Put one on a
+				<code class="t-code">&lt;section&gt;</code>; its children carry
+				<code class="t-code">--i</code> for the stagger. Add
+				<code class="t-code">.sec-on-scroll</code> and they fire on scroll instead
+				of on load, natively — no observer.
+			</p>
+
+			<div class="surface demo-tile">
+				<div class="demo stack-lg">
+					<div class="cluster"><button class="doc-btn" type="button" data-replay-sec>Replay</button></div>
+					<div id="secStage" class="stack-lg">
+						<div>
+							<span class="demo-label">1 · cascade — card decks</span>
+							<div class="grid-4 gap-3 sec-cascade">
+								<span class="surface demo" style="--i:0"><span class="t-slate">01</span></span>
+								<span class="surface demo" style="--i:1"><span class="t-slate">02</span></span>
+								<span class="surface demo" style="--i:2"><span class="t-slate">03</span></span>
+								<span class="surface demo" style="--i:3"><span class="t-slate">04</span></span>
+							</div>
+						</div>
+						<div>
+							<span class="demo-label">2 · curtain — heroes</span>
+							<div class="surface demo sec-curtain"><p class="t-h4">Wiped down from the top edge.</p></div>
+						</div>
+						<div>
+							<span class="demo-label">3 · split — comparisons</span>
+							<div class="grid-2 gap-3 sec-split">
+								<span class="surface demo" style="--i:0"><span class="t-slate">from the left</span></span>
+								<span class="surface demo" style="--i:1"><span class="t-slate">from the right</span></span>
+							</div>
+						</div>
+						<div>
+							<span class="demo-label">4 · focus — single statements</span>
+							<div class="surface demo sec-focus"><p class="t-h4">Resolves out of blur, like a lens finding it.</p></div>
+						</div>
+						<div>
+							<span class="demo-label">5 · lift — galleries, stat grids</span>
+							<div class="grid-3 gap-3 sec-lift">
+								<span class="surface demo" style="--i:0"><span class="t-stat">180+</span></span>
+								<span class="surface demo" style="--i:1"><span class="t-stat">6.2k</span></span>
+								<span class="surface demo" style="--i:2"><span class="t-stat">14</span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p class="spec"><b>.sec-cascade</b> · <b>.sec-curtain</b> · <b>.sec-split</b> · <b>.sec-focus</b> · <b>.sec-lift</b> · + <b>.sec-on-scroll</b></p>
+			</div>

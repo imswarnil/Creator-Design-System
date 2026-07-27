@@ -1,0 +1,303 @@
+/* =============================================================================
+   14 · NAVIGATION
+   Nav island, tabs, breadcrumb, pagination, table of contents, and the
+   course/series progress rail.
+
+   House rule: the active state is ALWAYS the signal dot or a 2px accent rule —
+   never a colour fill, never a pill of background.
+   ========================================================================== */
+
+:root {
+	--nav-h: 3.5rem;
+}
+
+/* ── The nav island ──────────────────────────────────────────────────────
+   Floats on the canvas, edges aligned to the content column because both
+   derive from --w-site and --gutter. */
+
+.nav-shell {
+	position: sticky;
+	top: var(--space-3);
+	z-index: var(--z-nav);
+	width: 100%;
+	max-width: calc(var(--w-site) + var(--gutter) * 2);
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+.nav-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-4);
+	height: var(--nav-h);
+	padding-inline: var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-pill);
+	background: color-mix(in srgb, var(--bg-canvas) 82%, transparent);
+	backdrop-filter: saturate(180%) blur(14px);
+	box-shadow: var(--shadow-1);
+}
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+}
+
+.nav-link {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	height: var(--control-sm);
+	padding-inline: var(--space-3);
+	border-radius: var(--radius-pill);
+	color: var(--fg-muted);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-medium);
+	text-decoration: none;
+	transition: var(--t-colors);
+	white-space: nowrap;
+}
+
+.nav-link:hover { color: var(--fg-default); background: var(--hover-wash); }
+
+/* Active = a dot, not a fill. */
+.nav-link[aria-current]::before {
+	content: '';
+	width: var(--dot-sm);
+	height: var(--dot-sm);
+	border-radius: var(--radius-full);
+	background: var(--accent);
+	flex: none;
+}
+
+.nav-link[aria-current] { color: var(--fg-default); font-weight: var(--weight-semibold); }
+
+.nav-link > svg,
+.nav-link__icon { width: var(--icon-sm); height: var(--icon-sm); flex: none; opacity: 0.7; }
+
+/* Contexts. Series is always dark and ignores the theme — it is cinema.
+   Course welds a progress rail to the bottom edge. */
+
+.nav-series {
+	background: var(--ink-950);
+	border-color: rgb(255 255 255 / 0.12);
+	color: var(--ink-50);
+	color-scheme: dark;
+}
+
+.nav-series .nav-link { color: rgb(255 255 255 / 0.62); }
+.nav-series .nav-link:hover,
+.nav-series .nav-link[aria-current] { color: var(--pure-white); }
+
+.nav-course { position: relative; overflow: hidden; }
+
+.nav-course .nav-rail {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: var(--border-2);
+	background: var(--accent);
+	border-radius: var(--radius-pill);
+	transition: width var(--dur-4) var(--ease-out);
+}
+
+/* ── Tabs ────────────────────────────────────────────────────────────────── */
+
+.tabs {
+	display: flex;
+	gap: var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-default);
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+	position: relative;
+	padding: var(--space-3) 0;
+	border: 0;
+	background: none;
+	color: var(--fg-muted);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-medium);
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: var(--t-colors);
+}
+
+.tab:hover { color: var(--fg-default); }
+
+.tab[aria-selected='true'],
+.tab[aria-current='page'] {
+	color: var(--fg-default);
+	font-weight: var(--weight-semibold);
+}
+
+.tab[aria-selected='true']::after,
+.tab[aria-current='page']::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -1px;
+	height: var(--border-2);
+	background: var(--accent);
+	border-radius: var(--radius-pill);
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────────────────────── */
+
+.breadcrumb {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+.breadcrumb a { color: inherit; text-decoration: none; }
+.breadcrumb a:hover { color: var(--fg-default); }
+
+.breadcrumb li + li::before {
+	content: '/';
+	margin-right: var(--space-2);
+	color: var(--fg-faint);
+}
+
+.breadcrumb li { display: inline-flex; align-items: center; }
+.breadcrumb [aria-current='page'] { color: var(--fg-default); }
+
+/* ── Pagination ──────────────────────────────────────────────────────────── */
+
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-4);
+	padding-block: var(--space-6);
+}
+
+.pagination__pages {
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+	font-family: var(--font-slate);
+	font-size: var(--text-xs);
+	font-variant-numeric: tabular-nums;
+	color: var(--fg-subtle);
+}
+
+.page-dot {
+	display: inline-grid;
+	place-items: center;
+	min-width: var(--control-sm);
+	height: var(--control-sm);
+	padding-inline: var(--space-2);
+	border-radius: var(--radius-md);
+	color: var(--fg-muted);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.page-dot:hover { background: var(--hover-wash); color: var(--fg-default); }
+
+.page-dot[aria-current='page'] {
+	background: var(--bg-inverse);
+	color: var(--fg-on-inverse);
+}
+
+/* Lesson/episode pager — "previous · next" with titles, for the player. */
+.pager {
+	display: grid;
+	gap: var(--space-3);
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pager__item {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	padding: var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+.pager__item:hover { border-color: var(--line-strong); background: var(--bg-sunken); }
+.pager__item-next { text-align: right; }
+
+.pager__dir {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.pager__title {
+	font-weight: var(--weight-semibold);
+	font-size: var(--text-sm);
+	line-height: var(--leading-snug);
+}
+
+@media (max-width: 34rem) {
+	.pager { grid-template-columns: minmax(0, 1fr); }
+	.pager__item-next { text-align: left; }
+}
+
+/* ── Table of contents ───────────────────────────────────────────────────
+   Sticky rail beside long-form content. Active heading gets the accent rule. */
+
+.toc {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+	border-left: var(--border-hair) solid var(--line-default);
+	padding-left: var(--space-4);
+	font-size: var(--text-sm);
+}
+
+.toc__title {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-bottom: var(--space-2);
+}
+
+.toc a {
+	position: relative;
+	color: var(--fg-muted);
+	text-decoration: none;
+	padding-block: var(--space-1);
+	transition: var(--t-colors);
+	line-height: var(--leading-snug);
+}
+
+.toc a:hover { color: var(--fg-default); }
+
+.toc a[aria-current='true'] { color: var(--fg-default); font-weight: var(--weight-semibold); }
+
+.toc a[aria-current='true']::before {
+	content: '';
+	position: absolute;
+	left: calc(var(--space-4) * -1 - 1px);
+	top: var(--space-1);
+	bottom: var(--space-1);
+	width: var(--border-2);
+	background: var(--accent);
+	border-radius: var(--radius-pill);
+}
+
+.toc-nested { padding-left: var(--space-4); }

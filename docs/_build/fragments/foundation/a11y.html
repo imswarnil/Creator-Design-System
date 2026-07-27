@@ -1,0 +1,152 @@
+<header class="sec-head">
+				<span class="sec-num">13</span>
+				<h2 class="t-h1">Accessibility</h2>
+				<p class="t-lead" style="margin-top:var(--space-3)">
+					Not a checklist bolted on at the end — these are tokens and defaults,
+					so a component gets them by existing. Everything below is already
+					active on this page.
+				</p>
+			</header>
+
+			<div class="split-half" style="align-items:start">
+				<div class="surface demo-tile">
+					<div class="demo stack">
+						<span class="demo-label">1 · Focus — press Tab</span>
+						<div class="cluster-lg">
+							<button class="doc-btn" type="button">A button</button>
+							<a href="#a11y" class="t-link">A link</a>
+							<input class="input" style="max-width:12rem" placeholder="A field" />
+						</div>
+						<p class="t-small">
+							Two-tone by design: a halo in the opposite value, then the accent
+							ring. That's what makes one ring readable on white, on near-black
+							and on a photo. Mouse users never see it —
+							<code class="t-code">:focus-visible</code>, not
+							<code class="t-code">:focus</code> — and it is never removed
+							without a replacement.
+						</p>
+					</div>
+					<p class="spec"><b>:focus-visible</b> · <b>--focus-ring</b> + <b>--focus-ring-alt</b> · <b>.focus-halo</b> for media surfaces</p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack">
+						<span class="demo-label">2 · Skip link — Tab once from the top</span>
+						<p class="t-small">
+							The first tab stop on every page jumps past the nav to
+							<code class="t-code">#main</code>. It's off-screen until focused,
+							then it's a real, styled control — not a 1px sliver.
+						</p>
+						<span class="demo-label" style="margin-top:var(--space-4)">3 · Screen-reader text</span>
+						<p class="t-small">
+							<code class="t-code">.sr-only</code> for text only assistive tech
+							needs; <code class="t-code">.sr-only-focusable</code> for things
+							that should appear when tabbed to. An icon-only control always
+							carries an <code class="t-code">aria-label</code> and its
+							<code class="t-code">&lt;svg&gt;</code> is
+							<code class="t-code">aria-hidden</code>.
+							<span class="sr-only">This sentence is only read aloud.</span>
+						</p>
+					</div>
+					<p class="spec"><b>.skip-link</b> · <b>.sr-only</b> · <b>.sr-only-focusable</b></p>
+				</div>
+			</div>
+
+			<div class="surface" style="margin-top:var(--space-6);overflow:hidden">
+				<table class="spec-table">
+					<thead><tr><th>Pair</th><th class="num">Light</th><th class="num">Dark</th><th>Verdict</th></tr></thead>
+					<tbody>
+						<tr><td><code class="t-code">--fg-default</code> on canvas</td><td class="num">15.8:1</td><td class="num">16.4:1</td><td>AAA — body, headings</td></tr>
+						<tr><td><code class="t-code">--fg-muted</code> on canvas</td><td class="num">7.4:1</td><td class="num">7.1:1</td><td>AAA — secondary copy</td></tr>
+						<tr><td><code class="t-code">--fg-subtle</code> on canvas</td><td class="num">4.9:1</td><td class="num">4.6:1</td><td>AA — labels, the slate voice</td></tr>
+						<tr><td><code class="t-code">--fg-accent</code> on canvas</td><td class="num">5.6:1</td><td class="num">5.1:1</td><td>AA — accent text</td></tr>
+						<tr><td><code class="t-code">--fg-on-accent</code> on accent</td><td class="num">4.6:1</td><td class="num">4.6:1</td><td>AA — primary buttons</td></tr>
+						<tr><td><code class="t-code">--fg-faint</code> on canvas</td><td class="num">3.1:1</td><td class="num">3.0:1</td><td><b>decorative only</b> — never carries information</td></tr>
+					</tbody>
+				</table>
+				<p class="spec">4 · <b>Contrast</b> — targets: body ≥ 4.5:1, large text and UI ≥ 3:1, long-form prose aiming at 7:1. Both themes, measured, not assumed.</p>
+			</div>
+
+			<div class="grid-3 gap-6" style="margin-top:var(--space-6);align-items:start">
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">5 · Target size</span>
+						<div class="cluster">
+							<button class="icon-box icon-box-sm tap-target" type="button" aria-label="Small control with an expanded hit area"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-play"/></svg></button>
+							<span class="t-small">32px visually, 44px to your thumb.</span>
+						</div>
+						<p class="t-small"><code class="t-code">.tap-target</code> expands the hit area instead of making the control bigger — the layout stays tight, the target doesn't.</p>
+					</div>
+					<p class="spec"><b>--tap-min</b> 44px · <b>.tap-target</b></p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">6 · Colour is never alone</span>
+						<div class="cluster">
+							<span class="badge badge-success">✓ Passed</span>
+							<span class="badge badge-danger">✕ Failed</span>
+							<span class="badge badge-warning">◐ Editing</span>
+						</div>
+						<p class="t-small">Every status carries a word and a glyph as well as a hue, so it survives colour blindness, a greyscale print and a bad projector.</p>
+					</div>
+					<p class="spec">status = colour <b>+</b> text <b>+</b> shape</p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">7 · Motion &amp; forced colours</span>
+						<p class="t-small">
+							Under <code class="t-code">prefers-reduced-motion</code> every
+							animation collapses to a 160ms fade and all loops stop — the reveal
+							still happens, it just stops moving.
+						</p>
+						<p class="t-small">
+							Under Windows high-contrast, patterns and scrims disappear and
+							structure survives, because the structure is built from real
+							borders rather than from background images.
+						</p>
+					</div>
+					<p class="spec"><b>@media (prefers-reduced-motion)</b> · <b>@media (forced-colors: active)</b></p>
+				</div>
+			</div>
+
+			<div class="split-half" style="align-items:start;margin-top:var(--space-6)">
+				<div class="surface demo-tile">
+					<div class="demo stack">
+						<span class="demo-label">8 · Forms say what happened and how to fix it</span>
+						<div class="field">
+							<label class="label" for="a11y-mail">Email</label>
+							<input class="input" id="a11y-mail" type="email" value="swarnil@" aria-invalid="true" aria-describedby="a11y-err" />
+							<span class="error-text" id="a11y-err">Add a domain after the @ to finish this address.</span>
+						</div>
+						<p class="t-small">
+							The invalid state is driven by <code class="t-code">aria-invalid</code>
+							and the message is wired with <code class="t-code">aria-describedby</code>,
+							so the styling and the screen reader can never disagree. Never “Invalid
+							input” — say the fix.
+						</p>
+					</div>
+					<p class="spec"><b>aria-invalid</b> · <b>aria-describedby</b> · <b>.error-text</b></p>
+				</div>
+
+				<div class="surface demo-tile">
+					<div class="demo stack-sm">
+						<span class="demo-label">9 · State lives in ARIA, not in classes</span>
+						<p class="t-small">
+							Tabs use <code class="t-code">aria-selected</code>, nav uses
+							<code class="t-code">aria-current</code>, toggles use
+							<code class="t-code">aria-pressed</code>, and the CSS styles
+							<em>those</em> attributes. There is no <code class="t-code">.is-active</code>
+							anywhere in the system — one source of truth means the visual state
+							and the announced state cannot drift apart.
+						</p>
+						<span class="demo-label" style="margin-top:var(--space-4)">10 · Print</span>
+						<p class="t-small">
+							The resume and any article print as ink on paper: chrome hidden,
+							textures off, link URLs spelled out, cards unbroken across pages.
+						</p>
+					</div>
+					<p class="spec"><b>[aria-selected]</b> · <b>[aria-current]</b> · <b>[aria-pressed]</b> · <b>@media print</b></p>
+				</div>
+			</div>

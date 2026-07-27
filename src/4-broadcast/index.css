@@ -1,0 +1,21 @@
+/* =============================================================================
+   SWARNIL DESIGN SYSTEM · 4 — BROADCAST
+   YouTube surfaces: thumbnails, series art, in-video scenes, engagement
+   overlays, channel branding, and the backdrops/frames they compose from.
+
+   Requires 1-foundation/index.css. Does NOT require layers 2 or 3 — broadcast
+   canvases size everything in `cqw`, not rem, because a thumbnail has no
+   browser context to inherit from.
+
+   These are export assets, not site UI. Nothing in this layer ships to the
+   website; it ships to YouTube.
+   ========================================================================== */
+
+@import url('./20-canvas.css');
+@import url('./21-thumbnail.css');
+@import url('./22-series.css');
+@import url('./23-scene.css');
+@import url('./24-social.css');
+@import url('./25-brand.css');
+@import url('./26-backdrop.css');
+@import url('./27-instagram.css');

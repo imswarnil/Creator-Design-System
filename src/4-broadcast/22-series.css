@@ -1,0 +1,161 @@
+/* =============================================================================
+   22 · WEB SERIES
+   Episode thumbnails for a season. These are deliberately NOT the same as the
+   standard thumbnails: a series has to read as a set when five of them sit in
+   a row on a playlist page.
+
+   THE SET RULE — across every episode in a season, these never move:
+     · the season/series wordmark, top-left, same size
+     · the episode numeral, same corner, same scale
+     · the title baseline, same distance from the bottom
+     · the same backdrop family; only the still behind it changes
+   Only the numeral, the title and the still change between episodes.
+
+   Still no duration, no category, no view count. The numeral IS the metadata.
+   ========================================================================== */
+
+.ep { /* extends .yt .yt-thumb */ }
+
+.ep__bg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	background:
+		repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 0.7cqw),
+		linear-gradient(160deg, #14141c, var(--ink-1000) 65%);
+}
+
+/* Cinematic wash — heavier at the bottom than a normal thumbnail, because the
+   numeral has to sit on top of it. */
+.ep::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background: linear-gradient(
+		to top,
+		rgb(8 8 12 / 0.94) 0%,
+		rgb(8 8 12 / 0.62) 38%,
+		rgb(8 8 12 / 0.10) 78%
+	);
+	pointer-events: none;
+}
+
+/* Season wordmark, top-left. Identical on all five. */
+.ep__series {
+	position: absolute;
+	left: 5.5%;
+	top: 5.5%;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	gap: 1.2cqw;
+	font-family: var(--font-slate);
+	font-size: 1.8cqw;
+	letter-spacing: 0.26em;
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.72);
+}
+
+.ep__series::after {
+	content: '';
+	width: 8cqw;
+	height: 1px;
+	background: rgb(255 255 255 / 0.28);
+}
+
+/* The numeral — the one thing that changes size-of-idea between episodes. */
+.ep__no {
+	position: absolute;
+	right: 5%;
+	top: 3%;
+	z-index: 2;
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 30cqw;
+	line-height: 0.78;
+	letter-spacing: -0.06em;
+	color: rgb(255 255 255 / 0.10);
+	font-variant-numeric: tabular-nums lining-nums;
+	user-select: none;
+}
+
+/* Small numeral chip for the corner, when the big ghost numeral is too much
+   over a busy still. Use one or the other, never both. */
+.ep__chip {
+	position: absolute;
+	right: 5.5%;
+	top: 5.5%;
+	z-index: 3;
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.6cqw;
+	padding: 0.9cqw 1.6cqw;
+	border: 0.25cqw solid rgb(255 255 255 / 0.3);
+	border-radius: 0.7cqw;
+	font-family: var(--font-slate);
+	font-size: 1.8cqw;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	font-variant-numeric: tabular-nums;
+}
+
+.ep__copy {
+	position: absolute;
+	left: 5.5%;
+	right: 26%;
+	bottom: 5.5%;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	gap: 1.4cqw;
+}
+
+.ep__title {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 7.2cqw;
+	line-height: 0.98;
+	letter-spacing: -0.03em;
+	text-wrap: balance;
+	margin: 0;
+}
+
+/* One line of detail — what this episode actually covers. This is the only
+   place a series thumbnail carries prose. */
+.ep__detail {
+	font-size: 2.3cqw;
+	line-height: 1.35;
+	color: rgb(255 255 255 / 0.62);
+	max-width: 34ch;
+	margin: 0;
+}
+
+/* Progress ticks — five episodes, current one filled. Gives a playlist a spine
+   and tells someone where they are without a single word. */
+.ep__ticks {
+	position: absolute;
+	left: 5.5%;
+	bottom: 2.2%;
+	z-index: 3;
+	display: flex;
+	gap: 0.7cqw;
+}
+
+.ep__ticks > span {
+	width: 4.5cqw;
+	height: 0.45cqw;
+	border-radius: 0.3cqw;
+	background: rgb(255 255 255 / 0.22);
+}
+
+.ep__ticks > span[data-on] { background: var(--signal-500); }
+
+/* Season poster — the playlist cover, 2:3, same family as the episodes. */
+.ep-poster {
+	aspect-ratio: 2 / 3;
+}
+
+.ep-poster .ep__no { font-size: 22cqw; top: 6%; }
+.ep-poster .ep__copy { right: 8%; }
+.ep-poster .ep__title { font-size: 9cqw; }

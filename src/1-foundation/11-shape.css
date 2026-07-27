@@ -1,0 +1,286 @@
+/* =============================================================================
+   11 · SHAPE
+   The geometry vocabulary: the shapes the system is allowed to draw, and the
+   maths behind them.
+
+   THE RULE OF NESTED RADII. When one rounded box sits inside another, the
+   inner radius must equal the outer radius minus the gap, or the corners look
+   wrong — concentric, not parallel:
+
+       inner = outer − padding
+
+   That's what --radius-nested does. Set --nest-pad on the parent and the child
+   picks up the right corner automatically.
+   ========================================================================== */
+
+:root {
+	/* Optical constants used below. */
+	--phi: 1.6180339887;
+	--sqrt2: 1.4142135624;
+	--squircle: 22.5%;   /* the iOS app-icon superellipse, approximated */
+}
+
+/* ── Nested radius ─────────────────────────────────────────────────────── */
+
+.nest {
+	--nest-pad: var(--space-3);
+	padding: var(--nest-pad);
+	border-radius: var(--radius-card);
+}
+
+.nest > .nest__inner {
+	border-radius: calc(var(--radius-card) - var(--nest-pad));
+}
+
+/* ── Primitives ───────────────────────────────────────────────────────────
+   Every one of these is a single element. No SVG, no images. */
+
+.shape {
+	--shape-size: 3rem;
+	--shape-fill: var(--fg-default);
+	width: var(--shape-size);
+	height: var(--shape-size);
+	background: var(--shape-fill);
+	flex: none;
+}
+
+.shape-dot     { border-radius: var(--radius-full); }
+.shape-square  { border-radius: var(--radius-none); }
+.shape-rounded { border-radius: var(--radius-md); }
+.shape-squircle { border-radius: var(--squircle); }
+.shape-pill    { border-radius: var(--radius-pill); width: calc(var(--shape-size) * 2); }
+
+/* Ring — a dot that is only an edge. The "not yet watched" state. */
+.shape-ring {
+	background: none;
+	border: var(--border-3) solid var(--shape-fill);
+	border-radius: var(--radius-full);
+}
+
+/* Arc — a ring with a gap; the progress primitive before any JS. */
+.shape-arc {
+	background: none;
+	border: var(--border-3) solid var(--shape-fill);
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-radius: var(--radius-full);
+	transform: rotate(-45deg);
+}
+
+/* Triangle — the play glyph, built from borders so it scales with font size. */
+.shape-play {
+	width: 0;
+	height: 0;
+	background: none;
+	border-left: calc(var(--shape-size) * 0.62) solid var(--shape-fill);
+	border-top: calc(var(--shape-size) * 0.38) solid transparent;
+	border-bottom: calc(var(--shape-size) * 0.38) solid transparent;
+}
+
+/* Chevron — navigation, accordions, breadcrumbs. */
+.shape-chevron {
+	width: calc(var(--shape-size) * 0.4);
+	height: calc(var(--shape-size) * 0.4);
+	background: none;
+	border-right: var(--border-2) solid var(--shape-fill);
+	border-bottom: var(--border-2) solid var(--shape-fill);
+	transform: rotate(-45deg);
+}
+
+/* Diamond — the timeline node. */
+.shape-diamond { border-radius: var(--radius-xs); transform: rotate(45deg); }
+
+/* Ticket — a card with two bites taken out of its sides. Shop, courses. */
+.shape-ticket {
+	border-radius: var(--radius-md);
+	mask-image:
+		radial-gradient(circle at 0 50%, transparent 0 8px, #000 8px),
+		radial-gradient(circle at 100% 50%, transparent 0 8px, #000 8px);
+	mask-composite: intersect;
+	-webkit-mask-composite: source-in;
+}
+
+/* Blob — the only organic shape allowed, used behind feature icons. Two of
+   them at different rotations reads as hand-made; three reads as clip-art. */
+.shape-blob {
+	border-radius: 62% 38% 46% 54% / 54% 46% 54% 46%;
+}
+
+.shape-blob-2 { border-radius: 38% 62% 58% 42% / 44% 58% 42% 56%; }
+
+/* Golden rectangle — proportion demos, hero splits, image crops. */
+.shape-golden { width: calc(var(--shape-size) * var(--phi)); }
+
+/* ── Arrows & pointers ───────────────────────────────────────────────────── */
+
+.shape-caret {
+	width: 0;
+	height: 0;
+	background: none;
+	border-left: calc(var(--shape-size) * 0.22) solid transparent;
+	border-right: calc(var(--shape-size) * 0.22) solid transparent;
+	border-top: calc(var(--shape-size) * 0.22) solid var(--shape-fill);
+}
+
+/* Tooltip / popover tail. Rotate the parent's ::after into place. */
+.shape-tail {
+	width: calc(var(--shape-size) * 0.3);
+	height: calc(var(--shape-size) * 0.3);
+	transform: rotate(45deg);
+	border-radius: 2px 0 0 0;
+}
+
+/* ── Dividers ────────────────────────────────────────────────────────────
+   A rule is a shape too. Four ways to end a section. */
+
+.div-fade {
+	height: var(--border-hair);
+	border: 0;
+	background: linear-gradient(to right, transparent, var(--line-default) 12%, var(--line-default) 88%, transparent);
+}
+
+.div-dot {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-3);
+	color: var(--fg-faint);
+}
+
+.div-dot::before,
+.div-dot::after {
+	content: '';
+	flex: 1;
+	height: var(--border-hair);
+	background: var(--line-default);
+}
+
+.div-notch {
+	height: var(--border-hair);
+	border: 0;
+	background:
+		linear-gradient(to right, var(--line-default), var(--line-default)) left / calc(50% - var(--space-4)) 100% no-repeat,
+		linear-gradient(to right, var(--line-default), var(--line-default)) right / calc(50% - var(--space-4)) 100% no-repeat;
+}
+
+.div-ticks {
+	height: 6px;
+	border: 0;
+	background: repeating-linear-gradient(to right, var(--line-default) 0 1px, transparent 1px var(--space-3));
+}
+
+/* ── Masks & clips ───────────────────────────────────────────────────────
+   Used by media and by the reveal animations in 05-motion. */
+
+.clip-wipe-up   { clip-path: inset(0 0 0 0); }
+.clip-wipe-hide { clip-path: inset(0 0 100% 0); }
+.clip-angle     { clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%); }
+.clip-notch     { clip-path: polygon(0 0, calc(100% - 1.5rem) 0, 100% 1.5rem, 100% 100%, 0 100%); }
+
+.mask-fade-b { mask-image: linear-gradient(to bottom, #000 60%, transparent); }
+.mask-fade-r { mask-image: linear-gradient(to right, #000 60%, transparent); }
+.mask-circle { mask-image: radial-gradient(circle at 50% 50%, #000 62%, transparent 72%); }
+
+/* =============================================================================
+   SHAPE · THE MATHS
+   The numbers behind the geometry, as tokens — so a new shape is derived
+   rather than eyeballed.
+   ========================================================================== */
+
+:root {
+	/* Ratios. Everything rectangular in the system is one of these. */
+	--r-square: 1;
+	--r-golden: 1.6180339887;    /* φ — hero splits, article rails          */
+	--r-silver: 1.4142135624;    /* √2 — print, A-series, the resume        */
+	--r-bronze: 3.3027756377;    /* δ — ultra-wide banners                  */
+	--r-third: 1.5;              /* 3:2 — photography                       */
+	--r-quarter: 1.3333333333;   /* 4:3 — archive footage                   */
+	--r-wide: 1.7777777778;      /* 16:9 — video, everything broadcast      */
+	--r-cinema: 2.3333333333;    /* 21:9 — the webseries letterbox          */
+
+	/* Angles. The system uses exactly five, and they are all derived. */
+	--a-hatch: 45deg;            /* diagonal fills                          */
+	--a-iso: 30deg;              /* isometric grids                         */
+	--a-shear: 8deg;             /* the "in motion" skew                    */
+	--a-blade: 60deg;            /* shutter blades — 360 / 6                */
+	--a-ray: 108deg;             /* light shafts — the pentagon angle       */
+
+	/* Circle constants, for arcs and rings built from conic gradients. */
+	--turn-quarter: 0.25turn;
+	--turn-third: 0.3333turn;
+	--turn-golden: 0.618turn;
+
+	/* Optical correction: a circle needs ~2% more area than a square to read
+	   as the same size, and a triangle ~10% more. Applied by the primitives. */
+	--optic-circle: 1.02;
+	--optic-triangle: 1.1;
+}
+
+/* ── 2D polygons ─────────────────────────────────────────────────────────
+   All clip-path, all one element, all scaling from --shape-size. Regular
+   polygons are computed on the unit circle: point n = (50% + 50%·cos θ,
+   50% + 50%·sin θ) with θ stepping by 360/n and starting at −90°. */
+
+.shape-triangle {
+	clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+	transform: scale(var(--optic-triangle));
+}
+
+.shape-triangle-right { clip-path: polygon(0 0, 100% 100%, 0 100%); }
+
+.shape-diamond-4 { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+
+.shape-pentagon {
+	clip-path: polygon(50% 0%, 100% 38.2%, 81% 100%, 19% 100%, 0% 38.2%);
+}
+
+.shape-hexagon {
+	clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+/* Pointy-top hexagon — the one that tiles vertically. */
+.shape-hexagon-v {
+	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.shape-octagon {
+	clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+/* Five-pointed star, outer radius 50%, inner 19.1% (= 50%·sin18°/sin126°). */
+.shape-star {
+	clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+	                   50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* Chevron and arrow — navigation and "next" affordances at any size. */
+.shape-chevron-solid { clip-path: polygon(0 0, 55% 0, 100% 50%, 55% 100%, 0 100%, 45% 50%); }
+.shape-arrow { clip-path: polygon(0 35%, 62% 35%, 62% 12%, 100% 50%, 62% 88%, 62% 65%, 0 65%); }
+
+/* Cross / plus — the surveyor mark, at shape scale. */
+.shape-plus { clip-path: polygon(38% 0, 62% 0, 62% 38%, 100% 38%, 100% 62%, 62% 62%, 62% 100%, 38% 100%, 38% 62%, 0 62%, 0 38%, 38% 38%); }
+
+/* Play triangle as a clip, for when the border trick can't be used. */
+.shape-play-clip { clip-path: polygon(12% 0, 100% 50%, 12% 100%); }
+
+/* ── Rings & arcs from conic gradients ───────────────────────────────────
+   A progress ring with no SVG and no JS: set --value as a turn fraction. */
+
+.shape-ring-progress {
+	background: conic-gradient(var(--shape-fill) calc(var(--value, 0.62) * 1turn), var(--bg-muted) 0);
+	border-radius: var(--radius-full);
+	mask: radial-gradient(circle, transparent 58%, #000 59%);
+}
+
+.shape-donut {
+	background: conic-gradient(from -90deg, var(--shape-fill) var(--turn-golden), var(--bg-muted) 0);
+	border-radius: var(--radius-full);
+	mask: radial-gradient(circle, transparent 46%, #000 47%);
+}
+
+/* ── Aspect + proportion helpers ─────────────────────────────────────────── */
+
+.prop-golden  { aspect-ratio: var(--ratio-golden); }
+.prop-root2   { aspect-ratio: 1.4142 / 1; }   /* A4 / print */
+.prop-third   { aspect-ratio: 3 / 2; }
+.prop-cinema  { aspect-ratio: var(--ratio-cinema); }

@@ -1,0 +1,114 @@
+/* =============================================================================
+   34 · FOOTER
+   The end credits. Brand column + link columns over a hairline, then the
+   sign-off row: legal in slate on the left, the signal dot signing off on the
+   right. The footer is the one place the sitemap gets to be exhaustive.
+   ========================================================================== */
+
+.footer {
+	border-top: var(--border-hair) solid var(--line-default);
+	margin-top: var(--space-20);
+	padding-block: var(--space-12) var(--space-8);
+}
+
+.footer__grid {
+	display: grid;
+	gap: var(--space-8);
+	grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+}
+
+/* Brand column takes double width when there's room. */
+@media (min-width: 48rem) {
+	.footer__grid { grid-template-columns: 2fr repeat(auto-fit, minmax(8rem, 1fr)); }
+}
+
+.footer__brand { max-width: 24rem; }
+
+.footer__tag {
+	margin-top: var(--space-3);
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: var(--fg-subtle);
+}
+
+.footer__social {
+	display: flex;
+	gap: var(--space-2);
+	margin-top: var(--space-5);
+}
+
+/* Column heading — same slate voice as everywhere. */
+.footer__head {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-bottom: var(--space-4);
+}
+
+.footer__links {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+
+.footer__links a {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	text-decoration: none;
+	width: fit-content;
+	transition: var(--t-colors);
+}
+
+.footer__links a:hover { color: var(--fg-default); }
+.footer__links a .icon { width: 0.95rem; height: 0.95rem; opacity: 0.7; }
+
+/* ── Sign-off row ────────────────────────────────────────────────────────── */
+
+.footer__signoff {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: var(--space-12);
+	padding-top: var(--space-6);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: 0.05em;
+	color: var(--fg-faint);
+}
+
+.footer__signoff a { color: inherit; }
+.footer__signoff a:hover { color: var(--fg-default); }
+
+/* "Still rolling" — the dot ends the page the way it opened it. */
+.footer__rec {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-slate);
+}
+
+/* ── Inverse footer — for sites that end on ink ──────────────────────────── */
+
+.footer-inverse {
+	background: var(--bg-inverse);
+	color: var(--fg-on-inverse);
+	border-top: 0;
+	padding-inline: var(--space-8);
+	border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+}
+
+.footer-inverse .footer__tag,
+.footer-inverse .footer__links a { color: var(--fg-on-inverse); opacity: 0.7; }
+.footer-inverse .footer__links a:hover { opacity: 1; color: var(--fg-on-inverse); }
+.footer-inverse .footer__signoff { border-top-color: var(--line-inverse); color: var(--fg-on-inverse); }
+.footer-inverse .footer__signoff > * { opacity: 0.6; }
+.footer-inverse .footer__head { color: var(--fg-on-inverse); opacity: 0.5; }

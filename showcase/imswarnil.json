@@ -1,0 +1,10 @@
+{
+	"name": "imswarnil.com",
+	"url": "https://imswarnil.com",
+	"author": "Swarnil Singhai",
+	"authorUrl": "https://imswarnil.com/about/",
+	"description": "The site the system was built for — videos, courses, build logs and trips under one identity.",
+	"tags": ["ghost", "courses", "video", "travel"],
+	"screenshot": "",
+	"accent": "#f04e2e"
+}

@@ -1,0 +1,23 @@
+name: Component request
+description: Propose a new component or variant
+labels: ["component"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What page needed it
+      description: >
+        Components here exist because a real page asked for one. Describe the
+        page you were building when you found the gap.
+    validations: { required: true }
+  - type: textarea
+    id: existing
+    attributes:
+      label: What you tried from the existing system
+      description: Which components came close, and where they fell short.
+    validations: { required: true }
+  - type: textarea
+    id: sketch
+    attributes:
+      label: Sketch or markup
+      render: html

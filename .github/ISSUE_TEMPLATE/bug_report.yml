@@ -1,0 +1,33 @@
+name: Bug report
+description: Something renders or behaves incorrectly
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: And what you expected instead.
+    validations: { required: true }
+  - type: textarea
+    id: markup
+    attributes:
+      label: Markup
+      description: The smallest snippet that reproduces it.
+      render: html
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options: [Light, Dark, Both]
+    validations: { required: true }
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Chrome 140 / Safari 18
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: 0.1.0

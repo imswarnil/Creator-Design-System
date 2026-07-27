@@ -1,0 +1,174 @@
+/* =============================================================================
+   32 · EDITORIAL
+   The organs a publishing site needs once it has more than one kind of post:
+   a sticky rail beside the reading column, a conversation, a release note,
+   and the share row. Each one exists because a real layout asked for it.
+   ========================================================================== */
+
+/* ── Rail — the sticky sidebar ───────────────────────────────────────────────
+   Sits inside .grid-rail (layer 1). Sticks under the nav, scrolls itself when
+   it is taller than the viewport, and unsticks entirely on small screens so a
+   phone never gets a frozen column.
+   ------------------------------------------------------------------------- */
+
+.rail {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-6);
+	align-self: start;
+}
+
+@media (min-width: 64rem) {
+	.rail {
+		position: sticky;
+		top: calc(var(--header-offset, 5rem) + var(--space-4));
+		max-height: calc(100dvh - var(--header-offset, 5rem) - var(--space-8));
+		overflow-y: auto;
+		scrollbar-width: thin;
+		overscroll-behavior: contain;
+	}
+}
+
+/* A titled block inside the rail. */
+.rail__block {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	padding: var(--space-4) var(--space-5);
+}
+
+.rail__title {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-bottom: var(--space-3);
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+/* ── Chat — a prompt and its answer ──────────────────────────────────────────
+   <div class="chat">
+     <div class="chat__turn chat__turn-you"> <span class="chat__who">You</span>
+       <div class="chat__bubble"> … </div> </div>
+     <div class="chat__turn"> … </div>
+   </div>
+   ------------------------------------------------------------------------- */
+
+.chat { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.chat__turn { display: flex; flex-direction: column; gap: var(--space-2); max-width: 90%; }
+
+.chat__who {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.chat__bubble {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-lg);
+	background: var(--bg-surface);
+	padding: var(--space-4) var(--space-5);
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	position: relative;
+}
+
+.chat__bubble > :first-child { margin-top: 0; }
+.chat__bubble pre { margin: var(--space-3) 0 0; }
+
+/* The human turn: aligned right, accent-washed, so a long thread stays
+   scannable without avatars. */
+.chat__turn-you { align-self: flex-end; align-items: flex-end; }
+.chat__turn-you .chat__bubble {
+	background: var(--accent-soft);
+	border-color: var(--line-accent);
+	color: var(--accent-soft-fg);
+	border-bottom-right-radius: var(--radius-xs);
+}
+
+.chat__turn:not(.chat__turn-you) .chat__bubble { border-bottom-left-radius: var(--radius-xs); }
+
+/* Copy affordance parked in the bubble's corner. */
+.chat__copy {
+	position: absolute;
+	top: var(--space-2);
+	inset-inline-end: var(--space-2);
+	opacity: 0;
+	transition: var(--t-colors);
+}
+
+.chat__bubble:hover .chat__copy,
+.chat__copy:focus-visible { opacity: 1; }
+
+/* ── Release — one changelog entry ───────────────────────────────────────────
+   A version, a date, and what changed. Versions are tabular so a column of
+   them lines up.
+   ------------------------------------------------------------------------- */
+
+.release {
+	display: grid;
+	gap: var(--space-2) var(--space-6);
+	padding-block: var(--space-6);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+}
+
+@media (min-width: 48rem) {
+	.release { grid-template-columns: 10rem 1fr; }
+}
+
+.release:last-child { border-bottom: 0; }
+
+.release__meta { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.release__ver {
+	font-family: var(--font-slate);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-medium);
+	font-variant-numeric: tabular-nums;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.release__date {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* The newest release is the live one. */
+.release-current .release__ver { color: var(--accent); }
+
+/* ── Share ───────────────────────────────────────────────────────────────────
+   A row of quiet actions under an article. Never a wall of brand colours.
+   ------------------------------------------------------------------------- */
+
+.share {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	padding-block: var(--space-5);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+}
+
+.share__label {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	margin-inline-end: var(--space-2);
+}
