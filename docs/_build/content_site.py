@@ -191,7 +191,7 @@ def build_landing():
 <header class="lp-nav">
 	<div class="container lp-nav__in">
 		<a class="cds-mark cds-mark-live" href="./index.html">
-			<span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span>
+			<span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span>
 			<span class="cds-mark__sub">design system</span>
 		</a>
 		<nav class="cluster-sm">
@@ -221,7 +221,7 @@ def build_landing():
 	<div class="nav-sheet__in">
 		<span class="nav-sheet__scan" aria-hidden="true"></span>
 		<div class="nav-sheet__head">
-			<span class="cds-mark"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span></span>
+			<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
@@ -321,7 +321,7 @@ def build_landing():
 	<footer class="container footer">
 		<div class="footer__grid">
 			<div class="footer__brand">
-				<span class="cds-mark"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span></span>
+				<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
 				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
 			</div>
 			<div><h2 class="footer__head">Docs</h2><div class="footer__links">

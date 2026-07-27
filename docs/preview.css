@@ -854,27 +854,26 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 .cds-mark__word { position: relative; }
 
 /* The record light, on the shoulder. */
-.cds-mark__rec {
-	position: absolute;
-	top: -0.12em;
-	right: -0.42em;
-	width: 0.26em;
-	height: 0.26em;
+/* The o IS the record light. A dot parked on the shoulder is a thing added to
+   the word; a letter that has become the light is the word saying it itself —
+   and it is the round letter already sitting at the centre of "creator".
+
+   Sized in `ex`, which is the x-height: exactly the height an o occupies. As an
+   inline-block it sits on the baseline the way the letter did, so the dot lands
+   where the o was in any face, at any size, with no magic numbers to re-tune
+   when --font-display changes. The letter itself follows as screen-reader text,
+   so the accessible name and a copy-paste still read "creator". */
+.cds-mark__o {
+	display: inline-block;
+	width: 1ex;
+	height: 1ex;
+	margin-inline: 0.07em;
 	border-radius: var(--radius-full);
 	background: var(--accent);
 }
 
-.cds-mark__rec::after {
-	content: '';
-	position: absolute;
-	inset: -0.22em;
-	border-radius: var(--radius-full);
-	border: 1.5px solid var(--accent);
-	opacity: 0.28;
-}
-
 /* Only the landing hero breathes; a pulsing dot in a nav is a distraction. */
-.cds-mark-live .cds-mark__rec { animation: cds-rec 2.4s var(--ease-inout) infinite; }
+.cds-mark-live .cds-mark__o { animation: cds-rec 2.4s var(--ease-inout) infinite; }
 
 @keyframes cds-rec {
 	0%, 70%, 100% { opacity: 1; }

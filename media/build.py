@@ -87,9 +87,15 @@ def hero():
     b.append('  <g fill="none" stroke="#ffffff" stroke-opacity="0.85" stroke-width="4" '
              'stroke-linecap="round"><path d="M56 96V70a12 12 0 0 1 12-12h28M1144 96V70a12 12 0 0 0-12-12h-28'
              'M56 284v26a12 12 0 0 0 12 12h28M1144 284v26a12 12 0 0 1-12 12h-28"/></g>\n')
+    # The o IS the record light. The two halves of the word are drawn either
+    # side of it and the dot takes the space the glyph would have filled —
+    # measured at this size and letter-spacing, not eyeballed, so the word
+    # still reads as one word rather than three pieces.
     b.append(f'  <text x="104" y="176" font-family="{DISPLAY}" font-size="72" font-weight="700" '
-             f'fill="#fff" letter-spacing="-2.5">creator</text>\n')
-    b.append(f'  <circle cx="405" cy="122" r="11" fill="{ACCENT}"/>\n')
+             f'fill="#fff" letter-spacing="-2.5">creat</text>\n')
+    b.append(f'  <circle cx="281" cy="158" r="18" fill="{ACCENT}"/>\n')
+    b.append(f'  <text x="300" y="176" font-family="{DISPLAY}" font-size="72" font-weight="700" '
+             f'fill="#fff" letter-spacing="-2.5">r</text>\n')
     b.append(f'  <text x="107" y="214" font-family="{MONO}" font-size="19" fill="#ffffff" '
              f'fill-opacity="0.45" letter-spacing="5">DESIGN SYSTEM</text>\n')
     b.append(f'  <text x="104" y="268" font-family="{DISPLAY}" font-size="24" fill="#ffffff" '

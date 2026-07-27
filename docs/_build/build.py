@@ -17,7 +17,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 REPO = HERE.parent.parent
 FRAG = HERE / 'fragments'
-V = '?v=cds17'
+V = '?v=cds19'
 SITE = 'https://creator.imswarnil.com'
 
 import content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
@@ -531,7 +531,7 @@ TEMPLATE = '''<!DOCTYPE html>
 {sprite}
 <header class="cds-bar cds-bar-wide">
 	<div class="cds-bar__in u-relative">
-		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span><span class="cds-mark__sub">design system</span></a>
+		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span><span class="cds-mark__sub">design system</span></a>
 		<nav class="cds-bar__links" aria-label="Site">
 			<a href="./introduction.html">Docs</a>
 			<a href="./components.html">Components</a>
@@ -565,7 +565,7 @@ TEMPLATE = '''<!DOCTYPE html>
 	<div class="nav-sheet__in">
 		<span class="nav-sheet__scan" aria-hidden="true"></span>
 		<div class="nav-sheet__head">
-			<span class="cds-mark"><span class="cds-mark__word">creator<i class="cds-mark__rec"></i></span></span>
+			<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
