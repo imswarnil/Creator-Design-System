@@ -8973,12 +8973,15 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 
 /* The SURFACE goes edge to edge — a full-width bar whose hairline stops short
    of the window is just an island with square corners. Only the contents are
-   pulled in, to the same column the page's text uses. */
+   pulled in, to the same column the page's text uses.
+
+   No border either: the island earns its outline by floating, a bar that fills
+   the width does not, and a full-bleed hairline is a seam across the page. The
+   background alone separates it. */
 .nav-shell-full .nav-bar {
 	padding-inline: max(var(--gutter), calc((100% - var(--w-site)) / 2));
+	border: 0;
 	border-radius: 0;
-	border-inline: 0;
-	border-top: 0;
 	box-shadow: none;
 }
 
@@ -9686,52 +9689,90 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 .nav-shell-reveal[data-dir='down'] { transform: translateY(-115%); }
 .nav-shell-reveal[data-dir='up'] { transform: none; }
 
-/* Full-bleed until the page moves, then it draws itself in. Every property
-   here is one the island already had — the variant is the transition, not a
-   second design.
+/* Full-bleed until the page moves, then it draws itself in.
 
-   The bar is addressed through :is() because it is a child of .nav-stack the
-   moment the island grows a second row — a bare `>` silently stops matching
-   and the variant looks half-applied. */
+   The trick is where the horizontal padding lives. The SHELL carries the
+   alignment padding and gives up exactly one gutter on scroll; the BAR takes
+   that same gutter back. The sum never changes, so the wordmark and the
+   controls sit still at one x while the island's own edges move around them —
+   the shape animates, the contents do not.
+
+   Both are addressed through :is() because a second row puts the bar inside
+   .nav-stack, and a bare `>` would silently stop matching.
+   ------------------------------------------------------------------------- */
+
+/* At rest there is no bar — only what it holds. No surface, no blur, no line
+   under it: the page starts at the top of the page. Everything the island is
+   made of fades in together as it draws itself. */
 .nav-shell-morph {
 	max-width: none;
-	padding-inline: 0;
 	top: 0;
-	transition: max-width var(--dur-4) var(--ease-out),
-		padding var(--dur-4) var(--ease-out),
+	padding-inline: max(var(--gutter), calc((100% - var(--w-site)) / 2));
+	background: none;
+	transition: padding var(--dur-4) var(--ease-out),
 		top var(--dur-4) var(--ease-out);
 }
 
+/* At rest the bar is not a surface at all: the shell is. */
 :is(.nav-shell-morph > .nav-bar, .nav-shell-morph > .nav-stack > .nav-bar) {
+	padding-inline: 0;
+	border-color: transparent;
 	border-radius: 0;
-	border-inline: 0;
-	border-top: 0;
+	background: none;
+	backdrop-filter: none;
 	box-shadow: none;
-	/* Full-bleed is the BAR, not its contents: at rest the mark still has to
-	   sit above the page's first word, or the bar reads as a different site.
-	   Once the shell has drawn itself in it takes over the constraint and the
-	   bar goes back to its own padding. */
-	padding-inline: max(var(--gutter), calc((100% - var(--w-site)) / 2));
-	transition: border-radius var(--dur-4) var(--ease-out),
+	transition: padding var(--dur-4) var(--ease-out),
+		border-radius var(--dur-4) var(--ease-out),
 		box-shadow var(--dur-4) var(--ease-out),
-		padding var(--dur-4) var(--ease-out),
+		border-color var(--dur-3) var(--ease-out),
 		background var(--dur-3) var(--ease-out);
 }
 
 .nav-shell-morph[data-scrolled] {
-	max-width: calc(var(--w-site) + var(--gutter) * 2);
-	padding-inline: var(--gutter);
+	padding-inline: max(var(--gutter), calc((100% - var(--w-site)) / 2 - var(--gutter)));
 	top: var(--space-3);
 }
 
-:is(.nav-shell-morph[data-scrolled] > .nav-bar, .nav-shell-morph[data-scrolled] > .nav-stack > .nav-bar) {
+:is(.nav-shell-morph[data-scrolled] > .nav-bar,
+	.nav-shell-morph[data-scrolled] > .nav-stack > .nav-bar) {
+	padding-inline: var(--gutter);
 	border-radius: var(--radius-pill);
-	padding-inline: var(--space-4);
+	border-color: var(--line-default);
+	background: color-mix(in srgb, var(--bg-canvas) 94%, transparent);
+	backdrop-filter: saturate(180%) blur(14px);
+	box-shadow: var(--shadow-2);
 }
 
-:is(.nav-shell-morph[data-scrolled] > .nav-bar, .nav-shell-morph[data-scrolled] > .nav-stack > .nav-bar) {
-	border: var(--border-hair) solid var(--line-default);
-	box-shadow: var(--shadow-2);
+/* ── The progress border when the bar is flat ────────────────────────────────
+   A ring makes sense around an island. Across a full-width bar it would draw a
+   rectangle over the whole window — a border where the design asked for none.
+   Flat, the same gradient becomes one line along the bottom edge: still the
+   border, still the progress, no box.
+   ------------------------------------------------------------------------- */
+
+:is(.nav-progress.nav-shell-full > .nav-bar,
+	.nav-progress.nav-shell-full > .nav-stack > .nav-bar)::after {
+	inset: auto 0 0 0;
+	height: var(--border-2);
+	padding: 0;
+	border-radius: 0;
+	mask: none;
+	-webkit-mask: none;
+}
+
+/* …and nothing at all while a morph bar is still at the top: a progress ring
+   around an invisible bar is a rectangle drawn on the page. It fades in with
+   the rest of the island. */
+:is(.nav-progress.nav-shell-morph > .nav-bar,
+	.nav-progress.nav-shell-morph > .nav-stack > .nav-bar)::after {
+	opacity: 0;
+	transition: opacity var(--dur-3) var(--ease-out),
+		background var(--dur-4) var(--ease-out);
+}
+
+:is(.nav-progress.nav-shell-morph[data-scrolled] > .nav-bar,
+	.nav-progress.nav-shell-morph[data-scrolled] > .nav-stack > .nav-bar)::after {
+	opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

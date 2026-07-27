@@ -253,7 +253,7 @@ b.append(tile(bar(LOGO + links([('Blog', None, True), ('Videos', None, False)])
 b.append(ct([
     ('.nav-shell', 'floating island. Use when the page has a hero or a pattern behind it'),
     ('.nav-shell-flush', 'flat bar, content-aligned. Use for docs and reading-first sites'),
-    ('.nav-shell-full', 'edge-to-edge bar, inner content still capped at the site width'),
+    ('.nav-shell-full', 'edge-to-edge bar with no border at all — the island earns its outline by floating, a bar that fills the width does not. Contents still sit in the site column'),
     ('[data-scrolled]', 'set it from JS past ~8px of scroll; the island tightens and gains a shadow'),
 ], head=('Variant', 'When')))
 
@@ -539,10 +539,15 @@ b.append(ct([
     ('.nav-shell-fixed', 'pinned to the top, always there'),
     ('.nav-shell-auto', 'hides on the way down, returns on the way up — reading gets the screen, '
                         'navigating gets the bar'),
-    ('.nav-shell-morph', 'full-bleed at rest; contracts into the island once the page has moved'),
+    ('.nav-shell-morph', 'nothing at rest — no surface, no blur, no line, just the links over the page — then the island fades and draws itself in once the page has moved'),
     ('.nav-shell-reveal', 'the same disappearing act as -auto, but sticky rather than fixed — the bar '
                           'keeps its place in the flow, so nothing hides under it at the top'),
 ], head=('Class', 'Behaviour')))
+b.append(p(
+    '<b>-morph moves the island, not its contents.</b> The alignment padding lives on the shell and '
+    'gives up exactly one gutter on scroll; the bar takes the same gutter back. The sum never changes, '
+    'so the wordmark and the controls hold one x while the island\'s edges travel around them — a bar '
+    'whose logo slides on every scroll is a bar that looks broken.'))
 b.append(p(
     'Pair <code class="t-code">.nav-shell-full</code> with either hiding behaviour for a plain bar '
     'across the page that leaves on the way down. And note that <code class="t-code">-morph</code> '
