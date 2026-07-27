@@ -5,7 +5,7 @@
    stays the single description of how the bar looks in each state.
 
      data-scrolled   on .nav-shell-morph / .nav-over — the bar has left the top
-     data-dir        on .nav-shell-auto   — which way the reader is going
+     data-dir        on .nav-shell-auto / -reveal — which way the reader is going
      data-open       on .nav-shell        — the in-place panel is open
 
    Plus hover-intent for dropdowns, which lands on the same <details open> the
@@ -27,7 +27,7 @@
 	   scroll cannot queue a hundred layout reads. */
 	function scroll() {
 		var morph = [].slice.call(doc.querySelectorAll('.nav-shell-morph, .nav-over'));
-		var auto = [].slice.call(doc.querySelectorAll('.nav-shell-auto'));
+		var auto = [].slice.call(doc.querySelectorAll('.nav-shell-auto, .nav-shell-reveal'));
 		if (!morph.length && !auto.length) return;
 
 		var last = global.scrollY || 0;

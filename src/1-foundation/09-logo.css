@@ -307,3 +307,11 @@
 .logo-dont-rotate  { transform: rotate(-8deg); }
 .logo-dont-recolor { --logo-dot-color: var(--info-line); }
 .logo-dont-outline { -webkit-text-stroke: 1px currentColor; color: transparent; }
+
+/* The bar keeps the full wordmark at every width — an abbreviated mark in a
+   bar that has room for the word is a puzzle for no reason. The short forms
+   stay available for places that genuinely have no room (a favicon, an
+   avatar, a watermark). */
+.nav-bar .logo-responsive .logo__full { display: inline-flex; }
+.nav-bar .logo-responsive .logo__abbr,
+.nav-bar .logo-responsive .logo__mark { display: none; }

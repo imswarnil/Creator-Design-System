@@ -8971,10 +8971,11 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 	top: 0;
 }
 
+/* The SURFACE goes edge to edge — a full-width bar whose hairline stops short
+   of the window is just an island with square corners. Only the contents are
+   pulled in, to the same column the page's text uses. */
 .nav-shell-full .nav-bar {
-	max-width: calc(var(--w-site) + var(--gutter) * 2);
-	margin-inline: auto;
-	padding-inline: var(--gutter);
+	padding-inline: max(var(--gutter), calc((100% - var(--w-site)) / 2));
 	border-radius: 0;
 	border-inline: 0;
 	border-top: 0;
@@ -9617,12 +9618,19 @@ button.list-group__item:hover { background: var(--bg-sunken); }
    the only way to gradient a border without giving up the radius.
    ------------------------------------------------------------------------- */
 
-.nav-progress { position: relative; }
+/* No `position` on the shell here. .nav-shell is already positioned — sticky,
+   or fixed in the -auto/-fixed variants — and re-declaring it `relative`
+   silently un-sticks the bar, which looks like the navbar scrolling away.
+   The bar itself is reached through :is() because a second row puts it inside
+   .nav-stack. */
 .nav-progress[data-track='accent'] { --track: color-mix(in srgb, var(--accent) 18%, transparent); }
 
-.nav-progress > .nav-bar { position: relative; border-color: transparent; }
+:is(.nav-progress > .nav-bar, .nav-progress > .nav-stack > .nav-bar) {
+	position: relative;
+	border-color: transparent;
+}
 
-.nav-progress > .nav-bar::after {
+:is(.nav-progress > .nav-bar, .nav-progress > .nav-stack > .nav-bar)::after {
 	content: '';
 	position: absolute;
 	inset: 0;
@@ -9645,6 +9653,7 @@ button.list-group__item:hover { background: var(--bg-sunken); }
    .nav-shell-fixed   pinned to the top, always
    .nav-shell-auto    pinned, but hides on the way down and returns on the way
                       up — reading gets the screen, navigating gets the bar
+   .nav-shell-reveal  the same, but sticky: it keeps its place in the flow
    .nav-shell-morph   full-bleed at rest, contracting into the island once the
                       page has moved
    (default)          sticky island
@@ -9665,9 +9674,25 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 .nav-shell-auto[data-dir='down'] { transform: translateY(-115%); }
 .nav-shell-auto[data-dir='up'] { transform: none; }
 
+/* The same disappearing act, but sticky rather than fixed — so the bar keeps
+   its place in the flow and the first screenful is never hidden underneath it.
+   Pair with .nav-shell-full for a plain bar that leaves on the way down. */
+.nav-shell-reveal {
+	position: sticky;
+	top: 0;
+	transition: transform var(--dur-3) var(--ease-out);
+}
+
+.nav-shell-reveal[data-dir='down'] { transform: translateY(-115%); }
+.nav-shell-reveal[data-dir='up'] { transform: none; }
+
 /* Full-bleed until the page moves, then it draws itself in. Every property
    here is one the island already had — the variant is the transition, not a
-   second design. */
+   second design.
+
+   The bar is addressed through :is() because it is a child of .nav-stack the
+   moment the island grows a second row — a bare `>` silently stops matching
+   and the variant looks half-applied. */
 .nav-shell-morph {
 	max-width: none;
 	padding-inline: 0;
@@ -9677,13 +9702,19 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 		top var(--dur-4) var(--ease-out);
 }
 
-.nav-shell-morph > .nav-bar {
+:is(.nav-shell-morph > .nav-bar, .nav-shell-morph > .nav-stack > .nav-bar) {
 	border-radius: 0;
 	border-inline: 0;
 	border-top: 0;
 	box-shadow: none;
+	/* Full-bleed is the BAR, not its contents: at rest the mark still has to
+	   sit above the page's first word, or the bar reads as a different site.
+	   Once the shell has drawn itself in it takes over the constraint and the
+	   bar goes back to its own padding. */
+	padding-inline: max(var(--gutter), calc((100% - var(--w-site)) / 2));
 	transition: border-radius var(--dur-4) var(--ease-out),
 		box-shadow var(--dur-4) var(--ease-out),
+		padding var(--dur-4) var(--ease-out),
 		background var(--dur-3) var(--ease-out);
 }
 
@@ -9693,17 +9724,22 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 	top: var(--space-3);
 }
 
-.nav-shell-morph[data-scrolled] > .nav-bar { border-radius: var(--radius-pill); }
+:is(.nav-shell-morph[data-scrolled] > .nav-bar, .nav-shell-morph[data-scrolled] > .nav-stack > .nav-bar) {
+	border-radius: var(--radius-pill);
+	padding-inline: var(--space-4);
+}
 
-.nav-shell-morph[data-scrolled] > .nav-bar {
+:is(.nav-shell-morph[data-scrolled] > .nav-bar, .nav-shell-morph[data-scrolled] > .nav-stack > .nav-bar) {
 	border: var(--border-hair) solid var(--line-default);
 	box-shadow: var(--shadow-2);
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.nav-shell-auto,
+	.nav-shell-reveal,
 	.nav-shell-morph,
-	.nav-shell-morph > .nav-bar { transition: none; }
+	.nav-shell-morph > .nav-bar,
+	.nav-shell-morph > .nav-stack > .nav-bar { transition: none; }
 }
 
 /* ── Centred mark, inverse bar, compact ──────────────────────────────────────

@@ -540,7 +540,14 @@ b.append(ct([
     ('.nav-shell-auto', 'hides on the way down, returns on the way up — reading gets the screen, '
                         'navigating gets the bar'),
     ('.nav-shell-morph', 'full-bleed at rest; contracts into the island once the page has moved'),
+    ('.nav-shell-reveal', 'the same disappearing act as -auto, but sticky rather than fixed — the bar '
+                          'keeps its place in the flow, so nothing hides under it at the top'),
 ], head=('Class', 'Behaviour')))
+b.append(p(
+    'Pair <code class="t-code">.nav-shell-full</code> with either hiding behaviour for a plain bar '
+    'across the page that leaves on the way down. And note that <code class="t-code">-morph</code> '
+    'reaches its bar through <code class="t-code">:is()</code>, so the variant still works once the '
+    'island grows a second row and the bar sits inside <code class="t-code">.nav-stack</code>.'))
 b.append(tile(
     '<div class="np__scroller" data-scroll-demo>'
     '<div class="np__scroller-in">'
