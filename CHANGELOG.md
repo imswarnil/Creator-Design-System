@@ -7,6 +7,18 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **A style per collection** — `.nav-video`, `.nav-blog`, `.nav-course-bar`,
+  `.nav-shop`, `.nav-trip`, `.nav-docs-bar`. Each sets defaults only, written in
+  six variables it also yields to: `--bar-bg`, `--bar-fg`, `--bar-line`,
+  `--bar-radius`, `--bar-h`, `--bar-blur`.
+- **`.nav-over`** — a bar that sits *over* media rather than on the page: no
+  island, no plate, a gradient carrying legibility on any frame, and ink once
+  the reader scrolls past the film. Paired with `.nav-over__media`.
+- **The navbar builder now controls everything** — collection, position
+  (including over-media), mark and link alignment, width, height, radius,
+  border/shadow/blur, theme, accent, background, active-link treatment, the
+  brand word and link labels, which actions the bar carries, dropdown trigger,
+  burger style, mobile opening, and the progress line.
 - **Navbar, final pass.** Shell behaviours (`.nav-shell-fixed`,
   `.nav-shell-auto` hide-on-scroll-down, `.nav-shell-morph` full-bleed →
   island); the hairline as a progress bar (`.nav-progress` + `--progress`);
@@ -32,6 +44,10 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
   `.tok-sel`, `.tok-var`, `.tok-punc`, in both themes.
 
 ### Removed
+- **The submenu row.** `.nav-stack`, `.nav-sub`, `.nav-context*`, the mobile
+  collection index (`.nav-sheet-index`) and the row's hide/show mechanism are
+  gone. The navbar is one row again; what a collection needs to say, it says in
+  its own style rather than in a second bar underneath.
 - **The ten `nav-v-*` / `nav-s-*` shape variants.** A bar's shape is decided
   once in the design; where it goes when the reader scrolls is the decision
   worth a variant. Four positions remain — island, fixed, island-on-scroll,

@@ -130,27 +130,39 @@ Dark mode rides `data-theme="light|dark"` on `<html>`.
 
 ## Navbar
 
-<img src="media/navbar.svg" alt="A two-row navigation island: the site menu on top, a dark lesson row beneath it, and the top hairline filled to 21 per cent as a progress bar" width="100%">
+<img src="media/navbar.svg" alt="An island navigation bar whose top hairline is filled to 30 per cent as a progress bar, and beneath it a series bar sitting over footage with no plate or border" width="100%">
 
-One component, several shapes. The site menu always stays; context for whatever
-you are inside becomes a second row beneath it inside `.nav-stack`, and the row
-is configured rather than subclassed — `data-tone`, `data-density`, `--value`,
-`--pos-prefix`. There is no class per collection.
+One component, a style per collection. The bar above a web series should not
+look like the bar above a shop, so each collection sets its own defaults — and
+only defaults:
+
+| Class | What it assumes |
+| --- | --- |
+| `.nav-video` | the series — no island at all: the bar sits *over* the footage and becomes furniture once you scroll past it |
+| `.nav-blog` | the writing — flat, hairline underneath, no plate |
+| `.nav-course-bar` | the syllabus — a soft plate with room for the read-through line |
+| `.nav-shop` | the shop — a squarer plate, actions spaced for a cart |
+| `.nav-trip` | the journal — the accent warms the bar itself |
+| `.nav-docs-bar` | the reference — 2.75rem, flat, dense |
+
+Every one of them is written in the same six variables, and yields to any of
+them: `--bar-bg`, `--bar-fg`, `--bar-line`, `--bar-radius`, `--bar-h`,
+`--bar-blur`. The class is a shorthand, not a cage.
 
 ```html
-<header class="nav-shell nav-shell-morph nav-progress" style="--progress:38%">
-  <div class="nav-stack">
-    <nav class="nav-bar">… mark · links · actions …</nav>
-    <div class="nav-sub nav-context" data-tone="ink">… back · where · rail …</div>
-  </div>
+<header class="nav-shell nav-shell-full nav-over">
+  <nav class="nav-bar nav-video">… mark · links · actions …</nav>
 </header>
+<div class="nav-over__media">
+  <video src="…" autoplay muted loop playsinline></video>
+</div>
 <script src="creator-design-system/src/nav.js" defer></script>
 ```
 
-`nav.js` is optional and additive: it sets `data-scrolled`, `data-dir`,
-`data-open` and `data-sub`, all of which the stylesheet already understands, so
-the CSS stays the single description of how the bar looks. Without it you get a
-plain sticky island and click-only dropdowns — nothing breaks.
+`nav.js` is optional and additive: it sets `data-scrolled`, `data-dir` and
+`data-open`, all of which the stylesheet already understands, so the CSS stays
+the single description of how the bar looks. Without it you get a plain sticky
+island and click-only dropdowns — nothing breaks.
 
 | Shell | Behaviour |
 | --- | --- |
@@ -158,11 +170,13 @@ plain sticky island and click-only dropdowns — nothing breaks.
 | `.nav-shell-fixed` | pinned to the top, always |
 | `.nav-shell-auto` | hides going down, returns going up |
 | `.nav-shell-morph` | full-bleed at rest, contracts into the island on scroll |
+| `.nav-over` | over media: transparent on the footage, ink once you pass it |
 
 The island's hairline doubles as the read-through bar (`.nav-progress` +
 `--progress`), the burger runs record → play rather than bars → X
-(`.nav-burger-rec`), and on phones the submenu folds its actions behind its own
-burger that opens the collection index.
+(`.nav-burger-rec`), and the docs page ends in a
+[builder](https://creator.imswarnil.com/navbar.html) that writes the markup for
+whatever combination you land on.
 
 ## Syntax highlighting
 

@@ -354,229 +354,252 @@ document.addEventListener('click', function (e) {
 	});
 })();
 
-/* ── Navbar playground ───────────────────────────────────────────────────────
-   Renders the submenu row from the control panel, then prints the markup that
-   would produce it. Both come from the same state object, so the preview and
-   the copy can never disagree — which is the only reason a playground is worth
-   more than a screenshot. */
+/* ── Navbar builder ──────────────────────────────────────────────────────────
+   Everything the panel can set maps to something the component already
+   understands — a class, a data attribute or a custom property. The preview and
+   the printed markup are rendered from the same state object and never from
+   each other, so what you copy is always what you are looking at.
+
+   The one deliberate difference: the stage cannot really be fixed or pinned
+   inside a docs page, so positioning classes are written into the markup but
+   not applied to the preview. The panel says so rather than pretending. */
 (function () {
 	var root = document.querySelector('[data-nav-playground]');
 	if (!root) return;
 
-	var sub = root.querySelector('[data-np-sub]');
-	var bar = root.querySelector('[data-np-bar]');
+	var stage = root.querySelector('[data-np-stage]');
+	var media = root.querySelector('[data-np-media]');
 	var shell = root.querySelector('[data-np-shell]');
+	var bar = root.querySelector('[data-np-bar]');
 	var out = root.querySelector('[data-np-code]');
-	var readout = root.querySelector('[data-np-value]');
 
-	var val = function (name) {
-		var el = root.querySelector('[name="' + name + '"]:checked') ||
-			root.querySelector('[name="' + name + '"]');
+	var val = function (n) {
+		var el = root.querySelector('[name="' + n + '"]:checked') ||
+			root.querySelector('[name="' + n + '"]');
 		return el ? el.value : '';
 	};
-	var on = function (name) {
-		var el = root.querySelector('[name="' + name + '"]');
+	var on = function (n) {
+		var el = root.querySelector('[name="' + n + '"]');
 		return !!(el && el.checked);
-	};
-
-	// A preset is a starting point, not a mode: it stamps the controls and then
-	// gets out of the way, so the next change is the reader's, not the preset's.
-	var PRESETS = {
-		series: { tone: 'ink', density: 'compact', prefix: 'EP.', mark: false,
-			back: true, kind: true, pos: true, actions: true, rail: false,
-			logo: true, icons: true, news: false, cta: true, burger: true,
-			progress: false, shell: 'morph' },
-		docs: { tone: 'paper', density: 'compact', prefix: '', mark: false,
-			back: true, kind: false, pos: false, actions: false, rail: false,
-			logo: true, icons: true, news: false, cta: false, burger: false,
-			progress: true, shell: 'fixed' },
-		course: { tone: 'paper', density: 'regular', prefix: '', mark: true,
-			back: true, kind: false, pos: true, actions: true, rail: true,
-			logo: true, icons: false, news: true, cta: false, burger: false,
-			progress: false, shell: 'island' }
-	};
-
-	var apply = function (preset) {
-		var conf = PRESETS[preset];
-		if (!conf) return;
-		var radio = function (name, value) {
-			var el = root.querySelector('[name="' + name + '"][value="' + value + '"]');
-			if (el) el.checked = true;
-		};
-		var check = function (name, on) {
-			var el = root.querySelector('[name="' + name + '"]');
-			if (el) el.checked = on;
-		};
-		radio('np-tone', conf.tone);
-		radio('np-density', conf.density);
-		radio('np-prefix', conf.prefix);
-		radio('np-shell', conf.shell);
-		['mark', 'back', 'kind', 'pos', 'actions', 'rail',
-			'logo', 'icons', 'news', 'cta', 'burger', 'progress'].forEach(function (k) {
-			check('np-' + k, conf[k]);
-		});
 	};
 
 	var state = function () {
 		return {
-			tone: val('np-tone'),
-			density: val('np-density'),
-			prefix: val('np-prefix'),
-			mark: on('np-mark'),
-			back: on('np-back'),
-			kind: on('np-kind'),
-			pos: on('np-pos'),
-			actions: on('np-actions'),
-			rail: on('np-rail'),
-			value: root.querySelector('[name="np-value"]').value,
-			logo: on('np-logo'),
-			icons: on('np-icons'),
-			news: on('np-news'),
-			cta: on('np-cta'),
-			burger: on('np-burger'),
-			progress: on('np-progress'),
+			collection: val('np-collection'),
 			shell: val('np-shell'),
-			track: val('np-track'),
-			accent: val('np-accent')
+			markPos: val('np-mark-pos'),
+			linksAlign: val('np-links-align'),
+			width: val('np-width'),
+			height: +val('np-height'),
+			radius: +val('np-radius'),
+			border: on('np-border'), shadow: on('np-shadow'), blur: on('np-blur'),
+			theme: val('np-theme'),
+			accent: val('np-accent'), bg: val('np-bg'),
+			active: val('np-active'),
+			brand: val('np-brand').trim() || 'creator',
+			links: val('np-links').split(',').map(function (t) { return t.trim(); })
+				.filter(Boolean),
+			cta: val('np-cta').trim() || 'Subscribe',
+			logo: on('np-logo'), icons: on('np-icons'), news: on('np-news'),
+			ctaOn: on('np-cta-on'), search: on('np-search'), burger: on('np-burger'),
+			drop: val('np-drop'), burgerStyle: val('np-burger-style'),
+			mobile: val('np-mobile'),
+			progress: on('np-progress'), track: val('np-track'), value: val('np-value')
 		};
 	};
 
-	// The attributes the row carries, in the order they read best.
-	var attrs = function (s) {
-		var a = [];
-		if (s.tone !== 'paper') a.push(['data-tone', s.tone]);
-		if (s.density !== 'regular') a.push(['data-density', s.density]);
-		if (s.mark) a.push(['data-mark', 'pos']);
-		var style = [];
-		if (s.rail) style.push('--value:' + s.value + '%');
-		if (s.prefix) style.push("--pos-prefix:'" + s.prefix + "'");
-		if (style.length) a.push(['style', style.join('; ')]);
-		return a;
+	/* The classes the bar carries, in the order a person would write them. */
+	var barClasses = function (s) {
+		var c = ['nav-bar'];
+		if (s.collection) c.push('nav-' + s.collection);
+		if (s.markPos === 'center') c.push('nav-bar-center');
+		if (s.active === 'rule') c.push('nav-links-rule');
+		if (s.active === 'soft') c.push('nav-links-soft');
+		return c;
 	};
 
-	var LOGO = '<span class="logo logo-sm">Swarn<span class="logo__i">\u0131' +
-		'<i class="logo__tittle"></i></span>l</span>';
-
-	var ICON = function (id, label) {
-		return '<a class="nav-icon" href="#i" aria-label="' + label + '">' +
-			'<svg class="icon" aria-hidden="true"><use href="#i-' + id + '"/></svg></a>';
+	var shellClasses = function (s) {
+		var c = ['nav-shell'];
+		if (s.shell === 'fixed') c.push('nav-shell-fixed');
+		if (s.shell === 'morph') c.push('nav-shell-morph');
+		if (s.shell === 'auto') c.push('nav-shell-auto');
+		if (s.shell === 'over') c.push('nav-over', 'nav-shell-full');
+		if (s.width === 'wide') c.push('nav-s-wide');
+		if (s.width === 'full') c.push('nav-shell-full');
+		if (s.progress) c.push('nav-progress');
+		return c;
 	};
 
-	var mainRow = function (s) {
-		var html = s.logo ? LOGO : '';
-		html += '<div class="nav-links"><a class="nav-link" href="#i">Watch</a>' +
-			'<a class="nav-link" href="#i" aria-current="page">Learn</a>' +
-			'<a class="nav-link" href="#i">Build</a></div>';
-		html += '<div class="nav-actions">';
+	/* Only the properties the reader actually changed — a style attribute full
+	   of defaults is noise in something you are about to paste. */
+	var barVars = function (s) {
+		var v = [];
+		if (s.height !== 56) v.push('--bar-h:' + s.height + 'px');
+		if (s.radius !== 40) v.push('--bar-radius:' + (s.radius >= 40 ? 'var(--radius-pill)' : s.radius + 'px'));
+		if (s.bg) v.push('--bar-bg:' + s.bg);
+		if (!s.border) v.push('--bar-line:transparent');
+		if (!s.blur) v.push('--bar-blur:none');
+		return v;
+	};
+
+	var shellVars = function (s) {
+		var v = [];
+		if (s.accent) v.push('--accent:' + s.accent);
+		if (s.progress) v.push('--progress:' + s.value + '%');
+		return v;
+	};
+
+	var ICONS = { code: 'GitHub', chat: 'Chat', share: 'Share' };
+
+	var actionsHTML = function (s) {
+		var h = '<div class="nav-actions">';
+		if (s.search) {
+			h += '<button class="nav-icon" type="button" aria-label="Search">' +
+				'<svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>';
+		}
 		if (s.icons) {
-			html += '<div class="nav-icons">' + ICON('code', 'GitHub') +
-				ICON('chat', 'Chat') + ICON('share', 'Share') + '</div>';
+			h += '<div class="nav-icons">';
+			Object.keys(ICONS).forEach(function (k) {
+				h += '<a class="nav-icon" href="#i" aria-label="' + ICONS[k] + '">' +
+					'<svg class="icon" aria-hidden="true"><use href="#i-' + k + '"/></svg></a>';
+			});
+			h += '</div>';
 		}
 		if (s.news) {
-			html += '<details class="nav-form"><summary aria-label="Subscribe">' +
+			h += '<details class="nav-form"><summary aria-label="Subscribe">' +
 				'<svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></summary>' +
 				'<form class="nav-form__field" onsubmit="return false">' +
 				'<input type="email" placeholder="you@example.com" aria-label="Email" />' +
 				'<button class="btn btn-primary btn-sm btn-pill" type="submit">Join</button>' +
 				'</form></details>';
 		}
-		if (s.cta) html += '<button class="btn btn-primary btn-sm btn-pill" type="button">Subscribe</button>';
-		if (s.burger) {
-			html += '<button class="nav-burger nav-burger-rec" type="button" aria-expanded="false" ' +
-				'data-burger><span class="nav-burger__box"><span class="nav-burger__bars"></span>' +
-				'</span><span class="u-sr-only">Menu</span></button>';
+		if (s.ctaOn) {
+			h += '<button class="btn btn-primary btn-sm btn-pill" type="button">' +
+				s.cta + '</button>';
 		}
-		if (!s.icons && !s.news && !s.cta && !s.burger) html += '<span class="dot dot-sm"></span>';
-		return html + '</div>';
+		if (s.burger) {
+			var cls = 'nav-burger' + (s.burgerStyle ? ' nav-burger-' + s.burgerStyle : '');
+			h += '<button class="' + cls + '" type="button" aria-expanded="false" data-burger>' +
+				'<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>' +
+				'<span class="u-sr-only">Menu</span></button>';
+		}
+		if (!s.search && !s.icons && !s.news && !s.ctaOn && !s.burger) {
+			h += '<span class="dot dot-sm"></span>';
+		}
+		return h + '</div>';
+	};
+
+	var MARK = function (word) {
+		var i = word.toLowerCase().indexOf('o');
+		if (i === -1) return '<span class="cds-mark__word">' + word + '</span>';
+		return '<span class="cds-mark__word">' + word.slice(0, i) +
+			'<i class="cds-mark__o" aria-hidden="true"></i>' +
+			'<span class="u-sr-only">' + word[i] + '</span>' + word.slice(i + 1) + '</span>';
 	};
 
 	var render = function () {
 		var s = state();
 
-		bar.innerHTML = mainRow(s);
+		stage.setAttribute('data-theme', s.theme);
+		media.hidden = s.shell !== 'over';
+		stage.classList.toggle('np__stage-over', s.shell === 'over');
 
-		// The stage is a box on a docs page, so it cannot actually be fixed —
-		// the class is set for the markup's sake and the demo stays static.
-		shell.classList.remove('nav-shell-fixed', 'nav-shell-morph', 'nav-shell-auto');
-		if (s.shell !== 'island') shell.classList.add('nav-shell-' + s.shell);
-
-		if (s.accent) shell.style.setProperty('--accent', s.accent);
-		else shell.style.removeProperty('--accent');
-
-		if (s.track === 'accent') shell.setAttribute('data-track', 'accent');
+		// The shell classes that would pin the bar are written to the markup but
+		// not to the stage, which is a box on a page and cannot be pinned.
+		var live = shellClasses(s).filter(function (c) {
+			return ['nav-shell-fixed', 'nav-shell-auto', 'nav-shell-morph'].indexOf(c) === -1;
+		});
+		shell.className = live.join(' ');
+		shell.setAttribute('style', shellVars(s).join(';'));
+		if (s.progress && s.track === 'accent') shell.setAttribute('data-track', 'accent');
 		else shell.removeAttribute('data-track');
 
-		shell.classList.toggle('nav-progress', s.progress);
-		if (s.progress) shell.style.setProperty('--progress', s.value + '%');
-		else shell.style.removeProperty('--progress');
+		bar.className = barClasses(s).join(' ');
+		bar.setAttribute('style', barVars(s).join(';'));
+		if (!s.shadow) bar.style.boxShadow = 'none';
 
-		sub.setAttribute('class', 'nav-sub nav-context');
-		['data-tone', 'data-density', 'data-mark', 'style'].forEach(function (k) {
-			sub.removeAttribute(k);
+		var linksCls = 'nav-links';
+		var linkStyle = s.linksAlign === 'center' ? ' style="margin-inline:auto"'
+			: (s.linksAlign === 'end' ? ' style="margin-left:auto"' : ' style="margin-right:auto"');
+		var h = s.logo ? '<span class="cds-mark">' + MARK(s.brand) + '</span>' : '';
+		h += '<div class="' + linksCls + '"' + linkStyle + '>';
+		s.links.forEach(function (label, i) {
+			var cur = i === 1 ? ' aria-current="page"' : '';
+			var menu = (i === 1 && s.drop === 'hover');
+			if (menu) {
+				h += '<details class="nav-menu nav-menu-hover nav-menu-grow">' +
+					'<summary class="nav-link"' + cur + '>' + label + '</summary>' +
+					'<div class="nav-menu__panel">' +
+					'<a class="dropdown__item" href="#i">Everything</a>' +
+					'<a class="dropdown__item" href="#i">Latest</a></div></details>';
+			} else {
+				h += '<a class="nav-link" href="#i"' + cur + '>' + label + '</a>';
+			}
 		});
-		attrs(s).forEach(function (pair) { sub.setAttribute(pair[0], pair[1]); });
+		h += '</div>' + actionsHTML(s);
+		bar.innerHTML = h;
 
-		var html = '';
-		if (s.back) html += '<a class="nav-context__back" href="#i">← Courses</a>';
-		html += '<span class="nav-context__where">';
-		if (s.kind) html += '<span class="nav-context__kind">Course</span>';
-		html += '<span class="nav-context__title">Handlebars without tears</span>';
-		if (s.pos) html += '<span class="nav-context__pos">3 of 14</span>';
-		html += '</span>';
-		if (s.actions) {
-			html += '<div class="nav-context__actions">' +
-				'<button class="btn btn-quiet btn-sm" type="button">← Prev</button>' +
-				'<button class="btn btn-primary btn-sm" type="button">Next →</button></div>';
-		}
-		if (s.rail) html += '<span class="nav-rail"></span>';
-		sub.innerHTML = html;
+		root.querySelectorAll('[data-out]').forEach(function (o) {
+			var n = o.getAttribute('data-out');
+			var unit = n === 'np-value' ? '%' : 'px';
+			o.textContent = val(n) + unit;
+		});
 
-		if (readout) readout.textContent = s.value + '%';
 		print(s);
 	};
 
-	// The markup, built from the same state — never serialised from the DOM,
-	// so nothing the browser normalises leaks into what people paste.
+	var attr = function (name, value) { return value ? ' ' + name + '="' + value + '"' : ''; };
+
 	var print = function (s) {
-		var attrText = attrs(s).map(function (p) {
-			return ' ' + p[0] + '="' + p[1] + '"';
-		}).join('');
+		var L = [];
+		if (s.shell === 'over') L.push('<div class="nav-over__media">… your video or poster …</div>');
 
-		var shellCls = 'nav-shell' +
-			(s.shell !== 'island' ? ' nav-shell-' + s.shell : '') +
-			(s.progress ? ' nav-progress' : '');
-		var styles = [];
-		if (s.progress) styles.push('--progress:' + s.value + '%');
-		if (s.accent) styles.push('--accent:' + s.accent);
-		var shellStyle = styles.length ? ' style="' + styles.join('; ') + '"' : '';
-		if (s.progress && s.track === 'accent') shellCls += '" data-track="accent';
+		L.push('<header class="' + shellClasses(s).join(' ') + '"' +
+			attr('style', shellVars(s).join('; ')) +
+			(s.progress && s.track === 'accent' ? ' data-track="accent"' : '') + '>');
+		L.push('\t<nav class="' + barClasses(s).join(' ') + '"' +
+			attr('style', barVars(s).join('; ')) + ' aria-label="Main">');
 
-		var L = ['<div class="' + shellCls + '"' + shellStyle + '>', '\t<div class="nav-stack">'];
-		L.push('\t\t<nav class="nav-bar" aria-label="Main">');
-		if (s.logo) L.push('\t\t\t<a class="logo logo-sm" href="/">…</a>');
-		L.push('\t\t\t<div class="nav-links">… links …</div>');
-		L.push('\t\t\t<div class="nav-actions">');
-		if (s.icons) L.push('\t\t\t\t<div class="nav-icons">… social …</div>');
-		if (s.news) L.push('\t\t\t\t<details class="nav-form">… newsletter …</details>');
-		if (s.cta) L.push('\t\t\t\t<button class="btn btn-primary btn-sm btn-pill">Subscribe</button>');
-		if (s.burger) L.push('\t\t\t\t<button class="nav-burger nav-burger-rec" aria-expanded="false">…</button>');
-		L.push('\t\t\t</div>');
-		L.push('\t\t</nav>');
-		L.push('\t\t<div class="nav-sub nav-context"' + attrText + '>');
-		if (s.back) L.push('\t\t\t<a class="nav-context__back" href="/courses">← Courses</a>');
-		L.push('\t\t\t<span class="nav-context__where">');
-		if (s.kind) L.push('\t\t\t\t<span class="nav-context__kind">Course</span>');
-		L.push('\t\t\t\t<span class="nav-context__title">Handlebars without tears</span>');
-		if (s.pos) L.push('\t\t\t\t<span class="nav-context__pos">3 of 14</span>');
-		L.push('\t\t\t</span>');
-		if (s.actions) {
-			L.push('\t\t\t<div class="nav-context__actions">');
-			L.push('\t\t\t\t<button class="btn btn-quiet btn-sm">← Prev</button>');
-			L.push('\t\t\t\t<button class="btn btn-primary btn-sm">Next →</button>');
-			L.push('\t\t\t</div>');
+		if (s.logo) L.push('\t\t<a class="cds-mark" href="/">' + s.brand + '</a>');
+		L.push('\t\t<div class="nav-links">');
+		s.links.forEach(function (label, i) {
+			if (i === 1 && s.drop === 'hover') {
+				L.push('\t\t\t<details class="nav-menu nav-menu-hover nav-menu-grow">');
+				L.push('\t\t\t\t<summary class="nav-link">' + label + '</summary>');
+				L.push('\t\t\t\t<div class="nav-menu__panel">… items …</div>');
+				L.push('\t\t\t</details>');
+			} else {
+				L.push('\t\t\t<a class="nav-link" href="/' + label.toLowerCase() + '/"' +
+					(i === 1 ? ' aria-current="page"' : '') + '>' + label + '</a>');
+			}
+		});
+		L.push('\t\t</div>');
+
+		L.push('\t\t<div class="nav-actions">');
+		if (s.search) L.push('\t\t\t<button class="nav-icon" aria-label="Search">…</button>');
+		if (s.icons) L.push('\t\t\t<div class="nav-icons">… social …</div>');
+		if (s.news) L.push('\t\t\t<details class="nav-form">… newsletter …</details>');
+		if (s.ctaOn) L.push('\t\t\t<a class="btn btn-primary btn-sm btn-pill" href="/subscribe/">' +
+			s.cta + '</a>');
+		if (s.burger) {
+			L.push('\t\t\t<button class="nav-burger' +
+				(s.burgerStyle ? ' nav-burger-' + s.burgerStyle : '') +
+				'" aria-expanded="false" aria-controls="menu">…</button>');
 		}
-		if (s.rail) L.push('\t\t\t<span class="nav-rail"></span>');
-		L.push('\t\t</div>', '\t</div>', '</div>');
+		L.push('\t\t</div>');
+		L.push('\t</nav>');
+		L.push('</header>');
+
+		if (s.burger) {
+			L.push('');
+			L.push(s.mobile === 'panel'
+				? '<!-- .nav-panel inside the shell; data-panel-toggle on the burger -->'
+				: '<dialog class="nav-sheet' + (s.mobile === 'drop' ? ' nav-sheet-drop' : '') +
+				  '" id="menu">…</dialog>');
+		}
+		if (s.shell === 'morph' || s.shell === 'auto' || s.shell === 'over') {
+			L.push('<script src="creator-design-system/src/nav.js" defer><\/script>');
+		}
 
 		if (!out.firstChild) {
 			out.innerHTML =
@@ -593,16 +616,48 @@ document.addEventListener('click', function (e) {
 		}
 	};
 
+	// A collection carries its own sensible defaults; picking one stamps the
+	// controls and then gets out of the way.
+	var PRESETS = {
+		video: { shell: 'over', bg: 'transparent', border: false, blur: false,
+			icons: true, ctaOn: true, burger: true, radius: 0 },
+		blog: { shell: 'auto', width: 'full', radius: 0, border: false, blur: false,
+			news: true, ctaOn: false },
+		'course-bar': { shell: 'island', progress: true, ctaOn: false, radius: 12 },
+		shop: { shell: 'fixed', radius: 8, ctaOn: true, search: true },
+		trip: { shell: 'morph', radius: 20 },
+		'docs-bar': { shell: 'fixed', width: 'full', height: 44, radius: 0, search: true,
+			ctaOn: false, blur: false }
+	};
+
+	var apply = function (key) {
+		var conf = PRESETS[key];
+		if (!conf) return;
+		var set = function (name, v) {
+			var el = root.querySelector('[name="' + name + '"][value="' + v + '"]') ||
+				root.querySelector('[name="' + name + '"]');
+			if (!el) return;
+			if (el.type === 'radio') el.checked = true;
+			else el.value = v;
+		};
+		var tick = function (name, v) {
+			var el = root.querySelector('[name="' + name + '"]');
+			if (el) el.checked = v;
+		};
+		if (conf.shell) set('np-shell', conf.shell);
+		if (conf.width) set('np-width', conf.width);
+		if (conf.bg !== undefined) set('np-bg', conf.bg);
+		if (conf.height !== undefined) set('np-height', conf.height);
+		if (conf.radius !== undefined) set('np-radius', conf.radius);
+		['border', 'shadow', 'blur', 'icons', 'news', 'search', 'burger', 'progress']
+			.forEach(function (k) { if (conf[k] !== undefined) tick('np-' + k, conf[k]); });
+		if (conf.ctaOn !== undefined) tick('np-cta-on', conf.ctaOn);
+	};
+
 	root.addEventListener('input', function (e) {
-		if (e.target.name === 'np-preset') {
-			apply(e.target.value);
-		} else if (e.target.name) {
-			var custom = root.querySelector('[name="np-preset"][value="custom"]');
-			if (custom) custom.checked = true;
-		}
+		if (e.target.name === 'np-collection') apply(e.target.value);
 		render();
 	});
 
-	apply('series');
 	render();
 })();

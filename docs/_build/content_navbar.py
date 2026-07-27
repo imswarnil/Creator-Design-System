@@ -32,15 +32,6 @@ def burger(cls='', label=False):
     return f'<button class="nav-burger {cls}" type="button" aria-expanded="false" data-burger>{inner}</button>'
 
 
-def stack(main, sub, sub_attrs=''):
-    """The two-row island: site menu on top, context row beneath."""
-    return ('<div class="nav-shell" style="position:static;padding-inline:0;max-width:none">'
-            '<div class="nav-stack">'
-            f'<nav class="nav-bar" aria-label="Demo">{main}</nav>'
-            f'<div class="nav-sub nav-context"{sub_attrs}>{sub}</div>'
-            '</div></div>')
-
-
 def code(lang, lines, note):
     """A copyable markup block. `lines` is a list of pre-escaped strings."""
     body = ''.join(f'<span class="ln">{l}</span>' for l in lines)
@@ -84,65 +75,111 @@ def _row(label, control):
     return f'<div class="np__row"><span class="np__label">{label}</span>{control}</div>'
 
 
-# The control panel. Everything it can set is a knob that already exists on the
-# component — the panel invents nothing, so the markup it prints is the markup
-# you would have written. preview.js wires it up.
+def _text(name, value, width='12rem'):
+    return (f'<input class="np__text" type="text" name="{name}" value="{value}" '
+            f'style="width:{width}" />')
+
+
+def _range(name, lo, hi, value, unit=''):
+    return (f'<input class="np__range" type="range" name="{name}" min="{lo}" max="{hi}" '
+            f'value="{value}" /><output class="np__out-val" data-out="{name}">{value}{unit}</output>')
+
+
+def _swatches(name, options):
+    out = '<div class="np__swatches">'
+    for i, (label, value) in enumerate(options):
+        cur = ' checked' if i == 0 else ''
+        sw = value or 'var(--accent)'
+        out += (f'<label class="np__swatch" style="--sw:{sw}">'
+                f'<input type="radio" name="{name}" value="{value}"{cur} />'
+                f'<span class="u-sr-only">{label}</span></label>')
+    return out + '</div>'
+
+
+def _group(title, rows):
+    return (f'<details class="np__group" open><summary>{title}</summary>'
+            f'<div class="np__rows">{"".join(rows)}</div></details>')
+
+
+# The builder. Every control here maps to something the component already
+# understands — a class, a data attribute or a custom property — so the markup
+# it prints is markup you could have written by hand. It invents nothing.
 PLAYGROUND = (
     '<div class="np" data-nav-playground>'
-    '<div class="np__stage">'
-    '<div class="nav-shell" style="position:static;padding-inline:0;max-width:none" data-np-shell>'
-    '<div class="nav-stack">'
+
+    # The stage. A media block sits behind the bar so the "over media" position
+    # has something to be over — a series bar with nothing under it is a lie.
+    '<div class="np__stage" data-np-stage>'
+    '<div class="np__media" data-np-media hidden>'
+    '<span class="np__media-label">your footage</span></div>'
+    '<div class="nav-shell" data-np-shell>'
     '<nav class="nav-bar" aria-label="Playground" data-np-bar></nav>'
-    '<div class="nav-sub nav-context" data-np-sub></div>'
-    '</div></div></div>'
+    '</div>'
+    '<div class="np__page" data-np-page><span></span><span></span><span></span></div>'
+    '</div>'
 
     '<div class="np__panel">'
-    + _row('Preset', '<div class="np__seg" role="group">'
-           + ''.join(f'<label class="np__opt"><input type="radio" name="np-preset" '
-                     f'value="{v}"{" checked" if v == "series" else ""} /><span>{l}</span></label>'
-                     for v, l in [('series', 'Web series'), ('docs', 'Docs'),
-                                  ('course', 'Course'), ('custom', 'Custom')])
-           + '</div>')
-    + _row('Position', _seg('np-shell', [('island', 'Island'), ('fixed', 'Fixed'),
-                                         ('morph', 'Island on scroll'),
-                                         ('auto', 'Fixed on scroll')], 'island'))
-    + _row('Accent', '<div class="np__swatches">'
-           + ''.join(f'<label class="np__swatch" style="--sw:{c}">'
-                     f'<input type="radio" name="np-accent" value="{c}"'
-                     f'{" checked" if i == 0 else ""} />'
-                     f'<span class="u-sr-only">{n}</span></label>'
-                     for i, (n, c) in enumerate([('Record red', ''), ('Signal blue', '#3b6fe0'),
-                                                 ('Field green', '#1a8a5a'),
-                                                 ('Studio violet', '#6d4aff'),
-                                                 ('Amber', '#c9791a')]))
-           + '</div>')
-    + _row('Tone', _seg('np-tone', [('paper', 'Paper'), ('ink', 'Ink'), ('accent', 'Accent')], 'paper'))
-    + _row('Density', _seg('np-density', [('regular', 'Regular'), ('compact', 'Compact')], 'regular'))
-    + _row('Slots', '<div class="np__checks">'
-           + _check('np-back', 'Back')
-           + _check('np-kind', 'Kind', False)
-           + _check('np-pos', 'Position')
-           + _check('np-actions', 'Actions')
-           + _check('np-rail', 'Rail')
-           + '</div>')
-    + _row('Prefix', _seg('np-prefix', [('', 'None'), ('DAY ', 'DAY'), ('EP.', 'EP.')], ''))
-    + _row('Mark position', '<div class="np__checks">' + _check('np-mark', 'Accent', False) + '</div>')
-    + _row('Main bar', '<div class="np__checks">'
-           + _check('np-logo', 'Logo')
-           + _check('np-icons', 'Social icons', False)
-           + _check('np-news', 'Newsletter', False)
-           + _check('np-cta', 'CTA', False)
-           + _check('np-burger', 'Burger', False)
-           + '</div>')
-    + _row('Progress line', '<div class="np__checks">'
-           + _check('np-progress', 'Border fills', False)
-           + '</div>'
-           + _seg('np-track', [('grey', 'Grey track'), ('accent', 'Tinted track')], 'grey'))
-    + _row('Progress', '<input class="np__range" type="range" name="np-value" '
-                       'min="0" max="100" value="21" aria-label="Progress" />'
-                       '<output class="np__out-val" data-np-value>21%</output>')
-    + '</div>'
 
+    + _group('Collection', [
+        _row('Style', _seg('np-collection', [
+            ('', 'None'), ('blog', 'Blog'), ('video', 'Web series'),
+            ('course-bar', 'Course'), ('shop', 'Shop'), ('trip', 'Trip'),
+            ('docs-bar', 'Docs')], '')),
+    ])
+
+    + _group('Layout', [
+        _row('Position', _seg('np-shell', [
+            ('island', 'Island'), ('fixed', 'Fixed'), ('morph', 'Island on scroll'),
+            ('auto', 'Fixed on scroll'), ('over', 'Over media')], 'island')),
+        _row('Mark', _seg('np-mark-pos', [('left', 'Left'), ('center', 'Centre')], 'left')),
+        _row('Links', _seg('np-links-align', [
+            ('start', 'Left'), ('center', 'Centre'), ('end', 'Right')], 'center')),
+        _row('Width', _seg('np-width', [
+            ('site', 'Site'), ('wide', 'Wide'), ('full', 'Full')], 'site')),
+        _row('Height', _range('np-height', 40, 88, 56, 'px')),
+        _row('Radius', _range('np-radius', 0, 40, 40, 'px')),
+        _row('Frame', '<div class="np__checks">'
+             + _check('np-border', 'Border') + _check('np-shadow', 'Shadow')
+             + _check('np-blur', 'Blur') + '</div>'),
+    ])
+
+    + _group('Colour', [
+        _row('Theme', _seg('np-theme', [('light', 'Light'), ('dark', 'Dark')], 'light')),
+        _row('Accent', _swatches('np-accent', [
+            ('Record red', ''), ('Signal blue', '#3b6fe0'), ('Field green', '#1a8a5a'),
+            ('Studio violet', '#6d4aff'), ('Amber', '#c9791a')])),
+        _row('Background', _swatches('np-bg', [
+            ('Canvas', ''), ('Surface', 'var(--bg-surface)'), ('Sunken', 'var(--bg-sunken)'),
+            ('Ink', 'var(--ink-950)'), ('Transparent', 'transparent')])),
+        _row('Active link', _seg('np-active', [
+            ('dot', 'Dot'), ('rule', 'Rule'), ('soft', 'Wash')], 'dot')),
+    ])
+
+    + _group('Content', [
+        _row('Brand', _text('np-brand', 'creator')),
+        _row('Links', _text('np-links', 'Watch, Learn, Build', '20rem')),
+        _row('Call to action', _text('np-cta', 'Subscribe')),
+        _row('Carries', '<div class="np__checks">'
+             + _check('np-logo', 'Mark') + _check('np-icons', 'Social', False)
+             + _check('np-news', 'Newsletter', False) + _check('np-cta-on', 'CTA')
+             + _check('np-search', 'Search', False) + _check('np-burger', 'Burger', False)
+             + '</div>'),
+    ])
+
+    + _group('Behaviour', [
+        _row('Dropdown', _seg('np-drop', [('click', 'Click'), ('hover', 'Hover')], 'click')),
+        _row('Burger', _seg('np-burger-style', [
+            ('rec', 'Record'), ('aperture', 'Aperture'), ('squeeze', 'Squeeze'),
+            ('', 'Bars')], 'rec')),
+        _row('Opens as', _seg('np-mobile', [
+            ('sheet', 'Sheet'), ('drop', 'Drop'), ('panel', 'Panel')], 'sheet')),
+        _row('Progress line', '<div class="np__checks">'
+             + _check('np-progress', 'Border fills', False) + '</div>'
+             + _seg('np-track', [('grey', 'Grey'), ('accent', 'Tinted')], 'grey')),
+        _row('Read', _range('np-value', 0, 100, 38, '%')),
+    ])
+
+    + '</div>'
     '<div class="np__code" data-np-code></div>'
     '</div>')
 
@@ -416,68 +453,80 @@ b.append(tile(bar(LOGO + links([('Blog', 'pen', True), ('Videos', 'camera', Fals
                   'nav-bar nav-collapse'),
     '<b>.nav-collapse</b> — links above 48rem, burger below'))
 
-# 9 · the submenu row ────────────────────────────────────────────────────────
-b.append(h2('9 · The submenu row'))
+# 9 · collection styles ──────────────────────────────────────────────────────
+b.append(h2('9 · A style per collection'))
 b.append(p(
-    'When you are inside something — a lesson, an episode, a trip — the site menu '
-    '<b>stays</b> and a second row appears beneath it, in the same island. The way out '
-    'never disappears, and opening a lesson no longer swaps a whole bar out from under '
-    'the reader. Wrap the two rows in <code class="t-code">.nav-stack</code>: the island '
-    'stops being a pill and becomes one card holding both.'))
+    'A creator does not publish one kind of thing, and the bar above a web series should '
+    'not look like the bar above a shop. Each collection gets a class that sets its '
+    'defaults — and only defaults. Every one of them is written in the same tokens the '
+    'rest of the system uses, so changing any part of it is a variable, not a fork.'))
+b.append(ct([
+    ('.nav-video', 'the series — no island at all: the bar sits <em>over</em> the footage, '
+                   'transparent, and becomes furniture once you scroll past it'),
+    ('.nav-blog', 'the writing — flat, hairline underneath, no plate; reading wants the '
+                  'chrome to leave'),
+    ('.nav-course-bar', 'the syllabus — a soft plate, and room for the read-through line'),
+    ('.nav-shop', 'the shop — a squarer plate, actions spaced for a cart'),
+    ('.nav-trip', 'the journal — the accent warms the bar itself'),
+    ('.nav-docs-bar', 'the reference — 2.75rem, flat, dense'),
+], head=('Class', 'What it assumes')))
+
 b.append(p(
-    'There is no class per collection. One design, three knobs — '
-    '<code class="t-code">data-tone</code>, <code class="t-code">data-density</code> and '
-    '<code class="t-code">--value</code> — because a course and a trip differ in the words '
-    'they put in the slots, not in their CSS.'))
+    'The knobs every one of them sets, and every one of them yields to: '
+    '<code class="t-code">--bar-bg</code>, <code class="t-code">--bar-fg</code>, '
+    '<code class="t-code">--bar-line</code>, <code class="t-code">--bar-radius</code>, '
+    '<code class="t-code">--bar-h</code>, <code class="t-code">--bar-blur</code>. '
+    'Set one yourself and the collection style gets out of the way.'))
 
-b.append(tile(stack(
-    LOGO + links([('Watch', None, False), ('Learn', None, True), ('Build', None, False)])
-    + '<div class="cluster-sm">' + burger('nav-burger-bare') + '</div>',
-    '<a class="nav-context__back" href="#i">← Course</a>'
-    '<span class="nav-context__where"><span class="nav-context__title">Handlebars without tears</span>'
-    '<span class="nav-context__pos">Lesson 3 of 14</span></span>'
-    '<div class="nav-context__actions"><button class="btn btn-quiet btn-sm">← Prev</button>'
-    '<button class="btn btn-primary btn-sm">Next →</button></div>'
-    '<span class="nav-rail" style="--value:21%"></span>',
-    sub_attrs=' data-mark="pos" style="--value:21%"'),
-    '<b>.nav-stack</b> — the site menu on top, the lesson beneath it; one object, two rows'))
+b.append(tile(bar(
+    LOGO + links([('Read', None, True), ('Archive', None, False), ('About', None, False)])
+    + '<div class="nav-actions"><button class="btn btn-secondary btn-sm btn-pill">'
+      'Subscribe</button></div>', 'nav-bar nav-blog'),
+    '<b>.nav-blog</b> — flat and quiet; the page is the point'))
 
-b.append(tile(stack(
-    LOGO + links([('Watch', None, True), ('Learn', None, False), ('Build', None, False)]),
-    '<a class="nav-context__back" href="#i">← Series</a>'
-    '<span class="nav-context__where"><span class="nav-context__kind">Episode</span>'
-    '<span class="nav-context__title">The Build Season</span>'
-    '<span class="nav-context__pos">07</span></span>'
-    '<div class="nav-context__actions"><span class="badge badge-live">Live</span>'
-    '<button class="btn btn-quiet btn-sm">Episodes</button></div>',
-    sub_attrs=' data-tone="ink" data-density="compact"'),
-    '<b>data-tone="ink"</b> — the same row, in cinema tone; the site menu above stays paper'))
+b.append(tile(bar(
+    LOGO + links([('Shop', None, True), ('Lookbook', None, False)])
+    + '<div class="nav-actions">'
+      '<button class="nav-icon" type="button" aria-label="Search">'
+      '<svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>'
+      '<button class="btn btn-primary btn-sm btn-pill">Cart · 2</button></div>',
+    'nav-bar nav-shop'),
+    '<b>.nav-shop</b> — a squarer plate; the cart is the one action that matters'))
+
+b.append(tile(bar(
+    LOGO + links([('Days', None, True), ('Route', None, False), ('Kit', None, False)])
+    + '<div class="nav-actions"><span class="badge badge-live">Day 3</span></div>',
+    'nav-bar nav-trip'),
+    '<b>.nav-trip</b> — the accent warms the bar; the journal is a warm object'))
+
+# The series bar is the one that cannot be shown in an island, so it gets a
+# stage of its own with something underneath it to be over.
+b.append(p(
+    'The series is the one that is not an island at all. A series opens on its own '
+    'footage, so the bar sits over the film and owns nothing until you scroll — the '
+    'gradient does the legibility work a background would otherwise have to do.'))
+b.append(tile(
+    '<div class="nav-over__media" style="aspect-ratio:21/6;max-height:none">'
+    '<div style="position:absolute;inset:0;background:'
+    'radial-gradient(120% 90% at 30% 20%,#3a3a4a 0,transparent 60%),'
+    'linear-gradient(160deg,#1a1a24,#0b0b11)"></div>'
+    '<div class="nav-over" style="position:absolute">'
+    + f'<nav class="nav-bar nav-video" aria-label="Series demo">{LOGO}'
+    + links([('Watch', None, True), ('Extras', None, False), ('About', None, False)])
+    + '<div class="nav-actions">'
+      '<button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav>'
+    '</div></div>',
+    '<b>.nav-video</b> in <b>.nav-over</b> — no plate, no border; '
+    'nav.js swaps it to ink once you scroll past the film', pad=False))
 
 b.append(code('html', [
-    f'{K("&lt;div")} class={S(chr(34)+"nav-shell"+chr(34))}{K("&gt;")}',
-    f'  {K("&lt;div")} class={S(chr(34)+"nav-stack"+chr(34))}{K("&gt;")}',
-    f'    {K("&lt;nav")} class={S(chr(34)+"nav-bar"+chr(34))}{K("&gt;")}… site menu …{K("&lt;/nav&gt;")}',
-    f'    {K("&lt;div")} class={S(chr(34)+"nav-sub nav-context"+chr(34))} data-tone={S(chr(34)+"ink"+chr(34))}',
-    f'         style={S(chr(34)+"--value:21%; --pos-prefix:&#39;DAY &#39;"+chr(34))}{K("&gt;")}',
-    f'      {K("&lt;a")} class={S(chr(34)+"nav-context__back"+chr(34))} href={S(chr(34)+"/course"+chr(34))}{K("&gt;")}← Course{K("&lt;/a&gt;")}',
-    f'      {K("&lt;span")} class={S(chr(34)+"nav-context__where"+chr(34))}{K("&gt;")}',
-    f'        {K("&lt;span")} class={S(chr(34)+"nav-context__title"+chr(34))}{K("&gt;")}Course name{K("&lt;/span&gt;")}',
-    f'        {K("&lt;span")} class={S(chr(34)+"nav-context__pos"+chr(34))}{K("&gt;")}3 of 14{K("&lt;/span&gt;")}',
-    f'      {K("&lt;/span&gt;")}',
-    f'      {K("&lt;div")} class={S(chr(34)+"nav-context__actions"+chr(34))}{K("&gt;")}… prev / next …{K("&lt;/div&gt;")}',
-    f'      {K("&lt;span")} class={S(chr(34)+"nav-rail"+chr(34))}{K("&gt;&lt;/span&gt;")}',
-    f'    {K("&lt;/div&gt;")}',
-    f'  {K("&lt;/div&gt;")}',
+    f'{K("&lt;header")} class={S(chr(34)+"nav-shell nav-shell-full nav-over"+chr(34))}{K("&gt;")}',
+    f'  {K("&lt;nav")} class={S(chr(34)+"nav-bar nav-video"+chr(34))}{K("&gt;")}…{K("&lt;/nav&gt;")}',
+    f'{K("&lt;/header&gt;")}',
+    f'{K("&lt;div")} class={S(chr(34)+"nav-over__media"+chr(34))}{K("&gt;")}',
+    f'  {K("&lt;video")} src={S(chr(34)+"…"+chr(34))} autoplay muted loop playsinline{K("&gt;&lt;/video&gt;")}',
     f'{K("&lt;/div&gt;")}',
-], 'drive the rail with <b>--value</b>; it transitions on its own'))
-
-b.append(ct([
-    ('data-tone', '<code class="t-code">paper</code> (default) · <code class="t-code">ink</code> · <code class="t-code">accent</code>'),
-    ('data-density', '<code class="t-code">regular</code> (default) · <code class="t-code">compact</code> for players'),
-    ('data-mark="pos"', 'the accent marks the position — for players, where “where am I” is the point'),
-    ('--value', 'the progress rail, <code class="t-code">0%</code>–<code class="t-code">100%</code>'),
-    ('--pos-prefix', 'the word in front of the number — <code class="t-code">\'DAY \'</code>, <code class="t-code">\'EP.\'</code>'),
-], head=('Knob', 'Values')))
+], 'the shell carries the gradient, so white type stays legible on any frame'))
 
 # 10 · shell behaviour ───────────────────────────────────────────────────────
 b.append(h2('10 · How the bar behaves on scroll'))
@@ -617,7 +666,6 @@ b.append(ct([
 ], head=('Class', 'Opens as')))
 b.append(tile(
     '<div class="nav-shell" style="position:static;padding-inline:0;max-width:none">'
-    '<div class="nav-stack">'
     + f'<nav class="nav-bar" aria-label="Panel demo">{LOGO}'
     + '<div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a>'
       '<a class="nav-link" href="#i">Learn</a></div>'
@@ -644,8 +692,7 @@ b.append(tile(
     '<b>.nav-panel</b> — press the burger: the island grows, nothing covers the page'))
 b.append(code('html', [
     f'{K("&lt;div")} class={S(chr(34)+"nav-shell"+chr(34))}{K("&gt;")}',
-    f'  {K("&lt;div")} class={S(chr(34)+"nav-stack"+chr(34))}{K("&gt;")}',
-    f'    {K("&lt;nav")} class={S(chr(34)+"nav-bar"+chr(34))}{K("&gt;")}',
+    f'  {K("&lt;nav")} class={S(chr(34)+"nav-bar"+chr(34))}{K("&gt;")}',
     f'      … {K("&lt;button")} class={S(chr(34)+"nav-burger nav-burger-rec"+chr(34))}',
     f'             aria-expanded={S(chr(34)+"false"+chr(34))} data-panel-toggle{K("&gt;")}…{K("&lt;/button&gt;")}',
     f'    {K("&lt;/nav&gt;")}',
@@ -655,6 +702,21 @@ b.append(code('html', [
     f'  {K("&lt;/div&gt;")}',
     f'{K("&lt;/div&gt;")}',
 ], 'nav.js flips <b>data-open</b> on the stack; Escape closes it and returns focus'))
+b.append(p(
+    '<b>data-open lands on the panel\'s own parent.</b> When the bar is the only row that is the '
+    'shell; inside a <code class="t-code">.nav-stack</code> it is the stack. nav.js picks the stack '
+    'first and the stylesheet answers to both, so a panel works either way — but it must be a '
+    '<i>direct child</i> of whichever one carries the attribute.'))
+b.append(ct([
+    ('.nav-burger-pinned', 'keeps the burger visible at every width inside a .nav-collapse bar — one way into the menu instead of a second desktop-only control'),
+    ('.nav-panel__links-split', 'two columns of links above 48rem; group labels keep their own full-width row'),
+    ('.nav-panel__name', 'wraps an icon and its label so they travel together — .nav-panel__link is space-between, so an unwrapped label drifts to the far edge'),
+], head=('Class', 'What it adds')))
+b.append(p(
+    'Cap the panel yourself if the site has a lot of destinations: '
+    '<code class="t-code">max-height: calc(100dvh - var(--nav-h) - var(--space-10))</code> with '
+    '<code class="t-code">overflow-y:auto</code> on <code class="t-code">.nav-panel__in</code> keeps '
+    'the island inside the viewport instead of running off the bottom of it.'))
 
 # 16 · actions ───────────────────────────────────────────────────────────────
 b.append(h2('16 · Icons, the call, and the form'))
@@ -681,59 +743,8 @@ b.append(tile(bar(
     '</div>'),
     '<b>.nav-icons</b> · <b>.nav-form</b> · the CTA — press the envelope'))
 
-# 17 · the submenu on a phone ────────────────────────────────────────────────
-b.append(h2('17 · The submenu on a phone'))
-b.append(p(
-    'A lesson row that reads fine on a desktop becomes three competing things on a phone: where you '
-    'are, how far in, and how to get anywhere else. So below 48rem the row keeps only where you are, '
-    'and the rest moves behind a second burger — one that belongs to the submenu, not to the site. '
-    'It opens the index, which is the point: “Lesson 3 of 14” only helps if the other thirteen are '
-    'one press away.'))
-b.append(tile(
-    '<div class="nav-shell" style="position:static;padding-inline:0;max-width:none">'
-    '<div class="nav-stack" id="np-sub-demo">'
-    + f'<nav class="nav-bar" aria-label="Lesson demo">{LOGO}'
-    + '<div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Learn</a></div>'
-      '<div class="nav-actions"><span class="dot dot-sm"></span></div></nav>'
-    '<div class="nav-sub nav-context" data-mark="pos" style="--value:21%">'
-    '<a class="nav-context__back" href="#i">← Courses</a>'
-    '<span class="nav-context__where"><span class="nav-context__title">Handlebars without tears</span>'
-    '<span class="nav-context__pos">3 of 14</span></span>'
-    '<div class="nav-context__actions">'
-    '<button class="btn btn-quiet btn-sm" type="button">← Prev</button>'
-    '<button class="btn btn-primary btn-sm" type="button">Next →</button></div>'
-    '<button class="nav-burger nav-burger-bare nav-sub__more" type="button" aria-expanded="false" '
-    'data-nav-open="np-index" aria-controls="np-index">'
-    '<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>'
-    '<span class="u-sr-only">Lessons</span></button>'
-    '<button class="nav-sub__hide" type="button" data-sub-hide aria-label="Hide this row">×</button>'
-    '<span class="nav-rail"></span></div>'
-    '<button class="nav-sub-show" type="button" data-sub-show>Show lesson bar</button>'
-    '</div></div>'
-    '<dialog class="nav-sheet nav-sheet-index" id="np-index">'
-    '<div class="nav-sheet__in"><div class="nav-sheet__head">'
-    '<span class="t-slate-sm" style="color:var(--fg-faint)">Handlebars without tears</span>'
-    '<button class="btn-close" type="button" data-nav-close aria-label="Close"></button></div>'
-    '<div class="nav-sheet__links">'
-    '<a class="nav-sheet__link" style="--i:0" href="#i"><span class="nav-index__num">01</span>'
-    'What a template is<span class="nav-index__done"></span></a>'
-    '<a class="nav-sheet__link" style="--i:1" href="#i"><span class="nav-index__num">02</span>'
-    'Contexts and blocks<span class="nav-index__done"></span></a>'
-    '<a class="nav-sheet__link" style="--i:2" href="#i" aria-current="page">'
-    '<span class="nav-index__num">03</span>Handlebars without tears</a>'
-    '<a class="nav-sheet__link" style="--i:3" href="#i"><span class="nav-index__num">04</span>Partials</a>'
-    '<a class="nav-sheet__link" style="--i:4" href="#i"><span class="nav-index__num">05</span>Helpers</a>'
-    '</div></div></dialog>',
-    'narrow the window under <b>48rem</b>: prev/next fold into the index button · '
-    '<b>×</b> hides the row, and the sliver brings it back'))
-b.append(ct([
-    ('.nav-sub__more', 'the submenu\'s own burger — shown under 48rem, opens the index'),
-    ('.nav-sheet-index', 'the collection as a list, with position marked and done rows ticked'),
-    ('[data-sub-hide] · [data-sub-show]', 'collapse the row; the choice is remembered in localStorage'),
-], head=('Class', 'What it does')))
-
 # 18 · structured data ───────────────────────────────────────────────────────
-b.append(h2('18 · Telling machines what the nav is'))
+b.append(h2('17 · Telling machines what the nav is'))
 b.append(p(
     'Markup alone does not say “these five links are the site navigation”. '
     '<code class="t-code">SiteNavigationElement</code> does, and a '
@@ -756,7 +767,7 @@ b.append(code('html', [
 ], 'one list per nav; the breadcrumb is a second block, not a second list'))
 
 # 10 · rules ─────────────────────────────────────────────────────────────────
-b.append(h2('19 · Rules'))
+b.append(h2('18 · Rules'))
 b.append('<div class="grid-2 u-mb-6" style="gap:var(--space-4)">'
     '<div class="surface u-p-5"><h3 class="t-h4 u-mb-3">Do</h3>'
     '<ul class="t-small u-fg-subtle" style="padding-left:1.1rem;display:grid;gap:var(--space-2)">'
@@ -791,7 +802,7 @@ VARIANTS = [
      'read down. Reading gets the screen, navigating gets the bar.'),
 ]
 
-b.append(h2('20 · Variants — four positions, one markup'))
+b.append(h2('19 · Variants — four positions, one markup'))
 b.append(p(
     'Not ten skins. A bar\'s <em>shape</em> is decided once in the design; where it goes '
     'when the reader scrolls is a decision about <em>behaviour</em>, and that is the one '
@@ -817,7 +828,7 @@ for _slug, _name, _cls, _desc in VARIANTS:
           '<button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div>',
         f'<b>{_name}</b> — {_desc}'))
 
-b.append(h2('21 · Choosing one in a Ghost theme'))
+b.append(h2('20 · Choosing one in a Ghost theme'))
 b.append(p(
     'Two levels, and the more specific one wins: a site-wide default from a theme '
     'setting, overridden per post or page by an internal tag.'))
@@ -834,7 +845,7 @@ b.append(code('handlebars', [
 ], 'the tag override first, the theme setting as the fallback'))
 
 # 22 · the builder ───────────────────────────────────────────────────────────
-b.append(h2('22 · Navbar builder'))
+b.append(h2('21 · Navbar builder'))
 b.append(p(
     'Every knob on this page, in one place. Start from a preset — a web series, a docs '
     'site, a course — then change anything: the position, the accent, what the main row '

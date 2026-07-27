@@ -17,7 +17,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 REPO = HERE.parent.parent
 FRAG = HERE / 'fragments'
-V = '?v=cds19'
+V = '?v=cds21'
 SITE = 'https://creator.imswarnil.com'
 
 import content_start, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all

@@ -238,41 +238,50 @@ def components():
 
 # ── 6 · the navbar ──────────────────────────────────────────────────────────
 def navbar():
-    b = [label(40, 40, 'ONE ISLAND, TWO ROWS — THE WAY OUT NEVER DISAPPEARS')]
-    b.append('  <rect x="40" y="56" width="1120" height="112" rx="20" class="fill-surface"/>\n')
-    # the hairline that is also the progress
-    b.append(f'  <path d="M60 56h1080a20 20 0 0 1 20 20v76a20 20 0 0 1-20 20H60a20 20 0 0 1-20-20V76a20 20 '
-             f'0 0 1 20-20Z" fill="none" class="hair"/>\n')
-    b.append(f'  <path d="M60 56h380" stroke="{ACCENT}" stroke-width="2" fill="none" '
+    b = [label(40, 40, 'ONE BAR, A STYLE PER COLLECTION')]
+
+    # 1 · the island, with its hairline doing double duty as the read-through.
+    b.append('  <rect x="40" y="56" width="1120" height="60" rx="30" class="fill-surface"/>\n')
+    b.append('  <rect x="40" y="56" width="1120" height="60" rx="30" class="hair"/>\n')
+    b.append(f'  <path d="M70 56h330" stroke="{ACCENT}" stroke-width="2" fill="none" '
              f'stroke-linecap="round"/>\n')
-    # main row
-    b.append('  <text x="72" y="98" class="ink" font-size="22" font-weight="700" '
-             'letter-spacing="-0.8">creator</text>\n')
-    b.append(f'  <circle cx="177" cy="82" r="4" fill="{ACCENT}"/>\n')
+    b.append('  <text x="72" y="94" class="ink" font-size="21" font-weight="700" '
+             'letter-spacing="-0.8">creat</text>\n')
+    b.append(f'  <circle cx="140" cy="83" r="6" fill="{ACCENT}"/>\n')
+    b.append('  <text x="149" y="94" class="ink" font-size="21" font-weight="700" '
+             'letter-spacing="-0.8">r</text>\n')
     for i, (lbl, cur) in enumerate([('Watch', False), ('Learn', True), ('Build', False)]):
-        x = 480 + i * 96
-        cls = 'ink' if cur else 'sub'
-        b.append(f'  <text x="{x}" y="97" class="{cls}" font-size="15" '
+        x = 500 + i * 96
+        b.append(f'  <text x="{x}" y="93" class="{"ink" if cur else "sub"}" font-size="15" '
                  f'font-weight="{"600" if cur else "400"}">{lbl}</text>\n')
         if cur:
-            b.append(f'  <circle cx="{x - 12}" cy="92" r="3.5" fill="{ACCENT}"/>\n')
-    b.append(f'  <rect x="1000" y="76" width="118" height="34" rx="17" fill="{ACCENT}"/>\n')
-    b.append('  <text x="1059" y="98" font-size="14" font-weight="600" fill="#fff" '
+            b.append(f'  <circle cx="{x - 12}" cy="88" r="3.5" fill="{ACCENT}"/>\n')
+    b.append(f'  <rect x="1000" y="70" width="118" height="32" rx="16" fill="{ACCENT}"/>\n')
+    b.append('  <text x="1059" y="91" font-size="14" font-weight="600" fill="#fff" '
              'text-anchor="middle">Subscribe</text>\n')
-    # the submenu row, in ink
-    b.append('  <path d="M40 124h1120v24a20 20 0 0 1-20 20H60a20 20 0 0 1-20-20v-24Z" fill="#101017"/>\n')
-    b.append('  <path d="M40 124h1120" class="hair2"/>\n')
-    b.append(f'  <text x="72" y="152" font-family="{MONO}" font-size="10" fill="#ffffff" '
-             f'fill-opacity="0.55" letter-spacing="2">← COURSE</text>\n')
-    b.append('  <text x="190" y="153" font-size="14" font-weight="600" fill="#fff">'
-             'Handlebars without tears</text>\n')
-    b.append(f'  <text x="404" y="152" font-family="{MONO}" font-size="11" fill="{ACCENT}" '
-             f'letter-spacing="1.5">3 OF 14</text>\n')
-    b.append(f'  <text x="1010" y="152" font-family="{MONO}" font-size="11" fill="#ffffff" '
-             f'fill-opacity="0.55" letter-spacing="1.5">PREV  ·  NEXT</text>\n')
-    b.append(label(40, 196, 'THE HAIRLINE IS THE READ-THROUGH BAR  ·  '
-                            'data-tone="ink"  ·  --value:21%', 'slate faint'))
-    return svg('navbar', 1200, 220, ''.join(b))
+    b.append(label(40, 140, 'THE HAIRLINE IS THE READ-THROUGH BAR  ·  --progress:30%'))
+
+    # 2 · the series bar, which is not an island at all.
+    b.append('  <rect x="40" y="168" width="1120" height="104" rx="12" fill="#12121a"/>\n')
+    b.append('  <path d="M40 168h1120v52H40Z" fill="#000" fill-opacity="0.35"/>\n')
+    b.append('  <text x="72" y="204" fill="#fff" font-size="21" font-weight="700" '
+             'letter-spacing="-0.8">creat</text>\n')
+    b.append(f'  <circle cx="140" cy="193" r="6" fill="{ACCENT}"/>\n')
+    b.append('  <text x="149" y="204" fill="#fff" font-size="21" font-weight="700" '
+             'letter-spacing="-0.8">r</text>\n')
+    for i, (lbl, cur) in enumerate([('Watch', True), ('Extras', False), ('About', False)]):
+        x = 500 + i * 96
+        b.append(f'  <text x="{x}" y="203" fill="#ffffff" fill-opacity="{1 if cur else 0.6}" '
+                 f'font-size="15" font-weight="{"600" if cur else "400"}">{lbl}</text>\n')
+        if cur:
+            b.append(f'  <circle cx="{x - 12}" cy="198" r="3.5" fill="{ACCENT}"/>\n')
+    b.append(f'  <rect x="1000" y="180" width="118" height="32" rx="16" fill="{ACCENT}"/>\n')
+    b.append('  <text x="1059" y="201" font-size="14" font-weight="600" fill="#fff" '
+             'text-anchor="middle">Subscribe</text>\n')
+    b.append(f'  <text x="600" y="252" font-family="{MONO}" font-size="11" fill="#ffffff" '
+             f'fill-opacity="0.32" letter-spacing="2.5" text-anchor="middle">YOUR FOOTAGE</text>\n')
+    b.append(label(40, 296, '.nav-video IN .nav-over — NO PLATE, NO BORDER, OVER THE FILM'))
+    return svg('navbar', 1200, 320, ''.join(b))
 
 
 # ── 7 · the layers ──────────────────────────────────────────────────────────

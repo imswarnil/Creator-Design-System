@@ -4,10 +4,9 @@
    handler sets an attribute the stylesheet already understands, so the CSS
    stays the single description of how the bar looks in each state.
 
-     data-scrolled   on .nav-shell-morph  — the bar has left the top
+     data-scrolled   on .nav-shell-morph / .nav-over — the bar has left the top
      data-dir        on .nav-shell-auto   — which way the reader is going
-     data-open       on .nav-shell/.nav-stack — the in-place panel is open
-     data-sub        on .nav-stack        — the submenu row is hidden
+     data-open       on .nav-shell        — the in-place panel is open
 
    Plus hover-intent for dropdowns, which lands on the same <details open> the
    click path uses, so there is one open state rather than two.
@@ -27,7 +26,7 @@
 	   One listener for every shell on the page, read inside rAF so a fast
 	   scroll cannot queue a hundred layout reads. */
 	function scroll() {
-		var morph = [].slice.call(doc.querySelectorAll('.nav-shell-morph'));
+		var morph = [].slice.call(doc.querySelectorAll('.nav-shell-morph, .nav-over'));
 		var auto = [].slice.call(doc.querySelectorAll('.nav-shell-auto'));
 		if (!morph.length && !auto.length) return;
 
@@ -127,7 +126,10 @@
 		doc.addEventListener('click', function (e) {
 			var btn = e.target.closest('[data-panel-toggle]');
 			if (!btn) return;
-			var host = btn.closest('.nav-stack, .nav-shell');
+			/* The stack first: when the island has more than one row the panel
+			   is a row of the stack, not of the shell, and the open state has
+			   to sit on the panel's own parent for the row to grow. */
+			var host = btn.closest('.nav-stack') || btn.closest('.nav-shell');
 			if (!host) return;
 			var open = host.hasAttribute('data-open');
 			if (open) host.removeAttribute('data-open');
@@ -137,37 +139,11 @@
 
 		doc.addEventListener('keydown', function (e) {
 			if (e.key !== 'Escape') return;
-			doc.querySelectorAll('.nav-stack[data-open], .nav-shell[data-open]').forEach(function (host) {
+			doc.querySelectorAll('.nav-shell[data-open], .nav-stack[data-open]').forEach(function (host) {
 				host.removeAttribute('data-open');
 				var btn = host.querySelector('[data-panel-toggle]');
 				if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
 			});
-		});
-	}
-
-	/* ── Hiding the submenu ──────────────────────────────────────────────────
-	   The choice is the reader's and it should outlive the page, so it is
-	   remembered. Storage can be unavailable; that is not a reason to fail. */
-	function submenu() {
-		var KEY = 'cds-nav-sub';
-
-		try {
-			if (global.localStorage.getItem(KEY) === 'hidden') {
-				doc.querySelectorAll('.nav-stack').forEach(function (s) {
-					s.setAttribute('data-sub', 'hidden');
-				});
-			}
-		} catch (err) {}
-
-		doc.addEventListener('click', function (e) {
-			var hide = e.target.closest('[data-sub-hide]');
-			var show = e.target.closest('[data-sub-show]');
-			if (!hide && !show) return;
-			var stack = (hide || show).closest('.nav-stack');
-			if (!stack) return;
-			if (hide) stack.setAttribute('data-sub', 'hidden');
-			else stack.removeAttribute('data-sub');
-			try { global.localStorage.setItem(KEY, hide ? 'hidden' : 'shown'); } catch (err) {}
 		});
 	}
 
@@ -209,7 +185,6 @@
 		hover();
 		exclusive();
 		panel();
-		submenu();
 		dialogs();
 	}
 
