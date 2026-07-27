@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Why I stopped using a CSS framework — Blog</title>
+<meta name="description" content="Three years of overriding someone else’s opinions." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html" aria-current="page">Blog</a>
+      <a class="nav-link" href="#i">Watch</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <div class="col-progress"><div class="col-progress__bar" style="--value:38%"></div></div>
+
+  <article class="container section-sm">
+    <header class="col-post__head">
+      <nav class="col-post__crumbs" aria-label="Breadcrumb">
+        <a href="./index.html">Blog</a> <span>/</span>
+        <a href="#i">CSS &amp; layout</a> <span>/</span> <span>This post</span>
+      </nav>
+      <h1 class="t-display-2">Why I stopped using a CSS framework</h1>
+      <p class="t-lead" style="max-width:var(--measure-lead)">
+        Three years of overriding someone else's opinions, and what replaced them.
+      </p>
+      <div class="col-post__crumbs">
+        <span>11 min read</span> <span>·</span> <span>July 2026</span>
+        <span>·</span> <span>CSS &amp; layout</span>
+      </div>
+    </header>
+
+    <div class="surface u-mb-8" style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-card)">
+      <span class="col-ph" style="--h:262" data-tall aria-hidden="true"></span>
+    </div>
+
+    <div class="col-post">
+      <div class="content">
+        <p>Every framework is a set of answers to questions someone else was asking.
+          That is fine until your questions differ, and then every line you write is
+          an argument with the defaults.</p>
+
+        <h2 id="why">Why this happened</h2>
+        <p>It started with a card. The framework had one, and it was nearly right —
+          which is worse than being wrong, because nearly right gets overridden
+          instead of replaced.</p>
+        <blockquote class="quote">
+          <p>A component you have overridden four times is a component you now own,
+            with none of the benefits of owning it.</p>
+        </blockquote>
+
+        <h2 id="cost">What it cost</h2>
+        <p>Forty kilobytes of CSS to ship six components, and a build step to
+          remove the rest of it.</p>
+
+        <h2 id="replaced">What replaced it</h2>
+        <p>Two tiers of custom properties and about thirty components. The whole
+          thing is smaller than the framework's grid system was.</p>
+
+        <h2 id="worth">Was it worth it</h2>
+        <p>The honest answer is that it was worth it the second time. The first
+          attempt was a framework with my name on it.</p>
+      </div>
+
+      <aside class="col-post__rail col-rail col-rail-sticky">
+        <div class="col-widget"><span class="col-widget__title">On this page</span><nav class="col-toc"><a href="#why" aria-current="true">Why this happened</a><a href="#cost">What it cost</a><a href="#replaced">What replaced it</a><a href="#worth">Was it worth it</a></nav></div>
+        <div class="col-widget">
+      <span class="col-widget__title">Written by</span>
+      <div class="col-author">
+        <span class="col-author__face"><span class="col-ph" style="--h:24" aria-hidden="true"></span></span>
+        <span><span class="col-author__name">Swarnil Singhai</span>
+          <span class="col-author__who">Builds things, then writes down what broke.</span></span>
+      </div>
+      <div class="col-widget__foot">56 posts · since 2021</div>
+    </div>
+        <div class="col-widget col-widget-accent">
+      <span class="col-widget__title">Newsletter</span>
+      <p class="t-small">One email when something is worth reading. No schedule,
+        because a schedule is how newsletters get padded.</p>
+      <form class="col-sub__form" onsubmit="return false">
+        <input type="email" placeholder="you@example.com" aria-label="Email address" />
+        <button class="btn btn-primary btn-sm" type="submit">Subscribe</button>
+      </form>
+    </div>
+        <div class="col-widget"><span class="col-widget__title">More on CSS</span><div class="col-mini"><a class="col-mini__item" href="./post.html"><span class="col-mini__n">01</span><span><span class="col-mini__title">Why I stopped using a CSS framework</span><span class="col-mini__meta">Jul 2026 · 11 min</span></span></a><a class="col-mini__item" href="./post.html"><span class="col-mini__n">02</span><span><span class="col-mini__title">The record light: one colour, rationed</span><span class="col-mini__meta">Jun 2026 · 7 min</span></span></a><a class="col-mini__item" href="./post.html"><span class="col-mini__n">03</span><span><span class="col-mini__title">Motion that survives prefers-reduced-motion</span><span class="col-mini__meta">Jun 2026 · 9 min</span></span></a><a class="col-mini__item" href="./post.html"><span class="col-mini__n">04</span><span><span class="col-mini__title">Tokens are a contract, not a theme</span><span class="col-mini__meta">May 2026 · 6 min</span></span></a></div></div>
+        <div class="col-widget"><span class="col-widget__title">Tags</span><div class="col-tags"><a class="col-tag" href="#i" aria-current="page">css<span class="col-tag__n">18</span></a><a class="col-tag" href="#i">tokens<span class="col-tag__n">12</span></a><a class="col-tag" href="#i">motion<span class="col-tag__n">9</span></a><a class="col-tag" href="#i">a11y<span class="col-tag__n">14</span></a><a class="col-tag" href="#i">craft<span class="col-tag__n">11</span></a><a class="col-tag" href="#i">colour<span class="col-tag__n">7</span></a><a class="col-tag" href="#i">type<span class="col-tag__n">6</span></a><a class="col-tag" href="#i">notes<span class="col-tag__n">23</span></a></div></div>
+      </aside>
+    </div>
+
+    <a class="col-next u-mt-10" href="#i">
+      <span class="col-next__label">Next post</span>
+      <span class="col-order__title">Tokens are a contract, not a theme</span>
+      <span class="t-small u-fg-subtle">Two tiers, and why one override reaches everything.</span>
+    </a>
+  </article>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Blog — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

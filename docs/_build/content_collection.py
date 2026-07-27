@@ -6,6 +6,7 @@ ship. A docs page that reimplements the thing it documents is a second source
 of truth, and the two drift within a week.
 """
 import html
+import importlib.util
 import pathlib
 import sys
 
@@ -13,9 +14,23 @@ from common import tile, sec, END, ct
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent.parent
-sys.path.insert(0, str(REPO / 'collection' / 'travel'))
 
-import build as travel          # noqa: E402  — the collection's own builder
+# Both collections have a module called build.py, so they are loaded by path
+# under distinct names rather than by import — otherwise the second one to be
+# imported silently returns the first.
+sys.path.insert(0, str(REPO / 'collection'))
+
+
+def _load(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+travel = _load('col_travel_build', REPO / 'collection' / 'travel' / 'build.py')
+blog = _load('col_blog_build', REPO / 'collection' / 'blog' / 'build.py')
 
 PAGES = {}
 
@@ -84,13 +99,27 @@ c += sec('folder', 'What a collection folder holds')
 c += code('text', '''
 collection/
   README.md          the shared contract
+  collection.css     the col- vocabulary - every section, once
+  collection.js      the linked filters - the only thing CSS cannot do
+  shell.py           the head, navbar and footer every route shares
+
+  _default/          the starting point: cp -r it and rename
+    build.py         five routes with no subject in them
+    *.html
+
   travel/
-    README.md        its routes, its sections, its data shape
-    travel.css       its components - tokens only, no new primitives
-    collection.js    only what CSS cannot do (the linked filters)
-    build.py         generates the routes from one set of demo data
-    *.html           one file per route, openable with no build
-''', 'the first collection, in full')
+    travel.css       only what travel needs: globe, flight line, palm
+    build.py
+    *.html           index, region, country, trip, post, components
+
+  blog/
+    build.py         no CSS of its own - which is the test
+    *.html           index, post
+''', 'three collections, and only one of them needs a stylesheet')
+c += p('<b>Blog has no CSS of its own, and that is deliberate.</b> If a second collection '
+       'cannot be built out of the shared vocabulary, the vocabulary was really just the '
+       'first collection wearing a general-sounding prefix. Travel keeps 44 lines — the '
+       'globe, the flight line and the palm — because those genuinely belong to travel.')
 c += END
 
 c += sec('rules', 'The rules')
@@ -108,6 +137,16 @@ c += ct([
                       '<code class="t-code">aria-current</code> on the current item. Never an '
                       '<code class="t-code">.active</code> class'),
 ], head=('Rule', 'Why'))
+c += END
+
+c += sec('starting', 'Starting a new one',
+         'The default collection exists to be copied. It has five working routes and nothing '
+         'subject-specific in them, so the first thing you see is the shape rather than '
+         'somebody else\'s content.')
+c += code('bash', '''
+cp -r collection/_default collection/podcast
+python3 collection/podcast/build.py
+''', 'change the six lists at the top of build.py and the collection is yours')
 c += END
 
 PAGES['collections'] = ('Collections',
@@ -214,6 +253,40 @@ s += live('<div style="max-width:17rem">'
           'mountains means either, not both')
 s += END
 
+
+s += sec('widgets', 'Widgets — the rail beside a post',
+         'Every widget is the same object: a label, a body, sometimes a footer. Six of them '
+         'read as one column rather than six competing boxes. A blog needs them most, but a '
+         'course rail and a trip rail want the same shape — so they are shared.')
+s += live('<div class="col-rail" style="max-width:19rem">'
+          + blog.toc_widget() + blog.author_widget() + blog.subscribe_widget() + '</div>',
+          '<b>.col-widget</b> · <b>.col-widget__title</b> · <b>.col-widget-accent</b> for the '
+          'one that is the point rather than a note')
+s += END
+
+s += sec('mini', 'Numbered lists', 'Recent, popular, next. Numbers rather than bullets, '
+         'because in these lists the order <em>is</em> the information.')
+s += live('<div style="max-width:19rem">' + blog.recent_widget() + '</div>',
+          '<b>.col-mini</b> · <b>.col-mini__item</b>')
+s += END
+
+s += sec('tags', 'Tags', 'A count beside each, so the shape of the cloud is data rather than '
+         'decoration.')
+s += live('<div style="max-width:26rem">' + blog.tags_widget(current='css') + '</div>',
+          '<b>.col-tags</b> · <b>.col-tag</b> — <code class="t-code">aria-current</code> marks '
+          'the one you are filtered to')
+s += END
+
+s += sec('progress', 'Reading progress',
+         'The same idea as the navbar hairline: a line already on the page doing a second job, '
+         'rather than a new piece of chrome.')
+s += live('<div style="position:relative;background:var(--bg-sunken);border-radius:var(--radius-md);'
+          'overflow:hidden"><div class="col-progress" style="position:static">'
+          '<div class="col-progress__bar" style="--value:62%"></div></div>'
+          '<p class="t-small u-fg-subtle" style="padding:var(--space-4)">62% read</p></div>',
+          '<b>.col-progress</b> — drive <code class="t-code">--value</code> from scroll')
+s += END
+
 s += sec('next', 'Next in series')
 s += live('<a class="col-next" href="#i"><span class="col-next__label">Next · Part 4</span>'
           '<span class="col-order__title">Goa is two places</span>'
@@ -238,6 +311,11 @@ s += ct([
     ('.col-posts', 'everywhere — no JS'),
     ('.col-post', 'post — no JS'),
     ('.col-next', 'post, series — no JS'),
+    ('.col-rail · .col-widget', 'post rails everywhere — no JS'),
+    ('.col-mini', 'widgets — no JS'),
+    ('.col-tags · .col-tag', 'post, index — no JS'),
+    ('.col-toc', 'post — needs JS only for scrollspy'),
+    ('.col-progress', 'post — <b>needs JS</b>'),
     ('.col-map', 'planned'),
     ('.col-gallery', 'planned'),
     ('.col-figures', 'planned'),
@@ -306,3 +384,89 @@ t += END
 PAGES['col-travel'] = ('Travel collection',
     'The first collection: five routes, sixteen icons and a linked filter, over a demo dataset '
     'small enough to read.', t)
+
+
+# ── 4 · the default collection ──────────────────────────────────────────────
+
+d = ''
+d += p('The starting point. Five working routes with nothing subject-specific in them — no '
+       'globe, no widgets, no content pretending to be yours. Copy the folder, rename it, '
+       'change the six lists at the top of its <code class="t-code">build.py</code>, and you '
+       'have a collection before you have designed anything.')
+d += p('It is also the test. If a section works <em>here</em> — with no collection stylesheet '
+       'at all — it is genuinely shared. If it only works once travel\'s CSS is loaded, it '
+       'belongs to travel and the prefix was a lie.')
+
+d += sec('routes-d', 'The five routes, empty')
+d += ct([(f'<a href="./collection/_default/{f}.html" target="_blank" rel="noopener">'
+          f'<b>{n}</b></a>', desc)
+         for f, n, desc in [
+             ('index', 'Index', 'groups, places, spots, a series card, everything'),
+             ('group', 'Group', 'one cut already made — an unordered set'),
+             ('place', 'Place', 'its spots, its series, its posts'),
+             ('series', 'Series', 'the spine: a first, a last, an order'),
+             ('post', 'Post', 'the article, with a rail')]],
+        head=('Route', 'What is on it'))
+d += p('<a class="btn btn-primary btn-sm" href="./collection/_default/index.html" '
+       'target="_blank" rel="noopener">Open the default collection →</a>')
+d += END
+
+d += sec('copy', 'Copying it')
+d += code('bash', '''
+cp -r collection/_default collection/podcast
+python3 collection/podcast/build.py
+''', 'five routes, immediately')
+d += p('Then change these, at the top of the new <code class="t-code">build.py</code>: '
+       '<code class="t-code">NAME</code>, <code class="t-code">GROUPS</code>, '
+       '<code class="t-code">PLACES</code>, <code class="t-code">SPOTS</code>, '
+       '<code class="t-code">FACETS</code>, <code class="t-code">POSTS</code> and '
+       '<code class="t-code">SERIES</code>. Nothing below that line refers to the subject.')
+d += END
+
+PAGES['col-default'] = ('Default collection',
+    'The starting point: five working routes with no subject in them, and the test of whether '
+    'a section is genuinely shared.', d)
+
+
+# ── 5 · blog ────────────────────────────────────────────────────────────────
+
+bl = ''
+bl += p('The second collection, and the one that proves the vocabulary is not travel-shaped. '
+        '<b>It ships no CSS of its own.</b> Every section on both of its routes is the shared '
+        '<code class="t-code">col-</code> vocabulary — which is exactly the test that '
+        'vocabulary had to pass before a third collection could trust it.')
+
+bl += sec('routes-b', 'Its routes',
+          'A blog needs two. Its "group" is a category and its "series" is a multi-part piece, '
+          'and both reuse the same routes travel already has — so they are not rebuilt.')
+bl += ct([('<a href="./collection/blog/index.html" target="_blank" rel="noopener"><b>Index</b></a> '
+           '— <code class="t-code">/blog</code>',
+           'Hero, categories, a topic filter, featured, and everything. The rail carries the '
+           'subscribe widget rather than facets alone.'),
+          ('<a href="./collection/blog/post.html" target="_blank" rel="noopener"><b>Post</b></a> '
+           '— <code class="t-code">/blog/a-post</code>',
+           'The article with a five-widget sticky rail: contents, author, subscribe, more on '
+           'this topic, and tags. Reading progress across the top.')],
+         head=('Route', 'What is on it'))
+bl += p('<a class="btn btn-primary btn-sm" href="./collection/blog/post.html" '
+        'target="_blank" rel="noopener">Open the post with its rail →</a> '
+        '<a class="btn btn-secondary btn-sm" href="./collection/blog/index.html" '
+        'target="_blank" rel="noopener">Open /blog →</a>')
+bl += END
+
+bl += sec('rail-b', 'The rail', 'Five widgets, one shape. The accent one is the ask; the rest '
+          'are notes beside the writing.')
+bl += live('<div class="col-rail" style="max-width:19rem">' + blog.toc_widget()
+           + blog.author_widget() + blog.subscribe_widget() + blog.recent_widget('More on CSS')
+           + blog.tags_widget(current='css') + '</div>',
+           'the whole rail from <code class="t-code">/blog/a-post</code>, unchanged')
+bl += END
+
+bl += sec('cats-b', 'Categories', 'A blog\'s widest cut is a category, which is the same '
+          'section travel uses for a region.')
+bl += live(blog.categories_block(), '<b>.col-groups</b> — same section, different subject')
+bl += END
+
+PAGES['col-blog'] = ('Blog collection',
+    'The second collection, with no CSS of its own — the proof that the section vocabulary is '
+    'shared rather than travel-shaped.', bl)

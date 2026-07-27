@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The post — Collection</title>
+<meta name="description" content="A single post." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="#i">Watch</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <article class="container section-sm">
+    <header class="col-post__head">
+      <nav class="col-post__crumbs" aria-label="Breadcrumb">
+        <a href="./index.html">Collection</a> <span>/</span>
+        <a href="./series.html">A series</a> <span>/</span> <span>Part 2</span>
+      </nav>
+      <h1 class="t-display-2">The post itself</h1>
+      <p class="t-lead" style="max-width:var(--measure-lead)">The standfirst sits here.</p>
+      <div class="col-post__crumbs"><span>6 min read</span> <span>·</span>
+        <span>Part 2 of 3</span></div>
+    </header>
+    <div class="surface u-mb-8" style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius-card)">
+      <span class="col-ph" style="--h:220" data-tall aria-hidden="true"></span>
+    </div>
+    <div class="col-post">
+      <div class="content">
+        <p>The body of the post. Everything in here is the system's long-form content
+          styling — this collection adds nothing to it.</p>
+        <h2>A heading</h2>
+        <p>And a paragraph under it.</p>
+      </div>
+      <aside class="col-post__rail col-rail">
+        <div class="col-widget">
+          <span class="col-widget__title">Part of</span>
+          <a class="col-order__title" href="./series.html">A series</a>
+          <p class="t-small u-fg-subtle">Part 2 of 3</p>
+        </div>
+        <div class="col-widget">
+          <span class="col-widget__title">Filed under</span>
+          <div class="col-tags">
+            <a class="col-tag" href="#i">Kind A</a>
+            <a class="col-tag" href="#i">Alpha</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <a class="col-next u-mt-10" href="#i">
+      <span class="col-next__label">Next · Part 3</span>
+      <span class="col-order__title">How it ends</span>
+    </a>
+  </article>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Collection — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

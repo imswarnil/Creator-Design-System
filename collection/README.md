@@ -13,12 +13,38 @@ question about the system, not a licence to invent one here.
 ```
 collection/
   README.md          ← this file: the shared contract
+  collection.css     ← the col- vocabulary: every section, defined once
+  collection.js      ← the linked filters — the only thing CSS cannot do
+  shell.py           ← the head, navbar and footer every route shares
+
+  _default/          ← the starting point. cp -r it and rename
+    build.py         ← five routes with no subject in them
+    *.html
+
   travel/            ← the first collection
-    README.md        ← its routes, its sections, its data shape
-    travel.css       ← its components — tokens only, no new primitives
-    travel.js        ← only what CSS cannot do (the linked filters)
-    *.html           ← one file per route, openable with no build
+    travel.css       ← only what travel needs: globe, flight line, palm
+    build.py
+    *.html           ← index, region, country, trip, post, components
+
+  blog/              ← the second
+    build.py         ← no CSS of its own — which is the test
+    *.html           ← index, post
 ```
+
+**Blog ships no stylesheet, deliberately.** If a second collection cannot be
+built out of the shared vocabulary, then the vocabulary was really just the
+first collection wearing a general-sounding prefix. Travel keeps 44 lines,
+because a globe and a palm genuinely do belong to travel.
+
+Starting a new one:
+
+```bash
+cp -r collection/_default collection/podcast
+python3 collection/podcast/build.py
+```
+
+Then change the lists at the top of its `build.py`. Nothing below that line
+refers to the subject.
 
 ## The five routes every collection has
 
@@ -65,6 +91,12 @@ needing it.
 | Post header | `.col-post__head` | post | no | ✅ travel |
 | Post body + rail | `.col-post` | post | no | ✅ travel |
 | Next in series | `.col-next` | post, series | no | ✅ travel |
+| Rail + widget | `.col-rail`, `.col-widget` | post | no | ✅ blog |
+| Author | `.col-author` | post | no | ✅ blog |
+| Numbered list | `.col-mini` | widgets | no | ✅ blog |
+| Tags | `.col-tags`, `.col-tag` | post, index | no | ✅ blog |
+| Contents | `.col-toc` | post | scrollspy only | ✅ blog |
+| Reading progress | `.col-progress` | post | **yes** | ✅ blog |
 | Map | `.col-map` | index, group | — | planned |
 | Gallery | `.col-gallery` | place, post | — | planned |
 | Cost / stats table | `.col-figures` | place, series | — | planned |

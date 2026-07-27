@@ -115,9 +115,10 @@ HEAD = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="{rel}/dist/creator.css" />
+<link rel="stylesheet" href="{rel}/collection/collection.css" />
 <link rel="stylesheet" href="./travel.css" />
 <script src="{rel}/src/nav.js" defer></script>
-<script src="./collection.js" defer></script>
+<script src="{rel}/collection/collection.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -127,8 +128,8 @@ HEAD = '''<!doctype html>
     <a class="logo logo-sm" href="{rel}/docs/index.html">Swarnil</a>
     <div class="nav-links">
       <a class="nav-link" href="./index.html"{cur_index}>Travel</a>
+      <a class="nav-link" href="{rel}/collection/blog/index.html">Blog</a>
       <a class="nav-link" href="#i">Watch</a>
-      <a class="nav-link" href="#i">Build</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>

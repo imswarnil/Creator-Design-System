@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="./src/5-sections/index.css?v=cds25" />
 <link rel="stylesheet" href="./src/6-utilities/index.css?v=cds25" />
 <link rel="stylesheet" href="./preview.css?v=cds25" />
+<link rel="stylesheet" href="./collection/collection.css?v=cds25" />
 <link rel="stylesheet" href="./collection/travel/travel.css?v=cds25" />
 <script src="./src/highlight.js?v=cds25" defer></script>
 <script src="./src/nav.js?v=cds25" defer></script>
@@ -121,11 +122,6 @@
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Getting started</span></summary>
 			<a href="./install.html">Installation</a>
 			<a href="./setup.html">Setup & theming</a>
-			</details>
-			<details class="doc-group" open><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Collections</span></summary>
-			<a href="./collections.html">The contract</a>
-			<a href="./col-sections.html" aria-current="page">Sections</a>
-			<a href="./col-travel.html">Travel</a>
 			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/></svg>Foundation</span></summary>
 			<a href="./f-logo.html">Logo</a>
@@ -222,6 +218,13 @@
 			<a href="./l-build.html">Build</a>
 			<a href="./l-road.html">Road</a>
 			<a href="./l-pages.html">Pages</a>
+			</details>
+			<details class="doc-group" open><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Collections</span></summary>
+			<a href="./collections.html">The contract</a>
+			<a href="./col-sections.html" aria-current="page">Sections</a>
+			<a href="./col-default.html">Default</a>
+			<a href="./col-travel.html">Travel</a>
+			<a href="./col-blog.html">Blog</a>
 			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg>Animation & Motion</span></summary>
 			<a href="./m-basics.html">Motion basics</a>
@@ -434,7 +437,35 @@
         </div>
       </div>
     </div></div>
-		</div><p class="spec"><b>.col-facets</b> · <b>.col-facet</b> — or-within-a-facet: ticking beach and mountains means either, not both</p></div></section>		<section id="next"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="next-in-series">Next in series</h2>		<div class="surface demo-tile u-mb-6"><div class="demo">
+		</div><p class="spec"><b>.col-facets</b> · <b>.col-facet</b> — or-within-a-facet: ticking beach and mountains means either, not both</p></div></section>		<section id="widgets"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="widgets-the-rail-beside-a-post">Widgets — the rail beside a post</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Every widget is the same object: a label, a body, sometimes a footer. Six of them read as one column rather than six competing boxes. A blog needs them most, but a course rail and a trip rail want the same shape — so they are shared.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-rail" style="max-width:19rem"><div class="col-widget"><span class="col-widget__title">On this page</span><nav class="col-toc"><a href="#why" aria-current="true">Why this happened</a><a href="#cost">What it cost</a><a href="#replaced">What replaced it</a><a href="#worth">Was it worth it</a></nav></div><div class="col-widget">
+      <span class="col-widget__title">Written by</span>
+      <div class="col-author">
+        <span class="col-author__face"><span class="col-ph" style="--h:24" aria-hidden="true"></span></span>
+        <span><span class="col-author__name">Swarnil Singhai</span>
+          <span class="col-author__who">Builds things, then writes down what broke.</span></span>
+      </div>
+      <div class="col-widget__foot">56 posts · since 2021</div>
+    </div><div class="col-widget col-widget-accent">
+      <span class="col-widget__title">Newsletter</span>
+      <p class="t-small">One email when something is worth reading. No schedule,
+        because a schedule is how newsletters get padded.</p>
+      <form class="col-sub__form" onsubmit="return false">
+        <input type="email" placeholder="you@example.com" aria-label="Email address" />
+        <button class="btn btn-primary btn-sm" type="submit">Subscribe</button>
+      </form>
+    </div></div>
+		</div><p class="spec"><b>.col-widget</b> · <b>.col-widget__title</b> · <b>.col-widget-accent</b> for the one that is the point rather than a note</p></div></section>		<section id="mini"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="numbered-lists">Numbered lists</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Recent, popular, next. Numbers rather than bullets, because in these lists the order <em>is</em> the information.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div style="max-width:19rem"><div class="col-widget"><span class="col-widget__title">Recent</span><div class="col-mini"><a class="col-mini__item" href="./post.html"><span class="col-mini__n">01</span><span><span class="col-mini__title">Why I stopped using a CSS framework</span><span class="col-mini__meta">Jul 2026 · 11 min</span></span></a><a class="col-mini__item" href="./post.html"><span class="col-mini__n">02</span><span><span class="col-mini__title">The record light: one colour, rationed</span><span class="col-mini__meta">Jun 2026 · 7 min</span></span></a><a class="col-mini__item" href="./post.html"><span class="col-mini__n">03</span><span><span class="col-mini__title">Motion that survives prefers-reduced-motion</span><span class="col-mini__meta">Jun 2026 · 9 min</span></span></a><a class="col-mini__item" href="./post.html"><span class="col-mini__n">04</span><span><span class="col-mini__title">Tokens are a contract, not a theme</span><span class="col-mini__meta">May 2026 · 6 min</span></span></a></div></div></div>
+		</div><p class="spec"><b>.col-mini</b> · <b>.col-mini__item</b></p></div></section>		<section id="tags"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="tags">Tags</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">A count beside each, so the shape of the cloud is data rather than decoration.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div style="max-width:26rem"><div class="col-widget"><span class="col-widget__title">Tags</span><div class="col-tags"><a class="col-tag" href="#i" aria-current="page">css<span class="col-tag__n">18</span></a><a class="col-tag" href="#i">tokens<span class="col-tag__n">12</span></a><a class="col-tag" href="#i">motion<span class="col-tag__n">9</span></a><a class="col-tag" href="#i">a11y<span class="col-tag__n">14</span></a><a class="col-tag" href="#i">craft<span class="col-tag__n">11</span></a><a class="col-tag" href="#i">colour<span class="col-tag__n">7</span></a><a class="col-tag" href="#i">type<span class="col-tag__n">6</span></a><a class="col-tag" href="#i">notes<span class="col-tag__n">23</span></a></div></div></div>
+		</div><p class="spec"><b>.col-tags</b> · <b>.col-tag</b> — <code class="t-code">aria-current</code> marks the one you are filtered to</p></div></section>		<section id="progress"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="reading-progress">Reading progress</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The same idea as the navbar hairline: a line already on the page doing a second job, rather than a new piece of chrome.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div style="position:relative;background:var(--bg-sunken);border-radius:var(--radius-md);overflow:hidden"><div class="col-progress" style="position:static"><div class="col-progress__bar" style="--value:62%"></div></div><p class="t-small u-fg-subtle" style="padding:var(--space-4)">62% read</p></div>
+		</div><p class="spec"><b>.col-progress</b> — drive <code class="t-code">--value</code> from scroll</p></div></section>		<section id="next"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="next-in-series">Next in series</h2>		<div class="surface demo-tile u-mb-6"><div class="demo">
 <a class="col-next" href="#i"><span class="col-next__label">Next · Part 4</span><span class="col-order__title">Goa is two places</span><span class="t-small u-fg-subtle">North and south, and the road between them.</span></a>
 		</div><p class="spec"><b>.col-next</b></p></div></section>		<section id="registry"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-registry">The registry</h2>
 		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Every section, where it is used, and whether it needs JavaScript. A section is only done when it works in both themes, at every width, and with the script blocked unless it is listed as needing it.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Section</th><th>Used on</th></tr></thead><tbody>
@@ -450,6 +481,11 @@
 			<tr><td><code class="t-code">.col-posts</code></td><td>everywhere — no JS</td></tr>
 			<tr><td><code class="t-code">.col-post</code></td><td>post — no JS</td></tr>
 			<tr><td><code class="t-code">.col-next</code></td><td>post, series — no JS</td></tr>
+			<tr><td><code class="t-code">.col-rail · .col-widget</code></td><td>post rails everywhere — no JS</td></tr>
+			<tr><td><code class="t-code">.col-mini</code></td><td>widgets — no JS</td></tr>
+			<tr><td><code class="t-code">.col-tags · .col-tag</code></td><td>post, index — no JS</td></tr>
+			<tr><td><code class="t-code">.col-toc</code></td><td>post — needs JS only for scrollspy</td></tr>
+			<tr><td><code class="t-code">.col-progress</code></td><td>post — <b>needs JS</b></td></tr>
 			<tr><td><code class="t-code">.col-map</code></td><td>planned</td></tr>
 			<tr><td><code class="t-code">.col-gallery</code></td><td>planned</td></tr>
 			<tr><td><code class="t-code">.col-figures</code></td><td>planned</td></tr>
@@ -457,7 +493,7 @@
 
 				<nav class="docs-pager" aria-label="Pages">
 					<a class="docs-pager__link" href="./collections.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">The contract</span></a>
-			<a class="docs-pager__link docs-pager__link-next" href="./col-travel.html"><span class="docs-pager__dir">Next →</span><span class="docs-pager__title">Travel</span></a>
+			<a class="docs-pager__link docs-pager__link-next" href="./col-default.html"><span class="docs-pager__dir">Next →</span><span class="docs-pager__title">Default</span></a>
 				</nav>
 			</div>
 			<aside class="doc-rail">
@@ -475,6 +511,10 @@
 					<a href="#the-order-a-series-laid-out">The order — a series, laid out</a>
 					<a href="#post-rows">Post rows</a>
 					<a href="#the-facet-sidebar">The facet sidebar</a>
+					<a href="#widgets-the-rail-beside-a-post">Widgets — the rail beside a post</a>
+					<a href="#numbered-lists">Numbered lists</a>
+					<a href="#tags">Tags</a>
+					<a href="#reading-progress">Reading progress</a>
 					<a href="#next-in-series">Next in series</a>
 					<a href="#the-registry">The registry</a>
 				</div>

@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="./src/5-sections/index.css?v=cds25" />
 <link rel="stylesheet" href="./src/6-utilities/index.css?v=cds25" />
 <link rel="stylesheet" href="./preview.css?v=cds25" />
+<link rel="stylesheet" href="./collection/collection.css?v=cds25" />
 <link rel="stylesheet" href="./collection/travel/travel.css?v=cds25" />
 <script src="./src/highlight.js?v=cds25" defer></script>
 <script src="./src/nav.js?v=cds25" defer></script>
@@ -121,11 +122,6 @@
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Getting started</span></summary>
 			<a href="./install.html">Installation</a>
 			<a href="./setup.html">Setup & theming</a>
-			</details>
-			<details class="doc-group" open><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Collections</span></summary>
-			<a href="./collections.html" aria-current="page">The contract</a>
-			<a href="./col-sections.html">Sections</a>
-			<a href="./col-travel.html">Travel</a>
 			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/></svg>Foundation</span></summary>
 			<a href="./f-logo.html">Logo</a>
@@ -223,6 +219,13 @@
 			<a href="./l-road.html">Road</a>
 			<a href="./l-pages.html">Pages</a>
 			</details>
+			<details class="doc-group" open><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Collections</span></summary>
+			<a href="./collections.html" aria-current="page">The contract</a>
+			<a href="./col-sections.html">Sections</a>
+			<a href="./col-default.html">Default</a>
+			<a href="./col-travel.html">Travel</a>
+			<a href="./col-blog.html">Blog</a>
+			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg>Animation & Motion</span></summary>
 			<a href="./m-basics.html">Motion basics</a>
 			<a href="./m-text-effects.html">Text effects</a>
@@ -300,22 +303,36 @@
 		</tbody></table></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>Series is the one worth being careful about.</b> A series is an ordered set of posts made as one body of work — a trip, a course, a season. A <b>group</b> is an unordered set that share an attribute — a region, a subject, a tag. They look similar and behave differently: a series has a first and a last and a progress through it; a group has none of those. That is why the series route gets a spine and the group route gets a grid.</p></section>		<section id="folder"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="what-a-collection-folder-holds">What a collection folder holds</h2>		<div class="surface demo-tile u-mb-6"><div class="demo">
 <figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">text</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>collection/
   README.md          the shared contract
+  collection.css     the col- vocabulary - every section, once
+  collection.js      the linked filters - the only thing CSS cannot do
+  shell.py           the head, navbar and footer every route shares
+
+  _default/          the starting point: cp -r it and rename
+    build.py         five routes with no subject in them
+    *.html
+
   travel/
-    README.md        its routes, its sections, its data shape
-    travel.css       its components - tokens only, no new primitives
-    collection.js    only what CSS cannot do (the linked filters)
-    build.py         generates the routes from one set of demo data
-    *.html           one file per route, openable with no build</code></pre></figure>
-		</div><p class="spec">the first collection, in full</p></div></section>		<section id="rules"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-rules">The rules</h2>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Rule</th><th>Why</th></tr></thead><tbody>
+    travel.css       only what travel needs: globe, flight line, palm
+    build.py
+    *.html           index, region, country, trip, post, components
+
+  blog/
+    build.py         no CSS of its own - which is the test
+    *.html           index, post</code></pre></figure>
+		</div><p class="spec">three collections, and only one of them needs a stylesheet</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>Blog has no CSS of its own, and that is deliberate.</b> If a second collection cannot be built out of the shared vocabulary, the vocabulary was really just the first collection wearing a general-sounding prefix. Travel keeps 44 lines — the globe, the flight line and the palm — because those genuinely belong to travel.</p></section>		<section id="rules"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-rules">The rules</h2>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Rule</th><th>Why</th></tr></thead><tbody>
 			<tr><td><code class="t-code">Tokens only</code></td><td>every value is a <code class="t-code">var(--…)</code>. A collection that hard-codes a colour cannot be rebranded, and has quietly left the system</td></tr>
 			<tr><td><code class="t-code">Prefix once</code></td><td>shared sections are <code class="t-code">col-</code>; a collection's own extras take its name (<code class="t-code">trv-</code>). Anything useful twice graduates from one to the other</td></tr>
 			<tr><td><code class="t-code">Reuse before adding</code></td><td>a place card <em>is</em> a card. If a section is 90% an existing component, it is that component with a modifier</td></tr>
 			<tr><td><code class="t-code">JS is additive</code></td><td>the filters degrade to showing everything. Every route must be readable and navigable with the script blocked</td></tr>
 			<tr><td><code class="t-code">State in ARIA</code></td><td><code class="t-code">aria-pressed</code> on a filter, <code class="t-code">aria-current</code> on the current item. Never an <code class="t-code">.active</code> class</td></tr>
-		</tbody></table></div></section>
+		</tbody></table></div></section>		<section id="starting"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="starting-a-new-one">Starting a new one</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The default collection exists to be copied. It has five working routes and nothing subject-specific in them, so the first thing you see is the shape rather than somebody else's content.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>cp -r collection/_default collection/podcast
+python3 collection/podcast/build.py</code></pre></figure>
+		</div><p class="spec">change the six lists at the top of build.py and the collection is yours</p></div></section>
 
 				<nav class="docs-pager" aria-label="Pages">
-					<a class="docs-pager__link" href="./setup.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Setup & theming</span></a>
+					<a class="docs-pager__link" href="./l-pages.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Pages</span></a>
 			<a class="docs-pager__link docs-pager__link-next" href="./col-sections.html"><span class="docs-pager__dir">Next →</span><span class="docs-pager__title">Sections</span></a>
 				</nav>
 			</div>
@@ -327,6 +344,7 @@
 					<a href="#the-five-routes-every-collection-has">The five routes every collection has</a>
 					<a href="#what-a-collection-folder-holds">What a collection folder holds</a>
 					<a href="#the-rules">The rules</a>
+					<a href="#starting-a-new-one">Starting a new one</a>
 				</div>
 			</nav>
 			<div class="doc-sponsor">

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Collection — the default collection</title>
+<meta name="description" content="The starting point for a new collection." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="#i">Watch</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="container u-mt-6">
+   <div class="col-hero">
+    
+    <div class="col-hero__in">
+      <span class="col-hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Index</span>
+      <h1 class="col-hero__title">The collection</h1>
+      <p class="col-hero__lead">One sentence saying what is in here and why anyone would read it. Replace this, the data at the top of build.py, and you have a collection.</p>
+      
+      <form class="col-search" onsubmit="return false">
+        <label class="col-search__field">
+          <span class="u-sr-only">Search</span>
+          <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg>
+          <input type="search" placeholder="Search this collection" />
+        </label>
+        <button class="btn btn-primary btn-pill" type="submit">Search</button>
+      </form>
+      <div class="col-meta"><div><span class="col-meta__n">14</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">places</span></div><div><span class="col-meta__n">3</span><span class="col-meta__l">groups</span></div><div><span class="col-meta__n">1</span><span class="col-meta__l">series</span></div></div>
+    </div>
+   </div>
+  </section>
+
+  <div data-collection>
+  <section class="container section-sm">
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">Groups</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The widest cut. Pick one and everything below narrows to it.</p></div></div>
+    <div class="col-groups"><button class="col-group" type="button" data-group="one" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg></span><span><span class="col-group__name">Group one</span><span class="col-group__n">4 places</span></span></button><button class="col-group" type="button" data-group="two" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg></span><span><span class="col-group__name">Group two</span><span class="col-group__n">3 places</span></span></button><button class="col-group" type="button" data-group="three" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18L14.5 7 11 13.5 8.8 10 3 19Z"/><path d="m11 13.5 1.6 2.6"/></svg></span><span><span class="col-group__name">Group three</span><span class="col-group__n">2 places</span></span></button></div>
+  </section>
+  <section class="container section-sm">
+    <div class="col-layout">
+      
+    <aside class="col-layout__side">
+      <div class="col-facets">
+        <div class="col-facets__group">
+          <span class="col-facets__title">Filtering</span>
+          <p class="t-small u-fg-subtle" data-filter-state>Everything</p>
+          <button class="btn btn-quiet btn-sm" type="button" data-filter-reset hidden>
+            Clear filters</button>
+        </div>
+        <div class="col-facets__group">
+          <span class="col-facets__title">Kind</span>
+          <label class="col-facet"><input type="checkbox" data-facet="kind-a" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Kind A</span><span class="col-facet__n">9</span></label><label class="col-facet"><input type="checkbox" data-facet="kind-b" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg><span>Kind B</span><span class="col-facet__n">6</span></label><label class="col-facet"><input type="checkbox" data-facet="kind-c" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg><span>Kind C</span><span class="col-facet__n">4</span></label>
+        </div>
+      </div>
+    </aside>
+      <div>
+        <div class="row-between u-mb-5"><div><h2 class="t-h3">Places</h2></div></div><div class="col-places"><button class="col-place" type="button" data-place="alpha" data-of="one" data-tags="kind-a" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-place__body"><span class="col-place__name">Alpha</span><span class="col-place__note">A sentence about this place.</span></span><span class="col-place__foot"><span>5 posts</span></span></button><button class="col-place" type="button" data-place="beta" data-of="one" data-tags="kind-b" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-place__body"><span class="col-place__name">Beta</span><span class="col-place__note">A sentence about this place.</span></span><span class="col-place__foot"><span>3 posts</span></span></button><button class="col-place" type="button" data-place="gamma" data-of="two" data-tags="kind-a" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-place__body"><span class="col-place__name">Gamma</span><span class="col-place__note">A sentence about this place.</span></span><span class="col-place__foot"><span>4 posts</span></span></button><button class="col-place" type="button" data-place="delta" data-of="three" data-tags="kind-c" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-place__body"><span class="col-place__name">Delta</span><span class="col-place__note">A sentence about this place.</span></span><span class="col-place__foot"><span>2 posts</span></span></button><p class="col-empty" data-empty-for="[data-place]" hidden>Nothing here.</p></div>
+        <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">Spots</h2></div></div><div class="col-spots"><a class="col-spot" href="./place.html" data-spot="a1" data-of="alpha" data-tags="kind-a">Spot A1<span class="col-spot__n">3</span></a><a class="col-spot" href="./place.html" data-spot="a2" data-of="alpha" data-tags="kind-b">Spot A2<span class="col-spot__n">2</span></a><a class="col-spot" href="./place.html" data-spot="g1" data-of="gamma" data-tags="kind-a">Spot G1<span class="col-spot__n">4</span></a><a class="col-spot" href="./place.html" data-spot="d1" data-of="delta" data-tags="kind-c">Spot D1<span class="col-spot__n">1</span></a><p class="col-empty" data-empty-for="[data-spot]" hidden>Nothing here.</p></div></div>
+        <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">Latest series</h2></div></div>
+    <a class="col-series" href="./series.html">
+      <span class="col-series__media"><span class="col-ph" style="--h:220" data-tall aria-hidden="true"></span></span>
+      <span class="col-series__body">
+        <span class="col-hero__eyebrow" style="color:var(--fg-faint)"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg>A series</span>
+        <span class="col-series__title">Something made as one body of work</span>
+        <span class="t-small u-fg-subtle">A series has a first, a last and an order.
+          A group has none of those — that is the whole difference.</span>
+        <span class="col-series__stats"><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg>3 parts</span></span>
+      </span>
+    </a></div>
+        <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">Everything</h2></div></div><div class="col-posts"><a class="col-post-row" href="./post.html" data-post data-of="alpha" data-region="one" data-tags="kind-a"><span class="col-post-row__thumb"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The first post</span><span class="col-post-row__note">kind-a</span></span><span class="col-post-row__meta"><span>6 min</span></span></a><a class="col-post-row" href="./post.html" data-post data-of="gamma" data-region="two" data-tags="kind-a"><span class="col-post-row__thumb"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The second post</span><span class="col-post-row__note">kind-a</span></span><span class="col-post-row__meta"><span>9 min</span></span></a><a class="col-post-row" href="./post.html" data-post data-of="beta" data-region="one" data-tags="kind-b"><span class="col-post-row__thumb"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The third post</span><span class="col-post-row__note">kind-b</span></span><span class="col-post-row__meta"><span>4 min</span></span></a><a class="col-post-row" href="./post.html" data-post data-of="delta" data-region="three" data-tags="kind-c"><span class="col-post-row__thumb"><span class="col-ph" style="--h:220" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The fourth post</span><span class="col-post-row__note">kind-c</span></span><span class="col-post-row__meta"><span>11 min</span></span></a><p class="col-empty" data-empty-for="[data-post]" hidden>Nothing matches. Try clearing a filter.</p></div></div>
+      </div>
+    </div>
+  </section>
+  </div>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Collection — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

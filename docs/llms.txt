@@ -20,9 +20,6 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [All pages](https://creator.imswarnil.com/all.html): Start — Every page in the Creator Design System, in one list. Landing index.html Docs home introduction.html Search Preview ⇄ Co
 - [Installation](https://creator.imswarnil.com/install.html): Getting started — Five minutes from zero: get the files, link the layers, see the system render. later layers require earlier ones — take 
 - [Setup & theming](https://creator.imswarnil.com/setup.html): Getting started — Make it yours: override tokens, pick your dark-mode strategy, swap the mark. never edit source — override tokens; every 
-- [The contract](https://creator.imswarnil.com/collections.html): Collections — A collection is a kind of thing you publish. Five routes, one section vocabulary, and one rule: it is the same design sy
-- [Sections](https://creator.imswarnil.com/col-sections.html): Collections — The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship. .col-h
-- [Travel](https://creator.imswarnil.com/col-travel.html): Collections — The first collection: five routes, sixteen icons and a linked filter, over a demo dataset small enough to read. the scri
 - [Breakpoints](https://creator.imswarnil.com/breakpoints.html): Foundation — Four widths, defined by content, not devices. Rems, so user zoom moves them. the only responsive display utilities — res
 - [Color](https://creator.imswarnil.com/f-color.html): Foundation — Ink, paper and three greys — plus one hue: the record-red. Everything else is restraint. the three legal appearances of 
 - [Logo](https://creator.imswarnil.com/f-logo.html): Foundation — The dot over a lowercase i is called a tittle . The whole identity is that the tittle is the record light — so the mark 
@@ -99,6 +96,11 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Build](https://creator.imswarnil.com/l-build.html): Layouts — 
 - [Road](https://creator.imswarnil.com/l-road.html): Layouts — 
 - [Pages](https://creator.imswarnil.com/l-pages.html): Layouts — The one-offs. Each has a personality the collections don't get.
+- [The contract](https://creator.imswarnil.com/collections.html): Collections — A collection is a kind of thing you publish. Five routes, one section vocabulary, and one rule: it is the same design sy
+- [Sections](https://creator.imswarnil.com/col-sections.html): Collections — The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship. .col-h
+- [Travel](https://creator.imswarnil.com/col-travel.html): Collections — The first collection: five routes, sixteen icons and a linked filter, over a demo dataset small enough to read. the scri
+- [Default](https://creator.imswarnil.com/col-default.html): Collections — The starting point: five working routes with no subject in them, and the test of whether a section is genuinely shared. 
+- [Blog](https://creator.imswarnil.com/col-blog.html): Collections — The second collection, with no CSS of its own — the proof that the section vocabulary is shared rather than travel-shape
 - [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections — each destination announces itself in its own medium, briefly, skippably, honestly. f
 - [Motion basics](https://creator.imswarnil.com/m-basics.html): Animation & Motion — Four durations, four easings. No component may invent a duration. Entrances travel 16px, not 60 — long travel reads as "
 - [Text effects](https://creator.imswarnil.com/m-text-effects.html): Animation & Motion — Twelve. Most need the text split into spans carrying --i ; the preview does that with five lines of JS. Without spans ev

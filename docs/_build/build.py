@@ -102,8 +102,6 @@ NAV = [
                ('principles', 'Principles'), ('usage', 'Usage — CSS · SCSS · Tailwind'),
                ('components', 'Components explorer'), ('all', 'All pages')]),
     ('Getting started', [('install', 'Installation'), ('setup', 'Setup & theming')]),
-    ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
-                     ('col-travel', 'Travel')]),
     ('Foundation', [('f-logo', 'Logo'), ('f-color', 'Color'), ('f-type', 'Typography'),
                     ('f-space', 'Spacing & radius'), ('f-elevation', 'Elevation'),
                     ('f-pattern', 'Patterns'), ('breakpoints', 'Breakpoints'),
@@ -140,6 +138,9 @@ NAV = [
     ('Layouts', [('layouts', 'Overview'), ('l-core', 'Core'), ('l-watch', 'Watch'),
                  ('l-learn', 'Learn'), ('l-build', 'Build'), ('l-road', 'Road'),
                  ('l-pages', 'Pages')]),
+    ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
+                     ('col-default', 'Default'), ('col-travel', 'Travel'),
+                     ('col-blog', 'Blog')]),
     ('Animation & Motion', [('m-basics', 'Motion basics'), ('m-text-effects', 'Text effects'),
                 ('m-annotations', 'Annotations'), ('m-micro', 'Micro-interactions'),
                 ('m-presets', 'Section presets'), ('m-stings', 'Logo sting'),
@@ -704,8 +705,10 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
         guides_btn='',
         broadcast_css=f'\n<link rel="stylesheet" href="./src/4-broadcast/index.css{V}" />' if broadcast else '',
         extra_style=extra, body_class='loop-demos' if opts.get('loop') else '',
-        collection_css=(f'\n<link rel="stylesheet" href="./collection/travel/travel.css{V}" />'
-                        if slug.startswith('col-') or slug == 'collections' else ''))
+        collection_css=(
+            f'\n<link rel="stylesheet" href="./collection/collection.css{V}" />'
+            f'\n<link rel="stylesheet" href="./collection/travel/travel.css{V}" />'
+            if slug.startswith('col-') or slug == 'collections' else ''))
     return (out, toc) if return_toc else out
 
 

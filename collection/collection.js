@@ -5,7 +5,7 @@
    with groups, places and spots gets the same behaviour for free.
 
      data-group="asia"              on a group button
-     data-place="japan" data-of="asia"      on a place
+     data-place="japan" data-of="asia"      on a place (data-of may be a list)
      data-spot="tokyo"  data-of="japan"     on a spot
      data-facet="beach"             on a facet checkbox
      data-tags="beach city"         on anything a facet should match
@@ -32,6 +32,14 @@
 	/* A thing survives the facets if it carries at least one selected tag.
 	   Or-within-a-facet is the honest reading of "beach, mountains": someone
 	   ticking both wants either, not somewhere that is somehow both. */
+	/* A place can sit in more than one group — a trip that crossed a border,
+	   a post tagged with two countries — so the parent attributes are read as
+	   lists. One value is just a list of one. */
+	var inList = function (attr, want) {
+		if (!want) return true;
+		return (attr || '').split(/\s+/).indexOf(want) !== -1;
+	};
+
 	var passesFacets = function (el) {
 		if (!state.facets.length) return true;
 		var tags = (el.getAttribute('data-tags') || '').split(/\s+/);
@@ -40,7 +48,7 @@
 
 	var apply = function () {
 		all('[data-place]').forEach(function (el) {
-			var inGroup = !state.group || el.getAttribute('data-of') === state.group;
+			var inGroup = inList(el.getAttribute('data-of'), state.group);
 			show(el, inGroup && passesFacets(el));
 			if (!inGroup) el.setAttribute('aria-pressed', 'false');
 		});
@@ -58,8 +66,8 @@
 		all('[data-post]').forEach(function (el) {
 			var of = el.getAttribute('data-of');
 			var region = el.getAttribute('data-region');
-			var okGroup = !state.group || region === state.group;
-			var okPlace = !state.place || of === state.place;
+			var okGroup = inList(region, state.group);
+			var okPlace = inList(of, state.place);
 			show(el, okGroup && okPlace && passesFacets(el));
 		});
 
