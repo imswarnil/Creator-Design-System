@@ -413,9 +413,7 @@
 			<tr><td><code class="t-code">.nav-shell-fixed</code></td><td>pinned to the top, always there</td></tr>
 			<tr><td><code class="t-code">.nav-shell-auto</code></td><td>hides on the way down, returns on the way up — reading gets the screen, navigating gets the bar</td></tr>
 			<tr><td><code class="t-code">.nav-shell-morph</code></td><td>full-bleed at rest; contracts into the island once the page has moved</td></tr>
-			<tr><td><code class="t-code">.nav-shell-reveal</code></td><td>the same disappearing act as -auto, but sticky rather than fixed — the bar keeps its place in the flow, so nothing hides under it at the top</td></tr>
 		</tbody></table></div>
-<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Pair <code class="t-code">.nav-shell-full</code> with either hiding behaviour for a plain bar across the page that leaves on the way down. And note that <code class="t-code">-morph</code> reaches its bar through <code class="t-code">:is()</code>, so the variant still works once the island grows a second row and the bar sits inside <code class="t-code">.nav-stack</code>.</p>
 		<div class="surface demo-tile u-mb-6"><div class="demo">
 <div class="np__scroller" data-scroll-demo><div class="np__scroller-in"><div class="nav-shell nav-shell-morph" data-scroll-at="12" style="position:sticky"><nav class="nav-bar" aria-label="Morph demo"><span class="logo logo-sm">Swarn<span class="logo__i">ı<i class="logo__tittle"></i></span>l</span><div class="nav-links"><a class="nav-link" href="#i" aria-current="page">Watch</a><a class="nav-link" href="#i">Learn</a><a class="nav-link" href="#i">Build</a></div><div class="nav-actions"><button class="btn btn-primary btn-sm btn-pill">Subscribe</button></div></nav></div><div class="np__filler"><p class="t-slate-sm">scroll this panel ↓</p></div></div></div>
 		</div><p class="spec"><b>.nav-shell-morph</b> — full width at the top, an island once you move; scroll inside the box</p></div>
