@@ -813,7 +813,7 @@
 
 :is(.nav-progress.nav-shell-full > .nav-bar,
 	.nav-progress.nav-shell-full > .nav-stack > .nav-bar)::after {
-	inset: auto 0 0 0;
+	inset: auto 0 0;
 	height: var(--border-2);
 	padding: 0;
 	border-radius: 0;
@@ -1089,6 +1089,43 @@
 .nav-stack[data-open] > .nav-panel {
 	grid-template-rows: minmax(0, 1fr);
 	border-top-color: var(--line-subtle);
+}
+
+/* ── The open panel is a surface, not a hole ─────────────────────────────────
+   The island's surface — background, blur, shadow — lives on .nav-bar, and the
+   bar is only row 1. Left plain, the panel is a window onto the page: at rest
+   there is nothing behind it yet so it looks right, but once the bar has drawn
+   itself into an island the page scrolls straight through the open menu.
+
+   So row 2 takes the same surface. Only while open: a closed panel is a
+   0-height box, and a shadow on a 0-height box is a smudge across the page.
+   ------------------------------------------------------------------------- */
+.nav-shell[data-open] > .nav-panel,
+.nav-stack[data-open] > .nav-panel {
+	background: color-mix(in srgb, var(--bg-canvas) 94%, transparent);
+	backdrop-filter: saturate(180%) blur(14px);
+}
+
+/* Island forms only — a full-bleed bar has no corners to continue. Here the
+   two rows stop reading as two boxes: the bar gives up its bottom corners and
+   the panel picks them up, so what opens is one island, taller. */
+.nav-shell:not(.nav-shell-full, .nav-shell-morph)[data-open] > .nav-panel,
+.nav-shell:not(.nav-shell-full, .nav-shell-morph) > .nav-stack[data-open] > .nav-panel,
+.nav-shell-morph[data-scrolled][data-open] > .nav-panel,
+.nav-shell-morph[data-scrolled] > .nav-stack[data-open] > .nav-panel {
+	border: var(--border-hair) solid var(--line-default);
+	border-top-color: var(--line-subtle);
+	border-radius: 0 0 var(--radius-sheet) var(--radius-sheet);
+	box-shadow: var(--shadow-2);
+}
+
+.nav-shell:not(.nav-shell-full, .nav-shell-morph)[data-open] > .nav-bar,
+.nav-shell:not(.nav-shell-full, .nav-shell-morph) > .nav-stack[data-open] > .nav-bar,
+.nav-shell-morph[data-scrolled][data-open] > .nav-bar,
+.nav-shell-morph[data-scrolled] > .nav-stack[data-open] > .nav-bar {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-color: transparent;
 }
 
 .nav-panel__in {
