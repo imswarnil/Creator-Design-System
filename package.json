@@ -37,14 +37,14 @@
     "./icons/*": "./icons/*",
     "./package.json": "./package.json"
   },
-  "files": ["src", "dist", "icons", "README.md", "LICENSE"],
+  "files": ["src", "dist", "icons", "collection", "README.md", "LICENSE"],
   "scripts": {
     "build": "npm run build:css && npm run build:min && npm run docs",
     "build:css": "postcss src/index.css -o dist/creator.css",
     "build:min": "postcss src/index.css -o dist/creator.min.css --env production",
     "docs": "python3 docs/_build/build.py",
     "dev": "npm run docs && python3 -m http.server 8080 --directory docs",
-    "lint": "stylelint \"src/**/*.css\"",
+    "lint": "stylelint \"src/**/*.css\" \"collection/**/*.css\"",
     "size": "gzip -c dist/creator.min.css | wc -c | awk '{printf \"gzipped: %.1f KB\\n\", $1/1024}'",
     "prepublishOnly": "npm run build:css && npm run build:min"
   },

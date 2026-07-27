@@ -1,0 +1,740 @@
+/* =============================================================================
+   COLLECTION · TRAVEL
+   Sections for the five travel routes. Every value here is a token — there is
+   no hex, no px outside a hairline, and no new primitive. A collection is not
+   a new design; it is the same system arranged for a different subject.
+
+   `col-` is the shared vocabulary: any collection can use these.
+   `trv-` is what only travel needs — the globe, the flight lines, the palm.
+   Anything that turns out to be useful twice graduates from trv- to col-.
+
+   Requires 1-foundation through 6-utilities.
+   ========================================================================== */
+
+/* ── The hero ────────────────────────────────────────────────────────────────
+   A collection index has to say what the collection is before it starts
+   listing. This one is a night sky with a globe in it and a flight arcing
+   away — the picture does the saying, so the copy can be short.
+   ------------------------------------------------------------------------- */
+
+.col-hero {
+	position: relative;
+	overflow: hidden;
+	background: var(--ink-1000);
+	color: var(--ink-50);
+	color-scheme: dark;
+	border-radius: var(--radius-sheet, 1.5rem);
+	isolation: isolate;
+}
+
+.col-hero__art {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.col-hero__in {
+	position: relative;
+	display: grid;
+	gap: var(--space-6);
+	padding: var(--section-md, var(--space-16)) var(--space-8);
+	max-width: 46rem;
+}
+
+.col-hero__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.6);
+}
+
+.col-hero__title {
+	font-family: var(--font-display);
+	font-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tighter);
+	line-height: var(--leading-flat);
+	text-wrap: balance;
+	margin: 0;
+}
+
+.col-hero__title em { font-style: normal; color: var(--accent); }
+
+.col-hero__lead {
+	font-size: var(--text-lg);
+	color: rgb(255 255 255 / 0.72);
+	max-width: var(--measure-lead);
+	margin: 0;
+}
+
+/* ── Search and the call ─────────────────────────────────────────────────────
+   One field and one button. A collection index is a place people arrive at
+   knowing roughly what they want, so search leads and browsing follows.
+   ------------------------------------------------------------------------- */
+
+.col-search {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	align-items: center;
+}
+
+.col-search__field {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	flex: 1 1 18rem;
+	min-width: 0;
+	height: var(--control-md, 2.75rem);
+	padding-inline: var(--space-4);
+	border: var(--border-hair) solid rgb(255 255 255 / 0.18);
+	border-radius: var(--radius-pill);
+	background: rgb(255 255 255 / 0.08);
+	backdrop-filter: blur(8px);
+	transition: var(--t-colors);
+}
+
+.col-search__field:focus-within {
+	border-color: var(--accent);
+	background: rgb(255 255 255 / 0.12);
+}
+
+.col-search__field .icon { width: 1.1rem; height: 1.1rem; opacity: 0.6; flex: none; }
+
+.col-search__field input {
+	flex: 1;
+	min-width: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	font-size: var(--text-sm);
+}
+
+.col-search__field input::placeholder { color: rgb(255 255 255 / 0.45); }
+.col-search__field input:focus { outline: none; }
+
+/* ── The meta strip ──────────────────────────────────────────────────────────
+   The numbers that tell you the size of what you are looking at. Under the
+   hero, because "how much is here" is the second question after "what is it".
+   ------------------------------------------------------------------------- */
+
+.col-meta {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+	gap: var(--space-4) var(--space-6);
+	padding-top: var(--space-6);
+	border-top: var(--border-hair) solid rgb(255 255 255 / 0.14);
+}
+
+.col-meta__n {
+	display: block;
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	font-variant-numeric: tabular-nums;
+}
+
+.col-meta__l {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: rgb(255 255 255 / 0.55);
+}
+
+/* On a light surface the strip inverts with everything else. */
+.col-meta-paper { border-top-color: var(--line-default); }
+.col-meta-paper .col-meta__l { color: var(--fg-faint); }
+
+/* ── Groups — the regions ────────────────────────────────────────────────────
+   The widest cut through the collection, so it comes first and stays small:
+   an icon, a name, a count. Anything more and it competes with the places.
+   ------------------------------------------------------------------------- */
+
+.col-groups {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+	gap: var(--space-4);
+}
+
+.col-group {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	padding: var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	text-decoration: none;
+	transition: var(--t-colors), var(--t-transform);
+	cursor: pointer;
+	text-align: left;
+	font: inherit;
+	width: 100%;
+}
+
+.col-group:hover {
+	border-color: var(--line-strong);
+	background: var(--bg-sunken);
+}
+
+.col-group__ico {
+	display: inline-grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	flex: none;
+	border-radius: var(--radius-md);
+	background: var(--bg-sunken);
+	color: var(--fg-subtle);
+	transition: var(--t-colors);
+}
+
+.col-group__ico .icon { width: 1.35rem; height: 1.35rem; }
+.col-group:hover .col-group__ico { background: var(--accent-soft); color: var(--accent-soft-fg); }
+
+.col-group__name { display: block; font-weight: var(--weight-semibold); }
+
+.col-group__n {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* Selected — the accent marks the filter that is doing something. */
+.col-group[aria-pressed='true'] {
+	border-color: var(--accent);
+	background: var(--accent-soft);
+}
+
+.col-group[aria-pressed='true'] .col-group__ico {
+	background: var(--accent);
+	color: var(--fg-on-accent, #fff);
+}
+
+/* ── Places — the countries ──────────────────────────────────────────────────
+   A picture, a name, a sentence. This is a .card with a travel-shaped body,
+   not a new component: the media, the title and the excerpt are the same
+   three parts every collection card has.
+   ------------------------------------------------------------------------- */
+
+.col-places {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+	gap: var(--space-5);
+}
+
+.col-place {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	text-decoration: none;
+	color: var(--fg-default);
+	transition: var(--t-colors), var(--t-shadow);
+	cursor: pointer;
+	text-align: left;
+	font: inherit;
+	padding: 0;
+}
+
+.col-place:hover { border-color: var(--line-strong); box-shadow: var(--shadow-2); }
+
+.col-place__media {
+	position: relative;
+	aspect-ratio: 4 / 3;
+	background: var(--bg-media, var(--ink-900));
+	overflow: hidden;
+}
+
+.col-place__media > * {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform var(--dur-4) var(--ease-out);
+}
+
+.col-place:hover .col-place__media > * { transform: scale(1.03); }
+
+/* The flag chip rides the corner, so the picture never has to carry the name. */
+.col-place__tag {
+	position: absolute;
+	left: var(--space-3);
+	bottom: var(--space-3);
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding: 3px var(--space-3);
+	border-radius: var(--radius-pill);
+	background: rgb(0 0 0 / 0.55);
+	backdrop-filter: blur(6px);
+	color: #fff;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+}
+
+.col-place__body { padding: var(--space-4); display: grid; gap: var(--space-2); }
+
+.col-place__name {
+	display: block;
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+}
+
+.col-place__note {
+	display: block;
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	line-height: var(--leading-snug, 1.4);
+}
+
+.col-place__foot {
+	margin-top: auto;
+	padding: var(--space-3) var(--space-4);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.col-place[aria-pressed='true'] { border-color: var(--accent); box-shadow: var(--shadow-2); }
+
+/* ── Spots — the cities ──────────────────────────────────────────────────────
+   The narrowest cut, so the smallest shape: a chip. Dozens of these can sit
+   in a row without the page becoming a grid of pictures nobody reads.
+   ------------------------------------------------------------------------- */
+
+.col-spots { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+.col-spot {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-pill);
+	background: var(--bg-surface);
+	color: var(--fg-default);
+	font-size: var(--text-sm);
+	text-decoration: none;
+	transition: var(--t-colors);
+}
+
+.col-spot:hover { border-color: var(--line-strong); background: var(--bg-sunken); }
+
+.col-spot__n {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+.col-spot[aria-current] {
+	border-color: var(--accent);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+}
+
+/* Nothing matched. Says so, rather than leaving a hole. */
+.col-empty {
+	padding: var(--space-6);
+	border: var(--border-hair) dashed var(--line-default);
+	border-radius: var(--radius-card);
+	text-align: center;
+	color: var(--fg-faint);
+	font-size: var(--text-sm);
+}
+
+/* ── The facet sidebar ───────────────────────────────────────────────────────
+   Destination type — beach, mountains, party. Checkboxes, because more than
+   one can be true at once, and a native input so the keyboard works.
+   ------------------------------------------------------------------------- */
+
+.col-layout {
+	display: grid;
+	gap: var(--space-8);
+	align-items: start;
+}
+
+@media (min-width: 64rem) {
+	.col-layout { grid-template-columns: 15rem minmax(0, 1fr); }
+	.col-layout__side { position: sticky; top: var(--space-6); }
+}
+
+.col-facets { display: grid; gap: var(--space-5); }
+
+.col-facets__group { display: grid; gap: var(--space-2); }
+
+.col-facets__title {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	padding-bottom: var(--space-2);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+}
+
+.col-facet {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-2);
+	border-radius: var(--radius-sm);
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+	cursor: pointer;
+	transition: var(--t-colors);
+}
+
+.col-facet:hover { background: var(--bg-sunken); color: var(--fg-default); }
+.col-facet input { accent-color: var(--accent); flex: none; }
+.col-facet .icon { width: 1rem; height: 1rem; opacity: 0.55; flex: none; }
+.col-facet__n { margin-left: auto; font-family: var(--font-slate); font-size: var(--text-2xs); color: var(--fg-faint); }
+.col-facet:has(input:checked) { color: var(--fg-default); }
+.col-facet:has(input:checked) .icon { opacity: 1; color: var(--accent); }
+
+/* ── A series — the trip ─────────────────────────────────────────────────────
+   A trip is an ordered body of work, so its card shows the shape of the whole
+   thing: how many parts, over how long, and where it went.
+   ------------------------------------------------------------------------- */
+
+.col-series {
+	display: grid;
+	gap: 0;
+	overflow: hidden;
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	text-decoration: none;
+	color: inherit;
+}
+
+@media (min-width: 48rem) {
+	.col-series { grid-template-columns: 1.15fr 1fr; }
+}
+
+.col-series__media {
+	position: relative;
+	min-height: 14rem;
+	background: var(--bg-media, var(--ink-900));
+	overflow: hidden;
+}
+
+.col-series__media > * { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.col-series__body { padding: var(--space-6); display: grid; gap: var(--space-4); align-content: center; }
+
+.col-series__title {
+	display: block;
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-snug, 1.25);
+	text-wrap: balance;
+}
+
+.col-series__stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-4);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.col-series__stats > span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.col-series__stats .icon { width: 0.9rem; height: 0.9rem; }
+
+/* ── The order — a trip, laid out ────────────────────────────────────────────
+   The series route's spine. A rule runs down the left and every part hangs off
+   it, because the one thing a series has that a group does not is sequence.
+   ------------------------------------------------------------------------- */
+
+.col-order { display: grid; gap: 0; position: relative; }
+
+.col-order__item {
+	display: grid;
+	grid-template-columns: 3rem minmax(0, 1fr);
+	gap: var(--space-5);
+	padding-block: var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+.col-order__item:last-child { border-bottom: 0; }
+.col-order__item:hover { background: var(--bg-sunken); }
+
+.col-order__num {
+	position: relative;
+	display: grid;
+	place-items: start center;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+/* The spine. It stops at the last item rather than trailing into nothing. */
+.col-order__num::before {
+	content: '';
+	position: absolute;
+	top: 1.6rem;
+	bottom: calc(var(--space-5) * -1 - 1.2rem);
+	width: var(--border-hair);
+	background: var(--line-default);
+}
+
+.col-order__item:last-child .col-order__num::before { display: none; }
+
+.col-order__dot {
+	width: 0.55rem;
+	height: 0.55rem;
+	border-radius: var(--radius-full);
+	background: var(--line-strong);
+	margin-bottom: var(--space-2);
+	position: relative;
+	z-index: 1;
+}
+
+.col-order__item[aria-current] .col-order__dot { background: var(--accent); }
+.col-order__item[aria-current] .col-order__title { color: var(--accent); }
+
+.col-order__body { display: grid; gap: var(--space-2); }
+
+.col-order__title {
+	display: block;
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+}
+
+.col-order__note { display: block; font-size: var(--text-sm); color: var(--fg-subtle); }
+
+.col-order__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* ── Post rows ───────────────────────────────────────────────────────────────
+   The list every route ends with. A row rather than a card, because by this
+   point the reader is scanning titles, not looking at pictures.
+   ------------------------------------------------------------------------- */
+
+.col-posts { display: grid; }
+
+.col-post-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: var(--space-2);
+	padding-block: var(--space-5);
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+@media (min-width: 40rem) {
+	.col-post-row { grid-template-columns: 7rem minmax(0, 1fr) auto; gap: var(--space-5); align-items: center; }
+}
+
+.col-post-row:hover { background: var(--bg-sunken); }
+
+.col-post-row__thumb {
+	aspect-ratio: 4 / 3;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	background: var(--bg-media, var(--ink-900));
+}
+
+.col-post-row__thumb > * { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 0; }
+
+.col-post-row__body { display: grid; gap: 2px; min-width: 0; }
+
+.col-post-row__title {
+	display: block;
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+}
+
+.col-post-row__note { display: block; font-size: var(--text-sm); color: var(--fg-subtle); }
+
+.col-post-row__meta {
+	display: flex;
+	gap: var(--space-3);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	white-space: nowrap;
+}
+
+/* ── The post route ──────────────────────────────────────────────────────── */
+
+.col-post {
+	display: grid;
+	gap: var(--space-8);
+	align-items: start;
+}
+
+@media (min-width: 64rem) {
+	.col-post { grid-template-columns: minmax(0, 1fr) 15rem; }
+	.col-post__rail { position: sticky; top: var(--space-6); }
+}
+
+.col-post__head { display: grid; gap: var(--space-4); margin-bottom: var(--space-8); }
+
+.col-post__crumbs {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.col-post__crumbs a { color: inherit; text-decoration: none; }
+.col-post__crumbs a:hover { color: var(--fg-default); }
+
+.col-post__rail-card {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	padding: var(--space-5);
+	display: grid;
+	gap: var(--space-3);
+}
+
+/* ── Next in series ──────────────────────────────────────────────────────── */
+
+.col-next {
+	display: grid;
+	gap: var(--space-4);
+	padding: var(--space-6);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-sunken);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+.col-next:hover { border-color: var(--accent); }
+
+.col-next__label {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* ── Filtering ───────────────────────────────────────────────────────────────
+   Hidden by attribute rather than by class, so the JavaScript sets one thing
+   and the CSS decides what that means.
+   ------------------------------------------------------------------------- */
+
+[data-filtered='out'] { display: none; }
+
+/* ── Placeholders ────────────────────────────────────────────────────────────
+   Stand-in art. A demo that ships with stock photography teaches the wrong
+   lesson — that the design needs a good photograph to work. Each place gets a
+   hue off one ladder so the grid still reads as a set, and nothing can 404.
+   ------------------------------------------------------------------------- */
+
+.col-ph {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 8rem;
+	background:
+		linear-gradient(200deg,
+			hsl(var(--h, 220) 42% 46%) 0%,
+			hsl(var(--h, 220) 40% 30%) 45%,
+			hsl(var(--h, 220) 46% 14%) 100%),
+		hsl(var(--h, 220) 40% 24%);
+	transition: transform var(--dur-4) var(--ease-out);
+}
+
+.col-ph[data-tall] { min-height: 16rem; }
+
+/* ── The globe scene ─────────────────────────────────────────────────────────
+   Travel's own art. The globe turns, a flight arcs, the palm leans. All of it
+   is decoration — it is aria-hidden and it stops dead under reduced motion.
+   ------------------------------------------------------------------------- */
+
+@keyframes trv-spin { to { transform: rotate(360deg); } }
+
+@keyframes trv-fly { to { stroke-dashoffset: 0; } }
+
+@keyframes trv-drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+@keyframes trv-twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
+
+@keyframes trv-sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+
+.trv-globe__grid { transform-origin: center; animation: trv-spin 46s linear infinite; }
+.trv-plane { animation: trv-drift 5s var(--ease-inout) infinite; }
+
+.trv-route {
+	stroke-dasharray: 260;
+	stroke-dashoffset: 260;
+	animation: trv-fly 4.5s var(--ease-inout) infinite;
+}
+
+.trv-star { animation: trv-twinkle 4s var(--ease-inout) infinite; }
+.trv-palm { transform-origin: bottom center; animation: trv-sway 7s var(--ease-inout) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+	.trv-globe__grid,
+	.trv-plane,
+	.trv-route,
+	.trv-star,
+	.trv-palm { animation: none; }
+
+	.trv-route { stroke-dashoffset: 0; }
+}

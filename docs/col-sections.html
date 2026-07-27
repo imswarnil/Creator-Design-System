@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Collection sections — Creator Design System</title>
+<meta name="description" content="The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship." />
+<link rel="canonical" href="https://creator.imswarnil.com/col-sections.html" />
+<link rel="alternate" type="text/plain" href="https://creator.imswarnil.com/llms.txt" title="Creator Design System for LLMs" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Creator Design System" />
+<meta property="og:title" content="Collection sections — Creator Design System" />
+<meta property="og:description" content="The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship." />
+<meta property="og:url" content="https://creator.imswarnil.com/col-sections.html" />
+<meta property="og:image" content="https://creator.imswarnil.com/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Collection sections — Creator Design System" />
+<meta name="twitter:description" content="The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship." />
+<meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Creator Design System","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Docs","url":"./introduction.html"},{"@type":"SiteNavigationElement","position":2,"name":"Components","url":"./components.html"},{"@type":"SiteNavigationElement","position":3,"name":"Showcase","url":"./showcase.html"},{"@type":"SiteNavigationElement","position":4,"name":"Templates","url":"./templates.html"},{"@type":"SiteNavigationElement","position":5,"name":"Sponsor","url":"./sponsor.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Docs","item":"./introduction.html"},{"@type":"ListItem","position":2,"name":"Collections"},{"@type":"ListItem","position":3,"name":"Sections","item":"./col-sections.html"}]}</script>
+<link rel="icon" href="./favicon.svg?v=cds25" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds25" />
+<link rel="stylesheet" href="./src/2-elements/index.css?v=cds25" />
+<link rel="stylesheet" href="./src/3-components/index.css?v=cds25" />
+<link rel="stylesheet" href="./src/5-sections/index.css?v=cds25" />
+<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds25" />
+<link rel="stylesheet" href="./preview.css?v=cds25" />
+<link rel="stylesheet" href="./collection/travel/travel.css?v=cds25" />
+<script src="./src/highlight.js?v=cds25" defer></script>
+<script src="./src/nav.js?v=cds25" defer></script>
+<script src="./preview.js?v=cds25" defer></script>
+</head>
+<body class=" has-side">
+<a class="skip-link" href="#main">Skip to content</a>
+<svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 5.5L20 7"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7l1.2-2h6.2l1.2 2h1.7A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"/><circle cx="12" cy="12.5" r="3.2"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8.5 8.5-4 3.7 4 3.8M15.5 8.5l4 3.7-4 3.8M13.5 5l-3 14"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M20 5 4 11.5l5.5 2M20 5l-3.5 14-3-6.5M20 5 9.5 13.5v4.2l3-3.7"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1Z"/><path d="m13.5 7.5 3 3"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m8.8 10.8 6.4-3.1M8.8 13.2l6.4 3.1"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></symbol>
+</svg>
+<header class="cds-bar cds-bar-wide">
+	<div class="cds-bar__in u-relative">
+		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span><span class="cds-mark__sub">design system</span></a>
+		<nav class="cds-bar__links" aria-label="Site">
+			<a href="./introduction.html">Docs</a>
+			<a href="./components.html">Components</a>
+			<a href="./showcase.html">Showcase</a>
+			<a href="./templates.html">Templates</a>
+			<a href="./sponsor.html">Sponsor</a>
+		</nav>
+		<div class="cds-bar__end">
+	<div class="doc-search">
+		<svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+		<input id="docSearch" type="search" placeholder="Search…" aria-label="Search the design system"
+		       autocomplete="off" role="combobox" aria-expanded="false" aria-controls="docResults" />
+		<kbd class="kbd">/</kbd>
+	</div>
+	<div class="doc-results" id="docResults" role="listbox" hidden></div>
+			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
+				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
+			</button>
+			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
+			        aria-expanded="false" aria-controls="cds-menu" data-dialog="cds-menu" data-menu-burger>
+				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
+				<span class="u-sr-only">Menu</span>
+			</button>
+			<a class="cds-gh" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">
+				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><span>GitHub</span><span class="cds-gh__stars" data-gh-stars>★</span>
+			</a>
+		</div>
+	</div>
+</header>
+<dialog class="nav-sheet" id="cds-menu">
+	<div class="nav-sheet__in">
+		<span class="nav-sheet__scan" aria-hidden="true"></span>
+		<div class="nav-sheet__head">
+			<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
+			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
+		</div>
+		<nav class="nav-sheet__links" aria-label="Site">
+			<a class="nav-sheet__link" style="--i:0" href="./introduction.html">Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="./components.html">Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="./showcase.html">Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="./templates.html">Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="./sponsor.html">Sponsor</a>
+		</nav>
+		<div class="nav-sheet__foot">
+			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
+			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
+		</div>
+	</div>
+</dialog>
+<aside class="doc-side">
+	<div class="doc-side__head">
+		<span class="t-slate-sm" style="color:var(--fg-faint)">Contents</span>
+		<button class="doc-btn doc-side__hide" type="button" data-side-toggle aria-label="Hide menu" title="Hide menu">«</button>
+	</div>
+
+	<nav class="doc-side__nav" aria-label="Creator Design System">
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>Start</span></summary>
+			<a href="./introduction.html">Introduction</a>
+			<a href="./why.html">Why this system</a>
+			<a href="./principles.html">Principles</a>
+			<a href="./usage.html">Usage — CSS · SCSS · Tailwind</a>
+			<a href="./components.html">Components explorer</a>
+			<a href="./all.html">All pages</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Getting started</span></summary>
+			<a href="./install.html">Installation</a>
+			<a href="./setup.html">Setup & theming</a>
+			</details>
+			<details class="doc-group" open><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Collections</span></summary>
+			<a href="./collections.html">The contract</a>
+			<a href="./col-sections.html" aria-current="page">Sections</a>
+			<a href="./col-travel.html">Travel</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/></svg>Foundation</span></summary>
+			<a href="./f-logo.html">Logo</a>
+			<a href="./f-color.html">Color</a>
+			<a href="./f-type.html">Typography</a>
+			<a href="./f-space.html">Spacing & radius</a>
+			<a href="./f-elevation.html">Elevation</a>
+			<a href="./f-pattern.html">Patterns</a>
+			<a href="./breakpoints.html">Breakpoints</a>
+			<a href="./f-a11y.html">Accessibility</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h13"/></svg>Elements</span></summary>
+			<a href="./reboot.html">Reboot</a>
+			<a href="./typography.html">Type roles</a>
+			<a href="./text-elements.html">Text elements</a>
+			<a href="./images.html">Images & figures</a>
+			<a href="./tables.html">Tables</a>
+			<a href="./quotes.html">Quotes</a>
+			<a href="./code.html">Code & syntax</a>
+			<a href="./content.html">Long-form content</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></svg>Icons</span></summary>
+			<a href="./f-icons.html">Guidelines</a>
+			<a href="./icon-set.html">Icon set</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l7 16H5l7-16Z"/></svg>Shape & Cutout</span></summary>
+			<a href="./f-shape.html">Shapes</a>
+			<a href="./cutouts.html">Cutouts</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg>Grid & Layout</span></summary>
+			<a href="./containers.html">Containers</a>
+			<a href="./grid.html">Grid</a>
+			<a href="./columns.html">Columns & gutters</a>
+			<a href="./f-layout.html">Composition</a>
+			<a href="./z-index.html">Z-index</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="5" rx="1.5"/><rect x="4" y="14" width="16" height="5" rx="1.5"/></svg>Forms</span></summary>
+			<a href="./forms.html">Overview</a>
+			<a href="./form-control.html">Form control</a>
+			<a href="./select.html">Select</a>
+			<a href="./checks-radios.html">Checks & radios</a>
+			<a href="./range.html">Range</a>
+			<a href="./input-group.html">Input group</a>
+			<a href="./floating-labels.html">Floating labels</a>
+			<a href="./form-layout.html">Layout</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/><path d="M13 7.5h7M7.5 13v7"/></svg>Components</span></summary>
+			<a href="./accordion.html">Accordion</a>
+			<a href="./alerts.html">Alerts</a>
+			<a href="./badge.html">Badge</a>
+			<a href="./breadcrumb.html">Breadcrumb</a>
+			<a href="./buttons.html">Buttons</a>
+			<a href="./button-group.html">Button group</a>
+			<a href="./card.html">Card</a>
+			<a href="./collection-cards.html">Collection cards</a>
+			<a href="./carousel.html">Carousel</a>
+			<a href="./close-button.html">Close button</a>
+			<a href="./collapse.html">Collapse</a>
+			<a href="./f-devices.html">Devices</a>
+			<a href="./dropdowns.html">Dropdowns</a>
+			<a href="./f-frames.html">Frames</a>
+			<a href="./list-group.html">List group</a>
+			<a href="./marquee.html">Marquee</a>
+			<a href="./modal.html">Modal</a>
+			<a href="./navbar.html">Navbar</a>
+			<a href="./navs-tabs.html">Navs & tabs</a>
+			<a href="./offcanvas.html">Offcanvas</a>
+			<a href="./pagination.html">Pagination</a>
+			<a href="./popovers.html">Popovers</a>
+			<a href="./progress.html">Progress</a>
+			<a href="./scrollspy.html">Scrollspy</a>
+			<a href="./spinners.html">Spinners</a>
+			<a href="./toasts.html">Toasts</a>
+			<a href="./tooltips.html">Tooltips</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14M5 12h14M5 18h9"/><circle cx="19" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg>Composites</span></summary>
+			<a href="./syllabus.html">Syllabus</a>
+			<a href="./episode-panel.html">Episode panel</a>
+			<a href="./build-log.html">Build log</a>
+			<a href="./itinerary.html">Itinerary</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="12" width="16" height="8" rx="1"/></svg>Sections</span></summary>
+			<a href="./page-header.html">Page header</a>
+			<a href="./hero.html">Hero</a>
+			<a href="./stats.html">Stats</a>
+			<a href="./cta.html">CTA</a>
+			<a href="./footer.html">Footer</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M14 9v11"/></svg>Layouts</span></summary>
+			<a href="./layouts.html">Overview</a>
+			<a href="./l-core.html">Core</a>
+			<a href="./l-watch.html">Watch</a>
+			<a href="./l-learn.html">Learn</a>
+			<a href="./l-build.html">Build</a>
+			<a href="./l-road.html">Road</a>
+			<a href="./l-pages.html">Pages</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg>Animation & Motion</span></summary>
+			<a href="./m-basics.html">Motion basics</a>
+			<a href="./m-text-effects.html">Text effects</a>
+			<a href="./m-annotations.html">Annotations</a>
+			<a href="./m-micro.html">Micro-interactions</a>
+			<a href="./m-presets.html">Section presets</a>
+			<a href="./m-stings.html">Logo sting</a>
+			<a href="./page-transitions.html">Page transitions</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" stroke="none"/><rect x="3.5" y="5.5" width="17" height="13" rx="3"/></svg>Broadcast · YouTube</span></summary>
+			<a href="./yt-thumbs.html">Thumbnails</a>
+			<a href="./yt-layouts.html">Thumb layouts</a>
+			<a href="./yt-categories.html">Categories</a>
+			<a href="./yt-series.html">Series art</a>
+			<a href="./yt-livescenes.html">Live scenes</a>
+			<a href="./yt-screens.html">Screens</a>
+			<a href="./yt-scenes.html">Scenes</a>
+			<a href="./yt-live.html">Live</a>
+			<a href="./yt-end.html">End screens</a>
+			<a href="./yt-subs.html">Subscribe</a>
+			<a href="./yt-engage.html">Engagement</a>
+			<a href="./yt-brand.html">Branding</a>
+			<a href="./yt-backdrops.html">Backdrops</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg>Broadcast · Social</span></summary>
+			<a href="./ig-posts.html">Posts</a>
+			<a href="./ig-carousel.html">Carousel</a>
+			<a href="./ig-story.html">Stories</a>
+			<a href="./ig-grid.html">Grid</a>
+			<a href="./ig-follow.html">Follow</a>
+			<a href="./ig-share.html">Share</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 0-5.6 5L4 16.5V20h3.5l5-4.9a4 4 0 0 0 5-5.6l-2.6 2.6-2.4-2.4 2.5-2.6Z"/></svg>Helpers & Utilities</span></summary>
+			<a href="./u-background.html">Background</a>
+			<a href="./u-borders.html">Borders</a>
+			<a href="./u-colors.html">Colors</a>
+			<a href="./u-display.html">Display</a>
+			<a href="./u-flex.html">Flex</a>
+			<a href="./u-float.html">Float</a>
+			<a href="./u-interactions.html">Interactions</a>
+			<a href="./u-overflow.html">Overflow</a>
+			<a href="./u-position.html">Position</a>
+			<a href="./u-shadows.html">Shadows</a>
+			<a href="./u-sizing.html">Sizing</a>
+			<a href="./u-spacing.html">Spacing</a>
+			<a href="./u-text.html">Text</a>
+			<a href="./u-valign.html">Vertical align</a>
+			<a href="./u-visibility.html">Visibility</a>
+			</details>
+	</nav>
+</aside>
+<div class="doc-scrim" aria-hidden="true"></div>
+<button class="doc-btn doc-reopen" type="button" data-side-toggle aria-label="Show menu">☰</button>
+<header class="doc-top">
+	<button class="doc-btn" type="button" data-nav-toggle aria-label="Open navigation">☰ Contents</button>
+	<span class="t-slate-sm" style="color:var(--fg-faint)">Collection sections</span>
+</header>
+<main id="main">
+	<div class="container-wide section">
+		<header class="docs-head">
+			<span class="t-slate" style="color:var(--fg-faint)">Collections · Creator Design System</span>
+			<h1 class="t-display-2" style="margin-top:var(--space-3)">Collection sections</h1>
+			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship.</p>
+		</header>
+
+		<div class="doc-split">
+			<div class="doc-split__main">
+		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">The vocabulary a route is assembled from. Every section below is a block you can drop into any route of any collection — that is what makes them worth having rather than being page-specific markup.</p>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">Each demo is the travel collection's own markup, called from its own builder. If a section only looks right inside one route, it is not a section yet.</p>		<section id="hero"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="collection-hero">Collection hero</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">A collection index has to say what it is before it starts listing. The art does the saying, so the copy can be short. It is decoration, so it is aria-hidden and it stops dead under reduced motion.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-hero" style="min-height:15rem">
+  <svg class="col-hero__art" viewBox="0 0 1200 520" preserveAspectRatio="xMaxYMid slice"
+       aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="trv-sky" cx="30%" cy="20%" r="90%">
+        <stop offset="0%" stop-color="#1b2030"/>
+        <stop offset="55%" stop-color="#0e1119"/>
+        <stop offset="100%" stop-color="#08080c"/>
+      </radialGradient>
+      <linearGradient id="trv-sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1d3a4a"/>
+        <stop offset="100%" stop-color="#0b1520"/>
+      </linearGradient>
+      <clipPath id="trv-ball"><circle cx="905" cy="250" r="150"/></clipPath>
+    </defs>
+
+    <rect width="1200" height="520" fill="url(#trv-sky)"/>
+
+    <!-- stars -->
+    <g fill="#fff">
+      <circle class="trv-star" cx="660" cy="70" r="1.6" style="animation-delay:0s"/>
+      <circle class="trv-star" cx="760" cy="40" r="1.2" style="animation-delay:.6s"/>
+      <circle class="trv-star" cx="820" cy="96" r="1.7" style="animation-delay:1.2s"/>
+      <circle class="trv-star" cx="700" cy="50" r="1.2" style="animation-delay:1.8s"/>
+      <circle class="trv-star" cx="1050" cy="70" r="1.5" style="animation-delay:2.4s"/>
+      <circle class="trv-star" cx="700" cy="150" r="1.1" style="animation-delay:3s"/>
+      <circle class="trv-star" cx="1130" cy="180" r="1.3" style="animation-delay:1.5s"/>
+    </g>
+
+    <!-- the globe: a lit ball, a turning grid, one continent hint -->
+    <circle cx="905" cy="250" r="150" fill="#11161f"/>
+    <circle cx="905" cy="250" r="150" fill="none" stroke="#ffffff" stroke-opacity=".22"/>
+    <g clip-path="url(#trv-ball)">
+      <g class="trv-globe__grid" style="transform-origin:905px 250px">
+        <g fill="none" stroke="#ffffff" stroke-opacity=".14">
+          <ellipse cx="905" cy="250" rx="52" ry="150"/>
+          <ellipse cx="905" cy="250" rx="104" ry="150"/>
+          <ellipse cx="905" cy="250" rx="148" ry="150"/>
+        </g>
+        <path d="M790 210q60-28 118-6t120-10" fill="none" stroke="#f04e2e" stroke-opacity=".55" stroke-width="2"/>
+        <path d="M800 300q70 26 130 4t118 6" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>
+      </g>
+      <g fill="none" stroke="#ffffff" stroke-opacity=".14">
+        <path d="M755 200h300M755 250h300M755 300h300"/>
+      </g>
+    </g>
+
+    <!-- the flight: an arc that draws itself, with the plane riding the end -->
+    <path class="trv-route" d="M700 336C752 252 800 200 862 196"
+          fill="none" stroke="#f04e2e" stroke-width="2.5"
+          stroke-linecap="round" stroke-dasharray="260"/>
+    <circle cx="700" cy="336" r="5" fill="#f04e2e"/>
+    <g class="trv-plane" transform="translate(838 176) rotate(18) scale(1.5)">
+      <path d="M20 5 4 11.5l5.5 2M20 5l-3.5 14-3-6.5M20 5 9.5 13.5v4.2l3-3.7"
+            fill="none" stroke="#fff" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- the shore -->
+    <path d="M0 430c120 18 260 22 420 12s300-26 420-14 240 24 360 18v74H0Z" fill="url(#trv-sea)"/>
+    <path d="M0 448c140 16 280 18 430 8s310-22 430-12 220 20 340 16" fill="none"
+          stroke="#ffffff" stroke-opacity=".12"/>
+
+    <!-- the palm, leaning in from the edge -->
+    <g class="trv-palm" style="transform-origin:1108px 474px" stroke="#ffffff"
+       stroke-opacity=".45" fill="none" stroke-width="3" stroke-linecap="round">
+      <path d="M1108 474c-4-40-2-70 8-96"/>
+      <path d="M1116 378c-26-14-48-10-64 6M1116 378c26-16 50-12 66 6M1116 378c-14-26-10-48 4-64M1116 378c22-20 46-22 62-12"/>
+    </g>
+    <ellipse cx="1108" cy="476" rx="32" ry="6" fill="#000" opacity=".35"/>
+  </svg>
+<div class="col-hero__in" style="padding:var(--space-8)"><span class="col-hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>The travel collection</span><h3 class="col-hero__title" style="font-size:var(--text-3xl)">Every road, <em>in order</em>.</h3><p class="col-hero__lead">The lead sits under it.</p></div></div>
+		</div><p class="spec"><b>.col-hero</b> · <b>.col-hero__art</b> — the globe turns, the flight draws itself, the palm leans</p></div></section>		<section id="search"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="search-and-the-call">Search and the call</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">People arrive at an index knowing roughly what they want, so search leads and browsing follows.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-hero" style="padding:var(--space-6)"><form class="col-search" onsubmit="return false"><label class="col-search__field"><span class="u-sr-only">Search</span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg><input type="search" placeholder="Where do you want to go?" /></label><button class="btn btn-primary btn-pill" type="submit">Search</button></form></div>
+		</div><p class="spec"><b>.col-search</b> — one field, one button, on the hero surface</p></div></section>		<section id="meta"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-meta-strip">The meta strip</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">"How much is here" is the second question after "what is this", so the numbers sit directly under the hero copy.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-meta col-meta-paper" style="border-top:0;padding-top:0"><div><span class="col-meta__n">31</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">6</span><span class="col-meta__l">countries</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">trips</span></div><div><span class="col-meta__n">18</span><span class="col-meta__l">cities</span></div></div>
+		</div><p class="spec"><b>.col-meta</b> — add <b>.col-meta-paper</b> when it is not on the dark hero</p></div></section>		<section id="groups"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="groups-the-widest-cut">Groups — the widest cut</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Icon, name, count. Anything more and it competes with the places below it.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-groups">
+<button class="col-group" type="button" data-group="asia" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg></span><span><span class="col-group__name">Asia</span><span class="col-group__n">3 countries</span></span></button>
+<button class="col-group" type="button" data-group="europe" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg></span><span><span class="col-group__name">Europe</span><span class="col-group__n">2 countries</span></span></button>
+<button class="col-group" type="button" data-group="americas" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18L14.5 7 11 13.5 8.8 10 3 19Z"/><path d="m11 13.5 1.6 2.6"/></svg></span><span><span class="col-group__name">Americas</span><span class="col-group__n">1 country</span></span></button></div>
+		</div><p class="spec"><b>.col-groups</b> · <b>.col-group</b> — press one; <code class="t-code">aria-pressed</code> carries the state</p></div></section>		<section id="places"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="places-a-picture-a-name-a-sentence">Places — a picture, a name, a sentence</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The same three parts every collection card has, in a travel-shaped body.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-places"><button class="col-place" type="button" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:8" aria-hidden="true"></span><span class="col-place__tag">JP</span></span><span class="col-place__body"><span class="col-place__name">Japan</span><span class="col-place__note">Trains that leave on the second, and a country built to be seen from one.</span></span><span class="col-place__foot"><span>6 posts</span></span></button><button class="col-place" type="button" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:150" aria-hidden="true"></span><span class="col-place__tag">VN</span></span><span class="col-place__body"><span class="col-place__name">Vietnam</span><span class="col-place__note">Coast road, coffee, and the best food you will eat sitting on a plastic stool.</span></span><span class="col-place__foot"><span>4 posts</span></span></button><button class="col-place" type="button" aria-pressed="false"><span class="col-place__media"><span class="col-ph" style="--h:205" aria-hidden="true"></span><span class="col-place__tag">PT</span></span><span class="col-place__body"><span class="col-place__name">Portugal</span><span class="col-place__note">Atlantic light, tiled walls, and hills that punish a heavy backpack.</span></span><span class="col-place__foot"><span>5 posts</span></span></button></div>
+		</div><p class="spec"><b>.col-places</b> · <b>.col-place</b> — the art is a placeholder, not a photograph, so the demo never depends on one</p></div></section>		<section id="spots"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="spots-the-narrowest-cut">Spots — the narrowest cut</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The smallest shape, so thirty of them can sit in a row without the page becoming a grid nobody reads.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-spots">
+<a class="col-spot" href="./country.html" data-spot="tokyo" data-of="japan" data-tags="city food party">Tokyo<span class="col-spot__n">4</span></a>
+<a class="col-spot" href="./country.html" data-spot="kyoto" data-of="japan" data-tags="city food">Kyoto<span class="col-spot__n">2</span></a>
+<a class="col-spot" href="./country.html" data-spot="hanoi" data-of="vietnam" data-tags="city food">Hanoi<span class="col-spot__n">3</span></a>
+<a class="col-spot" href="./country.html" data-spot="lisbon" data-of="portugal" data-tags="city beach party">Lisbon<span class="col-spot__n">3</span></a>
+<a class="col-spot" href="./country.html" data-spot="porto" data-of="portugal" data-tags="city food">Porto<span class="col-spot__n">2</span></a>
+<a class="col-spot" href="./country.html" data-spot="tbilisi" data-of="georgia" data-tags="city food party">Tbilisi<span class="col-spot__n">5</span></a>
+<a class="col-spot" href="./country.html" data-spot="cusco" data-of="peru" data-tags="mountains city">Cusco<span class="col-spot__n">3</span></a>
+<p class="col-empty" data-empty-for="[data-spot]" hidden>No city under that filter yet.</p></div>
+		</div><p class="spec"><b>.col-spots</b> · <b>.col-spot</b></p></div></section>		<section id="series-card"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="a-series-card">A series card</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">It shows the shape of the whole body of work: how many parts, over how long, and where it went.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+
+    <a class="col-series" href="./trip.html">
+      <span class="col-series__media"><span class="col-ph" style="--h:340" data-tall aria-hidden="true"></span></span>
+      <span class="col-series__body">
+        <span class="col-hero__eyebrow" style="color:var(--fg-faint)"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg>Latest trip</span>
+        <span class="col-series__title">India, in eight days and five posts</span>
+        <span class="t-small u-fg-subtle">A trip is a collection of posts that were
+          made as one body of work — so it has a first, a last, and an order.</span>
+        <span class="col-series__stats"><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg>5 parts</span><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></svg>8 days</span><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>India</span></span>
+      </span>
+    </a>
+		</div><p class="spec"><b>.col-series</b></p></div></section>		<section id="order"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-order-a-series-laid-out">The order — a series, laid out</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The one thing a series has that a group does not is sequence, so it gets a spine. The rule stops at the last item rather than trailing into nothing.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-order"><a class="col-order__item" href="#i"><span class="col-order__num"><span class="col-order__dot"></span>01</span><span class="col-order__body"><span class="col-order__title">Getting an Indian visa without losing a week</span><span class="col-order__note">The paperwork, in the order it actually happens.</span></span></a><a class="col-order__item" href="#i" aria-current="page"><span class="col-order__num"><span class="col-order__dot"></span>02</span><span class="col-order__body"><span class="col-order__title">Landing in Delhi at 2am</span><span class="col-order__note">Airport to old city, and why not to book the first night in advance.</span></span></a><a class="col-order__item" href="#i"><span class="col-order__num"><span class="col-order__dot"></span>03</span><span class="col-order__body"><span class="col-order__title">The train south</span><span class="col-order__note">Sixteen hours, three classes, and which one to book.</span></span></a></div>
+		</div><p class="spec"><b>.col-order</b> — <code class="t-code">aria-current</code> marks where the reader is</p></div></section>		<section id="posts"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="post-rows">Post rows</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The list every route ends with. A row rather than a card, because by this point the reader is scanning titles, not looking at pictures.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="col-posts"><a class="col-post-row" href="./post.html" data-post data-of="india" data-region="asia" data-tags="city"><span class="col-post-row__thumb"><span class="col-ph" style="--h:340" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">Getting an Indian visa without losing a week</span><span class="col-post-row__note">city</span></span><span class="col-post-row__meta"><span>8 min</span><span>Mar 2026</span></span></a>
+<a class="col-post-row" href="./post.html" data-post data-of="india" data-region="asia" data-tags="beach party"><span class="col-post-row__thumb"><span class="col-ph" style="--h:340" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">Goa is two places, and only one of them is on Instagram</span><span class="col-post-row__note">beach · party</span></span><span class="col-post-row__meta"><span>11 min</span><span>Mar 2026</span></span></a>
+<a class="col-post-row" href="./post.html" data-post data-of="georgia" data-region="europe" data-tags="mountains"><span class="col-post-row__thumb"><span class="col-ph" style="--h:265" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The night train to Tbilisi</span><span class="col-post-row__note">mountains</span></span><span class="col-post-row__meta"><span>6 min</span><span>Feb 2026</span></span></a>
+<p class="col-empty" data-empty-for="[data-post]" hidden>No posts match. Try clearing a filter.</p></div>
+		</div><p class="spec"><b>.col-posts</b> · <b>.col-post-row</b></p></div></section>		<section id="facets"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-facet-sidebar">The facet sidebar</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Checkboxes, because more than one can be true at once, and native inputs so the keyboard works for free.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div style="max-width:17rem">
+    <div>
+      <div class="col-facets">
+        <div class="col-facets__group">
+          <span class="col-facets__title">Filtering</span>
+          <p class="t-small u-fg-subtle" data-filter-state>Everywhere</p>
+          <button class="btn btn-quiet btn-sm" type="button" data-filter-reset hidden>
+            Clear filters
+          </button>
+        </div>
+        <div class="col-facets__group">
+          <span class="col-facets__title">Kind of place</span>
+          <label class="col-facet"><input type="checkbox" data-facet="beach" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M12 20V9"/><path d="M12 9c-3 0-5.5 1.2-6.8 3C6 8.6 8.7 6 12 6s6 2.6 6.8 6c-1.3-1.8-3.8-3-6.8-3Z"/><path d="M12 9c0-2.2 1.8-4 4-4"/></svg><span>Beach</span><span class="col-facet__n">12</span></label><label class="col-facet"><input type="checkbox" data-facet="mountains" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18L14.5 7 11 13.5 8.8 10 3 19Z"/><path d="m11 13.5 1.6 2.6"/></svg><span>Mountains</span><span class="col-facet__n">16</span></label><label class="col-facet"><input type="checkbox" data-facet="city" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><rect x="4" y="9" width="6" height="12" rx="1"/><rect x="14" y="4" width="6" height="17" rx="1"/><path d="M6.5 12.5h1M6.5 16h1M16.5 7.5h1M16.5 11h1M16.5 14.5h1"/></svg><span>Cities</span><span class="col-facet__n">24</span></label><label class="col-facet"><input type="checkbox" data-facet="party" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 9.5 8l6.5 6.5L4 20Z"/><path d="M14 4.5v2M18 7l1.5-1.5M17.5 12h2"/><path d="M13 8.5a3.5 3.5 0 0 1 3-3.5"/></svg><span>Nightlife</span><span class="col-facet__n">9</span></label><label class="col-facet"><input type="checkbox" data-facet="food" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v8a2.5 2.5 0 0 0 5 0V3"/><path d="M8.5 11v10"/><path d="M17 3c-1.5 1.5-2 3.5-2 6s.7 3 2 3 2-.5 2-3-.5-4.5-2-6Z"/><path d="M17 12v9"/></svg><span>Food</span><span class="col-facet__n">21</span></label>
+        </div>
+        <div class="col-facets__group">
+          <span class="col-facets__title">Regions</span>
+          <label class="col-facet"><input type="checkbox" data-facet="asia" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg><span>Asia</span></label><label class="col-facet"><input type="checkbox" data-facet="europe" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg><span>Europe</span></label><label class="col-facet"><input type="checkbox" data-facet="americas" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18L14.5 7 11 13.5 8.8 10 3 19Z"/><path d="m11 13.5 1.6 2.6"/></svg><span>Americas</span></label>
+        </div>
+      </div>
+    </div></div>
+		</div><p class="spec"><b>.col-facets</b> · <b>.col-facet</b> — or-within-a-facet: ticking beach and mountains means either, not both</p></div></section>		<section id="next"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="next-in-series">Next in series</h2>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<a class="col-next" href="#i"><span class="col-next__label">Next · Part 4</span><span class="col-order__title">Goa is two places</span><span class="t-small u-fg-subtle">North and south, and the road between them.</span></a>
+		</div><p class="spec"><b>.col-next</b></p></div></section>		<section id="registry"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-registry">The registry</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">Every section, where it is used, and whether it needs JavaScript. A section is only done when it works in both themes, at every width, and with the script blocked unless it is listed as needing it.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Section</th><th>Used on</th></tr></thead><tbody>
+			<tr><td><code class="t-code">.col-hero</code></td><td>index — no JS</td></tr>
+			<tr><td><code class="t-code">.col-search</code></td><td>index, group — no JS</td></tr>
+			<tr><td><code class="t-code">.col-meta</code></td><td>index, group, series — no JS</td></tr>
+			<tr><td><code class="t-code">.col-groups</code></td><td>index — no JS</td></tr>
+			<tr><td><code class="t-code">.col-places</code></td><td>index, group — no JS</td></tr>
+			<tr><td><code class="t-code">.col-spots</code></td><td>index, group, place — no JS</td></tr>
+			<tr><td><code class="t-code">.col-facets</code></td><td>index, group — <b>needs JS</b></td></tr>
+			<tr><td><code class="t-code">.col-series</code></td><td>index, place — no JS</td></tr>
+			<tr><td><code class="t-code">.col-order</code></td><td>series — no JS</td></tr>
+			<tr><td><code class="t-code">.col-posts</code></td><td>everywhere — no JS</td></tr>
+			<tr><td><code class="t-code">.col-post</code></td><td>post — no JS</td></tr>
+			<tr><td><code class="t-code">.col-next</code></td><td>post, series — no JS</td></tr>
+			<tr><td><code class="t-code">.col-map</code></td><td>planned</td></tr>
+			<tr><td><code class="t-code">.col-gallery</code></td><td>planned</td></tr>
+			<tr><td><code class="t-code">.col-figures</code></td><td>planned</td></tr>
+		</tbody></table></div></section>
+
+				<nav class="docs-pager" aria-label="Pages">
+					<a class="docs-pager__link" href="./collections.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">The contract</span></a>
+			<a class="docs-pager__link docs-pager__link-next" href="./col-travel.html"><span class="docs-pager__dir">Next →</span><span class="docs-pager__title">Travel</span></a>
+				</nav>
+			</div>
+			<aside class="doc-rail">
+				<div class="doc-rail__in">
+			<nav class="doc-toc" aria-label="On this page">
+				<span class="doc-toc__title">On this page</span>
+				<div class="doc-toc__links">
+					<a href="#collection-hero">Collection hero</a>
+					<a href="#search-and-the-call">Search and the call</a>
+					<a href="#the-meta-strip">The meta strip</a>
+					<a href="#groups-the-widest-cut">Groups — the widest cut</a>
+					<a href="#places-a-picture-a-name-a-sentence">Places — a picture, a name, a sentence</a>
+					<a href="#spots-the-narrowest-cut">Spots — the narrowest cut</a>
+					<a href="#a-series-card">A series card</a>
+					<a href="#the-order-a-series-laid-out">The order — a series, laid out</a>
+					<a href="#post-rows">Post rows</a>
+					<a href="#the-facet-sidebar">The facet sidebar</a>
+					<a href="#next-in-series">Next in series</a>
+					<a href="#the-registry">The registry</a>
+				</div>
+			</nav>
+			<div class="doc-sponsor">
+				<span class="doc-sponsor__eyebrow">Support</span>
+				<p class="doc-sponsor__lead">Creator Design System is free, MIT, and built in the
+				open. Sponsoring keeps the next release coming.</p>
+				<a class="btn btn-primary btn-sm btn-pill doc-sponsor__cta"
+				   href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+					     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/>
+					</svg>Sponsor my project</a>
+				<a class="doc-sponsor__alt" href="./sponsor.html">What sponsorship pays for →</a>
+			</div>
+				</div>
+			</aside>
+		</div>
+
+		<footer class="section-sm" style="padding-bottom:0">
+			<hr class="rule" style="margin-bottom:var(--space-6)" />
+			<div class="row-between">
+				<p class="t-slate" style="display:flex;align-items:center;gap:8px">Creator Design System <span class="dot dot-sm"></span></p>
+				<p class="t-slate-sm">Frame &amp; Signal · for creators building their site.</p>
+			</div>
+		</footer>
+	</div>
+</main>
+<script>
+(function () {
+	var root = document.documentElement, btn = document.getElementById('themeToggle'),
+		label = document.getElementById('themeLabel');
+	var sync = function () {
+		var d = root.getAttribute('data-theme') === 'dark';
+		label.textContent = d ? 'Dark' : 'Light';
+		btn.setAttribute('aria-pressed', String(d));
+	};
+	sync();
+	btn.addEventListener('click', function () {
+		var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+		root.setAttribute('data-theme', next);
+		try { localStorage.setItem('cds-theme', next); } catch (e) {}
+		sync();
+	});
+	try { var t = localStorage.getItem('cds-theme'); if (t) { root.setAttribute('data-theme', t); sync(); } } catch (e) {}
+
+	var stars = document.querySelector('[data-gh-stars]');
+	if (stars) {
+		fetch('https://api.github.com/repos/imswarnil/Creator-Design-System')
+			.then(function (r) { return r.ok ? r.json() : null; })
+			.then(function (d) { if (d && typeof d.stargazers_count === 'number') stars.textContent = d.stargazers_count.toLocaleString(); })
+			.catch(function () {});
+	}
+})();
+</script>
+</body>
+</html>

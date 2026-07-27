@@ -13,3 +13,4 @@ docs/dist/
 # Python bytecode
 __pycache__/
 *.pyc
+docs/collection/

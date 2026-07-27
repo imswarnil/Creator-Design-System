@@ -17,13 +17,13 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE.parent
 REPO = HERE.parent.parent
 FRAG = HERE / 'fragments'
-V = '?v=cds24'
+V = '?v=cds25'
 SITE = 'https://creator.imswarnil.com'
 
-import content_start, content_usage, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
+import content_start, content_usage, content_collection, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all
 
 PAGES = {}
-for mod in (content_start, content_usage, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all):
+for mod in (content_start, content_usage, content_collection, content_layout, content_forms, content_components, content_misc, content_extra, content_navbar, content_site, content_explorer, content_all):
     PAGES.update(mod.PAGES)
 
 # Fragment-backed pages: slug -> (folder, fragment, opts)
@@ -80,6 +80,7 @@ FRAGPAGES = {
 GROUP_ICONS = {
  'Start': '<circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/>',
  'Getting started': '<path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>',
+ 'Collections': '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/>',
  'Foundation': '<path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/>',
  'Elements': '<path d="M4 7h16M4 12h10M4 17h13"/>',
  'Icons': '<circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/>',
@@ -101,6 +102,8 @@ NAV = [
                ('principles', 'Principles'), ('usage', 'Usage — CSS · SCSS · Tailwind'),
                ('components', 'Components explorer'), ('all', 'All pages')]),
     ('Getting started', [('install', 'Installation'), ('setup', 'Setup & theming')]),
+    ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
+                     ('col-travel', 'Travel')]),
     ('Foundation', [('f-logo', 'Logo'), ('f-color', 'Color'), ('f-type', 'Typography'),
                     ('f-space', 'Spacing & radius'), ('f-elevation', 'Elevation'),
                     ('f-pattern', 'Patterns'), ('breakpoints', 'Breakpoints'),
@@ -381,7 +384,7 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 <link rel="stylesheet" href="./src/3-components/index.css{v}" />
 <link rel="stylesheet" href="./src/5-sections/index.css{v}" />
 <link rel="stylesheet" href="./src/6-utilities/index.css{v}" />
-<link rel="stylesheet" href="./preview.css{v}" />
+<link rel="stylesheet" href="./preview.css{v}" />{collection_css}
 <script src="./src/highlight.js{v}" defer></script>
 <script src="./src/nav.js{v}" defer></script>
 <script src="./preview.js{v}" defer></script>
@@ -523,7 +526,7 @@ TEMPLATE = '''<!DOCTYPE html>
 <link rel="stylesheet" href="./src/3-components/index.css{v}" />
 <link rel="stylesheet" href="./src/5-sections/index.css{v}" />
 <link rel="stylesheet" href="./src/6-utilities/index.css{v}" />{broadcast_css}
-<link rel="stylesheet" href="./preview.css{v}" />
+<link rel="stylesheet" href="./preview.css{v}" />{collection_css}
 <script src="./src/highlight.js{v}" defer></script>
 <script src="./src/nav.js{v}" defer></script>
 <script src="./preview.js{v}" defer></script>{extra_style}
@@ -700,16 +703,18 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
         dark='false',
         guides_btn='',
         broadcast_css=f'\n<link rel="stylesheet" href="./src/4-broadcast/index.css{V}" />' if broadcast else '',
-        extra_style=extra, body_class='loop-demos' if opts.get('loop') else '')
+        extra_style=extra, body_class='loop-demos' if opts.get('loop') else '',
+        collection_css=(f'\n<link rel="stylesheet" href="./collection/travel/travel.css{V}" />'
+                        if slug.startswith('col-') or slug == 'collections' else ''))
     return (out, toc) if return_toc else out
 
 
 def mirror_assets():
     """Copy src/ and icons/ into docs/ so every path is relative to the web
     root — the same whether you serve docs/ locally or deploy it to Pages.
-    Both are gitignored; this runs on every build and in CI."""
+    All three are gitignored; this runs on every build and in CI."""
     import shutil
-    for name in ('src', 'icons'):
+    for name in ('src', 'icons', 'collection'):
         srcdir, dstdir = REPO / name, OUT / name
         if srcdir.exists():
             shutil.rmtree(dstdir, ignore_errors=True)
@@ -928,7 +933,7 @@ def main():
     for slug, (title, builder) in content_site.LANDING.items():
         (OUT / f'{slug}.html').write_text(
             LANDING_TEMPLATE.format(title=html.escape(title), body=builder(),
-                                    sprite=SPRITE, v=V, site=SITE))
+                                    sprite=SPRITE, v=V, site=SITE, collection_css=''))
 
     write_seo(built)
     write_llms(index)
