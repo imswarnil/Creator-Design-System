@@ -7,6 +7,26 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **The course collection** — `/course`, a track, a topic, the course page and
+  the lesson player, in `collection/course/`. A course is the collection's
+  *series* route (a first lesson, a last one, a progress through it) and a
+  track is its *group*; getting those the wrong way round is what produces a
+  course page with a grid of lessons on it.
+- **Five sections for a post whose body is a video** — `.col-stage`,
+  `.col-stagebar`, `.col-playlist`, `.col-transcript` and `.col-panel`, plus
+  `.col-checks`, `.col-offer`, `.col-files`, `.col-keys`, `.col-note` and
+  `.col-resume`. Shared rather than course-shaped, because a podcast season and
+  a video series want every one of them. `.col-playlist` **is** `.curriculum`
+  with a body that scrolls — a contents list should not become a different
+  component the moment it moves next to a video.
+- **`collection.js` grows two modules** — the panels (tabs that stack under
+  their own headings until the script sets `data-tabs="ready"`) and the lesson
+  player (mark complete, live module and course counts, and the `N` / `P` / `M`
+  shortcuts the page advertises). Both only set attributes the stylesheet
+  already understands, and both degrade to a readable page.
+- **Course's own four** — `.crs-level` (three bars, because "intermediate"
+  means nothing until you have seen the other two), `.crs-quiz`, `.crs-cert`
+  and the syllabus scene.
 - **A style per collection** — `.nav-video`, `.nav-blog`, `.nav-course-bar`,
   `.nav-shop`, `.nav-trip`, `.nav-docs-bar`. Each sets defaults only, written in
   six variables it also yields to: `--bar-bg`, `--bar-fg`, `--bar-line`,
@@ -84,6 +104,12 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
   sidebar; they are reached from the site bar.
 
 ### Fixed
+- **`hidden` means hidden.** The browser's rule for the attribute lives in the
+  UA sheet, so every component that set a display — `.btn`, `.card` — silently
+  beat it, and `<button class="btn" hidden>` stayed on screen. One line in
+  `00-reset.css`, and the one place `!important` is right: the attribute is an
+  assertion about the document, not a style. Visible symptom: the collections'
+  "Clear filters" button showed with nothing filtered.
 - Docs `@import`s inside `src/*/index.css` are stamped with the build version
   when mirrored into `docs/`. Only the parent stylesheet carried `?v=`, so
   browsers served stale layer files behind a freshly-versioned index and a

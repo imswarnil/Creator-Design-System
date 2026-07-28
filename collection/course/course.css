@@ -1,0 +1,209 @@
+/* =============================================================================
+   COLLECTION · COURSE
+   What only course needs: the syllabus scene, the difficulty meter, the
+   knowledge check and the certificate. Everything else on these five routes is
+   the shared vocabulary in ../collection.css, or a component the system
+   already had — the curriculum, the lesson row, the player, the progress bar.
+
+   Requires collection.css.
+   ========================================================================== */
+
+/* ── The syllabus scene ──────────────────────────────────────────────────────
+   Course's own art: a ring that draws itself to three quarters, a column of
+   lessons ticking over one at a time, and a caret. It is the page's argument —
+   a course is a finite thing you get to the end of — rather than decoration
+   for its own sake. All of it is aria-hidden and all of it stops under
+   reduced motion.
+   ------------------------------------------------------------------------- */
+
+@keyframes crs-draw { to { stroke-dashoffset: 0; } }
+
+@keyframes crs-tick {
+	0%, 45% { opacity: 0; transform: scale(0.4); }
+	60%, 100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes crs-fill { 0%, 40% { opacity: 0.18; } 55%, 100% { opacity: 0.85; } }
+
+@keyframes crs-blink { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } }
+
+@keyframes crs-rise { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+.crs-ring {
+	stroke-dasharray: 226;
+	stroke-dashoffset: 226;
+	animation: crs-draw 5s var(--ease-out) infinite;
+}
+
+/* Six rows, each a beat behind the one above it, so the column reads as
+   progress downward rather than six things blinking at once. */
+.crs-row { animation: crs-fill 6s var(--ease-inout) infinite; }
+.crs-row:nth-child(1) { animation-delay: 0s; }
+.crs-row:nth-child(2) { animation-delay: 0.5s; }
+.crs-row:nth-child(3) { animation-delay: 1s; }
+.crs-row:nth-child(4) { animation-delay: 1.5s; }
+.crs-row:nth-child(5) { animation-delay: 2s; }
+.crs-row:nth-child(6) { animation-delay: 2.5s; }
+
+.crs-check { transform-origin: center; animation: crs-tick 6s var(--ease-out) infinite; }
+.crs-caret { animation: crs-blink 1.4s steps(1) infinite; }
+.crs-cap { transform-origin: center; animation: crs-rise 6s var(--ease-inout) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+	.crs-ring,
+	.crs-row,
+	.crs-check,
+	.crs-caret,
+	.crs-cap { animation: none; }
+
+	/* The finished state is the resting state: the ring is drawn, the rows are
+	   lit, the caret is on. Nothing here is only reachable mid-animation. */
+	.crs-ring { stroke-dashoffset: 56; }
+	.crs-row { opacity: 0.85; }
+}
+
+/* ── The difficulty meter ────────────────────────────────────────────────────
+   Three bars, of which one, two or three are lit. A word alone ("intermediate")
+   means nothing until you have seen the other two; three bars are comparable at
+   a glance across a grid of cards, which is where difficulty is actually read.
+   ------------------------------------------------------------------------- */
+
+.crs-level {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.crs-level__bars { display: inline-flex; align-items: flex-end; gap: 2px; }
+
+.crs-level__bars > i {
+	display: block;
+	width: 3px;
+	background: var(--line-default);
+	border-radius: 1px;
+}
+
+.crs-level__bars > i:nth-child(1) { height: 0.4rem; }
+.crs-level__bars > i:nth-child(2) { height: 0.6rem; }
+.crs-level__bars > i:nth-child(3) { height: 0.8rem; }
+
+/* data-level is how many bars are lit: 1, 2 or 3. */
+.crs-level[data-level='1'] .crs-level__bars > i:nth-child(-n + 1),
+.crs-level[data-level='2'] .crs-level__bars > i:nth-child(-n + 2),
+.crs-level[data-level='3'] .crs-level__bars > i:nth-child(-n + 3) { background: var(--accent); }
+
+/* ── The knowledge check ─────────────────────────────────────────────────────
+   One question under a lesson. Native radios inside labels, so the keyboard,
+   the grouping and the announcement all come free; the only thing added is
+   what a chosen answer looks like.
+   ------------------------------------------------------------------------- */
+
+.crs-quiz {
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	padding: var(--space-5);
+	display: grid;
+	gap: var(--space-4);
+}
+
+.crs-quiz__q { font-weight: var(--weight-semibold); }
+
+.crs-quiz__options { display: grid; gap: var(--space-2); }
+
+.crs-quiz__option {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	padding: var(--space-3) var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-md);
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+	cursor: pointer;
+	transition: var(--t-colors);
+}
+
+.crs-quiz__option:hover { border-color: var(--line-strong); background: var(--bg-sunken); }
+.crs-quiz__option input { accent-color: var(--accent); flex: none; }
+
+.crs-quiz__option:has(input:checked) {
+	border-color: var(--accent);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+}
+
+.crs-quiz__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-4);
+	flex-wrap: wrap;
+}
+
+/* ── The certificate ─────────────────────────────────────────────────────────
+   The end of a course, drawn as the thing itself. It is deliberately quiet:
+   a hairline double border and one line of accent, because a certificate that
+   shouts is a certificate nobody believes.
+   ------------------------------------------------------------------------- */
+
+.crs-cert {
+	position: relative;
+	display: grid;
+	gap: var(--space-4);
+	justify-items: center;
+	text-align: center;
+	padding: var(--space-8) var(--space-6);
+	border: var(--border-hair) solid var(--line-strong);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+}
+
+/* The inner rule uses ::after, not ::before — the foundation's `.pattern`
+   already owns ::before, and a certificate is exactly where you want to be
+   able to drop `pattern pattern-grid pattern-faint` on top. */
+.crs-cert::after {
+	content: '';
+	position: absolute;
+	inset: var(--space-2);
+	border: var(--border-hair) solid var(--line-subtle);
+	border-radius: calc(var(--radius-card) - var(--space-2));
+	pointer-events: none;
+}
+
+.crs-cert > * { position: relative; z-index: 1; }
+
+.crs-cert__seal {
+	width: 3rem;
+	height: 3rem;
+	display: grid;
+	place-items: center;
+	border-radius: var(--radius-full);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+}
+
+.crs-cert__seal .icon { width: 1.4rem; height: 1.4rem; }
+
+.crs-cert__name {
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+}
+
+.crs-cert__rule { width: 6rem; height: var(--border-2); background: var(--accent); }
+
+.crs-cert__meta {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}

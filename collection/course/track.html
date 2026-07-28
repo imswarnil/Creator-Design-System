@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Layout &amp; CSS — Courses</title>
+<meta name="description" content="A track: three courses that share a subject." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./course.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/course/index.html" aria-current="page">Courses</a>
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="container u-mt-6">
+   <div class="col-hero">
+    
+    <div class="col-hero__in">
+      <span class="col-hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>Track</span>
+      <h1 class="col-hero__title">Layout &amp; CSS</h1>
+      <p class="col-hero__lead">A track is an unordered set of courses that share a subject. Three of them here, in no particular order — because a track has no first course and no progress through it. That is the whole difference between a track and a course.</p>
+      
+      <div class="col-meta"><div><span class="col-meta__n">3</span><span class="col-meta__l">courses</span></div><div><span class="col-meta__n">61</span><span class="col-meta__l">lessons</span></div><div><span class="col-meta__n">8h 51m</span><span class="col-meta__l">of video</span></div></div>
+    </div>
+   </div>
+  </section>
+
+  <div data-collection>
+  <section class="container section-sm">
+    <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb"><a href="./index.html">Courses</a> <span>/</span> <span>Layout &amp; CSS</span></nav>
+    <div class="col-layout">
+      
+    <aside class="col-layout__side col-rail col-rail-sticky">
+      <div class="col-facets">
+        <div class="col-facets__group">
+          <span class="col-facets__title">Filtering</span>
+          <p class="t-small u-fg-subtle" data-filter-state>Everything</p>
+          <button class="btn btn-quiet btn-sm" type="button" data-filter-reset hidden>
+            Clear filters</button>
+        </div>
+        <div class="col-facets__group">
+          <span class="col-facets__title">Level</span>
+          <label class="col-facet"><input type="checkbox" data-facet="beginner" /><span class="crs-level" data-level="1"><span class="crs-level__bars"><i></i><i></i><i></i></span></span><span>Beginner</span><span class="col-facet__n">2</span></label><label class="col-facet"><input type="checkbox" data-facet="intermediate" /><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span></span><span>Intermediate</span><span class="col-facet__n">3</span></label><label class="col-facet"><input type="checkbox" data-facet="advanced" /><span class="crs-level" data-level="3"><span class="crs-level__bars"><i></i><i></i><i></i></span></span><span>Advanced</span><span class="col-facet__n">1</span></label><label class="col-facet"><input type="checkbox" data-facet="free" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg><span>Free</span><span class="col-facet__n">2</span></label>
+        </div>
+      </div>
+      <div class="col-widget col-widget-accent">
+      <span class="col-widget__title">The first course</span>
+      <p class="t-small">CSS From Scratch is free, in full. It is the argument for
+        the other five, and an argument is cheaper to make than to describe.</p>
+      <a class="btn btn-primary btn-sm" href="./course.html">Start it</a>
+    </div>
+    </aside>
+      <div>
+        <div class="row-between u-mb-5"><div><h2 class="t-h3">Courses in this track</h2></div></div>
+        <div class="col-places"><a class="col-place" href="./course.html" data-place="css-from-scratch" data-of="layout" data-tags="beginner free"><span class="col-place__media"><span class="col-ph" style="--h:123" aria-hidden="true"></span><span class="col-place__tag">Free</span></span><span class="col-place__body"><span class="col-place__name">CSS From Scratch</span><span class="col-place__note">Tokens, layout and type — the whole system, built in front of you.</span></span><span class="col-place__foot"><span>14 lessons · 2h 06m</span><span class="crs-level" data-level="1"><span class="crs-level__bars"><i></i><i></i><i></i></span>Beginner</span></span></a><a class="col-place" href="./course.html" data-place="grid-and-flex" data-of="layout" data-tags="intermediate"><span class="col-place__media"><span class="col-ph" style="--h:170" aria-hidden="true"></span><span class="col-place__tag">$49</span></span><span class="col-place__body"><span class="col-place__name">Grid & Flexbox, properly</span><span class="col-place__note">Every layout you actually ship, and why the other twelve properties exist.</span></span><span class="col-place__foot"><span>28 lessons · 4h 05m</span><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span>Intermediate</span></span></a><a class="col-place" href="./course.html" data-place="type-for-screens" data-of="layout" data-tags="intermediate"><span class="col-place__media"><span class="col-ph" style="--h:254" aria-hidden="true"></span><span class="col-place__tag">$39</span></span><span class="col-place__body"><span class="col-place__name">Type For Screens</span><span class="col-place__note">A scale, a measure and a rhythm you can defend in a design review.</span></span><span class="col-place__foot"><span>19 lessons · 2h 40m</span><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span>Intermediate</span></span></a><p class="col-empty" data-empty-for="[data-place]" hidden>No course matches. Try clearing a filter.</p></div>
+        <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">Topics it covers</h2></div></div><div class="col-spots"><a class="col-spot" href="./topic.html" data-spot="tokens" data-of="css-from-scratch" data-tags="beginner">Design tokens<span class="col-spot__n">12</span></a><a class="col-spot" href="./topic.html" data-spot="grid" data-of="grid-and-flex" data-tags="intermediate">Grid<span class="col-spot__n">9</span></a><a class="col-spot" href="./topic.html" data-spot="a11y" data-of="css-from-scratch" data-tags="beginner">Accessibility<span class="col-spot__n">8</span></a><a class="col-spot" href="./topic.html" data-spot="scale" data-of="type-for-screens" data-tags="intermediate">Type scale<span class="col-spot__n">7</span></a><a class="col-spot" href="./topic.html" data-spot="easing" data-of="motion-that-lasts" data-tags="intermediate">Easing<span class="col-spot__n">6</span></a><a class="col-spot" href="./topic.html" data-spot="deploy" data-of="ship-the-site" data-tags="beginner">Deploying<span class="col-spot__n">6</span></a><a class="col-spot" href="./topic.html" data-spot="contrast" data-of="one-colour" data-tags="advanced">Contrast<span class="col-spot__n">5</span></a><p class="col-empty" data-empty-for="[data-spot]" hidden>Nothing here.</p></div></div>
+        <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">Lessons</h2></div></div><div class="col-posts"><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:355" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">What a design system actually is</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>6:12</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:178" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">Two tiers of tokens</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>11:40</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:184" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">One colour, rationed</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>9:05</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:351" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The type scale</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>12:20</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:335" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The container and the gutter</span><span class="col-post-row__note">Layout · CSS From Scratch</span></span><span class="col-post-row__meta"><span>8:44</span><span>watched</span></span></a><p class="col-empty" data-empty-for="[data-post]" hidden>No lesson matches. Try clearing a filter.</p></div></div>
+      </div>
+    </div>
+  </section>
+  </div>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Courses — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

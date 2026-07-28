@@ -1,9 +1,9 @@
 """The Collections pages.
 
-The demos here import the travel collection's own builder and call its own
-section functions, so what the docs show is the markup the routes actually
-ship. A docs page that reimplements the thing it documents is a second source
-of truth, and the two drift within a week.
+The demos here import each collection's own builder and call its own section
+functions, so what the docs show is the markup the routes actually ship. A docs
+page that reimplements the thing it documents is a second source of truth, and
+the two drift within a week.
 """
 import html
 import importlib.util
@@ -15,7 +15,7 @@ from common import tile, sec, END, ct
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 
-# Both collections have a module called build.py, so they are loaded by path
+# Every collection has a module called build.py, so they are loaded by path
 # under distinct names rather than by import — otherwise the second one to be
 # imported silently returns the first.
 sys.path.insert(0, str(REPO / 'collection'))
@@ -31,6 +31,7 @@ def _load(name, path):
 
 travel = _load('col_travel_build', REPO / 'collection' / 'travel' / 'build.py')
 blog = _load('col_blog_build', REPO / 'collection' / 'blog' / 'build.py')
+course = _load('col_course_build', REPO / 'collection' / 'course' / 'build.py')
 
 PAGES = {}
 
@@ -115,11 +116,21 @@ collection/
   blog/
     build.py         no CSS of its own - which is the test
     *.html           index, post
-''', 'three collections, and only one of them needs a stylesheet')
+
+  course/
+    course.css       the syllabus scene, the level meter, the quiz, the cert
+    build.py
+    *.html           index, track, topic, course, lesson, components
+''', 'four collections, and only two of them need a stylesheet')
 c += p('<b>Blog has no CSS of its own, and that is deliberate.</b> If a second collection '
        'cannot be built out of the shared vocabulary, the vocabulary was really just the '
        'first collection wearing a general-sounding prefix. Travel keeps 44 lines — the '
        'globe, the flight line and the palm — because those genuinely belong to travel.')
+c += p('<b>Course is the other direction.</b> Its post route has a video in it rather than '
+       'prose, and five sections were missing for that. They went into the shared sheet, not '
+       'into <code class="t-code">course.css</code>, because a podcast season and a video '
+       'series want every one of them — and what a collection keeps for itself is the test of '
+       'whether that split was honest.')
 c += END
 
 c += sec('rules', 'The rules')
@@ -287,6 +298,81 @@ s += live('<div style="position:relative;background:var(--bg-sunken);border-radi
           '<b>.col-progress</b> — drive <code class="t-code">--value</code> from scroll')
 s += END
 
+s += sec('stage', 'The stage — a post whose body is a video',
+         'The media leads and the rest of the series sits beside it, because the second '
+         'question after "play this" is always "what is after it". Course needed it first; '
+         'nothing in it knows about courses.')
+s += live('<div class="col-stagebar" style="border-bottom:0">'
+          '<a class="btn btn-secondary btn-sm" href="#i" aria-disabled="true">← Previous</a>'
+          '<div class="col-stagebar__where"><span class="col-stagebar__pos">'
+          f'<span>Lesson {course.HERE_I + 1} of {course.N}</span><span>Layout</span>'
+           '<span>14:02</span></span>'
+          '<h3 class="t-h3" style="margin:0">Grid, in four rules</h3></div>'
+          '<span class="cluster" style="gap:var(--space-2)">'
+          '<button class="btn btn-quiet btn-sm" type="button">Mark complete</button>'
+          '<a class="btn btn-primary btn-sm" href="#i">Next →</a></span></div>',
+          '<b>.col-stage</b> · <b>.col-stagebar</b> — previous and next are the entire '
+          'navigation of an ordered collection, so they get the width')
+s += END
+
+s += sec('playlist', 'The playlist',
+         'The syllabus, beside a player. It <em>is</em> <code class="t-code">.curriculum</code> '
+         '— the same modules, the same lesson rows, the same tick. All the modifier adds is a '
+         'body that scrolls, because a contents list should not become a different component '
+         'the moment it moves next to a video.')
+s += live('<div style="max-width:24rem">' + course.curriculum(playlist=True) + '</div>',
+          '<b>.col-playlist</b> — <code class="t-code">aria-current</code> is the lesson you '
+          'are on, <code class="t-code">[data-done]</code> the ones you have watched, '
+          '<code class="t-code">[data-locked]</code> the ones you have not bought')
+s += END
+
+s += sec('transcript', 'The transcript', 'Timestamps down the left, so the column of times is '
+         'scannable and the line the player is on can be marked without the text moving.')
+s += live('<div class="col-transcript">' + ''.join(
+    f'<a class="col-transcript__line" href="#i"{" aria-current=\"true\"" if i == 1 else ""}>'
+    f'<span class="col-transcript__time">{t}</span><span>{line}</span></a>'
+    for i, (t, line) in enumerate(course.TRANSCRIPT[:4])) + '</div>',
+    '<b>.col-transcript</b>')
+s += END
+
+s += sec('checks', 'Outcomes', 'What you will be able to do afterwards. A promise reads as a '
+         'promise in a list and as marketing in a paragraph.')
+s += live(course.outcomes_block(course.OUTCOMES[:4]), '<b>.col-checks</b> · <b>.col-check</b>')
+s += END
+
+s += sec('offer', 'The offer and the files',
+         'The one card on a page that is asking for something, so it is the one that carries '
+         'the accent. Beside it, what comes with the thing — rows, because a download is an '
+         'action and actions read as a list.')
+s += live('<div class="grid-2" style="gap:var(--space-6);align-items:start">'
+          '<div style="max-width:20rem">' + course.offer_widget() + '</div>'
+          '<div>' + course.files_block() + '</div></div>',
+          '<b>.col-offer</b> · <b>.col-files</b> · <b>.col-file</b>')
+s += END
+
+s += sec('resume', 'Resume',
+         'The strip at the top of an index for someone who has been here before. It outranks '
+         'the hero\'s call to action, because "carry on" beats "start" for everyone it applies '
+         'to and is invisible to everyone it does not.')
+s += live(course.resume_strip(), '<b>.col-resume</b>')
+s += END
+
+s += sec('keys', 'Shortcuts and notes',
+         'A player has shortcuts whether or not it advertises them, and advertising them is '
+         'cheaper than a help page. The note box keeps nothing — it is here because the shape '
+         'of the page is wrong without somewhere to put a thought.')
+s += live('<div class="grid-2" style="gap:var(--space-6);align-items:start">'
+          '<div style="max-width:20rem">' + course.keys_widget() + '</div>'
+          '<form class="col-note" onsubmit="return false">'
+          '<label class="label" for="d-note">Your note</label>'
+          '<textarea class="input" id="d-note" placeholder="Timestamped to where you are."></textarea>'
+          '<div class="col-note__foot"><span class="col-note__stamp">At 1:19</span>'
+          '<button class="btn btn-secondary btn-sm" type="submit">Save note</button></div>'
+          '</form></div>',
+          '<b>.col-keys</b> uses the system\'s <code class="t-code">.kbd</code> · '
+          '<b>.col-note</b>')
+s += END
+
 s += sec('next', 'Next in series')
 s += live('<a class="col-next" href="#i"><span class="col-next__label">Next · Part 4</span>'
           '<span class="col-order__title">Goa is two places</span>'
@@ -316,6 +402,15 @@ s += ct([
     ('.col-tags · .col-tag', 'post, index — no JS'),
     ('.col-toc', 'post — needs JS only for scrollspy'),
     ('.col-progress', 'post — <b>needs JS</b>'),
+    ('.col-stage · .col-stagebar', 'post, when the body is a video — no JS'),
+    ('.col-playlist', 'post — no JS'),
+    ('.col-transcript', 'post — no JS'),
+    ('.col-panel', 'post — <b>needs JS</b>, and stacks under its own headings without it'),
+    ('.col-checks', 'series, place — no JS'),
+    ('.col-offer', 'series — no JS'),
+    ('.col-files', 'post, series — no JS'),
+    ('.col-keys · .col-note', 'post — no JS'),
+    ('.col-resume', 'index — no JS'),
     ('.col-map', 'planned'),
     ('.col-gallery', 'planned'),
     ('.col-figures', 'planned'),
@@ -470,3 +565,142 @@ bl += END
 PAGES['col-blog'] = ('Blog collection',
     'The second collection, with no CSS of its own — the proof that the section vocabulary is '
     'shared rather than travel-shaped.', bl)
+
+
+# ── 6 · course ──────────────────────────────────────────────────────────────
+
+cr = ''
+cr += p('The third collection, and the one that grew the vocabulary. Travel and blog are both '
+        'collections of <em>reading</em>; course was the first whose post route has a video in '
+        'it instead of prose, and five sections were simply missing for that.')
+cr += p('They went into the shared sheet rather than into <code class="t-code">course.css</code>, '
+        'because a podcast season and a video series want every one of them: the stage, the '
+        'stage bar, the playlist, the transcript and the panels. <b>What stayed behind is the '
+        'test of whether the split was honest</b> — four things nothing but a course wants: the '
+        'syllabus scene, the difficulty meter, the knowledge check and the certificate.')
+
+cr += sec('mapping', 'A course is a series. A track is a group.',
+          'This is the whole argument of the collection, and it is the one thing worth getting '
+          'right before writing any markup.')
+cr += ct([
+    ('<b>index</b> — <code class="t-code">/course</code>',
+     'Every course. Resume strip, tracks, the filter, the featured course, the grid, topics, '
+     'free lessons, what every course includes, and the questions.'),
+    ('<b>group</b> — <code class="t-code">/course/layout</code>',
+     'A <b>track</b>. An unordered set of courses that share a subject — it has no first course '
+     'and nothing to be halfway through.'),
+    ('<b>place</b> — <code class="t-code">/course/topic/grid</code>',
+     'A <b>topic</b>. One thing, taught wherever it comes up — which is exactly what a '
+     'curriculum page cannot tell you.'),
+    ('<b>series</b> — <code class="t-code">/course/css-from-scratch</code>',
+     'The <b>course</b>. A first lesson, a last one, and a percentage through it. That is the '
+     'definition of a series, and the reason this route gets a spine rather than a grid.'),
+    ('<b>post</b> — <code class="t-code">/course/…/grid-in-four-rules</code>',
+     'The <b>lesson player</b>. The video, the syllabus beside it, and four panels under it.'),
+], head=('Route', 'What is on it'))
+cr += p('Getting those two the wrong way round is what produces a course page with a grid of '
+        'lessons on it — every lesson looking equally like a starting point, on a page whose '
+        'entire job is to say which one is first.')
+cr += p('<a class="btn btn-primary btn-sm" href="./collection/course/index.html" '
+        'target="_blank" rel="noopener">Open /course →</a> '
+        '<a class="btn btn-primary btn-sm" href="./collection/course/lesson.html" '
+        'target="_blank" rel="noopener">Open the lesson player →</a> '
+        '<a class="btn btn-secondary btn-sm" href="./collection/course/components.html" '
+        'target="_blank" rel="noopener">Its sections on their own →</a>')
+cr += END
+
+cr += sec('player', 'The lesson player',
+          'The media leads, the rest of the course sits beside it, and the two ways out of the '
+          'lesson get the width of the bar underneath. Previous and next <em>are</em> the '
+          'navigation of an ordered collection; everything else on the page is a detour.')
+cr += live('<div class="col-stagebar" style="border-bottom:0">'
+           '<a class="btn btn-secondary btn-sm" href="#i">← Previous</a>'
+           '<div class="col-stagebar__where"><span class="col-stagebar__pos">'
+           f'<span>Lesson {course.HERE_I + 1} of {course.N}</span><span>Layout</span>'
+           '<span>14:02</span></span>'
+           '<h3 class="t-h3" style="margin:0">Grid, in four rules</h3></div>'
+           '<span class="cluster" style="gap:var(--space-2)">'
+           '<button class="btn btn-quiet btn-sm" type="button">Mark complete</button>'
+           '<a class="btn btn-primary btn-sm" href="#i">Next →</a></span></div>',
+           '<b>.col-stagebar</b> — a disabled step keeps its place in the layout, so the bar '
+           'does not change shape on the first and last lessons')
+cr += END
+
+cr += sec('playlist-c', 'The playlist is the curriculum',
+          'The list beside the player and the syllabus in the middle of the course page are the '
+          'same component. A contents list should not become a different thing the moment it '
+          'moves next to a video — so <code class="t-code">.col-playlist</code> is '
+          '<code class="t-code">.curriculum</code> with a body that scrolls, and nothing else.')
+cr += live('<div class="grid-2" style="gap:var(--space-6);align-items:start">'
+           '<div>' + course.curriculum(playlist=True) + '</div>'
+           '<div class="col-transcript">' + ''.join(
+               f'<a class="col-transcript__line" href="#i"'
+               f'{" aria-current=\"true\"" if i == 1 else ""}>'
+               f'<span class="col-transcript__time">{t}</span><span>{line}</span></a>'
+               for i, (t, line) in enumerate(course.TRANSCRIPT)) + '</div></div>',
+           'the playlist and the transcript, from '
+           '<code class="t-code">/course/…/grid-in-four-rules</code>, unchanged')
+cr += END
+
+cr += sec('panels-c', 'The panels, and what happens without them',
+          'Overview, transcript, resources and notes are the system\'s '
+          '<code class="t-code">.tabs</code> over four <code class="t-code">.col-panel</code>s. '
+          'Until the script runs, every panel is visible under its own heading — four blocks '
+          'that all belong to the lesson, stacked. Only once it sets '
+          '<code class="t-code">data-tabs="ready"</code> does the stylesheet start hiding the '
+          'headings, which is why the no-JS page reads as a page rather than a pile of '
+          'unlabelled sections.')
+cr += code('html', '''
+<div data-tabs>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-controls="p-notes" aria-selected="false">Notes</button>
+  </div>
+
+  <div class="col-panel" id="p-notes" role="tabpanel">
+    <span class="col-panel__label">Notes</span>
+    …
+  </div>
+</div>
+''', 'the arrows move between tabs and only the selected one is in the tab order — four tabs '
+     'cost one Tab press, not four')
+cr += END
+
+cr += sec('own', 'What course kept for itself',
+          'Four things, and the test of each was whether a second collection would want it. '
+          'None of these passed, which is the correct outcome — a shared vocabulary that '
+          'absorbs everything is just the last collection wearing a general prefix.')
+cr += live('<div class="cluster" style="gap:var(--space-8);flex-wrap:wrap">'
+           + ''.join(course.level_chip(n) for n in (1, 2, 3)) + '</div>',
+           '<b>.crs-level</b> — the word "intermediate" means nothing until you have seen the '
+           'other two; three bars are comparable at a glance across a grid, which is where '
+           'difficulty is actually read')
+cr += live('<div class="crs-cert pattern pattern-grid pattern-lg pattern-faint">'
+           f'<span class="crs-cert__seal">{course.icon("check", group="ui")}</span>'
+           '<span class="crs-cert__name">CSS From Scratch</span>'
+           '<span class="crs-cert__rule"></span>'
+           '<span class="crs-cert__meta">15 lessons · issued on completion</span></div>',
+           '<b>.crs-cert</b> — a hairline double border and one line of accent. A certificate '
+           'that shouts is a certificate nobody believes')
+cr += END
+
+cr += sec('js-c', 'What the script does, and what happens without it',
+          'Three modules ship in <code class="t-code">collection.js</code>, and all three obey '
+          'the same rule as <code class="t-code">src/nav.js</code>: they only ever set '
+          'attributes the stylesheet already understands.')
+cr += ct([
+    ('Filters', 'blocked → every course, topic and lesson shows. Which is the correct fallback '
+                'for a page whose job is listing things.'),
+    ('Panels', 'blocked → the four panels stack, each under its own heading. Nothing is '
+               'unreachable.'),
+    ('Player', 'blocked → the playlist is still a list of links, the stage bar is still two '
+               'links, and only <em>mark complete</em> and the <code class="t-code">N</code> / '
+               '<code class="t-code">P</code> / <code class="t-code">M</code> keys are gone.'),
+], head=('Module', 'With the script blocked'))
+cr += p('Nothing is stored. A real course puts completion on the server, and a demo that wrote '
+        'to <code class="t-code">localStorage</code> would be teaching a persistence trick '
+        'rather than a design system.')
+cr += END
+
+PAGES['col-course'] = ('Course collection',
+    'The third collection: /course, the lesson player, and the five sections a video-bodied '
+    'post needed that reading-shaped collections never asked for.', cr)

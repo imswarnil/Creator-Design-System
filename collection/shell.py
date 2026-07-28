@@ -32,7 +32,11 @@ def ph(seed='default', tall=False):
     hues = {'japan': 8, 'vietnam': 150, 'portugal': 205, 'georgia': 265,
             'peru': 32, 'india': 340, 'css': 262, 'motion': 190, 'craft': 24,
             'notes': 96, 'default': 220}
-    return (f'<span class="col-ph" style="--h:{hues.get(seed, hues["default"])}"'
+    # An unnamed seed still gets a stable hue rather than falling back to the
+    # one default — otherwise a collection with a dozen slugs is a dozen
+    # identical rectangles, which reads as a loading state.
+    h = hues.get(seed) if seed in hues else sum(map(ord, seed)) * 37 % 360
+    return (f'<span class="col-ph" style="--h:{h}"'
             f'{" data-tall" if tall else ""} aria-hidden="true"></span>')
 
 
@@ -59,9 +63,9 @@ HEAD = '''<!doctype html>
   <nav class="nav-bar" aria-label="Main">
     <a class="logo logo-sm" href="{rel}/docs/index.html">Swarnil</a>
     <div class="nav-links">
+      <a class="nav-link" href="{rel}/collection/course/index.html"{cur_course}>Courses</a>
       <a class="nav-link" href="{rel}/collection/travel/index.html"{cur_travel}>Travel</a>
       <a class="nav-link" href="{rel}/collection/blog/index.html"{cur_blog}>Blog</a>
-      <a class="nav-link" href="#i">Watch</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
@@ -96,7 +100,8 @@ def page(out_dir, name, title, desc, body, collection='', own_css=None, current=
     doc = (HEAD.format(title=html.escape(title), desc=html.escape(desc), rel=REL,
                        own_css=css,
                        cur_travel=' aria-current="page"' if current == 'travel' else '',
-                       cur_blog=' aria-current="page"' if current == 'blog' else '')
+                       cur_blog=' aria-current="page"' if current == 'blog' else '',
+                       cur_course=' aria-current="page"' if current == 'course' else '')
            + body + FOOT.format(rel=REL, name=collection))
     (pathlib.Path(out_dir) / name).write_text(doc)
     return name

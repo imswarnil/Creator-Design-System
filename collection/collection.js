@@ -1,5 +1,21 @@
 /* =============================================================================
-   COLLECTION FILTERS
+   COLLECTION BEHAVIOUR
+   Three independent modules, in this file because they ship together and none
+   of them is big enough to be a file:
+
+     1. the linked filters   — region narrows countries, country narrows cities
+     2. the panels           — the tabs under a player
+     3. the lesson player    — mark complete, and the shortcuts it advertises
+
+   All three obey the same rule as src/nav.js: they only ever set attributes the
+   stylesheet already understands. Blocked, the filters show everything, the
+   panels stack under their own headings and the player is still a list of
+   links — which is the correct fallback for each.
+   ========================================================================== */
+
+
+/* =============================================================================
+   1 · FILTERS
    Region narrows countries, country narrows cities, facets narrow everything.
    Nothing here is travel-specific: it reads data attributes, so any collection
    with groups, places and spots gets the same behaviour for free.
@@ -91,11 +107,20 @@
 			var bits = [];
 			if (state.group) bits.push(label('[data-group="' + state.group + '"]'));
 			if (state.place) bits.push(label('[data-place="' + state.place + '"]'));
-			if (state.facets.length) bits.push(state.facets.join(' · '));
+			if (state.facets.length) bits.push(state.facets.map(facetLabel).join(' · '));
 			crumb.textContent = bits.length ? bits.join(' → ') : 'Everywhere';
 		}
 		var reset = root.querySelector('[data-filter-reset]');
 		if (reset) reset.hidden = !(state.group || state.place || state.facets.length);
+	};
+
+	/* A facet's value is an id — often a slug the reader never sees. The crumb
+	   should say what the checkbox says, so read the label back off the DOM. */
+	var facetLabel = function (v) {
+		var box = root.querySelector('[data-facet="' + v + '"]');
+		var wrap = box && box.closest('label');
+		var text = wrap && wrap.querySelector('span:not(.col-facet__n)');
+		return text ? text.textContent.trim() : v;
 	};
 
 	var label = function (sel) {
@@ -142,4 +167,158 @@
 	});
 
 	apply();
+})();
+
+
+/* =============================================================================
+   2 · PANELS
+   The tabs under a player. Markup:
+
+     <div data-tabs>
+       <div class="tabs" role="tablist">
+         <button class="tab" role="tab" aria-controls="p-notes">Notes</button>
+       <div class="col-panel" id="p-notes" role="tabpanel">
+         <span class="col-panel__label">Notes</span>
+
+   Until this runs, every panel is visible under its own heading — four blocks
+   of content that all belong to the lesson, stacked. Only once the script sets
+   data-tabs="ready" does the stylesheet hide the headings, which is why the
+   no-JS page is readable rather than a pile of unlabelled sections.
+   ========================================================================== */
+(function () {
+	'use strict';
+
+	[].slice.call(document.querySelectorAll('[data-tabs]')).forEach(function (root) {
+		var tabs = [].slice.call(root.querySelectorAll('[role="tab"]'));
+		if (!tabs.length) return;
+
+		var panelOf = function (tab) {
+			return document.getElementById(tab.getAttribute('aria-controls'));
+		};
+
+		var select = function (tab, focus) {
+			tabs.forEach(function (t) {
+				var on = t === tab;
+				t.setAttribute('aria-selected', String(on));
+				// Only the selected tab is in the tab order; the arrows move
+				// between them. That is the tablist pattern, and it is why a
+				// four-tab strip costs one Tab press rather than four.
+				t.tabIndex = on ? 0 : -1;
+				var p = panelOf(t);
+				if (p) p.hidden = !on;
+			});
+			if (focus) tab.focus();
+		};
+
+		root.setAttribute('data-tabs', 'ready');
+		select(tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0]);
+
+		root.addEventListener('click', function (e) {
+			var t = e.target.closest('[role="tab"]');
+			if (t) { e.preventDefault(); select(t); }
+		});
+
+		root.addEventListener('keydown', function (e) {
+			var i = tabs.indexOf(e.target);
+			if (i === -1) return;
+			var step = { ArrowRight: 1, ArrowLeft: -1, Home: -i, End: tabs.length - 1 - i }[e.key];
+			if (step === undefined) return;
+			e.preventDefault();
+			select(tabs[(i + step + tabs.length) % tabs.length], true);
+		});
+	});
+})();
+
+
+/* =============================================================================
+   3 · THE LESSON PLAYER
+   Marking a lesson done, and the shortcuts the page tells you about.
+
+     [data-player]                  the stage
+     [data-done-toggle]             the button
+     .lesson-row[aria-current]      the lesson it applies to
+     [data-progress]                the bar to redraw   (--value)
+     [data-progress-count]          "12 of 42" next to it
+     [data-step="next"|"prev"]      the two links the shortcuts follow
+
+   Nothing is stored. A real course puts this on the server, and a demo that
+   wrote to localStorage would be teaching a persistence trick rather than a
+   design system.
+   ========================================================================== */
+(function () {
+	'use strict';
+
+	var root = document.querySelector('[data-player]');
+	if (!root) return;
+
+	var rows = function () {
+		return [].slice.call(root.querySelectorAll('.lesson-row'));
+	};
+
+	var redraw = function () {
+		var all = rows();
+		var done = all.filter(function (r) { return r.hasAttribute('data-done'); }).length;
+		var pct = all.length ? Math.round((done / all.length) * 100) : 0;
+
+		var bar = root.querySelector('[data-progress]');
+		if (bar) {
+			bar.style.setProperty('--value', pct + '%');
+			var meter = bar.closest('[role="progressbar"]') || bar.parentElement;
+			if (meter) meter.setAttribute('aria-valuenow', String(pct));
+		}
+		[].slice.call(root.querySelectorAll('[data-progress-count]')).forEach(function (el) {
+			el.textContent = el.getAttribute('data-progress-count')
+				.replace('{done}', done).replace('{all}', all.length).replace('{pct}', pct);
+		});
+
+		// A module's own count has to move with the total, or the header says
+		// 1/4 next to two ticked rows and the reader trusts neither number.
+		[].slice.call(root.querySelectorAll('[data-module-count]')).forEach(function (el) {
+			var mod = el.closest('details');
+			var in_ = mod ? [].slice.call(mod.querySelectorAll('.lesson-row')) : [];
+			el.textContent = in_.filter(function (r) {
+				return r.hasAttribute('data-done');
+			}).length + '/' + in_.length;
+		});
+
+		var btn = root.querySelector('[data-done-toggle]');
+		var here = root.querySelector('.lesson-row[aria-current]');
+		if (btn && here) {
+			var on = here.hasAttribute('data-done');
+			btn.setAttribute('aria-pressed', String(on));
+			btn.textContent = on ? 'Completed' : 'Mark complete';
+		}
+	};
+
+	var toggle = function () {
+		var here = root.querySelector('.lesson-row[aria-current]');
+		if (!here) return;
+		if (here.hasAttribute('data-done')) here.removeAttribute('data-done');
+		else here.setAttribute('data-done', '');
+		redraw();
+	};
+
+	root.addEventListener('click', function (e) {
+		if (e.target.closest('[data-done-toggle]')) { e.preventDefault(); toggle(); }
+	});
+
+	// The shortcuts the keys widget lists. Typing a note must not skip the
+	// lesson, so anything with a caret in it keeps its keystrokes.
+	document.addEventListener('keydown', function (e) {
+		if (e.metaKey || e.ctrlKey || e.altKey) return;
+		var t = e.target;
+		if (t.closest('input, textarea, select, [contenteditable]')) return;
+
+		if (e.key === 'm') { e.preventDefault(); toggle(); return; }
+
+		var dir = { n: 'next', p: 'prev' }[e.key];
+		if (!dir) return;
+		var step = root.querySelector('[data-step="' + dir + '"]');
+		if (step && step.getAttribute('aria-disabled') !== 'true') {
+			e.preventDefault();
+			step.click();
+		}
+	});
+
+	redraw();
 })();

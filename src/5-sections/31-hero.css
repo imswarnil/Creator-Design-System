@@ -71,6 +71,14 @@
 	.hero-split { grid-template-columns: 1.05fr 1fr; gap: var(--space-12); }
 }
 
+/* A headline in a HALF-WIDTH column cannot take the full-width statement size:
+   at --text-6xl the homepage headline ran to six lines and the eye had to
+   re-find the left edge on every one of them. One step down the scale, and a
+   measure in ch so it breaks at three lines instead of wherever the column
+   happens to end. */
+.hero-split .hero__title { font-size: var(--text-4xl); max-width: 16ch; }
+.hero-split .hero__lead { max-width: 42ch; }
+
 /* The stage holds one framed thing — a player, a poster, a device. The frame
    device (layer 1) does the chrome; the stage only reserves the ratio. */
 .hero-split__stage { position: relative; }

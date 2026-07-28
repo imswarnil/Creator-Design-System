@@ -40,6 +40,24 @@
 	object-fit: cover;
 }
 
+/* A photograph is not a scrim. The drawn art is dark by construction, but the
+   moment the art is a picture somebody uploaded, the headline is legible only
+   over whichever half of it happens to be dark. This puts the contrast back
+   without dimming the whole image. */
+.col-hero:has(> img.col-hero__art)::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	/* Zero, not -1: two negative children paint in DOM order, and the art
+	   comes second — a scrim behind it would be a scrim under the picture. */
+	z-index: 0;
+	background: linear-gradient(100deg,
+		rgb(0 0 0 / 0.88) 0%,
+		rgb(0 0 0 / 0.72) 42%,
+		rgb(0 0 0 / 0.35) 78%,
+		rgb(0 0 0 / 0.2) 100%);
+}
+
 .col-hero__in {
 	position: relative;
 	display: grid;
@@ -265,7 +283,10 @@
 	overflow: hidden;
 }
 
-.col-place__media > * {
+/* The picture fills the box — but NOT the chip riding on top of it, which is
+   absolutely positioned and would be stretched to the full 100%/100% into a
+   pill the size of the card. */
+.col-place__media > :not(.col-place__tag) {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -273,7 +294,7 @@
 	transition: transform var(--dur-4) var(--ease-out);
 }
 
-.col-place:hover .col-place__media > * { transform: scale(1.03); }
+.col-place:hover .col-place__media > :not(.col-place__tag) { transform: scale(1.03); }
 
 /* The flag chip rides the corner, so the picture never has to carry the name. */
 .col-place__tag {
@@ -891,4 +912,388 @@
 	color: var(--fg-default);
 	font-weight: var(--weight-medium);
 	border-left-color: var(--accent);
+}
+
+/* ── The stage ───────────────────────────────────────────────────────────────
+   A post whose body is a video rather than prose. The media leads and the rest
+   of the series sits beside it, because the second question after "play this"
+   is always "what is after it".
+
+   Course was the collection that needed this first, but nothing here knows
+   about courses: a podcast season, a video series and a live archive all want
+   a player with the rest of the run next to it.
+   ------------------------------------------------------------------------- */
+
+.col-stage {
+	display: grid;
+	gap: var(--space-6);
+	align-items: start;
+}
+
+@media (min-width: 68rem) {
+	.col-stage { grid-template-columns: minmax(0, 1fr) 22rem; }
+	.col-stage__side { position: sticky; top: var(--space-6); }
+}
+
+.col-stage__main { display: grid; gap: var(--space-4); min-width: 0; }
+
+/* The frame is the system's .player. This only says how it sits in the stage:
+   corners off at narrow widths, because a video pinned to both gutters reads
+   as the page rather than as an object on it. */
+.col-stage .player { border-radius: var(--radius-card); overflow: hidden; }
+
+@media (max-width: 40rem) {
+	.col-stage .player { border-radius: 0; margin-inline: calc(var(--gutter) * -1); }
+}
+
+/* ── The stage bar ───────────────────────────────────────────────────────────
+   Under the player: where you are, and the two ways out of it. Previous and
+   next are the whole navigation of an ordered collection, so they get the
+   width and everything else gets out of the way.
+   ------------------------------------------------------------------------- */
+
+.col-stagebar {
+	display: grid;
+	gap: var(--space-3);
+	grid-template-columns: minmax(0, 1fr);
+	padding: var(--space-4) 0;
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+}
+
+@media (min-width: 48rem) {
+	.col-stagebar { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-5); }
+}
+
+.col-stagebar__where { display: grid; gap: var(--space-2); min-width: 0; }
+
+.col-stagebar__pos {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+}
+
+/* A disabled step is still in the layout — the first lesson has no previous,
+   and the bar must not change shape between lessons because of it. */
+.col-stagebar .btn[aria-disabled='true'] { opacity: 0.45; pointer-events: none; }
+
+/* ── The playlist ────────────────────────────────────────────────────────────
+   The syllabus, beside a player. It IS `.curriculum` — the same modules, the
+   same lesson rows, the same tick — because a course's contents list should
+   not become a different component the moment it moves next to a video. All
+   this adds is a body that scrolls, since it now has to fit beside something
+   rather than run the width of a page.
+   ------------------------------------------------------------------------- */
+
+.col-playlist { display: flex; flex-direction: column; max-height: 34rem; }
+.col-playlist__scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+
+.col-playlist__foot {
+	flex: none;
+	padding: var(--space-3) var(--space-5);
+	border-top: var(--border-hair) solid var(--line-default);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	display: flex;
+	justify-content: space-between;
+	gap: var(--space-3);
+}
+
+/* Locked — the lesson exists and is named, which is the point of showing it.
+   Dimmed rather than hidden: hiding it would misdescribe the course. */
+.col-lock {
+	display: inline-grid;
+	place-items: center;
+	width: 1rem;
+	height: 1rem;
+	flex: none;
+	color: var(--fg-faint);
+}
+
+.col-lock .icon { width: 0.9rem; height: 0.9rem; }
+.lesson-row[data-locked] { color: var(--fg-faint); }
+.lesson-row[data-locked] .lesson-row__tick { border-style: dashed; }
+
+/* ── Panels ──────────────────────────────────────────────────────────────────
+   The tabs under a player: overview, transcript, resources, notes. They are
+   the system's `.tabs`; this is only the panel beneath them.
+
+   With the script blocked every panel shows, stacked, each under its own
+   heading — which is the honest fallback for four blocks of content that all
+   belong to the lesson. The script sets `data-tabs="ready"`, and only then
+   does the stylesheet start hiding the headings and the inactive panels.
+   ------------------------------------------------------------------------- */
+
+.col-panel { padding-top: var(--space-6); }
+
+.col-panel__label {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	display: block;
+	margin-bottom: var(--space-4);
+}
+
+[data-tabs='ready'] .col-panel__label { display: none; }
+
+/* ── The transcript ──────────────────────────────────────────────────────────
+   Timestamps down the left, so the column of times is scannable and the line
+   the player is on can be marked without the text moving.
+   ------------------------------------------------------------------------- */
+
+.col-transcript {
+	display: grid;
+	gap: 1px;
+	max-height: 24rem;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.col-transcript__line {
+	display: grid;
+	grid-template-columns: 3.5rem minmax(0, 1fr);
+	gap: var(--space-4);
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-sm);
+	text-decoration: none;
+	color: var(--fg-muted);
+	font-size: var(--text-sm);
+	line-height: var(--leading-snug, 1.45);
+	transition: var(--t-colors);
+}
+
+.col-transcript__line:hover { background: var(--bg-sunken); color: var(--fg-default); }
+
+.col-transcript__time {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+	padding-top: 3px;
+}
+
+.col-transcript__line[aria-current] {
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+}
+
+.col-transcript__line[aria-current] .col-transcript__time { color: inherit; opacity: 0.7; }
+
+/* ── Outcomes ────────────────────────────────────────────────────────────────
+   What you will be able to do afterwards. Two columns of ticked lines, because
+   a promise reads as a promise in a list and as marketing in a paragraph.
+   ------------------------------------------------------------------------- */
+
+.col-checks {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+	gap: var(--space-3) var(--space-8);
+}
+
+.col-check {
+	display: grid;
+	grid-template-columns: 1.15rem minmax(0, 1fr);
+	gap: var(--space-3);
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+	line-height: var(--leading-snug, 1.45);
+}
+
+.col-check__tick {
+	width: 1.15rem;
+	height: 1.15rem;
+	border-radius: var(--radius-full);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+	display: grid;
+	place-items: center;
+	margin-top: 1px;
+}
+
+.col-check__tick .icon { width: 0.75rem; height: 0.75rem; }
+
+/* ── The offer ───────────────────────────────────────────────────────────────
+   The one card on the page that is asking for something. It is a widget, so it
+   sits in a rail with the others — but it carries the accent, because there is
+   exactly one thing to do here and pretending otherwise helps nobody.
+   ------------------------------------------------------------------------- */
+
+.col-offer { display: grid; gap: var(--space-4); }
+
+.col-offer__price { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-3); }
+
+.col-offer__now {
+	font-family: var(--font-display);
+	font-size: var(--text-3xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-flat);
+}
+
+.col-offer__was { color: var(--fg-faint); text-decoration: line-through; }
+
+.col-offer__list { display: grid; gap: var(--space-2); font-size: var(--text-sm); }
+
+.col-offer__list > * {
+	display: grid;
+	grid-template-columns: 1rem minmax(0, 1fr);
+	gap: var(--space-3);
+	color: var(--fg-muted);
+}
+
+.col-offer__list .icon { width: 1rem; height: 1rem; color: var(--fg-faint); margin-top: 2px; }
+
+/* ── Files ───────────────────────────────────────────────────────────────────
+   What comes with the thing: the starter files, the slides, the transcript.
+   Rows, because a download is an action and actions read as a list.
+   ------------------------------------------------------------------------- */
+
+.col-files { display: grid; }
+
+.col-file {
+	display: grid;
+	grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+	gap: var(--space-4);
+	align-items: center;
+	padding: var(--space-3) 0;
+	border-bottom: var(--border-hair) solid var(--line-subtle);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+.col-file:last-child { border-bottom: 0; }
+.col-file:hover { background: var(--bg-sunken); }
+
+.col-file__ext {
+	display: grid;
+	place-items: center;
+	height: 2.5rem;
+	border-radius: var(--radius-md);
+	background: var(--bg-sunken);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+.col-file__name { display: block; font-size: var(--text-sm); font-weight: var(--weight-medium); }
+.col-file__note { display: block; font-size: var(--text-xs); color: var(--fg-faint); }
+
+.col-file__size {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+/* ── Keys ────────────────────────────────────────────────────────────────────
+   A player has shortcuts whether or not it advertises them. Advertising them
+   is cheaper than a help page and it uses the `.kbd` element the system
+   already has.
+   ------------------------------------------------------------------------- */
+
+.col-keys { display: grid; gap: var(--space-2); }
+
+.col-key {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-4);
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+}
+
+.col-key__combo { display: flex; gap: var(--space-1); flex: none; }
+
+/* ── Notes ───────────────────────────────────────────────────────────────────
+   A box beside the player that keeps nothing. It is here because the shape of
+   the page is wrong without it — the reader has somewhere to put a thought —
+   and because a textarea in a rail is a component either way.
+   ------------------------------------------------------------------------- */
+
+.col-note { display: grid; gap: var(--space-3); }
+
+.col-note textarea {
+	min-height: 6rem;
+	resize: vertical;
+	font-size: var(--text-sm);
+	line-height: var(--leading-snug, 1.5);
+}
+
+.col-note__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+}
+
+.col-note__stamp {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ── Resume ──────────────────────────────────────────────────────────────────
+   The strip at the top of an index for someone who has been here before. It
+   outranks the hero's call to action, because "carry on" beats "start" for
+   everyone it applies to and is invisible to everyone it does not.
+   ------------------------------------------------------------------------- */
+
+.col-resume {
+	display: grid;
+	gap: var(--space-4);
+	align-items: center;
+	padding: var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	text-decoration: none;
+	color: inherit;
+	transition: var(--t-colors);
+}
+
+@media (min-width: 48rem) {
+	.col-resume { grid-template-columns: 9rem minmax(0, 1fr) auto; gap: var(--space-5); }
+}
+
+.col-resume:hover { border-color: var(--accent); }
+
+.col-resume__thumb {
+	position: relative;
+	aspect-ratio: var(--ratio-video, 16 / 9);
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	background: var(--bg-media, var(--ink-900));
+}
+
+.col-resume__thumb > * { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 0; }
+
+.col-resume__body { display: grid; gap: var(--space-2); min-width: 0; }
+
+.col-resume__label {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.col-resume__title {
+	font-family: var(--font-display);
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
 }

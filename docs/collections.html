@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="./preview.css?v=cds25" />
 <link rel="stylesheet" href="./collection/collection.css?v=cds25" />
 <link rel="stylesheet" href="./collection/travel/travel.css?v=cds25" />
+<link rel="stylesheet" href="./collection/course/course.css?v=cds25" />
 <script src="./src/highlight.js?v=cds25" defer></script>
 <script src="./src/nav.js?v=cds25" defer></script>
 <script src="./preview.js?v=cds25" defer></script>
@@ -225,6 +226,7 @@
 			<a href="./col-default.html">Default</a>
 			<a href="./col-travel.html">Travel</a>
 			<a href="./col-blog.html">Blog</a>
+			<a href="./col-course.html">Course</a>
 			</details>
 			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg>Animation & Motion</span></summary>
 			<a href="./m-basics.html">Motion basics</a>
@@ -318,8 +320,13 @@
 
   blog/
     build.py         no CSS of its own - which is the test
-    *.html           index, post</code></pre></figure>
-		</div><p class="spec">three collections, and only one of them needs a stylesheet</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>Blog has no CSS of its own, and that is deliberate.</b> If a second collection cannot be built out of the shared vocabulary, the vocabulary was really just the first collection wearing a general-sounding prefix. Travel keeps 44 lines — the globe, the flight line and the palm — because those genuinely belong to travel.</p></section>		<section id="rules"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-rules">The rules</h2>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Rule</th><th>Why</th></tr></thead><tbody>
+    *.html           index, post
+
+  course/
+    course.css       the syllabus scene, the level meter, the quiz, the cert
+    build.py
+    *.html           index, track, topic, course, lesson, components</code></pre></figure>
+		</div><p class="spec">four collections, and only two of them need a stylesheet</p></div>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>Blog has no CSS of its own, and that is deliberate.</b> If a second collection cannot be built out of the shared vocabulary, the vocabulary was really just the first collection wearing a general-sounding prefix. Travel keeps 44 lines — the globe, the flight line and the palm — because those genuinely belong to travel.</p>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>Course is the other direction.</b> Its post route has a video in it rather than prose, and five sections were missing for that. They went into the shared sheet, not into <code class="t-code">course.css</code>, because a podcast season and a video series want every one of them — and what a collection keeps for itself is the test of whether that split was honest.</p></section>		<section id="rules"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-rules">The rules</h2>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Rule</th><th>Why</th></tr></thead><tbody>
 			<tr><td><code class="t-code">Tokens only</code></td><td>every value is a <code class="t-code">var(--…)</code>. A collection that hard-codes a colour cannot be rebranded, and has quietly left the system</td></tr>
 			<tr><td><code class="t-code">Prefix once</code></td><td>shared sections are <code class="t-code">col-</code>; a collection's own extras take its name (<code class="t-code">trv-</code>). Anything useful twice graduates from one to the other</td></tr>
 			<tr><td><code class="t-code">Reuse before adding</code></td><td>a place card <em>is</em> a card. If a section is 90% an existing component, it is that component with a modifier</td></tr>

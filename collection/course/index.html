@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Courses — Swarnil</title>
+<meta name="description" content="Six courses on tokens, layout, type, motion, brand and shipping." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./course.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/course/index.html" aria-current="page">Courses</a>
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="container u-mt-6">
+   <div class="col-hero">
+    
+  <svg class="col-hero__art" viewBox="0 0 1200 520" preserveAspectRatio="xMaxYMid slice"
+       aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="crs-sky" cx="78%" cy="24%" r="88%">
+        <stop offset="0%" stop-color="#1d2231"/>
+        <stop offset="60%" stop-color="#12151f"/>
+        <stop offset="100%" stop-color="#0b0d13"/>
+      </radialGradient>
+      <!-- The copy has to win. Everything left of two thirds fades into the
+           sky, so the art never has to be dodged by a line of text. -->
+      <linearGradient id="crs-veil" x1="0" x2="1">
+        <stop offset="0%" stop-color="#12151f" stop-opacity="1"/>
+        <stop offset="52%" stop-color="#12151f" stop-opacity="0.92"/>
+        <stop offset="100%" stop-color="#12151f" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <rect width="1200" height="520" fill="url(#crs-sky)"/>
+
+    <g transform="translate(918 96)">
+      <g class="crs-row"><rect width="150" height="10" rx="5" fill="#fff" opacity="0.3"/>
+        <circle cx="-24" cy="5" r="7" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/></g>
+      <g class="crs-row" transform="translate(0 34)"><rect width="118" height="10" rx="5" fill="#fff" opacity="0.3"/>
+        <circle cx="-24" cy="5" r="7" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/></g>
+      <g class="crs-row" transform="translate(0 68)"><rect width="164" height="10" rx="5" fill="#fff" opacity="0.3"/>
+        <circle cx="-24" cy="5" r="7" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/></g>
+      <g class="crs-row" transform="translate(0 102)"><rect width="132" height="10" rx="5" fill="#fff" opacity="0.3"/>
+        <circle cx="-24" cy="5" r="7" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/></g>
+      <g class="crs-row" transform="translate(0 136)"><rect width="146" height="10" rx="5" fill="#fff" opacity="0.3"/>
+        <circle cx="-24" cy="5" r="7" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/></g>
+      <g class="crs-row" transform="translate(0 170)"><rect width="104" height="10" rx="5" fill="#fff" opacity="0.3"/>
+        <circle cx="-24" cy="5" r="7" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2"/></g>
+      <!-- The tick lands on row two, which is the row the column is on. -->
+      <g class="crs-check" transform="translate(-24 39)">
+        <path d="M-4 0l3 3 5-6" fill="none" stroke="var(--accent)" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+
+    <g transform="translate(1010 392)" fill="none" stroke-linecap="round">
+      <circle r="72" stroke="rgb(255 255 255 / 0.10)" stroke-width="8"/>
+      <circle class="crs-ring" r="72" stroke="var(--accent)" stroke-width="8"
+              transform="rotate(-90)"/>
+      <g class="crs-cap" stroke="rgb(255 255 255 / 0.5)" stroke-width="3">
+        <path d="M-24 -4 0 -15l24 11-24 11z"/>
+        <path d="M16 2v13"/>
+      </g>
+    </g>
+
+    <!-- Sitting at the end of the last row, where the writing stopped. -->
+    <rect class="crs-caret" x="1032" y="260" width="3" height="22" fill="var(--accent)"/>
+    <rect width="1200" height="520" fill="url(#crs-veil)"/>
+  </svg>
+
+    <div class="col-hero__in">
+      <span class="col-hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>The course collection</span>
+      <h1 class="col-hero__title">Learn the system, <em>in order</em>.</h1>
+      <p class="col-hero__lead">Six courses on the craft of building and shipping a site on your own — tokens, layout, type, motion, brand and the deploy. The first one is free in full, because that is a better argument than this paragraph.</p>
+      
+      <form class="col-search" onsubmit="return false">
+        <label class="col-search__field">
+          <span class="u-sr-only">Search</span>
+          <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg>
+          <input type="search" placeholder="Search 132 lessons" />
+        </label>
+        <button class="btn btn-primary btn-pill" type="submit">Search</button>
+      </form>
+      <div class="col-meta"><div><span class="col-meta__n">6</span><span class="col-meta__l">courses</span></div><div><span class="col-meta__n">132</span><span class="col-meta__l">lessons</span></div><div><span class="col-meta__n">19h</span><span class="col-meta__l">of video</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">tracks</span></div></div>
+    </div>
+   </div>
+  </section>
+
+  <div data-collection>
+  <section class="container u-mt-8">
+    
+    <a class="col-resume" href="./lesson.html">
+      <span class="col-resume__thumb"><span class="col-ph" style="--h:88" aria-hidden="true"></span></span>
+      <span class="col-resume__body">
+        <span class="col-resume__label"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>Continue · CSS From Scratch</span>
+        <span class="col-resume__title">Grid, in four rules</span>
+        <span class="t-small u-fg-subtle">Layout · lesson 6 of 14 ·
+          5 watched</span>
+      </span>
+      <span class="btn btn-primary btn-pill">Resume</span>
+    </a>
+  </section>
+
+  <section class="container section-sm">
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">Tracks</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The widest cut. A track is a group — an unordered set of courses that share a subject. Press one and everything below narrows to it.</p></div></div>
+    <div class="col-groups"><button class="col-group" type="button" data-group="layout" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg></span><span><span class="col-group__name">Layout & CSS</span><span class="col-group__n">3 courses</span></span></button><button class="col-group" type="button" data-group="motion" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span><span><span class="col-group__name">Motion</span><span class="col-group__n">1 course</span></span></button><button class="col-group" type="button" data-group="brand" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M20 8V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2M20 16v2a2 2 0 0 1-2 2h-2"/><circle cx="17" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg></span><span><span class="col-group__name">Brand & identity</span><span class="col-group__n">1 course</span></span></button><button class="col-group" type="button" data-group="publish" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span><span class="col-group__name">Publishing</span><span class="col-group__n">1 course</span></span></button></div>
+  </section>
+
+  <section class="container section-sm">
+    <div class="col-layout">
+      
+    <aside class="col-layout__side col-rail col-rail-sticky">
+      <div class="col-facets">
+        <div class="col-facets__group">
+          <span class="col-facets__title">Filtering</span>
+          <p class="t-small u-fg-subtle" data-filter-state>Everything</p>
+          <button class="btn btn-quiet btn-sm" type="button" data-filter-reset hidden>
+            Clear filters</button>
+        </div>
+        <div class="col-facets__group">
+          <span class="col-facets__title">Level</span>
+          <label class="col-facet"><input type="checkbox" data-facet="beginner" /><span class="crs-level" data-level="1"><span class="crs-level__bars"><i></i><i></i><i></i></span></span><span>Beginner</span><span class="col-facet__n">2</span></label><label class="col-facet"><input type="checkbox" data-facet="intermediate" /><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span></span><span>Intermediate</span><span class="col-facet__n">3</span></label><label class="col-facet"><input type="checkbox" data-facet="advanced" /><span class="crs-level" data-level="3"><span class="crs-level__bars"><i></i><i></i><i></i></span></span><span>Advanced</span><span class="col-facet__n">1</span></label><label class="col-facet"><input type="checkbox" data-facet="free" /><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg><span>Free</span><span class="col-facet__n">2</span></label>
+        </div>
+      </div>
+      <div class="col-widget col-widget-accent">
+      <span class="col-widget__title">The first course</span>
+      <p class="t-small">CSS From Scratch is free, in full. It is the argument for
+        the other five, and an argument is cheaper to make than to describe.</p>
+      <a class="btn btn-primary btn-sm" href="./course.html">Start it</a>
+    </div>
+    </aside>
+      <div>
+        <div class="row-between u-mb-5"><div><h2 class="t-h3">Start here</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The one to take first, and the only one that is free in full.</p></div></div>
+        
+    <a class="col-series" href="./course.html">
+      <span class="col-series__media"><span class="col-ph" style="--h:123" data-tall aria-hidden="true"></span></span>
+      <span class="col-series__body">
+        <span class="col-hero__eyebrow" style="color:var(--fg-faint)"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>The course</span>
+        <span class="col-series__title">CSS From Scratch</span>
+        <span class="t-small u-fg-subtle">Tokens, layout and type — the whole system, built in front of you. A course is the collection's
+          <b>series</b> route: it has a first lesson, a last one, and a progress
+          through it. A track has none of those, which is why a track is a group.</span>
+        <span class="col-series__stats">
+          <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>14 lessons</span>
+          <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18.5 15 7.5a2.4 2.4 0 0 1 3.4 3.4L7.5 22H4v-3.5Z"/><path d="M13 9.5 17.5 14"/></svg>2h 06m</span>
+          <span><span class="crs-level" data-level="1"><span class="crs-level__bars"><i></i><i></i><i></i></span>Beginner</span></span>
+        </span>
+        <span class="col-series__stats" style="display:block">
+          <div class="progress-labelled">
+            <div class="progress__label"><span>Your progress</span><span>36%</span></div>
+            <div class="progress"><div class="progress__bar" style="--value:36%"></div></div>
+          </div>
+        </span>
+      </span>
+    </a>
+
+        <div class="u-mt-10">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">Every course</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Six of them. The chip on each picture is the price; the three bars are the level, which is comparable at a glance in a way that the word "intermediate" is not.</p></div></div>
+          <div class="col-places"><a class="col-place" href="./course.html" data-place="css-from-scratch" data-of="layout" data-tags="beginner free"><span class="col-place__media"><span class="col-ph" style="--h:123" aria-hidden="true"></span><span class="col-place__tag">Free</span></span><span class="col-place__body"><span class="col-place__name">CSS From Scratch</span><span class="col-place__note">Tokens, layout and type — the whole system, built in front of you.</span></span><span class="col-place__foot"><span>14 lessons · 2h 06m</span><span class="crs-level" data-level="1"><span class="crs-level__bars"><i></i><i></i><i></i></span>Beginner</span></span></a><a class="col-place" href="./course.html" data-place="grid-and-flex" data-of="layout" data-tags="intermediate"><span class="col-place__media"><span class="col-ph" style="--h:170" aria-hidden="true"></span><span class="col-place__tag">$49</span></span><span class="col-place__body"><span class="col-place__name">Grid & Flexbox, properly</span><span class="col-place__note">Every layout you actually ship, and why the other twelve properties exist.</span></span><span class="col-place__foot"><span>28 lessons · 4h 05m</span><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span>Intermediate</span></span></a><a class="col-place" href="./course.html" data-place="type-for-screens" data-of="layout" data-tags="intermediate"><span class="col-place__media"><span class="col-ph" style="--h:254" aria-hidden="true"></span><span class="col-place__tag">$39</span></span><span class="col-place__body"><span class="col-place__name">Type For Screens</span><span class="col-place__note">A scale, a measure and a rhythm you can defend in a design review.</span></span><span class="col-place__foot"><span>19 lessons · 2h 40m</span><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span>Intermediate</span></span></a><a class="col-place" href="./course.html" data-place="motion-that-lasts" data-of="motion" data-tags="intermediate free"><span class="col-place__media"><span class="col-ph" style="--h:152" aria-hidden="true"></span><span class="col-place__tag">Free</span></span><span class="col-place__body"><span class="col-place__name">Motion That Lasts</span><span class="col-place__note">Under 200ms, one property at a time, and nothing unreachable without it.</span></span><span class="col-place__foot"><span>24 lessons · 3h 10m</span><span class="crs-level" data-level="2"><span class="crs-level__bars"><i></i><i></i><i></i></span>Intermediate</span></span></a><a class="col-place" href="./course.html" data-place="one-colour" data-of="brand" data-tags="advanced"><span class="col-place__media"><span class="col-ph" style="--h:199" aria-hidden="true"></span><span class="col-place__tag">$39</span></span><span class="col-place__body"><span class="col-place__name">Brand In One Colour</span><span class="col-place__note">An almost-monochrome system, so a single hue can carry meaning.</span></span><span class="col-place__foot"><span>16 lessons · 2h 15m</span><span class="crs-level" data-level="3"><span class="crs-level__bars"><i></i><i></i><i></i></span>Advanced</span></span></a><a class="col-place" href="./course.html" data-place="ship-the-site" data-of="publish" data-tags="beginner"><span class="col-place__media"><span class="col-ph" style="--h:348" aria-hidden="true"></span><span class="col-place__tag">$49</span></span><span class="col-place__body"><span class="col-place__name">Ship The Site</span><span class="col-place__note">From a folder of CSS to a domain, a build and a changelog nobody dreads.</span></span><span class="col-place__foot"><span>31 lessons · 4h 45m</span><span class="crs-level" data-level="1"><span class="crs-level__bars"><i></i><i></i><i></i></span>Beginner</span></span></a><p class="col-empty" data-empty-for="[data-place]" hidden>No course matches. Try clearing a filter.</p></div>
+        </div>
+
+        <div class="u-mt-10">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">Topics</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The narrowest cut: one thing, taught across whichever courses cover it.</p></div></div>
+          <div class="col-spots"><a class="col-spot" href="./topic.html" data-spot="tokens" data-of="css-from-scratch" data-tags="beginner">Design tokens<span class="col-spot__n">12</span></a><a class="col-spot" href="./topic.html" data-spot="grid" data-of="grid-and-flex" data-tags="intermediate">Grid<span class="col-spot__n">9</span></a><a class="col-spot" href="./topic.html" data-spot="a11y" data-of="css-from-scratch" data-tags="beginner">Accessibility<span class="col-spot__n">8</span></a><a class="col-spot" href="./topic.html" data-spot="scale" data-of="type-for-screens" data-tags="intermediate">Type scale<span class="col-spot__n">7</span></a><a class="col-spot" href="./topic.html" data-spot="easing" data-of="motion-that-lasts" data-tags="intermediate">Easing<span class="col-spot__n">6</span></a><a class="col-spot" href="./topic.html" data-spot="deploy" data-of="ship-the-site" data-tags="beginner">Deploying<span class="col-spot__n">6</span></a><a class="col-spot" href="./topic.html" data-spot="contrast" data-of="one-colour" data-tags="advanced">Contrast<span class="col-spot__n">5</span></a><p class="col-empty" data-empty-for="[data-spot]" hidden>Nothing here.</p></div>
+        </div>
+
+        <div class="u-mt-10">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">Free lessons</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Watchable without an account. A free lesson argues for the course better than the course page can.</p></div></div>
+          <div class="col-posts"><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:355" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">What a design system actually is</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>6:12</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:178" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">Two tiers of tokens</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>11:40</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:184" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">One colour, rationed</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>9:05</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:351" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The type scale</span><span class="col-post-row__note">Foundations · CSS From Scratch</span></span><span class="col-post-row__meta"><span>12:20</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:335" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">The container and the gutter</span><span class="col-post-row__note">Layout · CSS From Scratch</span></span><span class="col-post-row__meta"><span>8:44</span><span>watched</span></span></a><a class="col-post-row" href="./lesson.html" data-post data-of="css-from-scratch" data-region="layout" data-tags="beginner free"><span class="col-post-row__thumb"><span class="col-ph" style="--h:88" aria-hidden="true"></span></span><span class="col-post-row__body"><span class="col-post-row__title">Grid, in four rules</span><span class="col-post-row__note">Layout · CSS From Scratch</span></span><span class="col-post-row__meta"><span>14:02</span><span>playing</span></span></a><p class="col-empty" data-empty-for="[data-post]" hidden>No lesson matches. Try clearing a filter.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <section class="container section-sm">
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">Every course includes</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The same four things, so there is nothing to compare between them except the subject.</p></div></div>
+    <div class="col-checks"><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Lifetime access — no renewal, because a renewal makes it a subscription</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Starter files at the state each lesson begins</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>A full transcript, searchable, with timestamps</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>A certificate at the end, honest about being a page with your name on it</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Thirty-day refund, and the form does not ask why</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Every course works on a phone, offline transcripts included</span></span></div>
+  </section>
+
+  <section class="container section-sm">
+    <div class="grid-rail grid-rail-wide">
+      <div>
+        <div class="row-between u-mb-5"><div><h2 class="t-h3">Questions</h2></div></div>
+        <div class="acc"><details class="collapse" open><summary>Do I need to know CSS already?</summary><div class="collapse__body"><p class="t-subtle">For this one, no. It starts at what a token is. The layout and motion courses assume you have written a stylesheet before.</p></div></details><details class="collapse"><summary>How long do I have access?</summary><div class="collapse__body"><p class="t-subtle">Once you have a course, you have it. There is no renewal, because a renewal would make the course a subscription wearing a price tag.</p></div></details><details class="collapse"><summary>Is there a certificate?</summary><div class="collapse__body"><p class="t-subtle">Yes, at the end of each course. It is a page with your name on it — useful for a manager, and honest about being exactly that.</p></div></details><details class="collapse"><summary>What if it is not for me?</summary><div class="collapse__body"><p class="t-subtle">Thirty days, no questions, no form asking why. Email and it is done.</p></div></details></div>
+      </div>
+      <aside class="col-rail">
+        <div class="col-widget">
+      <span class="col-widget__title">Taught by</span>
+      <div class="col-author">
+        <span class="col-author__face"><span class="col-ph" style="--h:24" aria-hidden="true"></span></span>
+        <span><span class="col-author__name">Swarnil Singhai</span>
+          <span class="col-author__who">Wrote the system these courses are about.</span></span>
+      </div>
+      <div class="col-widget__foot">6 courses · 133 lessons</div>
+    </div>
+        <div class="col-widget col-widget-accent">
+      <span class="col-widget__title">The first course</span>
+      <p class="t-small">CSS From Scratch is free, in full. It is the argument for
+        the other five, and an argument is cheaper to make than to describe.</p>
+      <a class="btn btn-primary btn-sm" href="./course.html">Start it</a>
+    </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Courses — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

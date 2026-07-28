@@ -101,6 +101,7 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Travel](https://creator.imswarnil.com/col-travel.html): Collections — The first collection: five routes, sixteen icons and a linked filter, over a demo dataset small enough to read. the scri
 - [Default](https://creator.imswarnil.com/col-default.html): Collections — The starting point: five working routes with no subject in them, and the test of whether a section is genuinely shared. 
 - [Blog](https://creator.imswarnil.com/col-blog.html): Collections — The second collection, with no CSS of its own — the proof that the section vocabulary is shared rather than travel-shape
+- [Course](https://creator.imswarnil.com/col-course.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
 - [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections — each destination announces itself in its own medium, briefly, skippably, honestly. f
 - [Motion basics](https://creator.imswarnil.com/m-basics.html): Animation & Motion — Four durations, four easings. No component may invent a duration. Entrances travel 16px, not 60 — long travel reads as "
 - [Text effects](https://creator.imswarnil.com/m-text-effects.html): Animation & Motion — Twelve. Most need the text split into spans carrying --i ; the preview does that with five lines of JS. Without spans ev

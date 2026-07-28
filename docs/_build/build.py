@@ -140,7 +140,7 @@ NAV = [
                  ('l-pages', 'Pages')]),
     ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
                      ('col-default', 'Default'), ('col-travel', 'Travel'),
-                     ('col-blog', 'Blog')]),
+                     ('col-blog', 'Blog'), ('col-course', 'Course')]),
     ('Animation & Motion', [('m-basics', 'Motion basics'), ('m-text-effects', 'Text effects'),
                 ('m-annotations', 'Annotations'), ('m-micro', 'Micro-interactions'),
                 ('m-presets', 'Section presets'), ('m-stings', 'Logo sting'),
@@ -708,6 +708,7 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
         collection_css=(
             f'\n<link rel="stylesheet" href="./collection/collection.css{V}" />'
             f'\n<link rel="stylesheet" href="./collection/travel/travel.css{V}" />'
+            f'\n<link rel="stylesheet" href="./collection/course/course.css{V}" />'
             if slug.startswith('col-') or slug == 'collections' else ''))
     return (out, toc) if return_toc else out
 

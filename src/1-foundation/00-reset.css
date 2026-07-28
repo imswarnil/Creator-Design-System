@@ -112,6 +112,12 @@ hr {
 	max-width: 100vw;
 }
 
+/* `hidden` means hidden. The browser's own rule for it is a UA-sheet rule, so
+   any component that sets a display — every .btn, every .card — silently wins
+   against it and the attribute stops working. This is the one place `!important`
+   is right: the attribute is an assertion about the document, not a style. */
+[hidden] { display: none !important; }
+
 /* Native details marker replaced by our own chevron in components. */
 summary {
 	cursor: pointer;

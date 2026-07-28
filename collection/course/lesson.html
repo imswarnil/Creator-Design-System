@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grid, in four rules — CSS From Scratch</title>
+<meta name="description" content="The lesson player: the video, the syllabus beside it, and the transcript under it." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./course.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/course/index.html" aria-current="page">Courses</a>
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <div data-player>
+  <section class="container section-sm">
+    <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
+      <a href="./index.html">Courses</a> <span>/</span>
+      <a href="./track.html">Layout &amp; CSS</a> <span>/</span>
+      <a href="./course.html">CSS From Scratch</a> <span>/</span>
+      <span>Layout</span>
+    </nav>
+
+    <div class="col-stage">
+      <div class="col-stage__main">
+        <div class="player">
+          <span class="col-ph" style="--h:88" data-tall aria-hidden="true"></span>
+          <button class="play" type="button">
+            <span class="play__disc"></span><span class="u-sr-only">Play the lesson</span>
+          </button>
+          <div class="player__bar">
+            <span class="player__time">4:18</span>
+            <span class="player__rail"><span class="player__played" style="--value:31%"></span></span>
+            <span class="player__time">14:02</span>
+          </div>
+        </div>
+
+        <div class="col-stagebar">
+          <a class="btn btn-secondary btn-sm" href="./lesson.html" data-step="prev">
+            ← Previous</a>
+          <div class="col-stagebar__where">
+            <span class="col-stagebar__pos">
+              <span>Lesson 6 of 14</span>
+              <span>Layout</span>
+              <span>14:02</span>
+            </span>
+            <h1 class="t-h3" style="margin:0">Grid, in four rules</h1>
+          </div>
+          <span class="cluster" style="gap:var(--space-2)">
+            <button class="btn btn-quiet btn-sm" type="button" data-done-toggle
+                    aria-pressed="false">Mark complete</button>
+            <a class="btn btn-primary btn-sm" href="./lesson.html" data-step="next">
+              Next →</a>
+          </span>
+        </div>
+      </div>
+
+      <aside class="col-stage__side">
+        
+      <section class="curriculum col-playlist">
+        <header class="curriculum__head">
+          <span class="curriculum__title">CSS From Scratch</span>
+          <span class="curriculum__meta" data-progress-count="{done} of {all}">
+            5 of 14</span>
+          <div class="progress" role="progressbar" aria-label="Course progress"
+               aria-valuenow="36" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress__bar" data-progress style="--value:36%"></div>
+          </div>
+        </header>
+        <div class="col-playlist__scroll"><details class="curriculum__module"><summary><span class="curriculum__no">01</span><span class="curriculum__module-title">Foundations</span><span class="curriculum__count" data-module-count>4/4</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">What a design system actually is</span><span class="lesson-row__len">6:12</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">Two tiers of tokens</span><span class="lesson-row__len">11:40</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">One colour, rationed</span><span class="lesson-row__len">9:05</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The type scale</span><span class="lesson-row__len">12:20</span></a></li></ol></details><details class="curriculum__module" open><summary><span class="curriculum__no">02</span><span class="curriculum__module-title">Layout</span><span class="curriculum__count" data-module-count>1/4</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The container and the gutter</span><span class="lesson-row__len">8:44</span></a></li><li><a class="lesson-row" href="./lesson.html" aria-current="true"><span class="lesson-row__tick"></span><span class="lesson-row__title">Grid, in four rules</span><span class="lesson-row__len">14:02</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Flex, and when not to reach for it</span><span class="lesson-row__free">Free</span><span class="lesson-row__len">10:18</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">The rail, the stack and the cluster</span><span class="lesson-row__len">9:36</span></a></li></ol></details><details class="curriculum__module"><summary><span class="curriculum__no">03</span><span class="curriculum__module-title">Type & rhythm</span><span class="curriculum__count" data-module-count>0/3</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Measure and leading</span><span class="lesson-row__len">7:50</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Headings that scale with the page</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">8:12</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Long-form content</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">11:26</span></a></li></ol></details><details class="curriculum__module"><summary><span class="curriculum__no">04</span><span class="curriculum__module-title">Shipping</span><span class="curriculum__count" data-module-count>0/3</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">The build step you may not need</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">6:40</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Writing a changelog</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">5:55</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">What to do after this</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">4:10</span></a></li></ol></details></div>
+        <div class="col-playlist__foot">
+          <span data-progress-count="{pct}% complete">36% complete</span>
+          <span>2h 06m total</span>
+        </div>
+      </section>
+      </aside>
+    </div>
+
+    <div class="col-post u-mt-8">
+      <div data-tabs>
+        <div class="tabs" role="tablist" aria-label="About this lesson">
+          <button class="tab" type="button" role="tab" id="t-overview" aria-controls="p-overview" aria-selected="true">Overview</button><button class="tab" type="button" role="tab" id="t-transcript" aria-controls="p-transcript" aria-selected="false">Transcript</button><button class="tab" type="button" role="tab" id="t-resources" aria-controls="p-resources" aria-selected="false">Resources</button><button class="tab" type="button" role="tab" id="t-notes" aria-controls="p-notes" aria-selected="false">Notes</button>
+        </div>
+
+        <div class="col-panel" id="p-overview" role="tabpanel" aria-labelledby="t-overview">
+          <span class="col-panel__label">Overview</span>
+          <div class="content">
+            <p>A grid is not a layout system you switch on. It is four properties,
+              and everything else in the specification is a shorthand for one of
+              them. This lesson is those four, in the order you will reach for them.</p>
+            <h2>The four</h2>
+            <p><code>grid-template-columns</code> with <code>minmax()</code> in it is
+              most of the layouts you will ever ship. <code>gap</code> is why margins
+              mostly leave your stylesheet once grid arrives. The implicit grid is
+              where the confusion lives. Alignment is two axes and four keywords, and
+              the fact that <code>align-items</code> defaults to <code>stretch</code>
+              is what makes a row of cards match without you asking.</p>
+            <blockquote class="quote">
+              <p>Naming areas is a readability decision, not a layout one. You can
+                build every page on this site without ever writing one.</p>
+            </blockquote>
+          </div>
+          <div class="u-mt-8">
+            <div class="row-between u-mb-5"><div><h2 class="t-h3">In this lesson</h2></div></div>
+            <div class="col-checks"><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Lay out a responsive grid with one property</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Say what the implicit grid is doing and why</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Choose between gap and margin without guessing</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Match a row of cards without setting a height</span></span></div>
+          </div>
+          <div class="u-mt-8">
+            <div class="row-between u-mb-5"><div><h2 class="t-h3">Knowledge check</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">One question. It is not marked and it is not stored — it is here because answering something is how you find out whether you were following.</p></div></div>
+            <form class="crs-quiz" onsubmit="return false">
+              <p class="crs-quiz__q">Which property creates the rows you never declared?</p>
+              <div class="crs-quiz__options">
+                <label class="crs-quiz__option"><input type="radio" name="q1" />
+                  <span>grid-template-rows</span></label>
+                <label class="crs-quiz__option"><input type="radio" name="q1" />
+                  <span>grid-auto-rows</span></label>
+                <label class="crs-quiz__option"><input type="radio" name="q1" />
+                  <span>align-content</span></label>
+              </div>
+              <div class="crs-quiz__foot">
+                <span class="t-slate-sm" style="color:var(--fg-faint)">Not marked, not stored</span>
+                <button class="btn btn-secondary btn-sm" type="submit">Check</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-panel" id="p-transcript" role="tabpanel" aria-labelledby="t-transcript">
+          <span class="col-panel__label">Transcript</span>
+          <div class="col-transcript">
+            <a class="col-transcript__line" href="#i"><span class="col-transcript__time">0:00</span><span>A grid is not a layout system you switch on. It is four properties, and everything else in the specification is a shorthand for them.</span></a><a class="col-transcript__line" href="#i" aria-current="true"><span class="col-transcript__time">0:24</span><span>The first is grid-template-columns. Nearly every layout you ship is this one property with minmax in it.</span></a><a class="col-transcript__line" href="#i"><span class="col-transcript__time">0:51</span><span>The second is gap — and gap is the reason margins mostly leave your stylesheet when grid arrives.</span></a><a class="col-transcript__line" href="#i"><span class="col-transcript__time">1:19</span><span>Third: the implicit grid. Rows you never declared. This is where most of the confusion lives, so we are going to sit here a while.</span></a><a class="col-transcript__line" href="#i"><span class="col-transcript__time">2:04</span><span>And fourth, alignment. Two axes, four keywords, and the fact that align-items defaults to stretch — which is what makes cards match.</span></a><a class="col-transcript__line" href="#i"><span class="col-transcript__time">2:47</span><span>Everything after this is naming. Areas, lines, spans: useful, and none of it necessary to lay out a page today.</span></a>
+          </div>
+        </div>
+
+        <div class="col-panel" id="p-resources" role="tabpanel" aria-labelledby="t-resources">
+          <span class="col-panel__label">Resources</span>
+          <div class="col-files"><a class="col-file" href="#i" download><span class="col-file__ext">zip</span><span><span class="col-file__name">Starter files</span><span class="col-file__note">The stylesheet at the state this lesson begins</span></span><span class="col-file__size">18 KB</span></a><a class="col-file" href="#i" download><span class="col-file__ext">pdf</span><span><span class="col-file__name">Grid cheatsheet</span><span class="col-file__note">One page, the four properties</span></span><span class="col-file__size">96 KB</span></a><a class="col-file" href="#i" download><span class="col-file__ext">css</span><span><span class="col-file__name">The finished stylesheet</span><span class="col-file__note">What we end on, commented</span></span><span class="col-file__size">4 KB</span></a></div>
+        </div>
+
+        <div class="col-panel" id="p-notes" role="tabpanel" aria-labelledby="t-notes">
+          <span class="col-panel__label">Notes</span>
+          <form class="col-note" onsubmit="return false">
+            <label class="label" for="note">Your note on this lesson</label>
+            <textarea class="input" id="note" placeholder="Timestamped to where you are."></textarea>
+            <div class="col-note__foot">
+              <span class="col-note__stamp">At 1:19 · Grid, in four rules</span>
+              <button class="btn btn-secondary btn-sm" type="submit">Save note</button>
+            </div>
+          </form>
+          <p class="t-small u-fg-subtle u-mt-4" style="max-width:var(--measure-lead)">
+            This demo keeps nothing. A real course saves notes on the server, and a
+            demo that wrote to localStorage would be teaching a persistence trick
+            rather than a design system.</p>
+        </div>
+      </div>
+
+      <aside class="col-post__rail col-rail col-rail-sticky">
+        <div class="col-widget"><span class="col-widget__title">Shortcuts</span><div class="col-keys"><span class="col-key"><span>Next lesson</span><span class="col-key__combo"><kbd class="kbd">N</kbd></span></span><span class="col-key"><span>Previous lesson</span><span class="col-key__combo"><kbd class="kbd">P</kbd></span></span><span class="col-key"><span>Mark complete</span><span class="col-key__combo"><kbd class="kbd">M</kbd></span></span></div><div class="col-widget__foot">They do nothing while you are typing</div></div>
+        <div class="col-widget"><span class="col-widget__title">Up next</span><div class="col-mini"><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">07</span><span><span class="col-mini__title">Flex, and when not to reach for it</span><span class="col-mini__meta">Layout · 10:18</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">08</span><span><span class="col-mini__title">The rail, the stack and the cluster</span><span class="col-mini__meta">Layout · 9:36</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">09</span><span><span class="col-mini__title">Measure and leading</span><span class="col-mini__meta">Type & rhythm · 7:50</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">10</span><span><span class="col-mini__title">Headings that scale with the page</span><span class="col-mini__meta">Type & rhythm · 8:12</span></span></a></div></div>
+        <div class="col-widget">
+      <span class="col-widget__title">Taught by</span>
+      <div class="col-author">
+        <span class="col-author__face"><span class="col-ph" style="--h:24" aria-hidden="true"></span></span>
+        <span><span class="col-author__name">Swarnil Singhai</span>
+          <span class="col-author__who">Wrote the system these courses are about.</span></span>
+      </div>
+      <div class="col-widget__foot">6 courses · 133 lessons</div>
+    </div>
+      </aside>
+    </div>
+
+    <a class="col-next u-mt-10" href="./lesson.html" data-step="next">
+      <span class="col-next__label">Next · Lesson 7</span>
+      <span class="col-order__title">Flex, and when not to reach for it</span>
+      <span class="t-small u-fg-subtle">After the container and the gutter, this is where grid
+        stops being a mystery.</span>
+    </a>
+  </section>
+  </div>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Courses — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -41,11 +41,23 @@
 	margin-inline: calc(50% - 50vw);
 }
 
-/* ── Section rhythm ───────────────────────────────────────────────────────── */
+/* ── Section rhythm ─────────────────────────────────────────────────────────
+   A section pads both ends, which is right when it is alone and wrong the
+   moment two of them sit together: 96px + 96px reads as a hole in the page,
+   not as a gap between two things. Neighbours drop the leading padding, so the
+   rhythm between sections is one section's worth, not two.
+
+   A section that paints its own surface needs its top padding back — that is
+   what .section-standalone is for.
+   ------------------------------------------------------------------------- */
 
 .section    { padding-block: var(--section-md); }
 .section-sm { padding-block: var(--section-sm); }
 .section-lg { padding-block: var(--section-lg); }
+
+:is(.section, .section-sm, .section-lg) + :is(.section, .section-sm, .section-lg):not(.section-standalone) {
+	padding-block-start: 0;
+}
 
 /* ── 12-column grid ────────────────────────────────────────────────────────
    Fluid, no breakpoint classes: columns collapse to full width below 48rem
@@ -337,22 +349,32 @@
 	.grid-2, .grid-3, .grid-4, .grid-6 { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* Content + rail, the article shape. Rail collapses under the content. */
+/* Content + rail, the article shape. Rail collapses under the content.
+   The width is a variable because 18rem is right for an ad, a table of
+   contents or a sponsor block, and too narrow the moment the rail holds rows
+   with thumbnails — an episode list, a related deck. One knob, two sizes, no
+   second layout. */
 .grid-rail {
+	--rail: 18rem;
 	display: grid;
 	gap: var(--space-10);
-	grid-template-columns: minmax(0, 1fr) 18rem;
+	grid-template-columns: minmax(0, 1fr) var(--rail);
 	align-items: start;
 }
 
 /* The mirrored rail. Standalone on purpose — it carries the base properties
    too, so `.grid-rail-left` alone works and can't silently stack. */
 .grid-rail-left {
+	--rail: 18rem;
 	display: grid;
 	gap: var(--space-10);
 	align-items: start;
-	grid-template-columns: 18rem minmax(0, 1fr);
+	grid-template-columns: var(--rail) minmax(0, 1fr);
 }
+
+/* Wide enough for rows that carry a 16:9 thumbnail and still break their title
+   onto one line. */
+.grid-rail-wide { --rail: 24rem; }
 
 @media (max-width: 68rem) {
 	.grid-rail,

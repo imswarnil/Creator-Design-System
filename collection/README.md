@@ -29,12 +29,24 @@ collection/
   blog/              ← the second
     build.py         ← no CSS of its own — which is the test
     *.html           ← index, post
+
+  course/            ← the third
+    course.css       ← the syllabus scene, the level meter, the quiz, the cert
+    build.py
+    *.html           ← index, track, topic, course, lesson, components
 ```
 
 **Blog ships no stylesheet, deliberately.** If a second collection cannot be
 built out of the shared vocabulary, then the vocabulary was really just the
 first collection wearing a general-sounding prefix. Travel keeps 44 lines,
 because a globe and a palm genuinely do belong to travel.
+
+**Course was the one that grew the vocabulary.** Its post route has a video in
+it rather than prose, and five sections were missing for that — the stage, the
+stage bar, the playlist, the transcript and the panels. They are shared rather
+than course-shaped because a podcast season and a video series want every one
+of them. What stayed in `course.css` is the four things nothing else wants: the
+syllabus scene, the difficulty meter, the knowledge check and the certificate.
 
 Starting a new one:
 
@@ -53,17 +65,22 @@ same five routes. The names change; the shape does not.
 
 | Route | Question it answers | Travel | Course |
 | --- | --- | --- | --- |
-| **index** | what is here? | `/travel` | `/learn` |
-| **group** | what is here, of this kind? | `/travel/asia` | `/learn/css` |
-| **place** | what is here, about this one thing? | `/travel/japan` | `/learn/css/grid` |
-| **series** | what is here, in order? | `/travel/india-2026` | `/learn/css-course` |
-| **post** | the thing itself | `/travel/getting-a-visa` | `/learn/lesson-3` |
+| **index** | what is here? | `/travel` | `/course` |
+| **group** | what is here, of this kind? | `/travel/asia` | `/course/layout` |
+| **place** | what is here, about this one thing? | `/travel/japan` | `/course/topic/grid` |
+| **series** | what is here, in order? | `/travel/india-2026` | `/course/css-from-scratch` |
+| **post** | the thing itself | `/travel/getting-a-visa` | `/course/…/grid-in-four-rules` |
 
 A **series** is the one worth being careful about. It is an ordered set of posts
 that were made as one body of work — a trip, a course, a season. A **group** is
 an unordered set that share an attribute — a region, a subject, a tag. They look
 similar and behave differently: a series has a first and a last and a progress
 through it; a group has neither.
+
+Course is the clearest case of it. **A course is a series** — first lesson, last
+lesson, a percentage through it. **A track is a group** — it has no first course
+and nothing to be halfway through. Getting those two the wrong way round is what
+produces a course page with a grid of lessons on it.
 
 ## Sections
 
@@ -97,6 +114,17 @@ needing it.
 | Tags | `.col-tags`, `.col-tag` | post, index | no | ✅ blog |
 | Contents | `.col-toc` | post | scrollspy only | ✅ blog |
 | Reading progress | `.col-progress` | post | **yes** | ✅ blog |
+| Player stage | `.col-stage` | post | no | ✅ course |
+| Stage bar | `.col-stagebar` | post | no | ✅ course |
+| Playlist | `.col-playlist` | post | no | ✅ course |
+| Transcript | `.col-transcript` | post | no | ✅ course |
+| Panels | `.col-panel` | post | **yes** | ✅ course |
+| Outcomes | `.col-checks` | series, place | no | ✅ course |
+| Offer | `.col-offer` | series | no | ✅ course |
+| Files | `.col-files` | post, series | no | ✅ course |
+| Shortcuts | `.col-keys` | post | no | ✅ course |
+| Note composer | `.col-note` | post | no | ✅ course |
+| Resume | `.col-resume` | index | no | ✅ course |
 | Map | `.col-map` | index, group | — | planned |
 | Gallery | `.col-gallery` | place, post | — | planned |
 | Cost / stats table | `.col-figures` | place, series | — | planned |
