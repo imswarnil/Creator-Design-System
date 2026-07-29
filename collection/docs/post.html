@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Installation — Docs — Swarnil</title>
+<meta name="description" content="Link the compiled stylesheet, or install the package." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/course/index.html">Courses</a>
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <div class="container section-sm">
+    <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
+      <a href="./index.html">Docs</a> <span>/</span>
+      <a href="./section.html">Getting started</a> <span>/</span> <span>Installation</span>
+    </nav>
+
+    <div class="grid-rail-left">
+      <nav class="stack-xs"><p class="t-slate-sm u-mt-4 u-mb-2" style="color:var(--fg-faint)">Getting started</p><div class="list-group list-group-flush"><a class="list-group__item" href="./post.html" aria-current="page">Installation</a><a class="list-group__item" href="./post.html">Quickstart</a><a class="list-group__item" href="./post.html">Theming</a><a class="list-group__item" href="./post.html">Folder structure</a></div><p class="t-slate-sm u-mt-4 u-mb-2" style="color:var(--fg-faint)">Components</p><div class="list-group list-group-flush"><a class="list-group__item" href="./post.html">Button</a><a class="list-group__item" href="./post.html">Card</a><a class="list-group__item" href="./post.html">Modal</a></div><p class="t-slate-sm u-mt-4 u-mb-2" style="color:var(--fg-faint)">API reference</p><div class="list-group list-group-flush"><a class="list-group__item" href="./post.html">Configuration</a></div></nav>
+
+      <div class="grid-rail">
+        <article class="content">
+          <h1>Installation</h1>
+          <p class="t-lead">Link the compiled stylesheet, or install the package —
+            both ship the same classes.</p>
+
+          <h2 id="why">Why a docs collection</h2>
+          <p>Every project ships with its own README that grows past what a README
+            can hold. This is the point it graduates to: a real docs site, built
+            from the same components the project already has.</p>
+
+          <h2 id="shape">The three-column shape</h2>
+          <p>Nav on the left, the page in the middle, a table of contents on the
+            right — <code>.grid-rail-left</code> wrapping <code>.grid-rail</code>,
+            the same two primitives the course lesson player composes.</p>
+          <figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>&lt;link rel="stylesheet" href="dist/creator.css" /&gt;</code></pre></figure>
+
+          <h2 id="reuse">What it reuses</h2>
+          <p>Everything. <code>.col-groups</code> for the section grid, <code>.col-posts</code>
+            for the page list, <code>.list-group</code> for the nav rail, <code>.codebox</code>
+            for every snippet. Nothing here is docs-specific CSS.</p>
+        </article>
+
+        <aside>
+          <p class="t-slate-sm u-mb-3" style="color:var(--fg-faint)">On this page</p>
+          <nav class="stack-xs"><a href="#why">Why a docs collection</a><a href="#shape">The three-column shape</a><a href="#reuse">What it reuses</a></nav>
+        </aside>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Docs — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

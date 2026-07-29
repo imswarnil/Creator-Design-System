@@ -46,7 +46,6 @@ intro += ct([
     ('Elements &amp; Content', 'single ideas: text, tables, quotes, code — a badge is a word in a shape'),
     ('Forms &amp; Components', 'things with parts and states: fields, buttons, cards, overlays, disclosure'),
     ('Composites &amp; Sections', 'organs and bands: syllabus, build log, hero, stats, CTA, footer'),
-    ('Layouts', 'whole templates as floor plans — every page a creator site needs'),
     ('Broadcast', 'the same tokens exported to YouTube and social canvases'),
     ('Utilities', 'u-prefixed single-purpose classes off the token ladders'),
 ], head=('Layer', 'Holds'))
@@ -59,8 +58,8 @@ intro += '''
 			sidebar and highlight as you scroll. Every page ends in prev/next
 			pagination; the sidebar collapses with the « button, and the theme
 			toggle flips everything live. Start with
-			<a class="t-link" href="./principles.html">Principles</a>, then
-			<a class="t-link" href="./usage.html">Usage</a> if you're bringing
+			<a class="t-link" href="/principles.html">Principles</a>, then
+			<a class="t-link" href="/usage.html">Usage</a> if you're bringing
 			your own stack.
 		</p>
 '''

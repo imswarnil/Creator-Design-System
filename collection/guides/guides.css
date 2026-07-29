@@ -1,0 +1,43 @@
+/* =============================================================================
+   GUIDES — collection-only CSS
+   Two things nothing else in the system needed yet: a book-cover treatment
+   (a colour wash blended over the placeholder tile, standing in for cover
+   art) and a stepper (a row of filled segments showing progress through a
+   guide's steps, with a prev/next pager riding under it). Everything else —
+   the card spine, the meta strip, the pager chrome — is `.c-guide` and
+   `.col-stagebar`, unchanged.
+   ========================================================================== */
+
+.c-guide { flex-direction: row; align-items: stretch; }
+.c-guide .c__media { aspect-ratio: 3 / 4; width: 6.5rem; flex: none; }
+.c-guide .c__body { flex: 1; }
+
+.col-ph[data-blend] {
+	position: relative;
+	isolation: isolate;
+}
+
+.col-ph[data-blend]::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(155deg, hsl(var(--h) 80% 60%) 0%, transparent 55%),
+		linear-gradient(-25deg, hsl(calc(var(--h) + 40) 70% 50%) 0%, transparent 60%);
+	mix-blend-mode: color;
+	opacity: 0.9;
+}
+
+.stepper {
+	display: flex;
+	gap: var(--space-2);
+}
+
+.stepper__step {
+	flex: 1;
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background: var(--bg-muted);
+}
+
+.stepper__step[data-done] { background: var(--accent); }
+.stepper__step[data-current] { background: var(--fg-default); }

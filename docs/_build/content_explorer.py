@@ -41,7 +41,6 @@ ICONS = {
  'close-button': '<circle cx="12" cy="12" r="8.5"/><path d="m9 9 6 6M15 9l-6 6"/>',
  'content': '<path d="M5 4h14M5 9h14M5 14h10M5 19h7"/>',
  'syllabus': '<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/>',
- 'episode-panel': '<rect x="3" y="5" width="11" height="14" rx="2"/><path d="M17 7h4M17 12h4M17 17h4"/>',
  'build-log': '<circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8M11 6h9M11 18h9"/>',
  'itinerary': '<path d="M20 5 4 11.5l5.5 2M20 5l-3.5 14-3-6.5M20 5 9.5 13.5"/>',
  'page-header': '<path d="M4 5h9M4 9h16"/><rect x="4" y="13" width="16" height="6" rx="1.5" opacity=".4"/>',
@@ -103,7 +102,6 @@ GROUPS = [
     ]),
     ('Composites', [
         ('syllabus', 'Syllabus', 'course curriculum'),
-        ('episode-panel', 'Episode panel', 'list beside a player'),
         ('build-log', 'Build log', 'project timeline'),
         ('itinerary', 'Itinerary', 'the trip, day by day'),
     ]),
@@ -128,7 +126,7 @@ body = (
 
 for group, items in GROUPS:
     cards = ''.join(
-        f'<a class="card card-compact cds-card" href="./{slug}.html">'
+        f'<a class="card card-compact cds-card" href="/{slug}.html">'
         f'<div class="card__body"><span class="cds-card__ico">{_ico(slug)}</span>'
         f'<h3 class="card__title">{name}</h3>'
         f'<p class="card__excerpt">{desc}</p></div></a>'

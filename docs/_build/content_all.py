@@ -14,14 +14,14 @@ def build(NAV, FRAGPAGES):
         f'fall out of date. Handy for scanning what exists, and for handing someone a '
         f'single link.</p>'
         '<div class="cluster u-mb-8">'
-        '<a class="btn btn-primary btn-sm" href="./components.html">Components explorer</a>'
-        '<a class="btn btn-secondary btn-sm" href="./introduction.html">Introduction</a>'
-        '<a class="btn btn-quiet btn-sm" href="./index.html">Landing page</a>'
+        '<a class="btn btn-primary btn-sm" href="/components.html">Components explorer</a>'
+        '<a class="btn btn-secondary btn-sm" href="/introduction.html">Introduction</a>'
+        '<a class="btn btn-quiet btn-sm" href="/index.html">Landing page</a>'
         '</div>']
 
     for group, items in NAV:
         links = ''.join(
-            f'<a class="list-group__item" href="./{slug}.html">'
+            f'<a class="list-group__item" href="/{slug}.html">'
             f'<span class="u-weight-medium">{label}</span>'
             f'<code class="t-code u-ms-auto t-small">{slug}</code></a>'
             for slug, label in items)

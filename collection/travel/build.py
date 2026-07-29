@@ -83,6 +83,13 @@ TRIP = [
      'Day 8 · Home', 'route'),
 ]
 
+PRODUCTS = [
+    ('The Slow Travel Playbook', 'Ebook · PDF, 64 pages', 'passport', '$12'),
+    ('India 2026 — the full itinerary', 'Itinerary · PDF + calendar file', 'route', '$6'),
+    ('Southeast Asia route map', 'Map · Printable PDF, A2', 'globe', '$4'),
+    ('Packing list templates', 'Templates · PDF bundle', 'backpack', 'Free'),
+]
+
 
 def icon(name, cls='icon'):
     """Inline the real icon file so it inherits currentColor."""
@@ -104,7 +111,7 @@ def ph(seed, tall=False):
 
 
 HEAD = '''<!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-transition="takeoff">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -125,11 +132,14 @@ HEAD = '''<!doctype html>
 
 <header class="nav-shell">
   <nav class="nav-bar" aria-label="Main">
-    <a class="logo logo-sm" href="{rel}/docs/index.html">Swarnil</a>
+    <a class="logo logo-sm" href="{rel}/collection/_pages/home.html">Swarnil</a>
     <div class="nav-links">
       <a class="nav-link" href="./index.html"{cur_index}>Travel</a>
       <a class="nav-link" href="{rel}/collection/blog/index.html">Blog</a>
-      <a class="nav-link" href="#i">Watch</a>
+      <a class="nav-link" href="{rel}/collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="{rel}/collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="{rel}/collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="{rel}/collection/_pages/resume.html">Résumé</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
@@ -365,6 +375,19 @@ def posts_block(limit=None):
     return '<div class="col-posts">' + '\n'.join(rows) + '</div>'
 
 
+def products_block():
+    """.c-product already existed in 23-collection.css's own routes table
+    ("products #product — price + group tag") with nothing on the site using
+    it yet. A downloadable itinerary is exactly what it was drawn for."""
+    rows = ''.join(
+        f'<article class="c c-product"><span class="c__thumb">{icon(ico)}</span>'
+        f'<div class="c__body"><span class="c__title">{name}</span>'
+        f'<span class="c__meta">{meta}</span></div>'
+        f'<span class="c__price">{price}</span></article>'
+        for name, meta, ico, price in PRODUCTS)
+    return f'<div class="stack-sm">{rows}</div>'
+
+
 def series_card():
     stats = ''.join(f'<span>{icon(i)}{t}</span>' for i, t in
                     [('route', '5 parts'), ('sun', '8 days'), ('pin', 'India')])
@@ -382,18 +405,87 @@ def series_card():
 
 
 # ── 1 · /travel — the collection index ──────────────────────────────────────
+# Full-bleed, full-viewport: the video plays behind a scanline that ripples
+# outward from wherever the pointer sits — an SVG feDisplacementMap warping
+# the scanline layer, masked to a soft circle around --mx/--my so the
+# disturbance reads as coming FROM the cursor, the way a fingertip disturbs
+# water rather than the whole surface moving at once. JS only ever writes
+# those two custom properties; every visual decision stays in CSS/SVG.
+
+def video_hero():
+    m = ''.join(
+        f'<div><span class="col-meta__n">{n}</span><span class="col-meta__l">{l}</span></div>'
+        for n, l in [('31', 'posts'), ('6', 'countries'), ('4', 'trips'), ('18', 'cities')])
+    return f'''
+  <section id="trv-hero" style="position:relative;width:100vw;height:100dvh;
+       margin-left:calc(50% - 50vw);margin-top:calc(-1 * (var(--nav-h) + var(--space-3) * 2));
+       overflow:hidden;color:#fff;isolation:isolate;--mx:50%;--my:40%">
+    <video autoplay muted loop playsinline aria-hidden="true"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3">
+      <source src="../../video/1280x720.mp4" type="video/mp4" />
+    </video>
+    <div aria-hidden="true" style="position:absolute;inset:0;z-index:-2;background:
+         linear-gradient(180deg, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0.15) 45%, rgb(0 0 0 / 0.8) 100%)"></div>
+
+    <div id="trv-ripple" aria-hidden="true" style="position:absolute;inset:0;z-index:-1;
+         pointer-events:none;filter:url(#trv-ripple-filter);mix-blend-mode:overlay;
+         mask-image:radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%);
+         -webkit-mask-image:radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%)">
+      <div class="pattern pattern-scanline pattern-media pattern-lg" style="position:absolute;inset:0;opacity:.9"></div>
+    </div>
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="trv-ripple-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="7" result="trv-noise">
+          <animate attributeName="baseFrequency" dur="7s"
+                   values="0.010 0.045;0.018 0.06;0.010 0.045" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="trv-noise" scale="22"
+                            xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <div class="container" style="position:relative;z-index:1;height:100%;
+         display:flex;flex-direction:column;justify-content:center;gap:var(--space-6)">
+      <span class="col-hero__eyebrow">{icon('pin')}The travel collection</span>
+      <h1 class="col-hero__title" style="font-size:clamp(2.5rem, 1.7rem + 3.6vw, 4.5rem);max-width:22ch">
+        Every road I have been down, <em>in order</em>.</h1>
+      <p class="col-hero__lead" style="max-width:38ch">Six countries, thirty-one posts and the
+        receipts. Move your pointer across the water.</p>
+      <div class="u-flex u-gap-3 u-wrap">
+        <a class="btn btn-primary btn-pill" href="#trips">Latest trip →</a>
+        <a class="btn btn-ghost btn-pill" href="#regions">Browse by region</a>
+      </div>
+      <div class="col-meta">{m}</div>
+    </div>
+  </section>
+  <script>
+  (function () {{
+    var h = document.getElementById('trv-hero');
+    if (!h) return;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) {{
+      var v = h.querySelector('video');
+      if (v) v.pause();
+      [].slice.call(h.querySelectorAll('animate')).forEach(function (a) {{ a.setAttribute('dur', '0s'); }});
+      return;
+    }}
+    h.addEventListener('pointermove', function (e) {{
+      var r = h.getBoundingClientRect();
+      h.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      h.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    }});
+  }})();
+  </script>
+'''
+
 
 def route_index():
-    body = hero(
-        'Every road I have been down, <em>in order</em>.',
-        'Six countries, thirty-one posts and the receipts. Start with a region, '
-        'narrow to a country, then pick the city — or just read the latest trip.',
-        'The travel collection',
-        [('31', 'posts'), ('6', 'countries'), ('4', 'trips'), ('18', 'cities')])
+    body = video_hero()
 
     body += f'''
   <div data-collection>
-  <section class="container section-sm">
+  <section class="container section-sm" id="regions">
     {sec('Regions', 'The widest cut. Pick one and everything below narrows to it.')}
     {regions_block()}
   </section>
@@ -413,6 +505,11 @@ def route_index():
         <div class="u-mt-10" id="trips">
           {sec('Latest trip')}
           {series_card()}
+        </div>
+
+        <div class="u-mt-10">
+          {sec('Shop', 'Ebooks, itineraries and maps — the trips, packaged to take with you.')}
+          {products_block()}
         </div>
 
         <div class="u-mt-10">

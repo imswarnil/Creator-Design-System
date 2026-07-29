@@ -34,6 +34,15 @@ collection/
     course.css       ← the syllabus scene, the level meter, the quiz, the cert
     build.py
     *.html           ← index, track, topic, course, lesson, components
+
+  resume/            ← the fourth — one route, not five
+    resume.css       ← the summary strip, and the icon-marked .col-order
+    build.py
+    *.html           ← index
+
+  webseries/         ← the fifth
+    build.py         ← no CSS of its own — the second collection to prove it
+    *.html           ← index, genre, show, season, episode
 ```
 
 **Blog ships no stylesheet, deliberately.** If a second collection cannot be
@@ -47,6 +56,23 @@ stage bar, the playlist, the transcript and the panels. They are shared rather
 than course-shaped because a podcast season and a video series want every one
 of them. What stayed in `course.css` is the four things nothing else wants: the
 syllabus scene, the difficulty meter, the knowledge check and the certificate.
+
+**Resume is the one that isn't five routes.** A resume has no group, no
+series, nothing to narrow — it's one document, so it gets one route, built
+from reusable sections instead: a summary, and a career timeline and an
+education list that both turn out to be `.col-order` — the series spine a
+trip or a syllabus already uses for "a first, a last, an order" — marked with
+an icon instead of a plain dot. Its skills list is the shared `.badge` in a
+`.cluster`, not a new component.
+
+**Webseries is course's claim, tested.** Course built the stage, the stage bar,
+the playlist, the transcript and the panels on the argument that "a podcast
+season and a video series want every one of them" — webseries is that video
+series, and every one of those five sections is reused unchanged. A season's
+episode list is `.col-order` again, same as a trip or a resume's career
+history. The one thing an episode needed that a lesson didn't — a cast list —
+turns out to be a plain `.list-group` with `.col-author__face` (blog's byline
+avatar) in it. Nothing here earned a prefix.
 
 Starting a new one:
 

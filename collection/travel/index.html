@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-transition="takeoff">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,11 +20,14 @@
 
 <header class="nav-shell">
   <nav class="nav-bar" aria-label="Main">
-    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
     <div class="nav-links">
       <a class="nav-link" href="./index.html" aria-current="page">Travel</a>
       <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
-      <a class="nav-link" href="#i">Watch</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
@@ -34,101 +37,69 @@
 
 <main id="main">
 
-  <section class="container u-mt-6">
-   <div class="col-hero">
-    
-  <svg class="col-hero__art" viewBox="0 0 1200 520" preserveAspectRatio="xMaxYMid slice"
-       aria-hidden="true" focusable="false">
-    <defs>
-      <radialGradient id="trv-sky" cx="30%" cy="20%" r="90%">
-        <stop offset="0%" stop-color="#1b2030"/>
-        <stop offset="55%" stop-color="#0e1119"/>
-        <stop offset="100%" stop-color="#08080c"/>
-      </radialGradient>
-      <linearGradient id="trv-sea" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1d3a4a"/>
-        <stop offset="100%" stop-color="#0b1520"/>
-      </linearGradient>
-      <clipPath id="trv-ball"><circle cx="905" cy="250" r="150"/></clipPath>
-    </defs>
+  <section id="trv-hero" style="position:relative;width:100vw;height:100dvh;
+       margin-left:calc(50% - 50vw);margin-top:calc(-1 * (var(--nav-h) + var(--space-3) * 2));
+       overflow:hidden;color:#fff;isolation:isolate;--mx:50%;--my:40%">
+    <video autoplay muted loop playsinline aria-hidden="true"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3">
+      <source src="../../video/1280x720.mp4" type="video/mp4" />
+    </video>
+    <div aria-hidden="true" style="position:absolute;inset:0;z-index:-2;background:
+         linear-gradient(180deg, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0.15) 45%, rgb(0 0 0 / 0.8) 100%)"></div>
 
-    <rect width="1200" height="520" fill="url(#trv-sky)"/>
+    <div id="trv-ripple" aria-hidden="true" style="position:absolute;inset:0;z-index:-1;
+         pointer-events:none;filter:url(#trv-ripple-filter);mix-blend-mode:overlay;
+         mask-image:radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%);
+         -webkit-mask-image:radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%)">
+      <div class="pattern pattern-scanline pattern-media pattern-lg" style="position:absolute;inset:0;opacity:.9"></div>
+    </div>
 
-    <!-- stars -->
-    <g fill="#fff">
-      <circle class="trv-star" cx="660" cy="70" r="1.6" style="animation-delay:0s"/>
-      <circle class="trv-star" cx="760" cy="40" r="1.2" style="animation-delay:.6s"/>
-      <circle class="trv-star" cx="820" cy="96" r="1.7" style="animation-delay:1.2s"/>
-      <circle class="trv-star" cx="700" cy="50" r="1.2" style="animation-delay:1.8s"/>
-      <circle class="trv-star" cx="1050" cy="70" r="1.5" style="animation-delay:2.4s"/>
-      <circle class="trv-star" cx="700" cy="150" r="1.1" style="animation-delay:3s"/>
-      <circle class="trv-star" cx="1130" cy="180" r="1.3" style="animation-delay:1.5s"/>
-    </g>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="trv-ripple-filter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="7" result="trv-noise">
+          <animate attributeName="baseFrequency" dur="7s"
+                   values="0.010 0.045;0.018 0.06;0.010 0.045" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="trv-noise" scale="22"
+                            xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
 
-    <!-- the globe: a lit ball, a turning grid, one continent hint -->
-    <circle cx="905" cy="250" r="150" fill="#11161f"/>
-    <circle cx="905" cy="250" r="150" fill="none" stroke="#ffffff" stroke-opacity=".22"/>
-    <g clip-path="url(#trv-ball)">
-      <g class="trv-globe__grid" style="transform-origin:905px 250px">
-        <g fill="none" stroke="#ffffff" stroke-opacity=".14">
-          <ellipse cx="905" cy="250" rx="52" ry="150"/>
-          <ellipse cx="905" cy="250" rx="104" ry="150"/>
-          <ellipse cx="905" cy="250" rx="148" ry="150"/>
-        </g>
-        <path d="M790 210q60-28 118-6t120-10" fill="none" stroke="#f04e2e" stroke-opacity=".55" stroke-width="2"/>
-        <path d="M800 300q70 26 130 4t118 6" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>
-      </g>
-      <g fill="none" stroke="#ffffff" stroke-opacity=".14">
-        <path d="M755 200h300M755 250h300M755 300h300"/>
-      </g>
-    </g>
-
-    <!-- the flight: an arc that draws itself, with the plane riding the end -->
-    <path class="trv-route" d="M700 336C752 252 800 200 862 196"
-          fill="none" stroke="#f04e2e" stroke-width="2.5"
-          stroke-linecap="round" stroke-dasharray="260"/>
-    <circle cx="700" cy="336" r="5" fill="#f04e2e"/>
-    <g class="trv-plane" transform="translate(838 176) rotate(18) scale(1.5)">
-      <path d="M20 5 4 11.5l5.5 2M20 5l-3.5 14-3-6.5M20 5 9.5 13.5v4.2l3-3.7"
-            fill="none" stroke="#fff" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </g>
-
-    <!-- the shore -->
-    <path d="M0 430c120 18 260 22 420 12s300-26 420-14 240 24 360 18v74H0Z" fill="url(#trv-sea)"/>
-    <path d="M0 448c140 16 280 18 430 8s310-22 430-12 220 20 340 16" fill="none"
-          stroke="#ffffff" stroke-opacity=".12"/>
-
-    <!-- the palm, leaning in from the edge -->
-    <g class="trv-palm" style="transform-origin:1108px 474px" stroke="#ffffff"
-       stroke-opacity=".45" fill="none" stroke-width="3" stroke-linecap="round">
-      <path d="M1108 474c-4-40-2-70 8-96"/>
-      <path d="M1116 378c-26-14-48-10-64 6M1116 378c26-16 50-12 66 6M1116 378c-14-26-10-48 4-64M1116 378c22-20 46-22 62-12"/>
-    </g>
-    <ellipse cx="1108" cy="476" rx="32" ry="6" fill="#000" opacity=".35"/>
-  </svg>
-
-    <div class="col-hero__in">
+    <div class="container" style="position:relative;z-index:1;height:100%;
+         display:flex;flex-direction:column;justify-content:center;gap:var(--space-6)">
       <span class="col-hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>The travel collection</span>
-      <h1 class="col-hero__title">Every road I have been down, <em>in order</em>.</h1>
-      <p class="col-hero__lead">Six countries, thirty-one posts and the receipts. Start with a region, narrow to a country, then pick the city — or just read the latest trip.</p>
-      
-      <form class="col-search" onsubmit="return false">
-        <label class="col-search__field">
-          <span class="u-sr-only">Search destinations</span>
-          <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg>
-          <input type="search" placeholder="Where do you want to go?" />
-        </label>
-        <button class="btn btn-primary btn-pill" type="submit">Search</button>
-        <a class="btn btn-ghost btn-pill" href="#trips">Latest trip →</a>
-      </form>
+      <h1 class="col-hero__title" style="font-size:clamp(2.5rem, 1.7rem + 3.6vw, 4.5rem);max-width:22ch">
+        Every road I have been down, <em>in order</em>.</h1>
+      <p class="col-hero__lead" style="max-width:38ch">Six countries, thirty-one posts and the
+        receipts. Move your pointer across the water.</p>
+      <div class="u-flex u-gap-3 u-wrap">
+        <a class="btn btn-primary btn-pill" href="#trips">Latest trip →</a>
+        <a class="btn btn-ghost btn-pill" href="#regions">Browse by region</a>
+      </div>
       <div class="col-meta"><div><span class="col-meta__n">31</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">6</span><span class="col-meta__l">countries</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">trips</span></div><div><span class="col-meta__n">18</span><span class="col-meta__l">cities</span></div></div>
     </div>
-   </div>
   </section>
+  <script>
+  (function () {
+    var h = document.getElementById('trv-hero');
+    if (!h) return;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) {
+      var v = h.querySelector('video');
+      if (v) v.pause();
+      [].slice.call(h.querySelectorAll('animate')).forEach(function (a) { a.setAttribute('dur', '0s'); });
+      return;
+    }
+    h.addEventListener('pointermove', function (e) {
+      var r = h.getBoundingClientRect();
+      h.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      h.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  })();
+  </script>
 
   <div data-collection>
-  <section class="container section-sm">
+  <section class="container section-sm" id="regions">
     <div class="row-between u-mb-5"><div><h2 class="t-h3">Regions</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The widest cut. Pick one and everything below narrows to it.</p></div></div>
     <div class="col-groups">
 <button class="col-group" type="button" data-group="asia" aria-pressed="false"><span class="col-group__ico"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg></span><span><span class="col-group__name">Asia</span><span class="col-group__n">3 countries</span></span></button>
@@ -194,6 +165,11 @@
         <span class="col-series__stats"><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg>5 parts</span><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></svg>8 days</span><span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>India</span></span>
       </span>
     </a>
+        </div>
+
+        <div class="u-mt-10">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">Shop</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Ebooks, itineraries and maps — the trips, packaged to take with you.</p></div></div>
+          <div class="stack-sm"><article class="c c-product"><span class="c__thumb"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M9.5 16h5"/></svg></span><div class="c__body"><span class="c__title">The Slow Travel Playbook</span><span class="c__meta">Ebook · PDF, 64 pages</span></div><span class="c__price">$12</span></article><article class="c c-product"><span class="c__thumb"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h5.5"/></svg></span><div class="c__body"><span class="c__title">India 2026 — the full itinerary</span><span class="c__meta">Itinerary · PDF + calendar file</span></div><span class="c__price">$6</span></article><article class="c c-product"><span class="c__thumb"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg></span><div class="c__body"><span class="c__title">Southeast Asia route map</span><span class="c__meta">Map · Printable PDF, A2</span></div><span class="c__price">$4</span></article><article class="c c-product"><span class="c__thumb"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 0 1 12 0v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9Z"/><path d="M9.5 10V7a2.5 2.5 0 0 1 5 0v3"/><path d="M9 15h6"/></svg></span><div class="c__body"><span class="c__title">Packing list templates</span><span class="c__meta">Templates · PDF bundle</span></div><span class="c__price">Free</span></article></div>
         </div>
 
         <div class="u-mt-10">

@@ -1,0 +1,5 @@
+.canvas-row { display: grid; gap: var(--space-6); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		@media (max-width: 60rem) { .canvas-row { grid-template-columns: minmax(0, 1fr); } }
+		.canvas-note { font-family: var(--font-slate); font-size: var(--text-2xs); letter-spacing: 0.06em; color: var(--fg-subtle); margin-top: var(--space-2); }
+		.canvas-note b { color: var(--fg-default); font-weight: var(--weight-medium); }
+		.post-col { max-width: 22rem; }

@@ -7,6 +7,41 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Seven more collections** — newsletter (calendar-styled issue cards),
+  projects (GitHub-style cards, a build-log timeline, and a shared-element
+  hero that shrinks into a log entry on click via `view-transition-name`),
+  videos/YouTube (channel hero, upload list, chaptered single-video page and
+  a "products I use" block), guides (book-cover cards with a colour-blend
+  cover via `ph(..., blend=True)`, and a `.stepper` between steps), prompts,
+  snippets and products-i-use. Each reuses an existing `#tag`-scoped card
+  variant from `23-collection.css` rather than inventing a new one.
+- **`collection/_pages/`** — home, about, contact, archive, now, terms,
+  privacy and welcome-subscriber, plus the résumé moved in from its own
+  folder. The homepage's collections grid is the one place every collection
+  is listed, so the nav bar does not grow a thirteenth link.
+- **`collection/docs/`** — a reusable three-column docs template
+  (`/docs`, a section, a post, a component reference) for using this system
+  on someone else's own project, distinct from this repo's own
+  `docs/_build` generator.
+- **`/css`, `/tailwind`, `/scss`** — short entry routes into the Usage
+  page's per-flavour sections, so "how do I use this with X" has a real URL
+  instead of a scroll position.
+- Two new page-transition flavours completed from the original spec
+  (`static` for Videos, reusing the keyframe that already existed unused)
+  and one built new (`turn`, a page-turn for Guides), plus a shared
+  `pagination()` helper in `collection/shell.py` used by every collection
+  index.
+
+### Fixed
+- Every inline `<style>` block actually shipped in a live page (the docs
+  landing page, the introduction's animated illustration, the icon-set
+  page's dark-mode filter, and the broadcast fragment previews) moved into
+  a real, linked stylesheet — `docs/preview.css` or a generated
+  `broadcast-frag/*.css` file. The system's own site now follows the same
+  "CSS lives in the CSS folder" rule its docs already asked everyone else to.
+- The site-wide "Swarnil" logo linked to the docs site instead of the actual
+  homepage — every collection now points it at `collection/_pages/home.html`.
+
 - **The course collection** — `/course`, a track, a topic, the course page and
   the lesson player, in `collection/course/`. A course is the collection's
   *series* route (a first lesson, a last one, a progress through it) and a

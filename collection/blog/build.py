@@ -16,7 +16,7 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero   # noqa: E402
+from shell import icon, ph, page, sec, hero, meta_strip   # noqa: E402
 
 NAME = 'Blog'
 
@@ -116,15 +116,54 @@ def toc_widget():
                 for i, (s, t) in enumerate(TOC)) + '</nav></div>')
 
 
-def route_index():
-    body = hero('Notes on building things, <em>and what broke</em>.',
-                'Fifty-six posts about CSS, motion and the craft of shipping a site '
-                'on your own. No schedule — one email when something is worth reading.',
-                'The blog', [('56', 'posts'), ('4', 'categories'),
-                             ('8', 'tags'), ('2021', 'since')],
-                search='Search the blog', eyebrow_icon='pen')
+def featured_stage():
+    """The floating screen — a small, shadowed, slightly turned surface
+    showing three real post rows at phone scale. Not a mockup image; the
+    same .card-compact every post already renders as, just smaller."""
+    rows = ''.join(
+        f'<article class="card card-compact card-bare" style="border-radius:0;'
+        f'border-bottom:var(--border-hair) solid var(--line-subtle)">'
+        f'<div class="card__body"><p class="card__meta">{cat} · {read}</p>'
+        f'<h3 class="card__title" style="font-size:var(--text-sm)">{title}</h3></div></article>'
+        for title, cat, tags, read, when, note in POSTS[:3])
+    return f'''
+    <div class="hero-split__stage">
+      <div class="surface" style="max-width:19rem;margin-inline:auto;overflow:hidden;
+           border-radius:var(--radius-sheet);box-shadow:var(--shadow-3);transform:rotate(-2deg)">
+        <div style="padding:var(--space-4) var(--space-4) var(--space-2)">
+          <span class="t-slate-sm" style="color:var(--fg-faint)">Featured</span>
+        </div>
+        {rows}
+      </div>
+      <p class="hero-split__caption">Featured articles <span>Live preview</span></p>
+    </div>'''
 
-    body += f'''
+
+def route_index():
+    body = f'''
+  <div class="container">
+    <section class="hero hero-split hero-sm pattern pattern-dots pattern-lg fade-corners"
+             style="padding-block:var(--space-10) var(--space-8);border-radius:var(--radius-sheet);
+                    max-width:calc(var(--w-site) - 4rem);margin-inline:auto">
+      <div>
+        <span class="hero__eyebrow">{icon('pen')}The blog</span>
+        <h1 class="hero__title">Notes on building things, <em>and what broke</em>.</h1>
+        <p class="hero__lead">Fifty-six posts about CSS, motion and the craft of shipping a
+          site on your own. No schedule — one email when something is worth reading.</p>
+        <div class="hero__actions">
+          <div class="input-group" style="max-width:26rem">
+            <input class="input" type="search" placeholder="Search the blog"
+                   aria-label="Search the blog" />
+            <button class="btn btn-primary" type="button">Search</button>
+          </div>
+        </div>
+        {meta_strip([('56', 'posts'), ('4', 'categories'), ('8', 'tags'), ('2021', 'since')],
+                    paper=True, border=False, inline=True)}
+      </div>
+      {featured_stage()}
+    </section>
+  </div>
+
   <div data-collection>
   <section class="container section-sm">
     {sec('Categories', 'The widest cut. Pick one and the posts below narrow to it.')}

@@ -16,7 +16,6 @@ SOURCES = {
     'index.html': 'foundation',
     'elements.html': 'elements',
     'components.html': 'components',
-    'layouts.html': 'layouts',
     'youtube.html': 'youtube',
     'social.html': 'social',
 }

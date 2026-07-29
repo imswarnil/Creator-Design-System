@@ -860,6 +860,118 @@
 .sting-paused::after,
 .sting-paused::before { animation-play-state: paused; }
 
+/* ── Page transitions ─────────────────────────────────────────────────────
+   Native, cross-document, one at-rule. `@view-transition` is pure progressive
+   enhancement — a browser that doesn't know it just navigates, no JS, no
+   fallback code to write. Per spec, a cross-document transition is styled by
+   the ARRIVING document only, so the flavour is just whichever
+   `data-transition` the destination's <html> carries; the collection sets it
+   once in its own shell, nothing per-link.
+
+   Six flavours: `takeoff` (travel), `pop` (course), `unfold` (resume),
+   `type` (blog — new), `slate` (webseries — new, the clapperboard), and the
+   unflavoured default (a plain cross-fade) for everything else. `static`
+   ships too, for the video/YouTube destinations the spec table names but
+   this system doesn't build a page for yet. dur-4 throughout — "the
+   deliberate one: page/scene transitions" is what it's for. */
+
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-group(root) { animation-duration: var(--dur-4); }
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: var(--dur-4); animation-fill-mode: both; }
+
+/* No flavour set: a plain cross-fade rather than the browser's default
+   cross-fade-and-slide, so an unstyled destination still feels intentional. */
+html:not([data-transition])::view-transition-old(root) { animation: fx-fade var(--dur-3) var(--ease-in) reverse both; }
+html:not([data-transition])::view-transition-new(root) { animation: fx-fade var(--dur-3) var(--ease-out) both; }
+
+/* static — a beat of TV static before the picture resolves. */
+@keyframes ptStaticIn {
+	0%   { opacity: 0; filter: contrast(4) brightness(0.5) saturate(0); }
+	55%  { opacity: 1; filter: contrast(2.2) brightness(1.3) saturate(0); }
+	100% { opacity: 1; filter: none; }
+}
+html[data-transition='static']::view-transition-new(root) { animation: ptStaticIn var(--dur-4) var(--ease-out) both; }
+html[data-transition='static']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
+/* turn — guides: a page-turn, the incoming page rotating up from the right
+   edge like a leaf of a book settling flat. */
+@keyframes ptTurnIn {
+	0%   { transform: perspective(1600px) rotateY(-8deg) translateX(3%); transform-origin: left center; opacity: 0; }
+	100% { transform: perspective(1600px) rotateY(0deg) translateX(0); transform-origin: left center; opacity: 1; }
+}
+html[data-transition='turn']::view-transition-new(root) { animation: ptTurnIn var(--dur-4) var(--ease-out) both; }
+html[data-transition='turn']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
+/* slate — the clapperboard: the outgoing page slams shut to a line, the
+   incoming one snaps open from it. Webseries' own transition, built from the
+   same device as the icon (icons/creator/slate.svg). */
+@keyframes ptSlateClose {
+	0%   { clip-path: inset(0 0 0 0); }
+	100% { clip-path: inset(49.3% 0 49.3% 0); }
+}
+
+@keyframes ptSlateOpen {
+	0%   { clip-path: inset(49.3% 0 49.3% 0); }
+	100% { clip-path: inset(0 0 0 0); }
+}
+html[data-transition='slate']::view-transition-old(root) { animation: ptSlateClose calc(var(--dur-4) * 0.6) var(--ease-in) both; }
+html[data-transition='slate']::view-transition-new(root) { animation: ptSlateOpen calc(var(--dur-4) * 0.6) var(--ease-out) calc(var(--dur-4) * 0.5) both; }
+
+/* takeoff — travel: the outgoing page banks and climbs away, the incoming one
+   arrives from the same angle, plane-departure diagonal. */
+@keyframes ptTakeoffOut { to { transform: translate3d(-6%, -14%, 0) rotate(-2.5deg) scale(0.96); opacity: 0; } }
+
+@keyframes ptTakeoffIn { from { transform: translate3d(6%, 14%, 0) rotate(2deg) scale(0.96); opacity: 0; } }
+html[data-transition='takeoff']::view-transition-old(root) { animation: ptTakeoffOut var(--dur-4) var(--ease-in) both; }
+html[data-transition='takeoff']::view-transition-new(root) { animation: ptTakeoffIn var(--dur-4) var(--ease-out) both; }
+
+/* pop — course: a small confident scale-up, pen-to-table snap rather than a
+   slide — a lesson starts, it doesn't arrive from off-screen. */
+@keyframes ptPopIn { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+html[data-transition='pop']::view-transition-new(root) { animation: ptPopIn var(--dur-3) var(--ease-spring) both; }
+html[data-transition='pop']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
+/* unfold — resume: a vertical reveal from the centre out, like a folded page
+   opening flat. */
+@keyframes ptUnfoldIn {
+	0%   { clip-path: inset(0 0 100% 0); }
+	100% { clip-path: inset(0 0 0% 0); }
+}
+html[data-transition='unfold']::view-transition-new(root) { animation: ptUnfoldIn var(--dur-4) var(--ease-out) both; }
+html[data-transition='unfold']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
+/* type — blog: the page is wiped in left-to-right in discrete steps, a
+   cursor writing it into place. */
+@keyframes ptTypeIn {
+	0%   { clip-path: inset(0 100% 0 0); }
+	100% { clip-path: inset(0 0% 0 0); }
+}
+html[data-transition='type']::view-transition-new(root) { animation: ptTypeIn var(--dur-4) steps(18, end) both; }
+html[data-transition='type']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
+/* envelope — newsletter: the page unfolds down from the top, like a letter
+   coming out of an envelope, rather than sliding or fading in. */
+@keyframes ptEnvelopeIn {
+	0%   { transform: scaleY(0.3) translateY(-6%); transform-origin: top center; opacity: 0; }
+	100% { transform: scaleY(1) translateY(0); transform-origin: top center; opacity: 1; }
+}
+html[data-transition='envelope']::view-transition-new(root) { animation: ptEnvelopeIn var(--dur-4) var(--ease-out) both; }
+html[data-transition='envelope']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
+/* terminal — projects: a hard contrast snap before the left-to-right wipe,
+   prompt-command-enter rather than a soft cross-fade. */
+@keyframes ptTerminalIn {
+	0%   { clip-path: inset(0 100% 0 0); filter: contrast(1.5) brightness(0.7); }
+	60%  { filter: contrast(1.2) brightness(0.9); }
+	100% { clip-path: inset(0 0% 0 0); filter: none; }
+}
+html[data-transition='terminal']::view-transition-new(root) { animation: ptTerminalIn var(--dur-4) steps(24, end) both; }
+html[data-transition='terminal']::view-transition-old(root) { animation: fx-fade var(--dur-2) var(--ease-in) reverse both; }
+
 /* ── Reduced motion ────────────────────────────────────────────────────────
    Everything degrades to a plain, fast opacity change. Nothing is removed —
    the reveal still happens, it just stops moving. */
@@ -907,6 +1019,12 @@
 	.sting-shutter .sting__word { clip-path: none; }
 	.sec-cascade > *, .sec-split > *, .sec-lift > * { animation: fx-fade 160ms var(--ease-out) both; }
 	.sec-curtain, .sec-focus { animation: fx-fade 160ms var(--ease-out) both; clip-path: none; filter: none; }
+
+	/* Page transitions: no clip, no filter spike, no movement — an instant
+	   swap, which is what a browser does with @view-transition here anyway. */
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) { animation: none !important; }
 
 	*, *::before, *::after {
 		animation-duration: 1ms !important;

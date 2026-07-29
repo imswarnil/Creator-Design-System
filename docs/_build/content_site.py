@@ -190,15 +190,15 @@ def build_landing():
     return f'''
 <header class="lp-nav">
 	<div class="container lp-nav__in">
-		<a class="cds-mark cds-mark-live" href="./index.html">
+		<a class="cds-mark cds-mark-live" href="/index.html">
 			<span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span>
 			<span class="cds-mark__sub">design system</span>
 		</a>
 		<nav class="cluster-sm">
-			<a class="nav-link" href="./introduction.html">Docs</a>
-			<a class="nav-link" href="./components.html">Components</a>
-			<a class="nav-link" href="./showcase.html">Showcase</a>
-			<a class="nav-link" href="./templates.html">Templates</a>
+			<a class="nav-link" href="/introduction.html">Docs</a>
+			<a class="nav-link" href="/components.html">Components</a>
+			<a class="nav-link" href="/showcase.html">Showcase</a>
+			<a class="nav-link" href="/templates.html">Templates</a>
 		</nav>
 		<div class="cluster-sm">
 			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
@@ -225,11 +225,11 @@ def build_landing():
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
-			<a class="nav-sheet__link" style="--i:0" href="./introduction.html">Docs</a>
-			<a class="nav-sheet__link" style="--i:1" href="./components.html">Components</a>
-			<a class="nav-sheet__link" style="--i:2" href="./showcase.html">Showcase</a>
-			<a class="nav-sheet__link" style="--i:3" href="./templates.html">Templates</a>
-			<a class="nav-sheet__link" style="--i:4" href="./sponsor.html">Sponsor</a>
+			<a class="nav-sheet__link" style="--i:0" href="/introduction.html">Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="/components.html">Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="/showcase.html">Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="/templates.html">Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html">Sponsor</a>
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
@@ -249,8 +249,8 @@ def build_landing():
 				one colour can mean <em class="t-accent">live</em>.
 			</p>
 			<div class="cluster u-mt-8">
-				<a class="btn btn-primary btn-lg" href="./introduction.html">Read the docs</a>
-				<a class="btn btn-secondary btn-lg" href="./components.html">Browse components</a>
+				<a class="btn btn-primary btn-lg" href="/introduction.html">Read the docs</a>
+				<a class="btn btn-secondary btn-lg" href="/components.html">Browse components</a>
 			</div>
 			<p class="t-slate-sm u-mt-5" style="color:var(--fg-faint)">
 				No framework · no runtime · no build step required
@@ -277,7 +277,7 @@ def build_landing():
 					Astro or a single HTML file — then override three variables and
 					it is yours.
 				</p>
-				<a class="t-link fx-shift u-inline-block u-mt-4" href="./install.html">
+				<a class="t-link fx-shift u-inline-block u-mt-4" href="/install.html">
 					Full install guide <span class="fx-shift__icon">→</span></a>
 			</div>
 			{_install_block()}
@@ -288,7 +288,7 @@ def build_landing():
 		<div class="sec-head-row">
 			<div><span class="sec-head-row__kicker">Built with it</span>
 			<h2 class="sec-head-row__title">Showcase</h2></div>
-			<a class="sec-head-row__more fx-shift" href="./showcase.html">All sites <span class="fx-shift__icon">→</span></a>
+			<a class="sec-head-row__more fx-shift" href="/showcase.html">All sites <span class="fx-shift__icon">→</span></a>
 		</div>
 		<div class="deck-c">{showcards}</div>
 	</section>
@@ -297,7 +297,7 @@ def build_landing():
 		<div class="sec-head-row">
 			<div><span class="sec-head-row__kicker">Start from a finished thing</span>
 			<h2 class="sec-head-row__title">Templates</h2></div>
-			<a class="sec-head-row__more fx-shift" href="./templates.html">All templates <span class="fx-shift__icon">→</span></a>
+			<a class="sec-head-row__more fx-shift" href="/templates.html">All templates <span class="fx-shift__icon">→</span></a>
 		</div>
 		<div class="stack">{tplcards}</div>
 	</section>
@@ -325,14 +325,14 @@ def build_landing():
 				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
 			</div>
 			<div><h2 class="footer__head">Docs</h2><div class="footer__links">
-				<a href="./introduction.html">Introduction</a><a href="./principles.html">Principles</a>
-				<a href="./install.html">Install</a><a href="./components.html">Components</a></div></div>
+				<a href="/introduction.html">Introduction</a><a href="/principles.html">Principles</a>
+				<a href="/install.html">Install</a><a href="/components.html">Components</a></div></div>
 			<div><h2 class="footer__head">Project</h2><div class="footer__links">
 				<a href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
 				<a href="https://github.com/imswarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
 				<a href="https://github.com/imswarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
 			<div><h2 class="footer__head">More</h2><div class="footer__links">
-				<a href="./showcase.html">Showcase</a><a href="./templates.html">Templates</a>
+				<a href="/showcase.html">Showcase</a><a href="/templates.html">Templates</a>
 				<a href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor</a></div></div>
 		</div>
 		<div class="footer__signoff">
@@ -456,6 +456,6 @@ PAGES['sponsor'] = ('Sponsor',
     + ct([
         ('Where it goes', 'maintenance time: issues, browser bugs, new components, documentation'),
         ('What it does not buy', 'influence over the roadmap — the principles page decides that'),
-        ('Templates', 'buying a <a class="t-link" href="./templates.html">template</a> funds the system too, and you get a finished product'),
+        ('Templates', 'buying a <a class="t-link" href="/templates.html">template</a> funds the system too, and you get a finished product'),
         ('Sponsors', 'listed here and in the README once the programme is live'),
       ], head=('Question', 'Answer')))

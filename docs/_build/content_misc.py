@@ -31,18 +31,6 @@ PAGES['syllabus'] = ('Syllabus',
           ('aria-current="true"', 'you are here — ring + weight')],
          head=('Where', 'How')))
 
-PAGES['episode-panel'] = ('Episode panel',
-    'The list beside a player: a header that counts, a list that scrolls itself, rows from the media layer.',
-    tile('<div class="ep-panel" style="max-width:24rem">'
-         '<header class="ep-panel__head"><span class="ep-panel__title">Season 02</span>'
-         '<span class="ep-panel__count">8 episodes</span></header>'
-         '<div class="ep-panel__list">'
-         '<a class="episode" href="#i" aria-current="true"><span class="episode__thumb pattern pattern-grid pattern-media"></span><span><span class="episode__title">Rebuilding from tokens</span><span class="episode__meta">Ep.07 · 14:22</span></span></a>'
-         '<a class="episode" href="#i"><span class="episode__thumb pattern pattern-hatch pattern-media"></span><span><span class="episode__title">One query, six hours saved</span><span class="episode__meta">Ep.06 · 09:41</span></span></a>'
-         '<a class="episode" href="#i"><span class="episode__thumb pattern pattern-dots pattern-media"></span><span><span class="episode__title">The curriculum question</span><span class="episode__meta">Ep.05 · 12:03</span></span></a>'
-         '<a class="episode" href="#i"><span class="episode__thumb pattern pattern-scanline pattern-media"></span><span><span class="episode__title">Shipping the shell</span><span class="episode__meta">Ep.04 · 11:18</span></span></a>'
-         '</div></div>',
-         '<b>.ep-panel &gt; __head + __list</b> — capped height, thin scrollbar; on episode pages it docks RIGHT'))
 
 PAGES['build-log'] = ('Build log',
     'The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring.',

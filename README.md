@@ -7,6 +7,11 @@ for creators building their own site.
 
 Almost monochrome, so that one colour can mean something.
 
+[![CI](https://github.com/imswarnil/Creator-Design-System/actions/workflows/ci.yml/badge.svg)](https://github.com/imswarnil/Creator-Design-System/actions/workflows/ci.yml)
+[![Deploy docs](https://github.com/imswarnil/Creator-Design-System/actions/workflows/pages.yml/badge.svg)](https://github.com/imswarnil/Creator-Design-System/actions/workflows/pages.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/imswarnil/Creator-Design-System?style=flat&label=stars)](https://github.com/imswarnil/Creator-Design-System/stargazers)
+
 <img src="media/hero.svg" alt="The creator wordmark inside a viewfinder frame, beside the ink and signal colour ramps, a Subscribe button and a LIVE badge" width="100%">
 
 [Documentation](https://creator.imswarnil.com) ·
@@ -14,6 +19,8 @@ Almost monochrome, so that one colour can mean something.
 [Showcase](https://creator.imswarnil.com/showcase.html) ·
 [Templates](https://creator.imswarnil.com/templates.html) ·
 [Sponsor](https://github.com/sponsors/imswarnil)
+
+If this saved you a rebuild, a ⭐ on the repo is the easiest way to say so.
 
 </div>
 
@@ -176,6 +183,33 @@ The island's hairline doubles as the read-through bar (`.nav-progress` +
 (`.nav-burger-rec`), and the docs page ends in a
 [builder](https://creator.imswarnil.com/navbar.html) that writes the markup for
 whatever combination you land on.
+
+## Collections
+
+A collection is the system proving itself on real content — every route
+built from the same tokens and the same `collection/shell.py`, with its own
+page-transition flavour on arrival:
+
+| Collection | Route | What it demonstrates |
+| --- | --- | --- |
+| Travel | `/collection/travel/` | region → country → city → trip, an itinerary and a video hero |
+| Courses | `/collection/course/` | track → topic → course → lesson, a stage, playlist and transcript |
+| Blog | `/collection/blog/` | tags, reading time, a plain post |
+| Web series | `/collection/webseries/` | genre → show → season → episode, a cast list |
+| Newsletter | `/collection/newsletter/` | calendar-styled issue cards, live dates |
+| Projects | `/collection/projects/` | GitHub-style cards, a build-log timeline, hero-shrink-on-click |
+| Videos | `/collection/videos/` | a channel hero, an upload list, chapters + "products I use" |
+| Guides | `/collection/guides/` | book-cover cards with a colour-blend cover, a stepper between steps |
+| Prompts | `/collection/prompts/` | a chat-bubble card, one prompt per page |
+| Snippets | `/collection/snippets/` | a language tag + fading code preview, one snippet per page |
+| Products I use | `/collection/products/` | grouped hardware/software/video-setup rows |
+| Pages | `/collection/_pages/` | home, about, contact, archive, now, résumé, terms, privacy, welcome |
+| Docs (template) | `/collection/docs/` | a reusable three-column docs shape for your own project |
+
+None of it is fictional infrastructure — open any route straight from disk
+(the stylesheets are relative paths) or serve `collection/` with any static
+file server. Each folder's `build.py` is the generator; edit the data at the
+top and re-run it.
 
 ## Syntax highlighting
 

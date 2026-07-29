@@ -141,7 +141,7 @@
 	// keystroke can't resolve later and render a stale query.
 	var load = function () {
 		if (!loading) {
-			loading = fetch('./search-index.json')
+			loading = fetch('/search-index.json')
 				.then(function (r) { return r.json(); })
 				.then(function (d) { rows = d; })
 				.catch(function () { rows = []; });
@@ -164,18 +164,18 @@
 		var found = [];
 		rows.forEach(function (r) {
 			var t = hit(r.t, q);
-			if (t) { found.push({ href: './' + r.s + '.html', main: t, sub: r.g }); return; }
+			if (t) { found.push({ href: '/' + r.s + '.html', main: t, sub: r.g }); return; }
 			for (var i = 0; i < r.h.length; i++) {
 				var h = hit(r.h[i], q);
-				if (h) { found.push({ href: './' + r.s + '.html', main: h, sub: r.g + ' · ' + esc(r.t) }); return; }
+				if (h) { found.push({ href: '/' + r.s + '.html', main: h, sub: r.g + ' · ' + esc(r.t) }); return; }
 			}
 			// Class names from the spec strips — searching ".btn" should find Buttons.
 			for (var j = 0; j < (r.k || []).length; j++) {
 				var k = hit(r.k[j], q);
-				if (k) { found.push({ href: './' + r.s + '.html', main: esc(r.t) + ' — ' + k, sub: r.g }); return; }
+				if (k) { found.push({ href: '/' + r.s + '.html', main: esc(r.t) + ' — ' + k, sub: r.g }); return; }
 			}
 			var d = r.d && hit(r.d, q);
-			if (d) found.push({ href: './' + r.s + '.html', main: esc(r.t), sub: r.g });
+			if (d) found.push({ href: '/' + r.s + '.html', main: esc(r.t), sub: r.g });
 		});
 		found = found.slice(0, 12);
 		out.innerHTML = found.length

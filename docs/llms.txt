@@ -44,6 +44,7 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Grid](https://creator.imswarnil.com/grid.html): Grid & Layout — Fixed grids for known counts, auto grids for card decks, rail grids for content + sidebar. .grid-2 / -3 / -4 / -6 / -12 
 - [Columns & gutters](https://creator.imswarnil.com/columns.html): Grid & Layout — Gaps come off the same 4px ladder as everything else — never invent a gutter. .u-gap-1…8 — gutter ladder .grid-12 + grid
 - [Z-index](https://creator.imswarnil.com/z-index.html): Grid & Layout — A five-step ladder. If two things fight, one of them is on the wrong step. --z-below · .u-z-below --z-raised · .u-z-rais
+- [Patterns](https://creator.imswarnil.com/layout-patterns.html): Grid & Layout — Five page shapes — blog, three-column docs, a card grid, narrow, and video with a sidebar — each one composed from the g
 - [Composition](https://creator.imswarnil.com/f-layout.html): Grid & Layout — A 12-column fluid grid, a golden-ratio split for hero and article pages, and real media canvases with the platform safe 
 - [Overview](https://creator.imswarnil.com/forms.html): Forms — A field is the component: label + control + hint + error, one unit that knows about itself. Every control is exactly as 
 - [Form control](https://creator.imswarnil.com/form-control.html): Forms — Text inputs and textareas, in every state. .input · .textarea — default, filled, disabled, readonly .input-search — the 
@@ -77,11 +78,11 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Spinners](https://creator.imswarnil.com/spinners.html): Components — Waiting has grades: the spinner for a moment, the scan for a region, the skeleton for a layout. .spinner · [data-loading
 - [Toasts](https://creator.imswarnil.com/toasts.html): Components — Transient confirmations in a fixed region. Polite by default; they never cover the thing you acted on. .toast — shown he
 - [Tooltips](https://creator.imswarnil.com/tooltips.html): Components — One line on hover/focus, CSS only, from data-tip. Anything longer is a popover. .tip[data-tip] — keyboard focus shows it
+- [Ads](https://creator.imswarnil.com/ads.html): Components — Placeholder ad units that behave like real ones: a skeleton until a slot is actually on screen, a lazy load that waits f
 - [Devices](https://creator.imswarnil.com/f-devices.html): Components — Three, and only three. Everything else on the site is plain. .dot · .dot-live · one per surface .frame · .frame-4 · .fra
 - [Frames](https://creator.imswarnil.com/f-frames.html): Components — Containers that say what a thing is before you read it: a Mac window says “app”, a terminal says “command”, a viewfinder
 - [Collection cards](https://creator.imswarnil.com/collection-cards.html): Components — routes.yaml , turned into cards. Each collection extends the base and changes exactly one device — the thing that says w
 - [Syllabus](https://creator.imswarnil.com/syllabus.html): Composites — The course curriculum: native <details> modules, lesson rows that tick off, the current lesson ringed, progress in the h
-- [Episode panel](https://creator.imswarnil.com/episode-panel.html): Composites — The list beside a player: a header that counts, a list that scrolls itself, rows from the media layer. .ep-panel > __hea
 - [Build log](https://creator.imswarnil.com/build-log.html): Composites — The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring. .buildlog > _
 - [Itinerary](https://creator.imswarnil.com/itinerary.html): Composites — The trip, day by day — same rail as the build log wearing travel clothes: day chips, notes, stop badges. .itinerary > __
 - [Page header](https://creator.imswarnil.com/page-header.html): Sections — How a collection opens: kicker with icon, display title, one line, quiet meta. Compact for child pages; the band header 
@@ -89,20 +90,15 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Stats](https://creator.imswarnil.com/stats.html): Sections — Display-face tabular numbers, slate labels, hairlines not boxes. One surface, not four cards. .stats > .stat (+ __value/
 - [CTA](https://creator.imswarnil.com/cta.html): Sections — One ask per page, near the end — the only inverse band in view. The sponsor strip stays on the paper. .cta.cta-newslette
 - [Footer](https://creator.imswarnil.com/footer.html): Sections — The end credits: brand + exhaustive sitemap over a hairline, then the sign-off where the dot ends the page. .footer — __
-- [Overview](https://creator.imswarnil.com/layouts.html): Layouts — Every template a creator site needs, drawn as floor plans — grouped into six categories, each with its own page and vari
-- [Core](https://creator.imswarnil.com/l-core.html): Layouts — 
-- [Watch](https://creator.imswarnil.com/l-watch.html): Layouts — 
-- [Learn](https://creator.imswarnil.com/l-learn.html): Layouts — 
-- [Build](https://creator.imswarnil.com/l-build.html): Layouts — 
-- [Road](https://creator.imswarnil.com/l-road.html): Layouts — 
-- [Pages](https://creator.imswarnil.com/l-pages.html): Layouts — The one-offs. Each has a personality the collections don't get.
 - [The contract](https://creator.imswarnil.com/collections.html): Collections — A collection is a kind of thing you publish. Five routes, one section vocabulary, and one rule: it is the same design sy
 - [Sections](https://creator.imswarnil.com/col-sections.html): Collections — The vocabulary a collection route is assembled from — every block, running, with the markup the real routes ship. .col-h
-- [Travel](https://creator.imswarnil.com/col-travel.html): Collections — The first collection: five routes, sixteen icons and a linked filter, over a demo dataset small enough to read. the scri
+- [Travel](https://creator.imswarnil.com/travel/index.html): Collections — The first collection: five routes, sixteen icons and a linked filter, over a demo dataset small enough to read. the scri
 - [Default](https://creator.imswarnil.com/col-default.html): Collections — The starting point: five working routes with no subject in them, and the test of whether a section is genuinely shared. 
-- [Blog](https://creator.imswarnil.com/col-blog.html): Collections — The second collection, with no CSS of its own — the proof that the section vocabulary is shared rather than travel-shape
-- [Course](https://creator.imswarnil.com/col-course.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
-- [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections — each destination announces itself in its own medium, briefly, skippably, honestly. f
+- [Blog](https://creator.imswarnil.com/blog/index.html): Collections — The second collection, with no CSS of its own — the proof that the section vocabulary is shared rather than travel-shape
+- [Course](https://creator.imswarnil.com/course/index.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
+- [Resume](https://creator.imswarnil.com/resume/index.html): Collections — The fourth collection, and a single page rather than five routes: a full-width summary, then experience, education and p
+- [Webseries](https://creator.imswarnil.com/webseries/index.html): Collections — The fifth collection, and the second one to ship no CSS of its own — a season's spine and its cast are sections travel a
+- [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections, live: one @view-transition rule, nine flavours, and real links below to go see them f
 - [Motion basics](https://creator.imswarnil.com/m-basics.html): Animation & Motion — Four durations, four easings. No component may invent a duration. Entrances travel 16px, not 60 — long travel reads as "
 - [Text effects](https://creator.imswarnil.com/m-text-effects.html): Animation & Motion — Twelve. Most need the text split into spans carrying --i ; the preview does that with five lines of JS. Without spans ev
 - [Annotations](https://creator.imswarnil.com/m-annotations.html): Animation & Motion — Marks that look like someone reached in and drew on the page. One trick behind all of them: an SVG stroke with stroke-da

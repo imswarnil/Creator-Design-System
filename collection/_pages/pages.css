@@ -1,0 +1,85 @@
+/* =============================================================================
+   COLLECTION · PAGES
+   The site's own one-off pages — home, about, contact, archive, now, terms,
+   privacy, welcome, résumé — living together because none of them is a
+   five-route collection, they're each exactly one page. What only they need:
+   the summary strip a bio or résumé leads with, and the icon-marked variant
+   of the shared spine (.col-order) that a career timeline and an education
+   list both turn out to be. Everything else these pages use is in
+   ../collection.css.
+
+   Requires collection.css.
+   ========================================================================== */
+
+/* ── The summary ─────────────────────────────────────────────────────────────
+   Name, role, a one-line pitch, and the ways to reach the person — the block
+   every other section on the page is supporting detail for.
+   ------------------------------------------------------------------------- */
+
+.rsm-summary {
+	display: grid;
+	gap: var(--space-4);
+	padding: var(--space-8) var(--space-6);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+}
+
+.rsm-summary__name {
+	font-family: var(--font-display);
+	font-size: var(--text-3xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+}
+
+.rsm-summary__role {
+	font-family: var(--font-slate);
+	font-size: var(--text-sm);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--accent);
+}
+
+.rsm-summary__pitch {
+	max-width: var(--measure-lead);
+	color: var(--fg-subtle);
+}
+
+.rsm-summary__contacts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2) var(--space-5);
+}
+
+.rsm-summary__contact {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: var(--text-sm);
+	color: var(--fg-muted);
+}
+
+.rsm-summary__contact .icon { width: 1rem; height: 1rem; color: var(--fg-faint); flex: none; }
+
+.rsm-summary__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ── The spine, marked by kind ───────────────────────────────────────────────
+   A career timeline and an education list are both .col-order — the shared
+   series spine — with one thing a plain series entry does not need: an icon
+   that says which kind of entry this is, in place of the plain dot.
+   ------------------------------------------------------------------------- */
+
+.rsm-order__icon {
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: var(--radius-full);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+	display: grid;
+	place-items: center;
+	position: relative;
+	z-index: 1;
+	margin-bottom: var(--space-2);
+}
+
+.rsm-order__icon .icon { width: 1rem; height: 1rem; }

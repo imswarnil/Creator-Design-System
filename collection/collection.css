@@ -177,6 +177,16 @@
 .col-meta-paper { border-top-color: var(--line-default); }
 .col-meta-paper .col-meta__l { color: var(--fg-faint); }
 
+/* One row, always — for a hero's stat strip beside a CTA, where wrapping to
+   a second row reads as a layout accident rather than a design. */
+.col-meta-inline {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	gap: var(--space-6);
+	overflow-x: auto;
+}
+
 /* ── Groups — the regions ────────────────────────────────────────────────────
    The widest cut through the collection, so it comes first and stays small:
    an icon, a name, a count. Anything more and it competes with the places.
@@ -337,6 +347,7 @@
 	padding: var(--space-3) var(--space-4);
 	border-top: var(--border-hair) solid var(--line-subtle);
 	display: flex;
+	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--space-3);
@@ -346,6 +357,18 @@
 	text-transform: uppercase;
 	color: var(--fg-faint);
 }
+
+/* The count+duration text and the level chip share one row on purpose — a
+   card's footer is the one place both facts belong side by side. Neither is
+   allowed to wrap into a second line; the text ellipses before that happens. */
+.col-place__foot > span:first-child {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+}
+
+.col-place__foot > .crs-level { flex: none; }
 
 .col-place[aria-pressed='true'] { border-color: var(--accent); box-shadow: var(--shadow-2); }
 
@@ -737,7 +760,9 @@
 .col-rail { display: grid; gap: var(--space-5); align-content: start; }
 
 @media (min-width: 64rem) {
-	.col-rail-sticky { position: sticky; top: var(--space-6); }
+	/* Below the floating island, not behind it — the nav is itself sticky at
+	   top: space-3, so a rail stuck at the same offset sits under its shadow. */
+	.col-rail-sticky { position: sticky; top: calc(var(--nav-h) + var(--space-6)); }
 }
 
 .col-widget {
@@ -932,7 +957,7 @@
 
 @media (min-width: 68rem) {
 	.col-stage { grid-template-columns: minmax(0, 1fr) 22rem; }
-	.col-stage__side { position: sticky; top: var(--space-6); }
+	.col-stage__side { position: sticky; top: calc(var(--nav-h) + var(--space-6)); }
 }
 
 .col-stage__main { display: grid; gap: var(--space-4); min-width: 0; }

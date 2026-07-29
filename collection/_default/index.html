@@ -19,11 +19,15 @@
 
 <header class="nav-shell">
   <nav class="nav-bar" aria-label="Main">
-    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
     <div class="nav-links">
       <a class="nav-link" href="../../collection/course/index.html">Courses</a>
       <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
       <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
@@ -33,27 +37,51 @@
 
 <main id="main">
 
-  <section class="container u-mt-6">
-   <div class="col-hero">
-    
-    <div class="col-hero__in">
-      <span class="col-hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Index</span>
-      <h1 class="col-hero__title">The collection</h1>
-      <p class="col-hero__lead">One sentence saying what is in here and why anyone would read it. Replace this, the data at the top of build.py, and you have a collection.</p>
-      
-      <form class="col-search" onsubmit="return false">
-        <label class="col-search__field">
-          <span class="u-sr-only">Search</span>
-          <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg>
-          <input type="search" placeholder="Search this collection" />
-        </label>
-        <button class="btn btn-primary btn-pill" type="submit">Search</button>
-      </form>
-      <div class="col-meta"><div><span class="col-meta__n">14</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">places</span></div><div><span class="col-meta__n">3</span><span class="col-meta__l">groups</span></div><div><span class="col-meta__n">1</span><span class="col-meta__l">series</span></div></div>
-    </div>
-   </div>
-  </section>
+  <div class="container">
+    <section class="hero hero-split hero-sm pattern pattern-grid pattern-lg fade-corners"
+             style="padding-block:var(--space-10) var(--space-8);border-radius:var(--radius-sheet);
+                    max-width:calc(var(--w-site) - 4rem);margin-inline:auto">
+      <div>
+        <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Index</span>
+        <h1 class="hero__title">The collection</h1>
+        <p class="hero__lead">One sentence saying what is in here and why anyone would
+          read it. Replace this, the data at the top of build.py, and you have a
+          collection.</p>
+        <div class="hero__actions">
+          <form onsubmit="return false" style="max-width:26rem">
+            <div class="input-group">
+              <input class="input" type="search" placeholder="Search this collection"
+                     aria-label="Search this collection" />
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-meta col-meta-paper col-meta-inline" style="border-top:0;padding-top:0"><div><span class="col-meta__n">14</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">places</span></div><div><span class="col-meta__n">3</span><span class="col-meta__l">groups</span></div><div><span class="col-meta__n">1</span><span class="col-meta__l">series</span></div></div>
+      </div>
+      <div class="hero-split__stage">
+        <div class="frame frame-4 frame-ink" style="aspect-ratio:4/3">
+          <span class="frame__tr"></span><span class="frame__bl"></span>
+          
+<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true" focusable="false" style="width:100%;height:100%;display:block">
+  <rect x="0.5" y="0.5" width="399" height="299" rx="12" fill="var(--bg-surface)" stroke="var(--line-default)"/>
+  <circle cx="34" cy="34" r="6" fill="var(--line-strong)"/>
+  <rect x="52" y="30" width="90" height="8" rx="4" fill="var(--line-strong)"/>
+  <rect x="20" y="60" width="360" height="1" fill="var(--line-subtle)"/>
+  <rect x="20" y="80" width="170" height="104" rx="8" fill="var(--accent-soft)"/>
+  <rect x="200" y="80" width="180" height="48" rx="8" fill="var(--bg-sunken)"/>
+  <rect x="200" y="136" width="180" height="48" rx="8" fill="var(--bg-sunken)"/>
+  <rect x="20" y="200" width="110" height="10" rx="5" fill="var(--line-default)"/>
+  <rect x="20" y="220" width="360" height="8" rx="4" fill="var(--line-subtle)"/>
+  <rect x="20" y="236" width="300" height="8" rx="4" fill="var(--line-subtle)"/>
+  <rect x="20" y="258" width="92" height="26" rx="13" fill="var(--accent)"/>
+</svg>
 
+        </div>
+        <p class="hero-split__caption">Dummy placeholder <span>SVG · swap for a real shot</span></p>
+      </div>
+    </section>
+  </div>
   <div data-collection>
   <section class="container section-sm">
     <div class="row-between u-mb-5"><div><h2 class="t-h3">Groups</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The widest cut. Pick one and everything below narrows to it.</p></div></div>

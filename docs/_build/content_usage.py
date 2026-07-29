@@ -177,9 +177,9 @@ u += ct([
     ('--radius-sm … --radius-pill', 'the corner ladder, plus <code class="t-code">--radius-card</code>'),
     ('--dur-1 … --dur-5 · --ease-out', 'motion: durations and curves'),
 ], head=('Token', 'What it decides'))
-u += p('The full list lives on <a href="./f-color.html">Color</a>, '
-       '<a href="./f-type.html">Typography</a> and <a href="./f-space.html">Spacing</a> — or in '
-       'one read at <a href="./llms-full.txt">llms-full.txt</a>.')
+u += p('The full list lives on <a href="/f-color.html">Color</a>, '
+       '<a href="/f-type.html">Typography</a> and <a href="/f-space.html">Spacing</a> — or in '
+       'one read at <a href="/llms-full.txt">llms-full.txt</a>.')
 u += END
 
 # ── 5 · dark mode ───────────────────────────────────────────────────────────
@@ -392,7 +392,7 @@ u += END
 u += sec('wrong', 'When it looks wrong', 'Five things account for nearly all of it.')
 u += ct([
     ('Everything is unstyled', 'the class does not exist. Check it against '
-                               '<a href="./llms-full.txt">llms-full.txt</a> — nothing in this '
+                               '<a href="/llms-full.txt">llms-full.txt</a> — nothing in this '
                                'system is invented, so a name either is or is not real'),
     ('Overrides do nothing', 'they are above the import. Tokens must be set <em>after</em> the '
                              'system loads'),

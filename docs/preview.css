@@ -1172,3 +1172,72 @@ button.doc-reopen.doc-reopen { top: calc(var(--bar-h) + var(--space-3)); }
 .np__page > span:nth-child(2) { width: 78%; }
 .np__page > span:nth-child(3) { width: 54%; }
 .np__stage[data-theme='dark'] .np__page > span { background: rgb(255 255 255 / 0.08); }
+
+/* ── Introduction hero illustration (docs/_build/content_extra.py) ────────── */
+@keyframes cds-scan { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(150px); } }
+@keyframes cds-blink { 0%, 70%, 100% { opacity: 1; } 82% { opacity: 0.25; } }
+@keyframes cds-type { 0% { width: 0; } 60%, 100% { width: 190px; } }
+@keyframes cds-orbit { to { transform: rotate(360deg); } }
+.cds-illo .scan { animation: cds-scan 5s var(--ease-inout) infinite; }
+.cds-illo .dot { animation: cds-blink 2.4s linear infinite; }
+.cds-illo .type { animation: cds-type 5s var(--ease-inout) infinite; }
+.cds-illo .orbit { transform-origin: 300px 110px; animation: cds-orbit 24s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .cds-illo * { animation: none !important; } }
+
+/* Icon-set page: dark theme inverts the demo tiles' <img> icons. */
+[data-theme='dark'] .cds-ico { filter: invert(1); }
+
+/* ── Docs landing page (docs/_build/build.py LANDING) ──────────────────── */
+	.lp-nav { position: sticky; top: 0; z-index: var(--z-nav); background: color-mix(in srgb, var(--bg-canvas) 88%, transparent); backdrop-filter: saturate(160%) blur(12px); border-bottom: var(--border-hair) solid var(--line-default); }
+	.lp-nav__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3); }
+	.lp-nav nav { display: none; }
+	@media (min-width: 56rem) { .lp-nav nav { display: flex; } }
+	.lp-hero { display: grid; gap: var(--space-10); align-items: center; padding-block: var(--section-lg); }
+	@media (min-width: 64rem) { .lp-hero { grid-template-columns: 1fr 1fr; } }
+	.lp-hero__title { font-family: var(--font-display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }
+	.lp-hero__title em { font-style: normal; color: var(--accent); }
+	.lp-illo { width: 100%; height: auto; max-width: 32rem; margin-inline: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }
+	@keyframes lp-scan { 0%,100% { transform: translateY(0); } 50% { transform: translateY(354px); } }
+	@keyframes lp-blink { 0%,70%,100% { opacity: 1; } 82% { opacity: .2; } }
+	@keyframes lp-orbit { to { transform: rotate(360deg); } }
+	@keyframes lp-float { 0%,100% { transform: translate(388px, 528px); } 50% { transform: translate(388px, 518px); } }
+	.lp-scan { animation: lp-scan 6s var(--ease-inout) infinite; }
+	.lp-rec { animation: lp-blink 2.4s linear infinite; }
+	.lp-orbit { transform-origin: 300px 300px; animation: lp-orbit 26s linear infinite; }
+	.lp-chip { animation: lp-float 5s var(--ease-inout) infinite; }
+
+	/* Four scenes on one 16-second reel: video, then reel, then writing, then
+	   code. --d is the scene's slot; children read it so anything that draws
+	   itself does so while its own scene is on screen, not somebody else's. */
+	.lp-scene { --d: 0s; opacity: 0; animation: lp-cut 16s var(--ease-inout) var(--d) infinite; }
+	.lp-scene-2 { --d: 4s; }
+	.lp-scene-3 { --d: 8s; }
+	.lp-scene-4 { --d: 12s; }
+	@keyframes lp-cut { 0% { opacity: 0; } 3%,22% { opacity: 1; } 25%,100% { opacity: 0; } }
+
+	/* Anything that types, fills or draws itself inside a scene. */
+	.lp-grow { transform-box: fill-box; transform-origin: left center; animation: lp-grow 16s var(--ease-out) var(--d) infinite; }
+	@keyframes lp-grow { 0%,3% { transform: scaleX(0); } 17%,100% { transform: scaleX(1); } }
+	.lp-d1 { animation-delay: calc(var(--d) + .35s); }
+	.lp-d2 { animation-delay: calc(var(--d) + .7s); }
+	.lp-d3 { animation-delay: calc(var(--d) + 1.05s); }
+	.lp-d4 { animation-delay: calc(var(--d) + 1.4s); }
+	.lp-caret { animation: lp-blink 1s steps(1) infinite; }
+	.lp-pulse { transform-box: fill-box; transform-origin: center; animation: lp-pulse 2.6s var(--ease-inout) var(--d) infinite; }
+	@keyframes lp-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+	.lp-pop { transform-box: fill-box; transform-origin: center; animation: lp-pop 16s var(--ease-out) var(--d) infinite; }
+	@keyframes lp-pop { 0%,8% { transform: scale(.4); opacity: 0; } 13% { transform: scale(1.15); opacity: 1; } 16%,100% { transform: scale(1); opacity: 1; } }
+
+	/* Reduced motion: no reel, no typing — the first scene simply stands. */
+	@media (prefers-reduced-motion: reduce) {
+		.lp-illo * { animation: none !important; }
+		.lp-scene { opacity: 0; }
+		.lp-scene-1 { opacity: 1; }
+		.lp-grow, .lp-pop { transform: none; }
+	}
+	.lp-feats { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(16rem,100%), 1fr)); }
+	.lp-feat { border: var(--border-hair) solid var(--line-default); border-radius: var(--radius-card); background: var(--bg-surface); padding: var(--space-5); }
+	.lp-feat__ico { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); background: var(--accent-soft); color: var(--accent-soft-fg); margin-bottom: var(--space-3); }
+	.lp-feat__icon { width: 1.25rem; height: 1.25rem; }
+	.lp-install .tabs { margin-bottom: var(--space-4); }
+	[data-gh-stars] { font-variant-numeric: tabular-nums; }

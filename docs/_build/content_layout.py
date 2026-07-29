@@ -62,6 +62,133 @@ PAGES['z-index'] = ('Z-index',
         ('--z-top · .u-z-top', 'skip link, debug chrome')],
        head=('Step', 'Owns')))
 
+
+# ── Layout patterns ──────────────────────────────────────────────────────────
+# Five real page shapes, built from the grid primitives above rather than a
+# sixth one invented per shape — the point of a foundation is that it runs out
+# of new layouts to build long before it runs out of pages that need one.
+
+lp = ('\t\t<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
+      'Five page shapes a creator site actually needs, none of them a new primitive — '
+      'every one below is <code class="t-code">.grid-rail</code>, <code class="t-code">.grid-3</code>, '
+      '<code class="t-code">.split-phi</code> or <code class="t-code">.container-narrow</code>, '
+      'sometimes nested, never reinvented.</p>')
+
+lp += sec('blog-lp', 'Blog, with a sidebar',
+          'Content and a rail. The rail collapses under the content rather than beside it, '
+          'once the viewport can no longer afford both.')
+lp += tile('''<div class="grid-rail">
+  <article class="stack">
+    <h3 class="t-h4">Why I stopped using a CSS framework</h3>
+    <p class="t-slate-sm" style="color:var(--fg-faint)">11 min read · CSS &amp; layout</p>
+    <p>Every framework is a set of answers to questions someone else was asking. That is
+      fine until your questions differ, and then every line you write is an argument
+      with the defaults.</p>
+    <p>It started with a card. The framework had one, and it was nearly right — which
+      is worse than being wrong, because nearly right gets overridden instead of
+      replaced.</p>
+  </article>
+  <aside class="surface u-p-4">
+    <p class="t-slate-sm u-mb-3" style="color:var(--fg-faint)">Recent posts</p>
+    <div class="list-group list-group-flush">
+      <a class="list-group__item" href="#i">Tokens are a contract, not a theme</a>
+      <a class="list-group__item" href="#i">Writing components you can delete</a>
+      <a class="list-group__item" href="#i">The record light: one colour, rationed</a>
+    </div>
+  </aside>
+</div>''', '<b>.grid-rail</b> — content + an 18rem rail, one column under 68rem')
+lp += END
+
+lp += sec('doc-lp', 'Three-column docs',
+          'A nav rail, the page, and a table of contents — this very page, in fact. Two '
+          'primitives nested rather than a third one invented for the third column.')
+lp += tile('''<div class="grid-rail-left">
+  <nav class="stack-xs">
+    <p class="t-slate-sm u-mb-2" style="color:var(--fg-faint)">Docs</p>
+    <div class="list-group list-group-flush">
+      <a class="list-group__item" href="#i" aria-current="page">Grid</a>
+      <a class="list-group__item" href="#i">Columns &amp; gutters</a>
+      <a class="list-group__item" href="#i">Composition</a>
+    </div>
+  </nav>
+  <div class="grid-rail">
+    <article class="stack">
+      <h3 class="t-h4">Composition</h3>
+      <p>Nearly every layout in the system is one of three primitives: a stack, a
+        cluster, or a named grid.</p>
+    </article>
+    <aside>
+      <p class="t-slate-sm u-mb-3" style="color:var(--fg-faint)">On this page</p>
+      <nav class="stack-xs">
+        <a href="#i">Overview</a>
+        <a href="#i">The grid</a>
+        <a href="#i">Composition</a>
+      </nav>
+    </aside>
+  </div>
+</div>''', '<b>.grid-rail-left</b> wrapping a <b>.grid-rail</b> — three columns from two primitives')
+lp += END
+
+lp += sec('cards-lp', 'Card grid, three in a row',
+          'Equal columns for things with no order between them — a track, a topic, a '
+          'set of posts. Two-up at 62rem, one column at 40rem, no breakpoint classes '
+          'written in the template.')
+lp += tile('''<div class="grid-3">
+  <article class="card"><div class="card__media pattern pattern-grid pattern-media"></div>
+    <div class="card__body"><p class="card__meta">Travel</p>
+      <h3 class="card__title"><a class="card__link" href="#i">Japan, six cities</a></h3></div></article>
+  <article class="card"><div class="card__media pattern pattern-dots pattern-media"></div>
+    <div class="card__body"><p class="card__meta">Course</p>
+      <h3 class="card__title"><a class="card__link" href="#i">CSS from scratch</a></h3></div></article>
+  <article class="card"><div class="card__media pattern pattern-hatch pattern-media"></div>
+    <div class="card__body"><p class="card__meta">Blog</p>
+      <h3 class="card__title"><a class="card__link" href="#i">Tokens are a contract</a></h3></div></article>
+</div>''', '<b>.grid-3</b> — three equal columns, nothing per-card to configure')
+lp += END
+
+lp += sec('narrow-lp', 'Narrow',
+          'One column, held to a measure a reader\'s eye can track back from. No rail — '
+          'a rail is a promise there is somewhere else worth looking.')
+lp += tile('''<div class="container-narrow" style="margin-inline:0;padding-inline:0">
+  <div class="surface-sunken u-p-6">
+    <h3 class="t-h4">A narrow measure</h3>
+    <p class="t-lead" style="margin-top:var(--space-3)">The width a reader can track back
+      to the start of the next line without losing their place.</p>
+    <p class="u-mt-4">A confirmation, a single setting, a sign-in form — anything whose
+      job is one decision reads better without a second column arguing for attention.</p>
+  </div>
+</div>''', '<b>.container-narrow</b> — <code class="t-code">--w-narrow</code>, no rail')
+lp += END
+
+lp += sec('video-lp', 'Video, with a sidebar',
+          'The φ split, not a 2/3 one — the sidebar never competes with the thing '
+          'that is actually playing.')
+lp += tile('''<div class="split-phi">
+  <div class="canvas canvas-thumb canvas__scrim pattern pattern-grid pattern-media pattern-lg"
+       style="border-radius:var(--radius-card)">
+    <div class="canvas__safe">
+      <span class="t-slate" style="color:#fff;display:flex;align-items:center;gap:6px">
+        <span class="dot dot-sm dot-live"></span> ep.07 · 14:22</span>
+      <span style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);
+                   color:#fff;line-height:1.1">Rebuilding my Ghost theme
+        <span style="color:var(--signal-400)">from tokens</span></span>
+    </div>
+  </div>
+  <aside class="surface u-p-4">
+    <p class="t-slate-sm u-mb-3" style="color:var(--fg-faint)">Up next</p>
+    <div class="list-group list-group-flush">
+      <a class="list-group__item" href="#i">Grid, in four rules</a>
+      <a class="list-group__item" href="#i">The record light</a>
+    </div>
+  </aside>
+</div>''', '<b>.split-phi</b> — 1.618fr / 1fr, collapses to one column at 62rem')
+lp += END
+
+PAGES['layout-patterns'] = ('Layout patterns',
+    'Five page shapes — blog, three-column docs, a card grid, narrow, and video with a '
+    'sidebar — each one composed from the grid primitives rather than a layout invented '
+    'per page.', lp)
+
 # ── Content ─────────────────────────────────────────────────────────────────
 
 PAGES['reboot'] = ('Reboot',
@@ -152,36 +279,3 @@ PAGES['code'] = ('Code & syntax',
     + tile('<span class="copy-line"><code>npm run build && npx gscan .</code><button type="button" data-copy>Copy</button></span>',
            '<b>.copy-line</b> — one-liners with the copy chip'))
 
-# ── Layouts overview ────────────────────────────────────────────────────────
-
-_CATS = [
-    ('l-core', 'Core', 'Home, post, page, collection index, tag, tags, archive, 404 — the pages every site has.'),
-    ('l-watch', 'Watch', 'Videos wall, video player page, series billboard, episode player.'),
-    ('l-learn', 'Learn', 'Course overview, lesson player, docs, guide steps.'),
-    ('l-build', 'Build', 'Projects, project overview, build-log steps, products.'),
-    ('l-road', 'Road', 'Travel index, trip overview, travel story, timeline.'),
-    ('l-pages', 'Pages', 'About, resume, contact, sign in/up, guestbook, sponsor — the one-offs.'),
-]
-
-_ov = ('\t\t<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
-       'Each category page draws its layouts as wireframes: grey is content, '
-       '<span style="color:var(--accent)">accent</span> is the container\'s organ '
-       '(curriculum, build log, itinerary), hatched is media, ink is an inverse band. '
-       'Rails are sticky unless noted.</p>\n'
-       '\t\t<div class="list-group u-mb-6" style="max-width:36rem">')
-for _s, _l, _d in _CATS:
-    _ov += (f'<a class="list-group__item" href="./{_s}.html" style="align-items:baseline">'
-            f'<span class="u-weight-semibold" style="flex:0 0 5rem">{_l}</span>'
-            f'<span class="t-small u-fg-subtle u-grow">{_d}</span>'
-            f'<svg class="icon u-shrink-0" aria-hidden="true" style="width:1rem;height:1rem"><use href="#i-arrow"/></svg></a>')
-_ov += '</div>'
-_ov += ('\n\t\t<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)">The contract</h2>'
-        '\n\t\t<p class="u-fg-subtle" style="max-width:var(--measure-lead)">'
-        'A layout is a promise, not a suggestion: the course page keeps its curriculum in the '
-        'MAIN column; the episode page keeps its list on the RIGHT; prose never exceeds its '
-        'measure. Templates converge on these floor plans as the system lands.</p>')
-
-PAGES['layouts'] = ('Layouts',
-    'Every template a creator site needs, drawn as floor plans — grouped into six '
-    'categories, each with its own page and variants.',
-    _ov)

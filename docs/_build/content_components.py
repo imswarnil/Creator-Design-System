@@ -423,3 +423,45 @@ PAGES['tooltips'] = ('Tooltips',
          '<button class="tip btn btn-secondary btn-icon" data-tip="Search everything" aria-label="Search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>'
          '</div>',
          '<b>.tip[data-tip]</b> — keyboard focus shows it too; never put the only copy of anything in one'))
+
+# ── Ads ───────────────────────────────────────────────────────────────────
+
+def _ad(size, w, h, extra_cls=''):
+    return (f'<div class="ad {size} {extra_cls}" data-ad>'
+            f'<button class="ad__hide btn-close" type="button" data-ad-hide aria-label="Hide this ad"></button>'
+            f'<div class="ad__skeleton skeleton skeleton-breathe" aria-hidden="true"></div>'
+            f'<div class="ad__slot"><span class="ad__cta">Your ad here</span>'
+            f'<span class="ad__dims">{w} × {h}</span></div></div>')
+
+PAGES['ads'] = ('Ads',
+    'Placeholder ad units that behave like real ones: a skeleton until a slot is actually on screen, '
+    'a lazy load that waits for that, and a hide switch that belongs to the reader.',
+    ('<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
+     'Every slot below starts as <code class="t-code">.skeleton.skeleton-breathe</code> — the same '
+     'shimmer this system already uses for unknown-shape content — then swaps to its placeholder '
+     'creative once <code class="t-code">src/ad.js</code> decides it has "loaded". Nothing here calls '
+     'a real ad network; the point is the mechanism, not the inventory.</p>'
+     + sec('sizes', 'Sizes', 'IAB standard units, each capped by max-width so a desktop leaderboard '
+           'still fits a phone rather than overflowing it.')
+     + tile(_ad('ad-leaderboard', 728, 90), '<b>.ad-leaderboard</b> — 728 × 90')
+     + tile(_ad('ad-rectangle', 300, 250), '<b>.ad-rectangle</b> — 300 × 250, the most-served unit on the web')
+     + tile('<div class="cluster u-items-start u-gap-6">' + _ad('ad-skyscraper', 160, 600)
+            + _ad('ad-mobile-banner', 320, 50) + '</div>',
+            '<b>.ad-skyscraper</b> (160 × 600) and <b>.ad-mobile-banner</b> (320 × 50)')
+     + tile(_ad('ad-responsive', 'fluid', 'auto'),
+            '<b>.ad-responsive</b> — full width, a floor height, no fixed ratio')
+     + sec('animate', 'Animate on load', 'The .ad-animate variant rises the creative in rather than '
+           'just cross-fading it — the same fx-rise every card entrance already uses, not a new keyframe.')
+     + tile(_ad('ad-rectangle', 300, 250, 'ad-animate'), '<b>.ad-animate</b> — refresh the page to see it fire')
+     + sec('mechanism', 'Lazy load, skeleton, and the hide switch', '')
+     + ct([
+         ('data-ad', 'marks a slot for src/ad.js to manage — nothing renders without it'),
+         ('data-ad-state', '"idle" → "loading" → "loaded", or "hidden" — the only thing the script writes'),
+         ('IntersectionObserver', 'a slot only starts "loading" once it is within 200px of the viewport'),
+         ('data-ad-hide', 'on the close button — sets data-ad-state="hidden", the slot collapses out of layout'),
+         ('No IntersectionObserver support', 'every slot loads immediately — a slower reveal, never a missing ad'),
+     ], head=('Hook', 'Does'))
+     + '<p class="u-fg-subtle u-mt-6" style="max-width:var(--measure-lead)">'
+       '<code class="t-code">.ad-animate</code> rise is skipped entirely under '
+       '<code class="t-code">prefers-reduced-motion</code> — the creative still appears, it just stops '
+       'moving, the same rule every other entrance in this system follows.</p>'))

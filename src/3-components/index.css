@@ -25,3 +25,4 @@
 @import url('./31-content.css');     /* long-form content — headings … kg-cards */
 @import url('./32-editorial.css');   /* rail, chat, release, share            */
 @import url('./33-navbar.css');      /* alignment, dropdown, mega, sheet, contexts */
+@import url('./34-ad.css');          /* IAB ad slots — skeleton, lazy, hide  */

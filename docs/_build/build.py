@@ -56,13 +56,6 @@ FRAGPAGES = {
     # Content extras / components extras
     'text-elements': ('elements', 'text', {}),
     'collection-cards': ('components', 'collection', {}),
-    # Layouts
-    'l-core': ('layouts', 'core', dict(style='layouts')),
-    'l-watch': ('layouts', 'watch', dict(style='layouts')),
-    'l-learn': ('layouts', 'learn', dict(style='layouts')),
-    'l-build': ('layouts', 'build', dict(style='layouts')),
-    'l-road': ('layouts', 'road', dict(style='layouts')),
-    'l-pages': ('layouts', 'pages', dict(style='layouts')),
     # Broadcast · YouTube
     'yt-thumbs': ('youtube', 'thumbs', B), 'yt-layouts': ('youtube', 'layouts', B),
     'yt-categories': ('youtube', 'categories', B), 'yt-series': ('youtube', 'series', B),
@@ -90,7 +83,6 @@ GROUP_ICONS = {
  'Components': '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/><path d="M13 7.5h7M7.5 13v7"/>',
  'Composites': '<path d="M5 6h14M5 12h14M5 18h9"/><circle cx="19" cy="18" r="1.5" fill="currentColor" stroke="none"/>',
  'Sections': '<rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="12" width="16" height="8" rx="1"/>',
- 'Layouts': '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M14 9v11"/>',
  'Animation & Motion': '<path d="M4 12h4l2-5 3 10 2-5h5"/>',
  'Broadcast · YouTube': '<path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" stroke="none"/><rect x="3.5" y="5.5" width="17" height="13" rx="3"/>',
  'Broadcast · Social': '<path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/>',
@@ -114,12 +106,12 @@ NAV = [
     ('Shape & Cutout', [('f-shape', 'Shapes'), ('cutouts', 'Cutouts')]),
     ('Grid & Layout', [('containers', 'Containers'), ('grid', 'Grid'),
                        ('columns', 'Columns & gutters'), ('f-layout', 'Composition'),
-                       ('z-index', 'Z-index')]),
+                       ('z-index', 'Z-index'), ('layout-patterns', 'Patterns')]),
     ('Forms', [('forms', 'Overview'), ('form-control', 'Form control'), ('select', 'Select'),
                ('checks-radios', 'Checks & radios'), ('range', 'Range'),
                ('input-group', 'Input group'), ('floating-labels', 'Floating labels'),
                ('form-layout', 'Layout')]),
-    ('Components', [('accordion', 'Accordion'), ('alerts', 'Alerts'), ('badge', 'Badge'),
+    ('Components', [('accordion', 'Accordion'), ('ads', 'Ads'), ('alerts', 'Alerts'), ('badge', 'Badge'),
                     ('breadcrumb', 'Breadcrumb'), ('buttons', 'Buttons'),
                     ('button-group', 'Button group'), ('card', 'Card'),
                     ('collection-cards', 'Collection cards'), ('carousel', 'Carousel'),
@@ -131,16 +123,14 @@ NAV = [
                     ('pagination', 'Pagination'), ('popovers', 'Popovers'),
                     ('progress', 'Progress'), ('scrollspy', 'Scrollspy'),
                     ('spinners', 'Spinners'), ('toasts', 'Toasts'), ('tooltips', 'Tooltips')]),
-    ('Composites', [('syllabus', 'Syllabus'), ('episode-panel', 'Episode panel'),
-                    ('build-log', 'Build log'), ('itinerary', 'Itinerary')]),
+    ('Composites', [('syllabus', 'Syllabus'), ('build-log', 'Build log'),
+                    ('itinerary', 'Itinerary')]),
     ('Sections', [('page-header', 'Page header'), ('hero', 'Hero'), ('stats', 'Stats'),
                   ('cta', 'CTA'), ('footer', 'Footer')]),
-    ('Layouts', [('layouts', 'Overview'), ('l-core', 'Core'), ('l-watch', 'Watch'),
-                 ('l-learn', 'Learn'), ('l-build', 'Build'), ('l-road', 'Road'),
-                 ('l-pages', 'Pages')]),
     ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
-                     ('col-default', 'Default'), ('col-travel', 'Travel'),
-                     ('col-blog', 'Blog'), ('col-course', 'Course')]),
+                     ('col-default', 'Default'), ('travel/index', 'Travel'),
+                     ('blog/index', 'Blog'), ('course/index', 'Course'),
+                     ('resume/index', 'Resume'), ('webseries/index', 'Webseries')]),
     ('Animation & Motion', [('m-basics', 'Motion basics'), ('m-text-effects', 'Text effects'),
                 ('m-annotations', 'Annotations'), ('m-micro', 'Micro-interactions'),
                 ('m-presets', 'Section presets'), ('m-stings', 'Logo sting'),
@@ -270,7 +260,7 @@ def sidebar(current):
                    f'<summary><span class="doc-group__l">{gsvg}{group}</span></summary>')
         for slug, label in items:
             cur = ' aria-current="page"' if slug == current else ''
-            out.append(f'\t\t\t<a href="./{slug}.html"{cur}>{label}</a>')
+            out.append(f'\t\t\t<a href="/{slug}.html"{cur}>{label}</a>')
         out.append('\t\t\t</details>')
     return '\n'.join(out)
 
@@ -285,7 +275,7 @@ SPONSOR_CARD = '''\t\t\t<div class="doc-sponsor">
 					     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 						<path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/>
 					</svg>Sponsor my project</a>
-				<a class="doc-sponsor__alt" href="./sponsor.html">What sponsorship pays for →</a>
+				<a class="doc-sponsor__alt" href="/sponsor.html">What sponsorship pays for →</a>
 			</div>'''
 
 
@@ -343,13 +333,13 @@ def pager(current):
     parts = []
     if idx > 0:
         s, l, _ = ORDER[idx - 1]
-        parts.append(f'<a class="docs-pager__link" href="./{s}.html">'
+        parts.append(f'<a class="docs-pager__link" href="/{s}.html">'
                      f'<span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">{l}</span></a>')
     else:
         parts.append('<span></span>')
     if idx < len(ORDER) - 1:
         s, l, _ = ORDER[idx + 1]
-        parts.append(f'<a class="docs-pager__link docs-pager__link-next" href="./{s}.html">'
+        parts.append(f'<a class="docs-pager__link docs-pager__link-next" href="/{s}.html">'
                      f'<span class="docs-pager__dir">Next →</span><span class="docs-pager__title">{l}</span></a>')
     else:
         parts.append('<span></span>')
@@ -376,74 +366,19 @@ LANDING_TEMPLATE = '''<!DOCTYPE html>
 <meta name="twitter:title" content="{title}" />
 <meta name="twitter:description" content="A token-first, dependency-free CSS design system for creators building their site." />
 <meta name="twitter:image" content="{site}/og.png" />
-<link rel="icon" href="./favicon.svg{v}" type="image/svg+xml" />
+<link rel="icon" href="/favicon.svg{v}" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./src/1-foundation/index.css{v}" />
-<link rel="stylesheet" href="./src/2-elements/index.css{v}" />
-<link rel="stylesheet" href="./src/3-components/index.css{v}" />
-<link rel="stylesheet" href="./src/5-sections/index.css{v}" />
-<link rel="stylesheet" href="./src/6-utilities/index.css{v}" />
-<link rel="stylesheet" href="./preview.css{v}" />{collection_css}
-<script src="./src/highlight.js{v}" defer></script>
-<script src="./src/nav.js{v}" defer></script>
-<script src="./preview.js{v}" defer></script>
-<style>
-	.lp-nav {{ position: sticky; top: 0; z-index: var(--z-nav); background: color-mix(in srgb, var(--bg-canvas) 88%, transparent); backdrop-filter: saturate(160%) blur(12px); border-bottom: var(--border-hair) solid var(--line-default); }}
-	.lp-nav__in {{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3); }}
-	.lp-nav nav {{ display: none; }}
-	@media (min-width: 56rem) {{ .lp-nav nav {{ display: flex; }} }}
-	.lp-hero {{ display: grid; gap: var(--space-10); align-items: center; padding-block: var(--section-lg); }}
-	@media (min-width: 64rem) {{ .lp-hero {{ grid-template-columns: 1fr 1fr; }} }}
-	.lp-hero__title {{ font-family: var(--font-display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }}
-	.lp-hero__title em {{ font-style: normal; color: var(--accent); }}
-	.lp-illo {{ width: 100%; height: auto; max-width: 32rem; margin-inline: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }}
-	@keyframes lp-scan {{ 0%,100% {{ transform: translateY(0); }} 50% {{ transform: translateY(354px); }} }}
-	@keyframes lp-blink {{ 0%,70%,100% {{ opacity: 1; }} 82% {{ opacity: .2; }} }}
-	@keyframes lp-orbit {{ to {{ transform: rotate(360deg); }} }}
-	@keyframes lp-float {{ 0%,100% {{ transform: translate(388px, 528px); }} 50% {{ transform: translate(388px, 518px); }} }}
-	.lp-scan {{ animation: lp-scan 6s var(--ease-inout) infinite; }}
-	.lp-rec {{ animation: lp-blink 2.4s linear infinite; }}
-	.lp-orbit {{ transform-origin: 300px 300px; animation: lp-orbit 26s linear infinite; }}
-	.lp-chip {{ animation: lp-float 5s var(--ease-inout) infinite; }}
-
-	/* Four scenes on one 16-second reel: video, then reel, then writing, then
-	   code. --d is the scene's slot; children read it so anything that draws
-	   itself does so while its own scene is on screen, not somebody else's. */
-	.lp-scene {{ --d: 0s; opacity: 0; animation: lp-cut 16s var(--ease-inout) var(--d) infinite; }}
-	.lp-scene-2 {{ --d: 4s; }}
-	.lp-scene-3 {{ --d: 8s; }}
-	.lp-scene-4 {{ --d: 12s; }}
-	@keyframes lp-cut {{ 0% {{ opacity: 0; }} 3%,22% {{ opacity: 1; }} 25%,100% {{ opacity: 0; }} }}
-
-	/* Anything that types, fills or draws itself inside a scene. */
-	.lp-grow {{ transform-box: fill-box; transform-origin: left center; animation: lp-grow 16s var(--ease-out) var(--d) infinite; }}
-	@keyframes lp-grow {{ 0%,3% {{ transform: scaleX(0); }} 17%,100% {{ transform: scaleX(1); }} }}
-	.lp-d1 {{ animation-delay: calc(var(--d) + .35s); }}
-	.lp-d2 {{ animation-delay: calc(var(--d) + .7s); }}
-	.lp-d3 {{ animation-delay: calc(var(--d) + 1.05s); }}
-	.lp-d4 {{ animation-delay: calc(var(--d) + 1.4s); }}
-	.lp-caret {{ animation: lp-blink 1s steps(1) infinite; }}
-	.lp-pulse {{ transform-box: fill-box; transform-origin: center; animation: lp-pulse 2.6s var(--ease-inout) var(--d) infinite; }}
-	@keyframes lp-pulse {{ 0%,100% {{ transform: scale(1); }} 50% {{ transform: scale(1.06); }} }}
-	.lp-pop {{ transform-box: fill-box; transform-origin: center; animation: lp-pop 16s var(--ease-out) var(--d) infinite; }}
-	@keyframes lp-pop {{ 0%,8% {{ transform: scale(.4); opacity: 0; }} 13% {{ transform: scale(1.15); opacity: 1; }} 16%,100% {{ transform: scale(1); opacity: 1; }} }}
-
-	/* Reduced motion: no reel, no typing — the first scene simply stands. */
-	@media (prefers-reduced-motion: reduce) {{
-		.lp-illo * {{ animation: none !important; }}
-		.lp-scene {{ opacity: 0; }}
-		.lp-scene-1 {{ opacity: 1; }}
-		.lp-grow, .lp-pop {{ transform: none; }}
-	}}
-	.lp-feats {{ display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(16rem,100%), 1fr)); }}
-	.lp-feat {{ border: var(--border-hair) solid var(--line-default); border-radius: var(--radius-card); background: var(--bg-surface); padding: var(--space-5); }}
-	.lp-feat__ico {{ display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); background: var(--accent-soft); color: var(--accent-soft-fg); margin-bottom: var(--space-3); }}
-	.lp-feat__icon {{ width: 1.25rem; height: 1.25rem; }}
-	.lp-install .tabs {{ margin-bottom: var(--space-4); }}
-	[data-gh-stars] {{ font-variant-numeric: tabular-nums; }}
-</style>
+<link rel="stylesheet" href="/src/1-foundation/index.css{v}" />
+<link rel="stylesheet" href="/src/2-elements/index.css{v}" />
+<link rel="stylesheet" href="/src/3-components/index.css{v}" />
+<link rel="stylesheet" href="/src/5-sections/index.css{v}" />
+<link rel="stylesheet" href="/src/6-utilities/index.css{v}" />
+<link rel="stylesheet" href="/preview.css{v}" />{collection_css}
+<script src="/src/highlight.js{v}" defer></script>
+<script src="/src/nav.js{v}" defer></script>
+<script src="/preview.js{v}" defer></script>
 </head>
 <body class="lp">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -518,32 +453,33 @@ TEMPLATE = '''<!DOCTYPE html>
 <meta name="twitter:description" content="{meta_desc}" />
 <meta name="twitter:image" content="{site}/og.png" />
 {jsonld}
-<link rel="icon" href="./favicon.svg{v}" type="image/svg+xml" />
+<link rel="icon" href="/favicon.svg{v}" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./src/1-foundation/index.css{v}" />
-<link rel="stylesheet" href="./src/2-elements/index.css{v}" />
-<link rel="stylesheet" href="./src/3-components/index.css{v}" />
-<link rel="stylesheet" href="./src/5-sections/index.css{v}" />
-<link rel="stylesheet" href="./src/6-utilities/index.css{v}" />{broadcast_css}
-<link rel="stylesheet" href="./preview.css{v}" />{collection_css}
-<script src="./src/highlight.js{v}" defer></script>
-<script src="./src/nav.js{v}" defer></script>
-<script src="./preview.js{v}" defer></script>{extra_style}
+<link rel="stylesheet" href="/src/1-foundation/index.css{v}" />
+<link rel="stylesheet" href="/src/2-elements/index.css{v}" />
+<link rel="stylesheet" href="/src/3-components/index.css{v}" />
+<link rel="stylesheet" href="/src/5-sections/index.css{v}" />
+<link rel="stylesheet" href="/src/6-utilities/index.css{v}" />{broadcast_css}
+<link rel="stylesheet" href="/preview.css{v}" />{collection_css}
+<script src="/src/highlight.js{v}" defer></script>
+<script src="/src/nav.js{v}" defer></script>
+<script src="/src/ad.js{v}" defer></script>
+<script src="/preview.js{v}" defer></script>{extra_style}
 </head>
 <body class="{body_class} has-side">
 <a class="skip-link" href="#main">Skip to content</a>
 {sprite}
 <header class="cds-bar cds-bar-wide">
 	<div class="cds-bar__in u-relative">
-		<a class="cds-mark" href="./index.html"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span><span class="cds-mark__sub">design system</span></a>
+		<a class="cds-mark" href="/index.html"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span><span class="cds-mark__sub">design system</span></a>
 		<nav class="cds-bar__links" aria-label="Site">
-			<a href="./introduction.html">Docs</a>
-			<a href="./components.html">Components</a>
-			<a href="./showcase.html">Showcase</a>
-			<a href="./templates.html">Templates</a>
-			<a href="./sponsor.html">Sponsor</a>
+			<a href="/introduction.html">Docs</a>
+			<a href="/components.html">Components</a>
+			<a href="/showcase.html">Showcase</a>
+			<a href="/templates.html">Templates</a>
+			<a href="/sponsor.html">Sponsor</a>
 		</nav>
 		<div class="cds-bar__end">
 	<div class="doc-search">
@@ -575,11 +511,11 @@ TEMPLATE = '''<!DOCTYPE html>
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
-			<a class="nav-sheet__link" style="--i:0" href="./introduction.html">Docs</a>
-			<a class="nav-sheet__link" style="--i:1" href="./components.html">Components</a>
-			<a class="nav-sheet__link" style="--i:2" href="./showcase.html">Showcase</a>
-			<a class="nav-sheet__link" style="--i:3" href="./templates.html">Templates</a>
-			<a class="nav-sheet__link" style="--i:4" href="./sponsor.html">Sponsor</a>
+			<a class="nav-sheet__link" style="--i:0" href="/introduction.html">Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="/components.html">Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="/showcase.html">Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="/templates.html">Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html">Sponsor</a>
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
@@ -679,7 +615,10 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
     if style_folder:
         css = FRAG / style_folder / '_style.css'
         if css.exists():
-            extra = f'\n<style>\n{css.read_text()}</style>'
+            out_css = OUT / 'broadcast-frag' / f'{style_folder}.css'
+            out_css.parent.mkdir(parents=True, exist_ok=True)
+            out_css.write_text(css.read_text())
+            extra = f'\n<link rel="stylesheet" href="/broadcast-frag/{style_folder}.css{V}" />'
     lead_html = (f'\n\t\t\t<p class="t-lead" style="margin-top:var(--space-4);'
                  f'max-width:var(--measure-lead)">{lead}</p>') if lead else ''
     esc_title = html.escape(title)
@@ -703,13 +642,19 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
         theme_label='Light',
         dark='false',
         guides_btn='',
-        broadcast_css=f'\n<link rel="stylesheet" href="./src/4-broadcast/index.css{V}" />' if broadcast else '',
+        broadcast_css=f'\n<link rel="stylesheet" href="/src/4-broadcast/index.css{V}" />' if broadcast else '',
         extra_style=extra, body_class='loop-demos' if opts.get('loop') else '',
         collection_css=(
-            f'\n<link rel="stylesheet" href="./collection/collection.css{V}" />'
-            f'\n<link rel="stylesheet" href="./collection/travel/travel.css{V}" />'
-            f'\n<link rel="stylesheet" href="./collection/course/course.css{V}" />'
-            if slug.startswith('col-') or slug == 'collections' else ''))
+            f'\n<link rel="stylesheet" href="/collection/collection.css{V}" />'
+            f'\n<link rel="stylesheet" href="/collection/travel/travel.css{V}" />'
+            f'\n<link rel="stylesheet" href="/collection/course/course.css{V}" />'
+            f'\n<link rel="stylesheet" href="/collection/_pages/pages.css{V}" />'
+            f'\n<link rel="stylesheet" href="/collection/projects/projects.css{V}" />'
+            f'\n<link rel="stylesheet" href="/collection/guides/guides.css{V}" />'
+            if slug.startswith('col-') or slug == 'collections'
+            or slug.split('/')[0] in ('travel', 'course', 'blog', 'resume', 'webseries',
+                                       'pages', 'projects', 'newsletter', 'videos',
+                                       'guides') else ''))
     return (out, toc) if return_toc else out
 
 
@@ -739,6 +684,59 @@ def mirror_assets():
     if dist.exists() and any(dist.iterdir()):
         shutil.rmtree(OUT / 'dist', ignore_errors=True)
         shutil.copytree(dist, OUT / 'dist')
+
+
+# Old flat slug -> where it moved to, when a page's URL changes shape (e.g. moving
+# a collection's docs into its own folder). Kept as a generated redirect rather than
+# a hand-written stub so the target can never drift from the real new path.
+REDIRECTS = {
+    'col-travel': 'travel/index',
+    'col-course': 'course/index',
+    'col-blog': 'blog/index',
+}
+
+
+def write_redirects():
+    for old, new in REDIRECTS.items():
+        url = f'/{new}.html'
+        out = OUT / f'{old}.html'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(
+            '<!doctype html>\n<html lang="en"><head><meta charset="utf-8" />\n'
+            f'<title>Moved — Creator Design System</title>\n'
+            f'<meta http-equiv="refresh" content="0; url={url}" />\n'
+            f'<link rel="canonical" href="{SITE}{url}" />\n'
+            '</head><body>\n'
+            f'<p>This page moved to <a href="{url}">{url}</a>.</p>\n'
+            '</body></html>\n')
+
+
+# Short, memorable entry points into the one Usage page's per-flavour
+# sections — real URLs for "how do I use this with X", rather than asking
+# everyone to land on /usage.html and scroll. The content lives in one place
+# (content_usage.py) so plain-CSS, Tailwind and SCSS never drift into three
+# competing explanations of the same token contract.
+FLAVOUR_ROUTES = {
+    'css': ('usage', 'getting-it', 'Using it with plain CSS'),
+    'tailwind': ('usage', 'tailwind', 'Using it with Tailwind'),
+    'scss': ('usage', 'scss', 'Using it with SCSS'),
+}
+
+
+def write_flavour_routes():
+    for slug, (target, anchor, label) in FLAVOUR_ROUTES.items():
+        url = f'/{target}.html#{anchor}'
+        out = OUT / f'{slug}.html'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(
+            '<!doctype html>\n<html lang="en"><head><meta charset="utf-8" />\n'
+            f'<title>{label} — Creator Design System</title>\n'
+            f'<meta http-equiv="refresh" content="0; url={url}" />\n'
+            f'<link rel="canonical" href="{SITE}{url}" />\n'
+            '</head><body>\n'
+            f'<p><a href="{url}">{label}</a> — part of the '
+            f'<a href="/{target}.html">Usage</a> guide.</p>\n'
+            '</body></html>\n')
 
 
 def write_seo(slugs):
@@ -917,7 +915,9 @@ def main():
     for slug, (title, lead, body) in PAGES.items():
         label, group = slug_meta.get(slug, (title, OFF_NAV.get(slug, '')))
         page, toc = render(slug, title, group, lead, body, {}, return_toc=True)
-        (OUT / f'{slug}.html').write_text(page)
+        out = OUT / f'{slug}.html'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(page)
         kw, ld = keywords(body, lead)
         index.append({'s': slug, 't': label or title, 'g': group,
                       'h': [h for _, h in toc], 'k': kw, 'd': ld})
@@ -928,17 +928,23 @@ def main():
         frag = (FRAG / folder / f'{name}.html').read_text()
         body, lead = strip_fragment_head(frag)
         page, toc = render(slug, label, group, lead, body, opts, return_toc=True)
-        (OUT / f'{slug}.html').write_text(page)
+        out = OUT / f'{slug}.html'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(page)
         kw, ld = keywords(body, lead)
         index.append({'s': slug, 't': label, 'g': group,
                       'h': [h for _, h in toc], 'k': kw, 'd': ld})
         built.add(slug)
 
     for slug, (title, builder) in content_site.LANDING.items():
-        (OUT / f'{slug}.html').write_text(
+        out = OUT / f'{slug}.html'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(
             LANDING_TEMPLATE.format(title=html.escape(title), body=builder(),
                                     sprite=SPRITE, v=V, site=SITE, collection_css=''))
 
+    write_redirects()
+    write_flavour_routes()
     write_seo(built)
     write_llms(index)
 

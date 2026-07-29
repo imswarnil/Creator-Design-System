@@ -1,0 +1,18 @@
+/* =============================================================================
+   COLLECTION · PROJECTS
+   What only projects needs: the star toggle, and the shared view-transition
+   name that morphs the big project hero into the small log-entry hero
+   instead of cutting between them. Everything else this collection uses is
+   in ../collection.css.
+
+   Requires collection.css.
+   ========================================================================== */
+
+.btn-star .icon { transition: fill var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.btn-star[aria-pressed='true'] .icon { fill: var(--accent); color: var(--accent); }
+.btn-star[aria-pressed='true'] { border-color: var(--accent); color: var(--accent); }
+
+/* The two hero sizes share one name, so a cross-document view transition
+   morphs between them — the big intro shrinking into the small log header —
+   instead of the browser's default cross-fade of the whole page. */
+.proj-hero, .proj-hero-sm { view-transition-name: proj-hero; }

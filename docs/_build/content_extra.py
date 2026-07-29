@@ -6,17 +6,6 @@ PAGES = {}
 # ── Introduction — for creators, with the animated viewfinder ───────────────
 
 _hero_svg = '''
-		<style>
-			@keyframes cds-scan { 0%,100% { transform: translateY(0); } 50% { transform: translateY(150px); } }
-			@keyframes cds-blink { 0%,70%,100% { opacity: 1; } 82% { opacity: 0.25; } }
-			@keyframes cds-type { 0% { width: 0; } 60%,100% { width: 190px; } }
-			@keyframes cds-orbit { to { transform: rotate(360deg); } }
-			.cds-illo .scan { animation: cds-scan 5s var(--ease-inout) infinite; }
-			.cds-illo .dot { animation: cds-blink 2.4s linear infinite; }
-			.cds-illo .type { animation: cds-type 5s var(--ease-inout) infinite; }
-			.cds-illo .orbit { transform-origin: 300px 110px; animation: cds-orbit 24s linear infinite; }
-			@media (prefers-reduced-motion: reduce) { .cds-illo * { animation: none !important; } }
-		</style>
 		<div class="surface demo-tile u-mb-8">
 			<div class="demo u-p-0" style="padding:0">
 				<svg class="cds-illo" viewBox="0 0 600 220" style="display:block;width:100%;height:auto" role="img" aria-label="Animated viewfinder illustration: a frame around the work, a record light, a title being typed">
@@ -76,10 +65,10 @@ intro = _hero_svg + '''
 		<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)">Where to start</h2>
 '''
 intro += ct([
-    ('<a class="t-link" href="./why.html">Why this system</a>', 'the ideology — what problem it solves for a creator'),
-    ('<a class="t-link" href="./principles.html">Principles</a>', 'the rules every layer obeys'),
-    ('<a class="t-link" href="./f-logo.html">Foundation</a>', 'logo, color, type, space, elevation — the tokens'),
-    ('<a class="t-link" href="./usage.html">Usage</a>', 'bring your own stack: CSS, SCSS or Tailwind'),
+    ('<a class="t-link" href="/why.html">Why this system</a>', 'the ideology — what problem it solves for a creator'),
+    ('<a class="t-link" href="/principles.html">Principles</a>', 'the rules every layer obeys'),
+    ('<a class="t-link" href="/f-logo.html">Foundation</a>', 'logo, color, type, space, elevation — the tokens'),
+    ('<a class="t-link" href="/usage.html">Usage</a>', 'bring your own stack: CSS, SCSS or Tailwind'),
 ], head=('Page', 'What you get'))
 
 PAGES['introduction'] = ('Creator Design System',
@@ -244,10 +233,14 @@ PAGES['f-color'] = ('Color',
 # ── Icon set ────────────────────────────────────────────────────────────────
 
 _GROUPS = {
-    'ui': ['search', 'menu', 'close', 'arrow-right', 'external', 'check', 'copy', 'sun', 'moon'],
+    'ui': ['search', 'menu', 'close', 'arrow-right', 'external', 'check', 'copy', 'sun', 'moon',
+           'star'],
     'creator': ['rec', 'viewfinder', 'slate', 'take', 'sting', 'course', 'buildlog', 'trip'],
     'media': ['play', 'pause', 'camera', 'mic', 'volume', 'live'],
     'social': ['heart', 'chat', 'share', 'mail'],
+    'travel': ['globe', 'compass', 'mountain', 'beach', 'city', 'party', 'food', 'pin',
+               'route', 'plane', 'train', 'backpack', 'tent', 'passport', 'visa', 'sun'],
+    'resume': ['briefcase', 'graduation-cap', 'calendar', 'phone', 'download'],
 }
 
 iconset = ('<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
@@ -258,13 +251,12 @@ iconset = ('<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">
 for g, names in _GROUPS.items():
     tiles = ''.join(
         f'<div class="u-border u-rounded-lg u-p-4 u-text-center" style="display:grid;gap:var(--space-2);place-items:center">'
-        f'<img src="./icons/{g}/{n}.svg" alt="" style="width:1.5rem;height:1.5rem" class="cds-ico" />'
+        f'<img src="/icons/{g}/{n}.svg" alt="" style="width:1.5rem;height:1.5rem" class="cds-ico" />'
         f'<span class="t-slate-sm" style="color:var(--fg-faint)">{n}</span></div>' for n in names)
     iconset += (f'<h2 class="t-h3" style="margin:var(--space-8) 0 var(--space-3)">{g}/</h2>'
                 f'<div class="grid-auto-sm" style="display:grid;gap:var(--space-3);'
                 f'grid-template-columns:repeat(auto-fill,minmax(6.5rem,1fr))">{tiles}</div>')
-iconset += ('\n\t\t<style>[data-theme="dark"] .cds-ico { filter: invert(1); }</style>'
-            + tile('''<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
+iconset += (tile('''<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
 <pre class="codebox__pre"><code><span class="ln"><span class="tok-com">&lt;!-- inline: inherits color, themes automatically --&gt;</span></span><span class="ln">&lt;<span class="tok-key">svg</span> class=<span class="tok-str">"icon"</span>&gt;…paste the file's paths…&lt;/<span class="tok-key">svg</span>&gt;</span><span class="ln"><span class="tok-com">&lt;!-- sizes ride the icon ladder --&gt;</span></span><span class="ln">.icon-sm <span class="tok-com">(16)</span> · .icon <span class="tok-com">(20)</span> · .icon-lg <span class="tok-com">(24)</span></span></code></pre></figure>''',
                    'prefer inline or a sprite — an &lt;img&gt; can\'t inherit currentColor (the grid above inverts via filter)'))
 
@@ -315,38 +307,92 @@ PAGES['cutouts'] = ('Cutouts',
     cut)
 
 # ── Page transitions ────────────────────────────────────────────────────────
+# Live, not a mockup: one @view-transition rule in 05-motion.css turns on
+# browser-native cross-document transitions site-wide, and each collection's
+# shell sets data-transition on its own <html> — so the cards below are real
+# links to real pages. Click one in a supporting browser (Chrome/Edge) to see
+# it actually run; anywhere else it's a plain, instant navigation, which is
+# the correct fallback, not a missing feature.
+
+_PT_CARDS = [
+    ('takeoff', 'Travel', '/collection/travel/index.html',
+     'The outgoing page banks and climbs away on a diagonal; the incoming one '
+     'arrives from the same angle — a plane-departure sweep.'),
+    ('pop', 'Course', '/collection/course/index.html',
+     'A small, confident scale-up. Pen-to-table snap, not a slide — a lesson '
+     'starts, it doesn\'t arrive from off-screen.'),
+    ('unfold', 'Résumé', '/collection/_pages/resume.html',
+     'A vertical reveal from the top down, like a folded page opening flat.'),
+    ('type', 'Blog', '/collection/blog/index.html',
+     'New — the page is wiped in left to right, in discrete steps: a cursor '
+     'writing it into place.'),
+    ('slate', 'Webseries', '/collection/webseries/index.html',
+     'New — the clapperboard. The outgoing page slams shut to a line; the '
+     'incoming one snaps open from it, built from the same device as '
+     '<code class="t-code">icons/creator/slate.svg</code>.'),
+    ('envelope', 'Newsletter', '/collection/newsletter/index.html',
+     'New — the page unfolds down from the top, like a letter coming out of '
+     'an envelope. Completes a flavour the spec named and nothing built until now.'),
+    ('terminal', 'Projects', '/collection/projects/index.html',
+     'New — a hard contrast snap, then a left-to-right wipe: prompt, command, '
+     'enter, the same beat the spec described for a terminal run.'),
+    ('static', 'Videos', '/collection/videos/index.html',
+     'New — a beat of TV static before the picture resolves, exactly the beat '
+     'the spec named for Videos/YouTube.'),
+    ('turn', 'Guides', '/collection/guides/index.html',
+     'New — a page-turn: the incoming page rotates up from the left edge like '
+     'a leaf of a book settling flat.'),
+    ('', 'Default collection', '/collection/_default/index.html',
+     'No flavour set — a plain cross-fade, so an unstyled destination still '
+     'feels intentional rather than missing.'),
+]
 
 pt = ('<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
       'Between-page motion is collection-flavoured: each destination announces itself the way its '
-      'medium would. Transitions are 300–500ms, skippable, and disabled entirely under reduced '
-      'motion — a transition is a scene change, not a loading screen.</p>'
+      'medium would. One CSS at-rule turns this on for every same-origin navigation — no JavaScript, '
+      'and a browser that doesn\'t support it just navigates, which is the whole point of shipping it '
+      'as progressive enhancement rather than a router.</p>'
+      + tile('<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head">'
+             '<span class="codebox__lang">css</span>'
+             '<button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>'
+             '<pre class="codebox__pre"><code>'
+             '@view-transition {\n  navigation: auto;\n}\n\n'
+             'html[data-transition=\'takeoff\']::view-transition-old(root) {\n'
+             '  animation: ptTakeoffOut var(--dur-4) var(--ease-in) both;\n}\n'
+             'html[data-transition=\'takeoff\']::view-transition-new(root) {\n'
+             '  animation: ptTakeoffIn var(--dur-4) var(--ease-out) both;\n}'
+             '</code></pre></figure>',
+             'the whole mechanism — <b>05-motion.css</b>, and one <code class="t-code">data-transition</code> '
+             'attribute the destination\'s own shell sets')
+      + '<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-2)">Try it</h2>'
+      + '<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Click through — then use '
+        'the browser\'s back button, which fires the same transition in reverse. Nine flavours: '
+        'five completed from the spec below, four built new for this system\'s own collections.</p>'
+      + '<div class="grid-3">' + ''.join(
+          f'<a class="surface demo-tile" href="{href}" style="display:block;text-decoration:none;'
+          f'color:inherit;padding:var(--space-5)">'
+          f'<span class="t-slate-sm" style="color:var(--fg-faint)">{name}</span>'
+          f'<h3 class="t-h4 u-mt-2">{flavour or "cross-fade"}</h3>'
+          f'<p class="t-small u-fg-subtle u-mt-2">{desc}</p>'
+          f'<span class="t-small" style="color:var(--accent)">Visit →</span></a>'
+          for flavour, name, href, desc in _PT_CARDS) + '</div>'
+      + '<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)">The rest of the spec</h2>'
+      + '<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">Named, and the keyframe '
+        'exists in <code class="t-code">05-motion.css</code> — it waits for a page in this system to '
+        'be the destination it describes.</p>'
       + ct([
-          ('Videos / YouTube', 'a beat of TV static'),
-          ('Web series', 'the ident sting (see Logo sting) — ends on the wordmark'),
-          ('Projects', 'terminal run: prompt, command, enter'),
-          ('Travel', 'take-off / landing sweep; single trips get the paper plane'),
-          ('Courses', 'study pop — pen to table'),
           ('Timeline', 'years passing, motion-blurred'),
-          ('Newsletter', 'envelope opens'),
-          ('Resume', 'paper unfolds'),
       ], head=('Destination', 'Flavour'))
-      + tile('<div class="u-flex u-gap-4 u-wrap u-items-center">'
-             '<div class="frame frame-ink" data-surface="inverse" style="width:12rem;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden">'
-             '<div class="pattern pattern-scanline" style="position:absolute;inset:0;opacity:.5"></div>'
-             '<span class="t-slate" style="color:#fff">STATIC</span></div>'
-             '<div class="frame" style="width:12rem;aspect-ratio:16/9;display:grid;place-items:center">'
-             '<span class="t-slate">✈ TAKE-OFF</span></div>'
-             '</div>',
-             'flavour boards — the real overlays live in the theme; the system ships the vocabulary')
       + '<p class="u-fg-subtle u-mt-6" style="max-width:var(--measure-lead)">'
-        'Implementation note: use the View Transitions API where available '
-        '(<code class="t-code">@view-transition { navigation: auto }</code>) with the flavour as a '
-        '<code class="t-code">::view-transition-old/new</code> animation; fall back to no transition, '
-        'never to a blocking overlay.</p>')
+        'Disabled entirely under reduced motion — every '
+        '<code class="t-code">::view-transition-*</code> pseudo-element collapses to '
+        '<code class="t-code">animation: none</code>, which is what the browser does with '
+        '<code class="t-code">@view-transition</code> here anyway. A transition is a scene change, '
+        'never a loading screen, and never a thing a reader has to wait through.</p>')
 
 PAGES['page-transitions'] = ('Page transitions',
-    'Scene changes between collections — each destination announces itself in its own medium, '
-    'briefly, skippably, honestly.',
+    'Scene changes between collections, live: one @view-transition rule, nine flavours, and real '
+    'links below to go see them fire.',
     pt)
 
 # ── Introduction v2 — richer: what / why / for whom / magic values ──────────
@@ -430,10 +476,10 @@ intro2 = _hero_svg + '''
 
 		<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)">Why · How · For whom</h2>
 ''' + ct([
-    ('Why', 'so one person can run a channel-sized brand without re-deciding it nightly — <a class="t-link" href="./why.html">the full ideology</a>'),
-    ('How', 'tokens → elements → components → sections → layouts, all plain CSS — <a class="t-link" href="./install.html">install in five minutes</a>'),
+    ('Why', 'so one person can run a channel-sized brand without re-deciding it nightly — <a class="t-link" href="/why.html">the full ideology</a>'),
+    ('How', 'tokens → elements → components → sections → layouts, all plain CSS — <a class="t-link" href="/install.html">install in five minutes</a>'),
     ('For whom', 'creator-builders: people who film, write, teach or build in public and want their site to look decided'),
-    ('Rules', 'the eight <a class="t-link" href="./principles.html">principles</a> every layer obeys'),
+    ('Rules', 'the eight <a class="t-link" href="/principles.html">principles</a> every layer obeys'),
 ], head=('Question', 'Answer'))
 
 PAGES['introduction'] = ('Creator Design System',
@@ -451,7 +497,7 @@ PAGES['install'] = ('Installation',
 			Link it straight from jsDelivr — <code class="t-code">cdn.jsdelivr.net/gh/imswarnil/Creator-Design-System@main/dist/creator.min.css</code>
 			— or copy <code class="t-code">dist/creator.css</code> out of the repository.
 			<code class="t-code">npm i creator-design-system</code> lands with the first
-			tagged release. The full walkthrough is on <a href="./usage.html">Usage</a>.
+			tagged release. The full walkthrough is on <a href="/usage.html">Usage</a>.
 		</p>
 		<h2 class="t-h3" style="margin:var(--space-8) 0 var(--space-4)">2 · Link the layers</h2>
 ''' + tile('''<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>
@@ -484,7 +530,7 @@ PAGES['setup'] = ('Setup & theming',
 		</p>
 		<h2 class="t-h3" style="margin:var(--space-8) 0 var(--space-4)">Swap the mark</h2>
 		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">
-			The logo is markup, not an image (<a class="t-link" href="./f-logo.html">Logo</a>):
+			The logo is markup, not an image (<a class="t-link" href="/f-logo.html">Logo</a>):
 			put your own word in, keep the tittle. Icons live in
 			<code class="t-code">creator-design-system/icons/</code> — currentColor, so they
 			follow your ink automatically.

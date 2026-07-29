@@ -17,74 +17,19 @@
 <meta name="twitter:title" content="Creator Design System — Frame &amp; Signal" />
 <meta name="twitter:description" content="A token-first, dependency-free CSS design system for creators building their site." />
 <meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
-<link rel="icon" href="./favicon.svg?v=cds25" type="image/svg+xml" />
+<link rel="icon" href="/favicon.svg?v=cds25" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="./src/1-foundation/index.css?v=cds25" />
-<link rel="stylesheet" href="./src/2-elements/index.css?v=cds25" />
-<link rel="stylesheet" href="./src/3-components/index.css?v=cds25" />
-<link rel="stylesheet" href="./src/5-sections/index.css?v=cds25" />
-<link rel="stylesheet" href="./src/6-utilities/index.css?v=cds25" />
-<link rel="stylesheet" href="./preview.css?v=cds25" />
-<script src="./src/highlight.js?v=cds25" defer></script>
-<script src="./src/nav.js?v=cds25" defer></script>
-<script src="./preview.js?v=cds25" defer></script>
-<style>
-	.lp-nav { position: sticky; top: 0; z-index: var(--z-nav); background: color-mix(in srgb, var(--bg-canvas) 88%, transparent); backdrop-filter: saturate(160%) blur(12px); border-bottom: var(--border-hair) solid var(--line-default); }
-	.lp-nav__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3); }
-	.lp-nav nav { display: none; }
-	@media (min-width: 56rem) { .lp-nav nav { display: flex; } }
-	.lp-hero { display: grid; gap: var(--space-10); align-items: center; padding-block: var(--section-lg); }
-	@media (min-width: 64rem) { .lp-hero { grid-template-columns: 1fr 1fr; } }
-	.lp-hero__title { font-family: var(--font-display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }
-	.lp-hero__title em { font-style: normal; color: var(--accent); }
-	.lp-illo { width: 100%; height: auto; max-width: 32rem; margin-inline: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }
-	@keyframes lp-scan { 0%,100% { transform: translateY(0); } 50% { transform: translateY(354px); } }
-	@keyframes lp-blink { 0%,70%,100% { opacity: 1; } 82% { opacity: .2; } }
-	@keyframes lp-orbit { to { transform: rotate(360deg); } }
-	@keyframes lp-float { 0%,100% { transform: translate(388px, 528px); } 50% { transform: translate(388px, 518px); } }
-	.lp-scan { animation: lp-scan 6s var(--ease-inout) infinite; }
-	.lp-rec { animation: lp-blink 2.4s linear infinite; }
-	.lp-orbit { transform-origin: 300px 300px; animation: lp-orbit 26s linear infinite; }
-	.lp-chip { animation: lp-float 5s var(--ease-inout) infinite; }
-
-	/* Four scenes on one 16-second reel: video, then reel, then writing, then
-	   code. --d is the scene's slot; children read it so anything that draws
-	   itself does so while its own scene is on screen, not somebody else's. */
-	.lp-scene { --d: 0s; opacity: 0; animation: lp-cut 16s var(--ease-inout) var(--d) infinite; }
-	.lp-scene-2 { --d: 4s; }
-	.lp-scene-3 { --d: 8s; }
-	.lp-scene-4 { --d: 12s; }
-	@keyframes lp-cut { 0% { opacity: 0; } 3%,22% { opacity: 1; } 25%,100% { opacity: 0; } }
-
-	/* Anything that types, fills or draws itself inside a scene. */
-	.lp-grow { transform-box: fill-box; transform-origin: left center; animation: lp-grow 16s var(--ease-out) var(--d) infinite; }
-	@keyframes lp-grow { 0%,3% { transform: scaleX(0); } 17%,100% { transform: scaleX(1); } }
-	.lp-d1 { animation-delay: calc(var(--d) + .35s); }
-	.lp-d2 { animation-delay: calc(var(--d) + .7s); }
-	.lp-d3 { animation-delay: calc(var(--d) + 1.05s); }
-	.lp-d4 { animation-delay: calc(var(--d) + 1.4s); }
-	.lp-caret { animation: lp-blink 1s steps(1) infinite; }
-	.lp-pulse { transform-box: fill-box; transform-origin: center; animation: lp-pulse 2.6s var(--ease-inout) var(--d) infinite; }
-	@keyframes lp-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-	.lp-pop { transform-box: fill-box; transform-origin: center; animation: lp-pop 16s var(--ease-out) var(--d) infinite; }
-	@keyframes lp-pop { 0%,8% { transform: scale(.4); opacity: 0; } 13% { transform: scale(1.15); opacity: 1; } 16%,100% { transform: scale(1); opacity: 1; } }
-
-	/* Reduced motion: no reel, no typing — the first scene simply stands. */
-	@media (prefers-reduced-motion: reduce) {
-		.lp-illo * { animation: none !important; }
-		.lp-scene { opacity: 0; }
-		.lp-scene-1 { opacity: 1; }
-		.lp-grow, .lp-pop { transform: none; }
-	}
-	.lp-feats { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(16rem,100%), 1fr)); }
-	.lp-feat { border: var(--border-hair) solid var(--line-default); border-radius: var(--radius-card); background: var(--bg-surface); padding: var(--space-5); }
-	.lp-feat__ico { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); background: var(--accent-soft); color: var(--accent-soft-fg); margin-bottom: var(--space-3); }
-	.lp-feat__icon { width: 1.25rem; height: 1.25rem; }
-	.lp-install .tabs { margin-bottom: var(--space-4); }
-	[data-gh-stars] { font-variant-numeric: tabular-nums; }
-</style>
+<link rel="stylesheet" href="/src/1-foundation/index.css?v=cds25" />
+<link rel="stylesheet" href="/src/2-elements/index.css?v=cds25" />
+<link rel="stylesheet" href="/src/3-components/index.css?v=cds25" />
+<link rel="stylesheet" href="/src/5-sections/index.css?v=cds25" />
+<link rel="stylesheet" href="/src/6-utilities/index.css?v=cds25" />
+<link rel="stylesheet" href="/preview.css?v=cds25" />
+<script src="/src/highlight.js?v=cds25" defer></script>
+<script src="/src/nav.js?v=cds25" defer></script>
+<script src="/preview.js?v=cds25" defer></script>
 </head>
 <body class="lp">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -106,15 +51,15 @@
 
 <header class="lp-nav">
 	<div class="container lp-nav__in">
-		<a class="cds-mark cds-mark-live" href="./index.html">
+		<a class="cds-mark cds-mark-live" href="/index.html">
 			<span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span>
 			<span class="cds-mark__sub">design system</span>
 		</a>
 		<nav class="cluster-sm">
-			<a class="nav-link" href="./introduction.html">Docs</a>
-			<a class="nav-link" href="./components.html">Components</a>
-			<a class="nav-link" href="./showcase.html">Showcase</a>
-			<a class="nav-link" href="./templates.html">Templates</a>
+			<a class="nav-link" href="/introduction.html">Docs</a>
+			<a class="nav-link" href="/components.html">Components</a>
+			<a class="nav-link" href="/showcase.html">Showcase</a>
+			<a class="nav-link" href="/templates.html">Templates</a>
 		</nav>
 		<div class="cluster-sm">
 			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
@@ -141,11 +86,11 @@
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
-			<a class="nav-sheet__link" style="--i:0" href="./introduction.html">Docs</a>
-			<a class="nav-sheet__link" style="--i:1" href="./components.html">Components</a>
-			<a class="nav-sheet__link" style="--i:2" href="./showcase.html">Showcase</a>
-			<a class="nav-sheet__link" style="--i:3" href="./templates.html">Templates</a>
-			<a class="nav-sheet__link" style="--i:4" href="./sponsor.html">Sponsor</a>
+			<a class="nav-sheet__link" style="--i:0" href="/introduction.html">Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="/components.html">Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="/showcase.html">Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="/templates.html">Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html">Sponsor</a>
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
@@ -165,8 +110,8 @@
 				one colour can mean <em class="t-accent">live</em>.
 			</p>
 			<div class="cluster u-mt-8">
-				<a class="btn btn-primary btn-lg" href="./introduction.html">Read the docs</a>
-				<a class="btn btn-secondary btn-lg" href="./components.html">Browse components</a>
+				<a class="btn btn-primary btn-lg" href="/introduction.html">Read the docs</a>
+				<a class="btn btn-secondary btn-lg" href="/components.html">Browse components</a>
 			</div>
 			<p class="t-slate-sm u-mt-5" style="color:var(--fg-faint)">
 				No framework · no runtime · no build step required
@@ -275,7 +220,7 @@
 					Astro or a single HTML file — then override three variables and
 					it is yours.
 				</p>
-				<a class="t-link fx-shift u-inline-block u-mt-4" href="./install.html">
+				<a class="t-link fx-shift u-inline-block u-mt-4" href="/install.html">
 					Full install guide <span class="fx-shift__icon">→</span></a>
 			</div>
 			<div class="lp-install"><div class="tabs" role="tablist" aria-label="Install"><button class="tab" role="tab" aria-selected="true" data-install-tab="npm">npm</button><button class="tab" role="tab" aria-selected="false" data-install-tab="cdn">CDN</button><button class="tab" role="tab" aria-selected="false" data-install-tab="css">Download</button></div><div data-install-panel="npm"><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">npm install creator-design-system</span></code></pre></figure><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class='tok-key'>@import</span> <span class='tok-str'>&quot;creator-design-system&quot;</span>;</span></code></pre></figure></div><div data-install-panel="cdn" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">&lt;<span class='tok-key'>link</span> rel=<span class='tok-str'>&quot;stylesheet&quot;</span></span><span class="ln">      href=<span class='tok-str'>&quot;https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css&quot;</span>&gt;</span></code></pre></figure></div><div data-install-panel="css" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">curl -O https://unpkg.com/creator-design-system/dist/creator.css</span><span class="ln"><span class='tok-com'># link it. that is the whole installation.</span></span></code></pre></figure></div></div>
@@ -286,7 +231,7 @@
 		<div class="sec-head-row">
 			<div><span class="sec-head-row__kicker">Built with it</span>
 			<h2 class="sec-head-row__title">Showcase</h2></div>
-			<a class="sec-head-row__more fx-shift" href="./showcase.html">All sites <span class="fx-shift__icon">→</span></a>
+			<a class="sec-head-row__more fx-shift" href="/showcase.html">All sites <span class="fx-shift__icon">→</span></a>
 		</div>
 		<div class="deck-c"><a class="card" href="https://imswarnil.com" rel="noopener" target="_blank"><span class="card__media pattern pattern-grid pattern-media"></span><span class="card__body"><span class="card__meta">Swarnil Singhai</span><span class="card__title">imswarnil.com</span><span class="card__excerpt">The site the system was built for — videos, courses, build logs and trips under one identity.</span></span></a></div>
 	</section>
@@ -295,7 +240,7 @@
 		<div class="sec-head-row">
 			<div><span class="sec-head-row__kicker">Start from a finished thing</span>
 			<h2 class="sec-head-row__title">Templates</h2></div>
-			<a class="sec-head-row__more fx-shift" href="./templates.html">All templates <span class="fx-shift__icon">→</span></a>
+			<a class="sec-head-row__more fx-shift" href="/templates.html">All templates <span class="fx-shift__icon">→</span></a>
 		</div>
 		<div class="stack"><a class="card card-row" href="https://imswarnil.com/shop/" rel="noopener" target="_blank"><span class="card__body"><span class="card__meta">Ghost · <b>$49</b></span><span class="card__title">Swarnil — Ghost theme</span><span class="card__excerpt">The full creator theme: videos, courses with syllabus, web series, projects with build logs, travel and docs.</span></span></a></div>
 	</section>
@@ -323,14 +268,14 @@
 				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
 			</div>
 			<div><h2 class="footer__head">Docs</h2><div class="footer__links">
-				<a href="./introduction.html">Introduction</a><a href="./principles.html">Principles</a>
-				<a href="./install.html">Install</a><a href="./components.html">Components</a></div></div>
+				<a href="/introduction.html">Introduction</a><a href="/principles.html">Principles</a>
+				<a href="/install.html">Install</a><a href="/components.html">Components</a></div></div>
 			<div><h2 class="footer__head">Project</h2><div class="footer__links">
 				<a href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
 				<a href="https://github.com/imswarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
 				<a href="https://github.com/imswarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
 			<div><h2 class="footer__head">More</h2><div class="footer__links">
-				<a href="./showcase.html">Showcase</a><a href="./templates.html">Templates</a>
+				<a href="/showcase.html">Showcase</a><a href="/templates.html">Templates</a>
 				<a href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor</a></div></div>
 		</div>
 		<div class="footer__signoff">

@@ -120,11 +120,61 @@ CRUMBS = ('<nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">'
           '<a href="./index.html">{name}</a> <span>/</span> <span>{here}</span></nav>')
 
 
+# A dummy screenshot — a card, a header row, two content blocks, three lines
+# and a button — every shape drawn in tokens, so it re-themes with the page
+# instead of shipping as a fixed-colour PNG. Stands in for wherever a real
+# product shot goes once the collection has one.
+STAGE_ART = '''
+<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+     aria-hidden="true" focusable="false" style="width:100%;height:100%;display:block">
+  <rect x="0.5" y="0.5" width="399" height="299" rx="12" fill="var(--bg-surface)" stroke="var(--line-default)"/>
+  <circle cx="34" cy="34" r="6" fill="var(--line-strong)"/>
+  <rect x="52" y="30" width="90" height="8" rx="4" fill="var(--line-strong)"/>
+  <rect x="20" y="60" width="360" height="1" fill="var(--line-subtle)"/>
+  <rect x="20" y="80" width="170" height="104" rx="8" fill="var(--accent-soft)"/>
+  <rect x="200" y="80" width="180" height="48" rx="8" fill="var(--bg-sunken)"/>
+  <rect x="200" y="136" width="180" height="48" rx="8" fill="var(--bg-sunken)"/>
+  <rect x="20" y="200" width="110" height="10" rx="5" fill="var(--line-default)"/>
+  <rect x="20" y="220" width="360" height="8" rx="4" fill="var(--line-subtle)"/>
+  <rect x="20" y="236" width="300" height="8" rx="4" fill="var(--line-subtle)"/>
+  <rect x="20" y="258" width="92" height="26" rx="13" fill="var(--accent)"/>
+</svg>
+'''
+
+
 def route_index():
-    body = hero('The collection', 'One sentence saying what is in here and why anyone '
-                'would read it. Replace this, the data at the top of build.py, and you '
-                'have a collection.', 'Index', [('14', 'posts'), ('4', 'places'),
-                ('3', 'groups'), ('1', 'series')], search='Search this collection')
+    body = f'''
+  <div class="container">
+    <section class="hero hero-split hero-sm pattern pattern-grid pattern-lg fade-corners"
+             style="padding-block:var(--space-10) var(--space-8);border-radius:var(--radius-sheet);
+                    max-width:calc(var(--w-site) - 4rem);margin-inline:auto">
+      <div>
+        <span class="hero__eyebrow">{icon('pin')}Index</span>
+        <h1 class="hero__title">The collection</h1>
+        <p class="hero__lead">One sentence saying what is in here and why anyone would
+          read it. Replace this, the data at the top of build.py, and you have a
+          collection.</p>
+        <div class="hero__actions">
+          <form onsubmit="return false" style="max-width:26rem">
+            <div class="input-group">
+              <input class="input" type="search" placeholder="Search this collection"
+                     aria-label="Search this collection" />
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+        {meta_strip([('14', 'posts'), ('4', 'places'), ('3', 'groups'), ('1', 'series')],
+                    paper=True, border=False, inline=True)}
+      </div>
+      <div class="hero-split__stage">
+        <div class="frame frame-4 frame-ink" style="aspect-ratio:4/3">
+          <span class="frame__tr"></span><span class="frame__bl"></span>
+          {STAGE_ART}
+        </div>
+        <p class="hero-split__caption">Dummy placeholder <span>SVG · swap for a real shot</span></p>
+      </div>
+    </section>
+  </div>'''
     body += f'''
   <div data-collection>
   <section class="container section-sm">

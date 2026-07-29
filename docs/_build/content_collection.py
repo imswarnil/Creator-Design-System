@@ -32,6 +32,8 @@ def _load(name, path):
 travel = _load('col_travel_build', REPO / 'collection' / 'travel' / 'build.py')
 blog = _load('col_blog_build', REPO / 'collection' / 'blog' / 'build.py')
 course = _load('col_course_build', REPO / 'collection' / 'course' / 'build.py')
+resume = _load('col_resume_build', REPO / 'collection' / '_pages' / 'build.py')
+webseries = _load('col_webseries_build', REPO / 'collection' / 'webseries' / 'build.py')
 
 PAGES = {}
 
@@ -431,12 +433,12 @@ t += p('The first collection, and the one the sections were designed against. Fi
 
 t += sec('routes-t', 'The five routes', 'Each one opens in a new tab. They are plain files: no '
          'server, no build, no framework.')
-t += ct([(f'<a href="./collection/travel/{slug}.html" target="_blank" rel="noopener">'
+t += ct([(f'<a href="/collection/travel/{slug}.html" target="_blank" rel="noopener">'
           f'<b>{name}</b></a> — <code class="t-code">{path}</code>', desc)
          for slug, name, path, _, desc in ROUTES], head=('Route', 'What is on it'))
-t += p('<a class="btn btn-primary btn-sm" href="./collection/travel/index.html" '
+t += p('<a class="btn btn-primary btn-sm" href="/collection/travel/index.html" '
        'target="_blank" rel="noopener">Open the travel collection →</a> '
-       '<a class="btn btn-secondary btn-sm" href="./collection/travel/components.html" '
+       '<a class="btn btn-secondary btn-sm" href="/collection/travel/components.html" '
        'target="_blank" rel="noopener">Its sections on their own →</a>')
 t += END
 
@@ -476,7 +478,7 @@ t += tile('<div class="cluster" style="gap:var(--space-5);flex-wrap:wrap">' + ''
     + '</div>', '<b>icons/travel/</b> — inline them, or use a sprite when you need theming')
 t += END
 
-PAGES['col-travel'] = ('Travel collection',
+PAGES['travel/index'] = ('Travel collection',
     'The first collection: five routes, sixteen icons and a linked filter, over a demo dataset '
     'small enough to read.', t)
 
@@ -493,7 +495,7 @@ d += p('It is also the test. If a section works <em>here</em> — with no collec
        'belongs to travel and the prefix was a lie.')
 
 d += sec('routes-d', 'The five routes, empty')
-d += ct([(f'<a href="./collection/_default/{f}.html" target="_blank" rel="noopener">'
+d += ct([(f'<a href="/collection/_default/{f}.html" target="_blank" rel="noopener">'
           f'<b>{n}</b></a>', desc)
          for f, n, desc in [
              ('index', 'Index', 'groups, places, spots, a series card, everything'),
@@ -502,7 +504,7 @@ d += ct([(f'<a href="./collection/_default/{f}.html" target="_blank" rel="noopen
              ('series', 'Series', 'the spine: a first, a last, an order'),
              ('post', 'Post', 'the article, with a rail')]],
         head=('Route', 'What is on it'))
-d += p('<a class="btn btn-primary btn-sm" href="./collection/_default/index.html" '
+d += p('<a class="btn btn-primary btn-sm" href="/collection/_default/index.html" '
        'target="_blank" rel="noopener">Open the default collection →</a>')
 d += END
 
@@ -534,18 +536,18 @@ bl += p('The second collection, and the one that proves the vocabulary is not tr
 bl += sec('routes-b', 'Its routes',
           'A blog needs two. Its "group" is a category and its "series" is a multi-part piece, '
           'and both reuse the same routes travel already has — so they are not rebuilt.')
-bl += ct([('<a href="./collection/blog/index.html" target="_blank" rel="noopener"><b>Index</b></a> '
+bl += ct([('<a href="/collection/blog/index.html" target="_blank" rel="noopener"><b>Index</b></a> '
            '— <code class="t-code">/blog</code>',
            'Hero, categories, a topic filter, featured, and everything. The rail carries the '
            'subscribe widget rather than facets alone.'),
-          ('<a href="./collection/blog/post.html" target="_blank" rel="noopener"><b>Post</b></a> '
+          ('<a href="/collection/blog/post.html" target="_blank" rel="noopener"><b>Post</b></a> '
            '— <code class="t-code">/blog/a-post</code>',
            'The article with a five-widget sticky rail: contents, author, subscribe, more on '
            'this topic, and tags. Reading progress across the top.')],
          head=('Route', 'What is on it'))
-bl += p('<a class="btn btn-primary btn-sm" href="./collection/blog/post.html" '
+bl += p('<a class="btn btn-primary btn-sm" href="/collection/blog/post.html" '
         'target="_blank" rel="noopener">Open the post with its rail →</a> '
-        '<a class="btn btn-secondary btn-sm" href="./collection/blog/index.html" '
+        '<a class="btn btn-secondary btn-sm" href="/collection/blog/index.html" '
         'target="_blank" rel="noopener">Open /blog →</a>')
 bl += END
 
@@ -562,7 +564,7 @@ bl += sec('cats-b', 'Categories', 'A blog\'s widest cut is a category, which is 
 bl += live(blog.categories_block(), '<b>.col-groups</b> — same section, different subject')
 bl += END
 
-PAGES['col-blog'] = ('Blog collection',
+PAGES['blog/index'] = ('Blog collection',
     'The second collection, with no CSS of its own — the proof that the section vocabulary is '
     'shared rather than travel-shaped.', bl)
 
@@ -601,11 +603,11 @@ cr += ct([
 cr += p('Getting those two the wrong way round is what produces a course page with a grid of '
         'lessons on it — every lesson looking equally like a starting point, on a page whose '
         'entire job is to say which one is first.')
-cr += p('<a class="btn btn-primary btn-sm" href="./collection/course/index.html" '
+cr += p('<a class="btn btn-primary btn-sm" href="/collection/course/index.html" '
         'target="_blank" rel="noopener">Open /course →</a> '
-        '<a class="btn btn-primary btn-sm" href="./collection/course/lesson.html" '
+        '<a class="btn btn-primary btn-sm" href="/collection/course/lesson.html" '
         'target="_blank" rel="noopener">Open the lesson player →</a> '
-        '<a class="btn btn-secondary btn-sm" href="./collection/course/components.html" '
+        '<a class="btn btn-secondary btn-sm" href="/collection/course/components.html" '
         'target="_blank" rel="noopener">Its sections on their own →</a>')
 cr += END
 
@@ -701,6 +703,144 @@ cr += p('Nothing is stored. A real course puts completion on the server, and a d
         'rather than a design system.')
 cr += END
 
-PAGES['col-course'] = ('Course collection',
+PAGES['course/index'] = ('Course collection',
     'The third collection: /course, the lesson player, and the five sections a video-bodied '
     'post needed that reading-shaped collections never asked for.', cr)
+
+
+# ── 7 · resume ────────────────────────────────────────────────────────────────
+
+r = ''
+r += p('Not a collection at all, in the end — a resume is not a group of resumes, with '
+       'nothing to narrow and nothing to be halfway through, so it moved into '
+       '<code class="t-code">collection/_pages/</code> with the site\'s other one-offs '
+       '(home, about, contact, the legal pages). One route, a full-width summary, then a '
+       'two-column <code class="t-code">.grid-rail</code>: experience, education and '
+       'projects in the main column, skills in the rail.')
+r += p('<a class="btn btn-primary btn-sm" href="/collection/_pages/resume.html" '
+       'target="_blank" rel="noopener">Open the résumé page →</a>')
+r += END
+
+r += sec('summary-r', 'The summary',
+         'Name, role, a one-line pitch and the ways to reach the person — the block every '
+         'other section on the page is supporting detail for.')
+r += live(resume.summary_block('Swarnil Singhai', 'Senior Product Engineer',
+    'I build design systems and the sites that run on them.', resume.CONTACTS),
+    '<b>.rsm-summary</b> — from <code class="t-code">/resume</code>, unchanged')
+r += END
+
+r += sec('timeline-r', 'The career timeline is .col-order',
+         'A trip, a syllabus and a career all turn out to be the same shape: a first thing, a '
+         'last thing, and a sequence between them. Rather than invent a timeline, the resume '
+         'reuses <code class="t-code">.col-order</code> — the series route\'s spine — and adds '
+         'only what it did not already have: an icon marking which kind of entry this is, in '
+         'place of the plain dot.')
+r += live(resume.timeline_block(resume.EXPERIENCE[:2]),
+    '<b>.col-order + .rsm-order__icon</b> — the briefcase is the only new pixel')
+r += END
+
+r += sec('education-r', 'Education, the same spine again',
+         'Same component, same icon treatment, a graduation cap instead of a briefcase. 10th, '
+         '12th and a bachelor\'s are one row shape, not three — a school swaps a place for a '
+         'stream and a percentage for a CGPA, but nothing about the shape changes.')
+r += live(resume.education_block(resume.EDUCATION), '<b>.col-order</b> — unmodified')
+r += END
+
+r += sec('projects-r', 'Projects is not a new component either',
+         'A project is an unordered set, not a sequence — so it is the shared '
+         '<code class="t-code">.card</code>, gridded two-up, the same component travel and '
+         'course already put in a row of three.')
+r += live(resume.projects_block(resume.RESUME_PROJECTS[:2]), '<b>.card</b> in a <b>.grid-2</b>')
+r += END
+
+r += sec('skills-r', 'Skills is not a new component',
+         'A resume\'s skill list is a cluster of the shared <code class="t-code">.badge</code>, '
+         'because inventing a chip for a page that already has one would be exactly the '
+         'mistake the collection contract warns against.')
+r += live(resume.skills_block(resume.SKILLS[:5]), '<b>.badge</b>, in a <b>.cluster</b>')
+r += END
+
+r += sec('icons-r', 'Resume icons',
+         'Five, on the same 24×24 grid at 1.5px, <code class="t-code">currentColor</code> '
+         'only — briefcase, graduation cap, calendar, phone and download.')
+r += tile('<div class="cluster" style="gap:var(--space-5);flex-wrap:wrap">' + ''.join(
+    f'<span style="display:grid;gap:var(--space-2);justify-items:center;width:5.5rem">'
+    f'{resume.icon(n, group="resume")}'
+    f'<span class="t-slate-sm" style="color:var(--fg-faint)">{n}</span></span>'
+    for n in ['briefcase', 'graduation-cap', 'calendar', 'phone', 'download'])
+    + '</div>', '<b>icons/resume/</b> — inline them, or use a sprite when you need theming')
+r += END
+
+PAGES['resume/index'] = ('Resume collection',
+    'The fourth collection, and a single page rather than five routes: a full-width summary, '
+    'then experience, education and projects beside a skills rail — none of it a new '
+    'component, all of it .col-order, .card and .badge.', r)
+
+
+# ── 8 · webseries ─────────────────────────────────────────────────────────────
+
+w = ''
+w += p('The fifth collection, and it ships no CSS of its own — a second proof, after blog, '
+       'that the shared vocabulary is not secretly shaped like the collection that built it. '
+       'Course justified five sections by saying a podcast season and a video series would '
+       'want them too; this is that video series, over the same five routes travel already '
+       'established.')
+w += p('<a class="btn btn-primary btn-sm" href="/collection/webseries/index.html" '
+       'target="_blank" rel="noopener">Open /webseries →</a> '
+       '<a class="btn btn-primary btn-sm" href="/collection/webseries/episode.html" '
+       'target="_blank" rel="noopener">Open the episode player →</a>')
+w += END
+
+w += sec('trending-w', 'The ranked row is a component that had never shipped',
+         '<code class="t-code">.c-series</code> (letterbox bars) and <code class="t-code">.c-episode</code> '
+         '(a big ghost numeral) are both listed in <code class="t-code">23-collection.css</code>\'s '
+         'own table of every collection\'s card — webseries is the first route that actually '
+         'renders one.')
+w += live(webseries.trending_block(), '<b>.c.c-series.c-episode</b> — the numeral is '
+    '<code class="t-code">.c__no</code>, nothing bespoke')
+w += END
+
+w += sec('season-w', 'A season is .col-order, again',
+         'The same spine a trip or a resume\'s career history uses — a first episode, a '
+         'last one, an order between them — over episodes instead of days or jobs.')
+w += live('<div class="col-order">' + ''.join(
+    f'<a class="col-order__item" href="#i"{" aria-current=\"page\"" if i == 0 else ""}>'
+    f'<span class="col-order__num"><span class="col-order__dot"></span>{i+1:02d}</span>'
+    f'<span class="col-order__body"><span class="col-order__title">{t}</span>'
+    f'<span class="col-order__note">{note}</span></span></a>'
+    for i, (t, note, _, _) in enumerate(webseries.SEASON_EPISODES[:3])) + '</div>',
+    '<b>.col-order</b> — unmodified, from <code class="t-code">/webseries/…/season.html</code>')
+w += END
+
+w += sec('player-w', 'The episode player is course\'s stage, not its playlist',
+         'Same <code class="t-code">.col-stage</code>, same <code class="t-code">.col-stagebar</code> '
+         '— but the list beside the video is not course\'s curriculum wearing episode numbers. '
+         '<code class="t-code">.ep-panel</code> and <code class="t-code">.episode</code> already '
+         'existed, unused, as a generic composite demo with nowhere that actually needed a '
+         'thumbnail next to every row. A season is exactly that place.')
+w += live(webseries.episode_nav_block(), '<b>.ep-panel &gt; .episode</b> — moved here from the '
+    'generic Composites demo, because this is what it was for')
+w += END
+
+w += sec('transcript-w', 'The transcript, unmodified',
+         'The one panel every video-bodied post wants, whatever it is an episode of.')
+w += live('<div class="col-transcript">' + ''.join(
+    f'<a class="col-transcript__line" href="#i"{" aria-current=\"true\"" if i == 1 else ""}>'
+    f'<span class="col-transcript__time">{t}</span><span>{line}</span></a>'
+    for i, (t, line) in enumerate(webseries.TRANSCRIPT)) + '</div>',
+    '<b>.col-transcript</b> — from <code class="t-code">/webseries/…/episode.html</code>, unchanged')
+w += END
+
+w += sec('cast-w', 'Cast is not a new component',
+         'A resume needed a career history; a webseries needs a cast list. Both turn out to '
+         'be a plain <code class="t-code">.list-group</code> — this one\'s rows just happen '
+         'to start with <code class="t-code">.col-author__face</code>, the round avatar blog '
+         'already built for its byline.')
+w += live(webseries.cast_block(), '<b>.list-group + .col-author__face</b> — no wsr- prefix, '
+    'because nothing here needed one')
+w += END
+
+PAGES['webseries/index'] = ('Webseries collection',
+    'The fifth collection, and the second one to ship no CSS of its own — a season\'s spine '
+    'and its cast are sections travel and blog already built, and its episode navigation is '
+    'a composite that had been sitting unused until this collection needed exactly it.', w)

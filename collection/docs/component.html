@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Button — Docs — Swarnil</title>
+<meta name="description" content="The button component: demo, markup, and every class." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/course/index.html">Courses</a>
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <div class="container section-sm">
+    <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
+      <a href="./index.html">Docs</a> <span>/</span>
+      <a href="./section.html">Components</a> <span>/</span> <span>Button</span>
+    </nav>
+
+    <div class="grid-rail-left">
+      <nav class="stack-xs"><p class="t-slate-sm u-mt-4 u-mb-2" style="color:var(--fg-faint)">Getting started</p><div class="list-group list-group-flush"><a class="list-group__item" href="./post.html">Installation</a><a class="list-group__item" href="./post.html">Quickstart</a><a class="list-group__item" href="./post.html">Theming</a><a class="list-group__item" href="./post.html">Folder structure</a></div><p class="t-slate-sm u-mt-4 u-mb-2" style="color:var(--fg-faint)">Components</p><div class="list-group list-group-flush"><a class="list-group__item" href="./post.html">Button</a><a class="list-group__item" href="./post.html">Card</a><a class="list-group__item" href="./post.html">Modal</a></div><p class="t-slate-sm u-mt-4 u-mb-2" style="color:var(--fg-faint)">API reference</p><div class="list-group list-group-flush"><a class="list-group__item" href="./post.html">Configuration</a></div></nav>
+
+      <div>
+        <h1 class="t-display-2">Button</h1>
+        <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">The reference
+          shape every component page in this collection uses: a live demo, the
+          markup that made it, and the class table underneath.</p>
+
+        <div class="surface u-mt-8" style="padding:var(--space-8);display:grid;place-items:center">
+          <button class="btn btn-primary">Primary</button>
+        </div>
+        <div class="u-mt-4"><figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;</code></pre></figure></div>
+
+        <div class="u-mt-8">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">Classes</h2></div></div>
+          <div class="surface" style="overflow-x:auto"><table class="spec-table" style="width:100%">
+            <thead><tr><th>Class</th><th>Does</th></tr></thead><tbody>
+            <tr><td><code class="t-code">btn-primary / -secondary / -ghost / -quiet</code></td><td>the six intents</td></tr><tr><td><code class="t-code">btn-sm / (default) / btn-lg</code></td><td>the three sizes</td></tr><tr><td><code class="t-code">:disabled</code></td><td>the only disabled state — no .btn-disabled class</td></tr>
+            </tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="section-sm">
+  <div class="container">
+    <hr class="rule u-mb-6" />
+    <div class="row-between">
+      <p class="t-slate">Docs — a collection</p>
+      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

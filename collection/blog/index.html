@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-transition="type">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,11 +19,15 @@
 
 <header class="nav-shell">
   <nav class="nav-bar" aria-label="Main">
-    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
     <div class="nav-links">
       <a class="nav-link" href="../../collection/course/index.html">Courses</a>
       <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
       <a class="nav-link" href="../../collection/blog/index.html" aria-current="page">Blog</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
@@ -33,26 +37,37 @@
 
 <main id="main">
 
-  <section class="container u-mt-6">
-   <div class="col-hero">
-    
-    <div class="col-hero__in">
-      <span class="col-hero__eyebrow">The blog</span>
-      <h1 class="col-hero__title">Notes on building things, <em>and what broke</em>.</h1>
-      <p class="col-hero__lead">Fifty-six posts about CSS, motion and the craft of shipping a site on your own. No schedule — one email when something is worth reading.</p>
+  <div class="container">
+    <section class="hero hero-split hero-sm pattern pattern-dots pattern-lg fade-corners"
+             style="padding-block:var(--space-10) var(--space-8);border-radius:var(--radius-sheet);
+                    max-width:calc(var(--w-site) - 4rem);margin-inline:auto">
+      <div>
+        <span class="hero__eyebrow">The blog</span>
+        <h1 class="hero__title">Notes on building things, <em>and what broke</em>.</h1>
+        <p class="hero__lead">Fifty-six posts about CSS, motion and the craft of shipping a
+          site on your own. No schedule — one email when something is worth reading.</p>
+        <div class="hero__actions">
+          <div class="input-group" style="max-width:26rem">
+            <input class="input" type="search" placeholder="Search the blog"
+                   aria-label="Search the blog" />
+            <button class="btn btn-primary" type="button">Search</button>
+          </div>
+        </div>
+        <div class="col-meta col-meta-paper col-meta-inline" style="border-top:0;padding-top:0"><div><span class="col-meta__n">56</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">categories</span></div><div><span class="col-meta__n">8</span><span class="col-meta__l">tags</span></div><div><span class="col-meta__n">2021</span><span class="col-meta__l">since</span></div></div>
+      </div>
       
-      <form class="col-search" onsubmit="return false">
-        <label class="col-search__field">
-          <span class="u-sr-only">Search</span>
-          <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5 4.5-1.9Z"/></svg>
-          <input type="search" placeholder="Search the blog" />
-        </label>
-        <button class="btn btn-primary btn-pill" type="submit">Search</button>
-      </form>
-      <div class="col-meta"><div><span class="col-meta__n">56</span><span class="col-meta__l">posts</span></div><div><span class="col-meta__n">4</span><span class="col-meta__l">categories</span></div><div><span class="col-meta__n">8</span><span class="col-meta__l">tags</span></div><div><span class="col-meta__n">2021</span><span class="col-meta__l">since</span></div></div>
+    <div class="hero-split__stage">
+      <div class="surface" style="max-width:19rem;margin-inline:auto;overflow:hidden;
+           border-radius:var(--radius-sheet);box-shadow:var(--shadow-3);transform:rotate(-2deg)">
+        <div style="padding:var(--space-4) var(--space-4) var(--space-2)">
+          <span class="t-slate-sm" style="color:var(--fg-faint)">Featured</span>
+        </div>
+        <article class="card card-compact card-bare" style="border-radius:0;border-bottom:var(--border-hair) solid var(--line-subtle)"><div class="card__body"><p class="card__meta">css · 11 min</p><h3 class="card__title" style="font-size:var(--text-sm)">Why I stopped using a CSS framework</h3></div></article><article class="card card-compact card-bare" style="border-radius:0;border-bottom:var(--border-hair) solid var(--line-subtle)"><div class="card__body"><p class="card__meta">craft · 7 min</p><h3 class="card__title" style="font-size:var(--text-sm)">The record light: one colour, rationed</h3></div></article><article class="card card-compact card-bare" style="border-radius:0;border-bottom:var(--border-hair) solid var(--line-subtle)"><div class="card__body"><p class="card__meta">motion · 9 min</p><h3 class="card__title" style="font-size:var(--text-sm)">Motion that survives prefers-reduced-motion</h3></div></article>
+      </div>
+      <p class="hero-split__caption">Featured articles <span>Live preview</span></p>
     </div>
-   </div>
-  </section>
+    </section>
+  </div>
 
   <div data-collection>
   <section class="container section-sm">

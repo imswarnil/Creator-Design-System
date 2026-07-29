@@ -1,0 +1,132 @@
+/* =============================================================================
+   34 · AD
+   Placeholder ad units — IAB-shaped slots that behave like the real thing:
+   a skeleton while nothing has "loaded" yet, a lazy load that only fires once
+   the slot is actually on screen (src/ad.js, IntersectionObserver), and a
+   reader's own "hide ads" switch. Every state is an attribute the script sets;
+   this file is the only place any of it is drawn.
+
+   Sizes are IAB standard units, chosen by class, capped by max-width so a
+   728×90 leaderboard still fits a phone. `.ad-responsive` is the one with no
+   fixed ratio — full width, a floor height, the shape AdSense itself calls
+   "responsive".
+
+   Requires 1-foundation, 2-elements (.skeleton), 3-components/28 (.btn-close).
+   ========================================================================== */
+
+.ad {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 100%;
+	margin-inline: auto;
+	overflow: hidden;
+	isolation: isolate;
+	border: var(--border-hair) solid var(--line-subtle);
+	border-radius: var(--radius-md);
+	background: var(--bg-sunken);
+}
+
+.ad::before {
+	content: 'Advertisement';
+	position: absolute;
+	top: var(--space-2);
+	left: var(--space-2);
+	z-index: 2;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	pointer-events: none;
+}
+
+/* ── Sizes — IAB standard units ─────────────────────────────────────────── */
+
+.ad-leaderboard   { max-width: 728px; aspect-ratio: 728 / 90; }
+.ad-rectangle     { max-width: 300px; aspect-ratio: 300 / 250; }
+.ad-skyscraper    { max-width: 160px; aspect-ratio: 160 / 600; }
+.ad-mobile-banner { max-width: 320px; aspect-ratio: 320 / 50; }
+.ad-mobile-large  { max-width: 320px; aspect-ratio: 320 / 100; }
+
+.ad-responsive { min-height: 6rem; }
+
+@media (max-width: 40rem) {
+	.ad-leaderboard { aspect-ratio: 320 / 100; max-width: 320px; }
+	.ad-skyscraper { aspect-ratio: 300 / 250; max-width: 300px; }
+}
+
+/* ── The two layers — skeleton underneath, the "creative" on top ─────────── */
+
+.ad__skeleton { position: absolute; inset: 0; border-radius: 0; }
+
+.ad__slot {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	gap: var(--space-2);
+	text-align: center;
+	padding: var(--space-6);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--dur-3) var(--ease-out);
+}
+
+.ad__cta {
+	font-family: var(--font-display);
+	font-weight: var(--weight-semibold);
+	color: var(--fg-muted);
+}
+
+.ad__dims {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* ── Hide control — the reader's own switch ───────────────────────────────
+   .btn-close already draws the × from two pseudo-lines; this only places it. */
+.ad__hide {
+	position: absolute;
+	top: var(--space-2);
+	right: var(--space-2);
+	z-index: 3;
+	background: var(--bg-surface);
+	border: var(--border-hair) solid var(--line-subtle);
+}
+
+/* ── States — set by src/ad.js, never guessed at by CSS ───────────────────
+   idle/loading: skeleton only. loaded: creative fades in, skeleton drops out.
+   hidden: the reader asked, so the whole slot collapses out of the layout. */
+
+.ad[data-ad-state='idle']    .ad__skeleton,
+.ad[data-ad-state='loading'] .ad__skeleton { opacity: 1; }
+
+.ad[data-ad-state='loaded'] .ad__skeleton {
+	opacity: 0;
+	transition: opacity var(--dur-2) var(--ease-out);
+}
+
+.ad[data-ad-state='loaded'] .ad__slot {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.ad-animate[data-ad-state='loaded'] .ad__slot {
+	animation: fx-rise var(--dur-3) var(--ease-out) both;
+}
+
+.ad[data-ad-state='hidden'] {
+	display: none;
+}
+
+/* No JS / no IntersectionObserver: everything below still reads as a slot,
+   not a hole in the page — the skeleton is the resting state regardless. */
+.ad:not([data-ad-state]) .ad__skeleton { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+	.ad-animate[data-ad-state='loaded'] .ad__slot { animation: none; }
+}

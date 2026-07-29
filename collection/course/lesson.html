@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-transition="pop">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,11 +20,15 @@
 
 <header class="nav-shell">
   <nav class="nav-bar" aria-label="Main">
-    <a class="logo logo-sm" href="../../docs/index.html">Swarnil</a>
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
     <div class="nav-links">
       <a class="nav-link" href="../../collection/course/index.html" aria-current="page">Courses</a>
       <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
       <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
     </div>
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
@@ -43,41 +47,42 @@
       <span>Layout</span>
     </nav>
 
-    <div class="col-stage">
-      <div class="col-stage__main">
-        <div class="player">
-          <span class="col-ph" style="--h:88" data-tall aria-hidden="true"></span>
-          <button class="play" type="button">
-            <span class="play__disc"></span><span class="u-sr-only">Play the lesson</span>
-          </button>
-          <div class="player__bar">
-            <span class="player__time">4:18</span>
-            <span class="player__rail"><span class="player__played" style="--value:31%"></span></span>
-            <span class="player__time">14:02</span>
-          </div>
-        </div>
-
-        <div class="col-stagebar">
-          <a class="btn btn-secondary btn-sm" href="./lesson.html" data-step="prev">
-            ← Previous</a>
-          <div class="col-stagebar__where">
-            <span class="col-stagebar__pos">
-              <span>Lesson 6 of 14</span>
-              <span>Layout</span>
-              <span>14:02</span>
-            </span>
-            <h1 class="t-h3" style="margin:0">Grid, in four rules</h1>
-          </div>
-          <span class="cluster" style="gap:var(--space-2)">
-            <button class="btn btn-quiet btn-sm" type="button" data-done-toggle
-                    aria-pressed="false">Mark complete</button>
-            <a class="btn btn-primary btn-sm" href="./lesson.html" data-step="next">
-              Next →</a>
-          </span>
-        </div>
+    <!-- Full width: the video is the page's whole first act, not half a row
+         shared with the playlist — the playlist is navigation, and navigation
+         moves to the rail below rather than competing with the player. -->
+    <div class="player">
+      <span class="col-ph" style="--h:88" data-tall aria-hidden="true"></span>
+      <button class="play" type="button">
+        <span class="play__disc"></span><span class="u-sr-only">Play the lesson</span>
+      </button>
+      <div class="player__bar">
+        <span class="player__time">4:18</span>
+        <span class="player__rail"><span class="player__played" style="--value:31%"></span></span>
+        <span class="player__time">14:02</span>
       </div>
+    </div>
 
-      <aside class="col-stage__side">
+    <div class="col-stagebar">
+      <a class="btn btn-secondary btn-sm" href="./lesson.html" data-step="prev">
+        ← Previous</a>
+      <div class="col-stagebar__where">
+        <span class="col-stagebar__pos">
+          <span>Lesson 6 of 14</span>
+          <span>Layout</span>
+          <span>14:02</span>
+        </span>
+        <h1 class="t-h3" style="margin:0">Grid, in four rules</h1>
+      </div>
+      <span class="cluster" style="gap:var(--space-2)">
+        <button class="btn btn-quiet btn-sm" type="button" data-done-toggle
+                aria-pressed="false">Mark complete</button>
+        <a class="btn btn-primary btn-sm" href="./lesson.html" data-step="next">
+          Next →</a>
+      </span>
+    </div>
+
+    <div class="grid-rail-left u-mt-8">
+      <aside class="col-rail col-rail-sticky">
         
       <section class="curriculum col-playlist">
         <header class="curriculum__head">
@@ -89,16 +94,25 @@
             <div class="progress__bar" data-progress style="--value:36%"></div>
           </div>
         </header>
-        <div class="col-playlist__scroll"><details class="curriculum__module"><summary><span class="curriculum__no">01</span><span class="curriculum__module-title">Foundations</span><span class="curriculum__count" data-module-count>4/4</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">What a design system actually is</span><span class="lesson-row__len">6:12</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">Two tiers of tokens</span><span class="lesson-row__len">11:40</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">One colour, rationed</span><span class="lesson-row__len">9:05</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The type scale</span><span class="lesson-row__len">12:20</span></a></li></ol></details><details class="curriculum__module" open><summary><span class="curriculum__no">02</span><span class="curriculum__module-title">Layout</span><span class="curriculum__count" data-module-count>1/4</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The container and the gutter</span><span class="lesson-row__len">8:44</span></a></li><li><a class="lesson-row" href="./lesson.html" aria-current="true"><span class="lesson-row__tick"></span><span class="lesson-row__title">Grid, in four rules</span><span class="lesson-row__len">14:02</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Flex, and when not to reach for it</span><span class="lesson-row__free">Free</span><span class="lesson-row__len">10:18</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">The rail, the stack and the cluster</span><span class="lesson-row__len">9:36</span></a></li></ol></details><details class="curriculum__module"><summary><span class="curriculum__no">03</span><span class="curriculum__module-title">Type & rhythm</span><span class="curriculum__count" data-module-count>0/3</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Measure and leading</span><span class="lesson-row__len">7:50</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Headings that scale with the page</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">8:12</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Long-form content</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">11:26</span></a></li></ol></details><details class="curriculum__module"><summary><span class="curriculum__no">04</span><span class="curriculum__module-title">Shipping</span><span class="curriculum__count" data-module-count>0/3</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">The build step you may not need</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">6:40</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Writing a changelog</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">5:55</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">What to do after this</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">4:10</span></a></li></ol></details></div>
+        <div class="col-playlist__scroll"><details class="curriculum__module"><summary><span class="curriculum__no">01</span><span class="curriculum__module-title">Foundations</span><span class="curriculum__count" data-module-count>4/4</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">What a design system actually is</span><span class="lesson-row__len">6:12</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">Two tiers of tokens</span><span class="lesson-row__len">11:40</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">One colour, rationed</span><span class="lesson-row__len">9:05</span></a></li><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The type scale</span><span class="lesson-row__len">12:20</span></a></li></ol></details><details class="curriculum__module" open><summary><span class="curriculum__no">02</span><span class="curriculum__module-title">Layout</span><span class="curriculum__count" data-module-count>1/4</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html" data-done><span class="lesson-row__tick"></span><span class="lesson-row__title">The container and the gutter</span><span class="lesson-row__len">8:44</span></a></li><li><a class="lesson-row" href="./lesson.html" aria-current="true"><span class="lesson-row__tick"></span><span class="lesson-row__title">Grid, in four rules</span><span class="lesson-row__len">14:02</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Flex, and when not to reach for it</span><span class="badge badge-success">Free</span><span class="lesson-row__len">10:18</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">The rail, the stack and the cluster</span><span class="lesson-row__len">9:36</span></a></li></ol></details><details class="curriculum__module"><summary><span class="curriculum__no">03</span><span class="curriculum__module-title">Type & rhythm</span><span class="curriculum__count" data-module-count>0/3</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Measure and leading</span><span class="lesson-row__len">7:50</span></a></li><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">Headings that scale with the page</span><span class="badge">Preview</span><span class="lesson-row__len">8:12</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Long-form content</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">11:26</span></a></li></ol></details><details class="curriculum__module"><summary><span class="curriculum__no">04</span><span class="curriculum__module-title">Shipping</span><span class="curriculum__count" data-module-count>0/3</span></summary><ol class="curriculum__lessons"><li><a class="lesson-row" href="./lesson.html"><span class="lesson-row__tick"></span><span class="lesson-row__title">The build step you may not need</span><span class="badge">Preview</span><span class="lesson-row__len">6:40</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">Writing a changelog</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">5:55</span></a></li><li><a class="lesson-row" href="./lesson.html" data-locked><span class="lesson-row__tick"></span><span class="lesson-row__title">What to do after this</span><span class="col-lock"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg></span><span class="lesson-row__len">4:10</span></a></li></ol></details></div>
         <div class="col-playlist__foot">
           <span data-progress-count="{pct}% complete">36% complete</span>
           <span>2h 06m total</span>
         </div>
       </section>
-      </aside>
+        <div class="col-widget"><span class="col-widget__title">Shortcuts</span><div class="col-keys"><span class="col-key"><span>Next lesson</span><span class="col-key__combo"><kbd class="kbd">N</kbd></span></span><span class="col-key"><span>Previous lesson</span><span class="col-key__combo"><kbd class="kbd">P</kbd></span></span><span class="col-key"><span>Mark complete</span><span class="col-key__combo"><kbd class="kbd">M</kbd></span></span></div><div class="col-widget__foot">They do nothing while you are typing</div></div>
+        <div class="col-widget"><span class="col-widget__title">Up next</span><div class="col-mini"><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">07</span><span><span class="col-mini__title">Flex, and when not to reach for it</span><span class="col-mini__meta">Layout · 10:18</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">08</span><span><span class="col-mini__title">The rail, the stack and the cluster</span><span class="col-mini__meta">Layout · 9:36</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">09</span><span><span class="col-mini__title">Measure and leading</span><span class="col-mini__meta">Type & rhythm · 7:50</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">10</span><span><span class="col-mini__title">Headings that scale with the page</span><span class="col-mini__meta">Type & rhythm · 8:12</span></span></a></div></div>
+        <div class="col-widget">
+      <span class="col-widget__title">Taught by</span>
+      <div class="col-author">
+        <span class="col-author__face"><span class="col-ph" style="--h:24" aria-hidden="true"></span></span>
+        <span><span class="col-author__name">Swarnil Singhai</span>
+          <span class="col-author__who">Wrote the system these courses are about.</span></span>
+      </div>
+      <div class="col-widget__foot">6 courses · 133 lessons</div>
     </div>
+      </aside>
 
-    <div class="col-post u-mt-8">
       <div data-tabs>
         <div class="tabs" role="tablist" aria-label="About this lesson">
           <button class="tab" type="button" role="tab" id="t-overview" aria-controls="p-overview" aria-selected="true">Overview</button><button class="tab" type="button" role="tab" id="t-transcript" aria-controls="p-transcript" aria-selected="false">Transcript</button><button class="tab" type="button" role="tab" id="t-resources" aria-controls="p-resources" aria-selected="false">Resources</button><button class="tab" type="button" role="tab" id="t-notes" aria-controls="p-notes" aria-selected="false">Notes</button>
@@ -174,20 +188,6 @@
             rather than a design system.</p>
         </div>
       </div>
-
-      <aside class="col-post__rail col-rail col-rail-sticky">
-        <div class="col-widget"><span class="col-widget__title">Shortcuts</span><div class="col-keys"><span class="col-key"><span>Next lesson</span><span class="col-key__combo"><kbd class="kbd">N</kbd></span></span><span class="col-key"><span>Previous lesson</span><span class="col-key__combo"><kbd class="kbd">P</kbd></span></span><span class="col-key"><span>Mark complete</span><span class="col-key__combo"><kbd class="kbd">M</kbd></span></span></div><div class="col-widget__foot">They do nothing while you are typing</div></div>
-        <div class="col-widget"><span class="col-widget__title">Up next</span><div class="col-mini"><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">07</span><span><span class="col-mini__title">Flex, and when not to reach for it</span><span class="col-mini__meta">Layout · 10:18</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">08</span><span><span class="col-mini__title">The rail, the stack and the cluster</span><span class="col-mini__meta">Layout · 9:36</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">09</span><span><span class="col-mini__title">Measure and leading</span><span class="col-mini__meta">Type & rhythm · 7:50</span></span></a><a class="col-mini__item" href="./lesson.html"><span class="col-mini__n">10</span><span><span class="col-mini__title">Headings that scale with the page</span><span class="col-mini__meta">Type & rhythm · 8:12</span></span></a></div></div>
-        <div class="col-widget">
-      <span class="col-widget__title">Taught by</span>
-      <div class="col-author">
-        <span class="col-author__face"><span class="col-ph" style="--h:24" aria-hidden="true"></span></span>
-        <span><span class="col-author__name">Swarnil Singhai</span>
-          <span class="col-author__who">Wrote the system these courses are about.</span></span>
-      </div>
-      <div class="col-widget__foot">6 courses · 133 lessons</div>
-    </div>
-      </aside>
     </div>
 
     <a class="col-next u-mt-10" href="./lesson.html" data-step="next">

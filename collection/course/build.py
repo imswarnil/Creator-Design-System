@@ -80,11 +80,15 @@ TOPICS = [('tokens', 'Design tokens', 'css-from-scratch', 'beginner', 12),
 # the same three bars the cards carry, so the filter and the thing it filters
 # are recognisably the same fact — an icon here would only be decoration.
 FACETS = [('beginner', 'Beginner', 1, 2), ('intermediate', 'Intermediate', 2, 3),
-          ('advanced', 'Advanced', 3, 1), ('free', 'Free', 0, 2)]
+          ('advanced', 'Advanced', 3, 1)]
+
+# Price is its own cut, not a fourth level — "free" is not a difficulty.
+PRICE_FACETS = [('free', 'Free', 'play', 2), ('paid', 'Paid', 'take', 4)]
 
 LEVELS = {1: 'Beginner', 2: 'Intermediate', 3: 'Advanced'}
 
-# The curriculum of the featured course. state: done · now · free · locked · ''
+# The curriculum of the featured course. state: done · now · free · preview
+# (locked, but this one can be watched anyway) · locked · '' (available)
 MODULES = [
     ('Foundations', [
         ('What a design system actually is', '6:12', 'done'),
@@ -100,11 +104,11 @@ MODULES = [
     ]),
     ('Type & rhythm', [
         ('Measure and leading', '7:50', ''),
-        ('Headings that scale with the page', '8:12', 'locked'),
+        ('Headings that scale with the page', '8:12', 'preview'),
         ('Long-form content', '11:26', 'locked'),
     ]),
     ('Shipping', [
-        ('The build step you may not need', '6:40', 'locked'),
+        ('The build step you may not need', '6:40', 'preview'),
         ('Writing a changelog', '5:55', 'locked'),
         ('What to do after this', '4:10', 'locked'),
     ]),
@@ -303,9 +307,15 @@ def facets_block():
         <div class="col-facets__group">
           <span class="col-facets__title">Level</span>
           {''.join(f'<label class="col-facet"><input type="checkbox" data-facet="{s}" />'
-                   f'{bars(lvl) if lvl else ic("play")}'
+                   f'{bars(lvl)}'
                    f'<span>{n}</span><span class="col-facet__n">{c}</span></label>'
                    for s, n, lvl, c in FACETS)}
+        </div>
+        <div class="col-facets__group">
+          <span class="col-facets__title">Price</span>
+          {''.join(f'<label class="col-facet"><input type="checkbox" data-facet="{s}" />'
+                   f'{ic(icn)}<span>{n}</span><span class="col-facet__n">{c}</span></label>'
+                   for s, n, icn, c in PRICE_FACETS)}
         </div>
       </div>
       {offer_widget(compact=True)}
@@ -325,7 +335,7 @@ def lessons_block(limit=None, free_only=False):
         f'<span class="col-post-row__body"><span class="col-post-row__title">{t}</span>'
         f'<span class="col-post-row__note">{mod} · CSS From Scratch</span></span>'
         f'<span class="col-post-row__meta"><span>{ln}</span>'
-        f'<span>{"free" if st == "free" else "watched" if st == "done" else "playing"}</span>'
+        f'<span>{({"free": "Free", "locked": "Locked", "preview": "Preview"}).get(st, "")}</span>'
         f'</span></a>' for mod, t, ln, st in rows) +
         '<p class="col-empty" data-empty-for="[data-post]" hidden>'
         'No lesson matches. Try clearing a filter.</p></div>')
@@ -378,6 +388,29 @@ def outcomes_block(items=None):
         f'<span>{o}</span></span>' for o in (items or OUTCOMES)) + '</div>'
 
 
+TESTIMONIALS = [
+    ('Priya Nair', 'Frontend engineer', 'The grid lesson alone was worth the price of the '
+     'whole track. I stopped Googling minmax() the same week.'),
+    ('Marcus Webb', 'Design lead', 'First course that explained why a token exists, not '
+     'just how to use one. My team quotes the "two tiers" lesson constantly.'),
+    ('Yuki Tanaka', 'Indie hacker', 'Shipped my whole site in a weekend using nothing but '
+     'what this course covers. No framework, no regrets.'),
+]
+
+
+def testimonials_block():
+    """Not a new component — .surface for the card and .col-author (blog's
+    byline) for the name and role, the same pairing a post already ends on."""
+    cards = ''.join(
+        f'<div class="surface" style="padding:var(--space-6);display:grid;gap:var(--space-5)">'
+        f'<p class="t-lead" style="font-size:var(--text-base);margin:0">&ldquo;{quote}&rdquo;</p>'
+        f'<div class="col-author"><span class="col-author__face">{ph(name)}</span>'
+        f'<span><span class="col-author__name">{name}</span>'
+        f'<span class="col-author__who">{role}</span></span></div></div>'
+        for name, role, quote in TESTIMONIALS)
+    return f'<div class="grid-3">{cards}</div>'
+
+
 def curriculum(playlist=False, open_module=1):
     """The syllabus. The same component whether it is the middle of a course
     page or the list beside a player — only the scroll changes."""
@@ -396,7 +429,9 @@ def curriculum(playlist=False, open_module=1):
                 attrs += ' data-locked'
             tail = ''
             if st == 'free':
-                tail = '<span class="lesson-row__free">Free</span>'
+                tail = '<span class="badge badge-success">Free</span>'
+            elif st == 'preview':
+                tail = '<span class="badge">Preview</span>'
             elif st == 'locked':
                 tail = f'<span class="col-lock">{ic("slate")}</span>'
             rows += (f'<li><a class="lesson-row" href="./lesson.html"{attrs}>'
@@ -528,23 +563,35 @@ CRUMBS = ('<nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">'
 # ── Routes ──────────────────────────────────────────────────────────────────
 
 def route_index():
-    body = hero('Learn the system, <em>in order</em>.',
-                'Six courses on the craft of building and shipping a site on your '
-                'own — tokens, layout, type, motion, brand and the deploy. The '
-                'first one is free in full, because that is a better argument '
-                'than this paragraph.',
-                'The course collection',
-                [('6', 'courses'), (str(TOTAL_LESSONS), 'lessons'),
-                 ('19h', 'of video'), ('4', 'tracks')],
-                art=SCENE, search=f'Search {TOTAL_LESSONS} lessons',
-                eyebrow_icon='course')
+    body = f'''
+  <div class="container">
+    <section class="hero hero-split hero-sm pattern pattern-crosshatch pattern-lg fade-corners"
+             style="padding-block:var(--space-10) var(--space-8);border-radius:var(--radius-sheet);
+                    max-width:calc(var(--w-site) - 4rem);margin-inline:auto">
+      <div>
+        <span class="hero__eyebrow">{ic('course')}The course collection</span>
+        <h1 class="hero__title">Learn the system, <em>in order</em>.</h1>
+        <p class="hero__lead">Six courses on the craft of building and shipping a site on
+          your own — tokens, layout, type, motion, brand and the deploy. The first one is
+          free in full, because that is a better argument than this paragraph.</p>
+        <div class="hero__actions">
+          <div class="input-group" style="max-width:26rem">
+            <input class="input" type="search" placeholder="Search {TOTAL_LESSONS} lessons"
+                   aria-label="Search {TOTAL_LESSONS} lessons" />
+            <button class="btn btn-primary" type="button">Search</button>
+          </div>
+        </div>
+        {meta_strip([('6', 'courses'), (str(TOTAL_LESSONS), 'lessons'),
+                     ('19h', 'of video'), ('4', 'tracks')],
+                    paper=True, border=False, inline=True)}
+      </div>
+      <div class="hero-split__stage">
+        {featured_card()}
+      </div>
+    </section>
+  </div>
 
-    body += f'''
   <div data-collection>
-  <section class="container u-mt-8">
-    {resume_strip()}
-  </section>
-
   <section class="container section-sm">
     {sec('Tracks', 'The widest cut. A track is a group — an unordered set of courses '
          'that share a subject. Press one and everything below narrows to it.')}
@@ -555,15 +602,10 @@ def route_index():
     <div class="col-layout">
       {facets_block()}
       <div>
-        {sec('Start here', 'The one to take first, and the only one that is free in full.')}
-        {featured_card()}
-
-        <div class="u-mt-10">
-          {sec('Every course', 'Six of them. The chip on each picture is the price; the '
+        {sec('Every course', 'Six of them. The chip on each picture is the price; the '
                'three bars are the level, which is comparable at a glance in a way that '
                'the word "intermediate" is not.')}
-          {courses_block()}
-        </div>
+        {courses_block()}
 
         <div class="u-mt-10">
           {sec('Topics', 'The narrowest cut: one thing, taught across whichever courses '
@@ -590,6 +632,11 @@ def route_index():
                      'A certificate at the end, honest about being a page with your name on it',
                      'Thirty-day refund, and the form does not ask why',
                      'Every course works on a phone, offline transcripts included'])}
+  </section>
+
+  <section class="container section-sm">
+    {sec('What students say', 'Three people who took the free one first.')}
+    {testimonials_block()}
   </section>
 
   <section class="container section-sm">
@@ -748,46 +795,48 @@ def route_lesson():
       <span>{mod}</span>
     </nav>
 
-    <div class="col-stage">
-      <div class="col-stage__main">
-        <div class="player">
-          {ph(title, True)}
-          <button class="play" type="button">
-            <span class="play__disc"></span><span class="u-sr-only">Play the lesson</span>
-          </button>
-          <div class="player__bar">
-            <span class="player__time">4:18</span>
-            <span class="player__rail"><span class="player__played" style="--value:31%"></span></span>
-            <span class="player__time">{length}</span>
-          </div>
-        </div>
-
-        <div class="col-stagebar">
-          <a class="btn btn-secondary btn-sm" href="./lesson.html" data-step="prev">
-            ← Previous</a>
-          <div class="col-stagebar__where">
-            <span class="col-stagebar__pos">
-              <span>Lesson {HERE_I + 1} of {N}</span>
-              <span>{mod}</span>
-              <span>{length}</span>
-            </span>
-            <h1 class="t-h3" style="margin:0">{title}</h1>
-          </div>
-          <span class="cluster" style="gap:var(--space-2)">
-            <button class="btn btn-quiet btn-sm" type="button" data-done-toggle
-                    aria-pressed="false">Mark complete</button>
-            <a class="btn btn-primary btn-sm" href="./lesson.html" data-step="next">
-              Next →</a>
-          </span>
-        </div>
+    <!-- Full width: the video is the page's whole first act, not half a row
+         shared with the playlist — the playlist is navigation, and navigation
+         moves to the rail below rather than competing with the player. -->
+    <div class="player">
+      {ph(title, True)}
+      <button class="play" type="button">
+        <span class="play__disc"></span><span class="u-sr-only">Play the lesson</span>
+      </button>
+      <div class="player__bar">
+        <span class="player__time">4:18</span>
+        <span class="player__rail"><span class="player__played" style="--value:31%"></span></span>
+        <span class="player__time">{length}</span>
       </div>
-
-      <aside class="col-stage__side">
-        {curriculum(playlist=True)}
-      </aside>
     </div>
 
-    <div class="col-post u-mt-8">
+    <div class="col-stagebar">
+      <a class="btn btn-secondary btn-sm" href="./lesson.html" data-step="prev">
+        ← Previous</a>
+      <div class="col-stagebar__where">
+        <span class="col-stagebar__pos">
+          <span>Lesson {HERE_I + 1} of {N}</span>
+          <span>{mod}</span>
+          <span>{length}</span>
+        </span>
+        <h1 class="t-h3" style="margin:0">{title}</h1>
+      </div>
+      <span class="cluster" style="gap:var(--space-2)">
+        <button class="btn btn-quiet btn-sm" type="button" data-done-toggle
+                aria-pressed="false">Mark complete</button>
+        <a class="btn btn-primary btn-sm" href="./lesson.html" data-step="next">
+          Next →</a>
+      </span>
+    </div>
+
+    <div class="grid-rail-left u-mt-8">
+      <aside class="col-rail col-rail-sticky">
+        {curriculum(playlist=True)}
+        {keys_widget()}
+        {upnext_widget()}
+        {instructor_widget()}
+      </aside>
+
       <div data-tabs>
         <div class="tabs" role="tablist" aria-label="About this lesson">
           {''.join(f'<button class="tab" type="button" role="tab" id="t-{s}" '
@@ -873,12 +922,6 @@ def route_lesson():
             rather than a design system.</p>
         </div>
       </div>
-
-      <aside class="col-post__rail col-rail col-rail-sticky">
-        {keys_widget()}
-        {upnext_widget()}
-        {instructor_widget()}
-      </aside>
     </div>
 
     <a class="col-next u-mt-10" href="./lesson.html" data-step="next">
