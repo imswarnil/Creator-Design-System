@@ -73,7 +73,7 @@
       <div>
         <section id="experience">
           <div class="row-between u-mb-5"><div><h2 class="t-h3">Experience</h2></div></div>
-          <div class="col-order"><div class="col-order__item" style="text-decoration:none"><span class="col-order__num"><span class="rsm-order__icon"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3.5 13h17M10.5 13v1.5h3V13"/></svg></span></span><div class="col-order__body"><span class="col-order__title">Senior Product Engineer · Northwind Studio</span><span class="col-order__note">Owns the design system this page is built with: tokens, components and the collections that ship on top of them.</span><div class="col-order__meta"><span>2023 — Now</span><span>Design systems</span><span>CSS</span><span>Accessibility</span></div></div></div><div class="col-order__item" style="text-decoration:none"><span class="col-order__num"><span class="rsm-order__icon"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3.5 13h17M10.5 13v1.5h3V13"/></svg></span></span><div class="col-order__body"><span class="col-order__title">Frontend Engineer · Fieldnote</span><span class="col-order__note">Rebuilt the marketing site on a token-first stylesheet, cutting shipped CSS by two thirds with no framework underneath it.</span><div class="col-order__meta"><span>2021 — 2023</span><span>CSS</span><span>Performance</span></div></div></div><div class="col-order__item" style="text-decoration:none"><span class="col-order__num"><span class="rsm-order__icon"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3.5 13h17M10.5 13v1.5h3V13"/></svg></span></span><div class="col-order__body"><span class="col-order__title">Frontend Developer · Loop & Co</span><span class="col-order__note">First engineering hire. Built the component library the rest of the product grew from.</span><div class="col-order__meta"><span>2019 — 2021</span><span>JavaScript</span><span>Component libraries</span></div></div></div></div>
+          <ol class="tl tl-ranged"><li class="tl__item" aria-current="step"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2023 — Now</span><span class="tl__title">Senior Product Engineer · Northwind Studio</span><p class="tl__note">Owns the design system this page is built with: tokens, components and the collections that ship on top of them.</p><div class="tl__meta"><span class="badge">Design systems</span><span class="badge">CSS</span><span class="badge">Accessibility</span></div></div></li><li class="tl__item"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2021 — 2023</span><span class="tl__title">Frontend Engineer · Fieldnote</span><p class="tl__note">Rebuilt the marketing site on a token-first stylesheet, cutting shipped CSS by two thirds with no framework underneath it.</p><div class="tl__meta"><span class="badge">CSS</span><span class="badge">Performance</span></div></div></li><li class="tl__item"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2019 — 2021</span><span class="tl__title">Frontend Developer · Loop & Co</span><p class="tl__note">First engineering hire. Built the component library the rest of the product grew from.</p><div class="tl__meta"><span class="badge">JavaScript</span><span class="badge">Component libraries</span></div></div></li></ol>
         </section>
 
         <section class="u-mt-10">
@@ -92,20 +92,79 @@
         </section>
       </div>
 
-      <aside>
-        <div class="row-between u-mb-5"><div><h2 class="t-h3">Skills</h2></div></div>
-        <div class="cluster"><span class="badge">CSS</span><span class="badge">Design systems</span><span class="badge">Accessibility</span><span class="badge">JavaScript</span><span class="badge">Performance</span><span class="badge">Typography</span><span class="badge">Motion</span><span class="badge">Component libraries</span></div>
+      <!-- The rail is every résumé widget the system can legitimately supply.
+           Each is an existing component: .col-widget, .badge cluster, .progress,
+           .stats-bare, .avatar, .list-group, .cta-sponsor. -->
+      <aside class="col-rail">
+        <div class="col-widget">
+          <span class="col-widget__title">At a glance</span>
+          <div class="cluster" style="gap:var(--space-3);align-items:center">
+            <span class="avatar avatar-xl">SS</span>
+            <div>
+              <b>Swarnil Singhai</b>
+              <span class="t-slate-sm" style="display:block;color:var(--fg-faint)">
+                Senior Product Engineer</span>
+              <span class="badge badge-live u-mt-2"><span class="dot dot-sm dot-live"></span>
+                Open to work</span>
+            </div>
+          </div>
+        </div>
 
-        <div class="u-mt-8">
-          <div class="row-between u-mb-5"><div><h2 class="t-h3">Languages</h2></div></div>
+        <div class="col-widget">
+          <span class="col-widget__title">Skills</span>
+          <div class="cluster"><span class="badge">CSS</span><span class="badge">Design systems</span><span class="badge">Accessibility</span><span class="badge">JavaScript</span><span class="badge">Performance</span><span class="badge">Typography</span><span class="badge">Motion</span><span class="badge">Component libraries</span></div>
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Core strengths</span>
+          <div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>Design systems</span><span>95%</span></span>
+            <div class="progress progress-thin">
+              <div class="progress__bar" style="--value:95%"></div></div>
+          </div><div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>CSS &amp; layout</span><span>92%</span></span>
+            <div class="progress progress-thin">
+              <div class="progress__bar" style="--value:92%"></div></div>
+          </div><div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>Accessibility</span><span>88%</span></span>
+            <div class="progress progress-thin">
+              <div class="progress__bar" style="--value:88%"></div></div>
+          </div><div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>Motion</span><span>74%</span></span>
+            <div class="progress progress-thin">
+              <div class="progress__bar" style="--value:74%"></div></div>
+          </div>
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Languages</span>
           <div class="row-between u-mb-2"><span class="t-small">English</span><span class="t-small u-fg-subtle">Native</span></div><div class="progress u-mb-4"><div class="progress__bar" style="--value:100%"></div></div><div class="row-between u-mb-2"><span class="t-small">Hindi</span><span class="t-small u-fg-subtle">Native</span></div><div class="progress u-mb-4"><div class="progress__bar" style="--value:100%"></div></div><div class="row-between u-mb-2"><span class="t-small">Spanish</span><span class="t-small u-fg-subtle">Conversational</span></div><div class="progress u-mb-4"><div class="progress__bar" style="--value:45%"></div></div>
         </div>
 
-        <div class="u-mt-8">
-          <div class="row-between u-mb-5"><div><h2 class="t-h3">Links</h2></div></div>
+        <div class="col-widget">
+          <span class="col-widget__title">Links</span>
           <div class="cluster"><a class="btn btn-secondary btn-sm" href="https://swarnil.dev" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>swarnil.dev</a><a class="btn btn-secondary btn-sm" href="https://github.com/swarnil" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>github.com/swarnil</a><a class="btn btn-secondary btn-sm" href="https://linkedin.com/in/swarnil" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>linkedin.com/in/swarnil</a></div>
         </div>
+
+        <div class="col-widget col-widget-accent">
+          <span class="col-widget__title">Available for work</span>
+          <p class="t-small">Design-system work — tokens, component libraries, and
+            migrating a site onto one.</p>
+          <div class="stack-sm u-mt-4">
+            <a class="btn btn-primary btn-sm u-w-full" href="./contact.html">Hire me →</a>
+            <a class="btn btn-quiet btn-sm u-w-full" href="#i">
+              <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M8 11l4 4 4-4"/><path d="M4.5 16.5V19a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2.5"/></svg>Download PDF</a>
+          </div>
+        </div>
       </aside>
+    </div>
+
+    <!-- A horizontal timeline of the same career, for the one view a vertical
+         list cannot give: shape. Folds back to vertical under 48rem and in
+         print, both handled by the component. -->
+    <div class="u-mt-12 no-print">
+      <div class="row-between u-mb-5"><div><h2 class="t-h3">The same nine years, as a line</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The horizontal axis reads as a process rather than a list — useful exactly once per page, and this is the once.</p></div></div>
+      <ol class="tl tl-h"><li class="tl__item" data-done data-kind="start"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2019</span><span class="tl__title">Loop &amp; Co</span><p class="tl__note">First engineering hire.</p></div></li><li class="tl__item" data-done><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2021</span><span class="tl__title">Fieldnote</span><p class="tl__note">Two thirds less CSS, no framework.</p></div></li><li class="tl__item" aria-current="step"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2023</span><span class="tl__title">Northwind Studio</span><p class="tl__note">Owns the system this page is built with.</p></div></li><li class="tl__item" data-kind="now"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">Next</span><span class="tl__title">Open to work</span><p class="tl__note">Design systems, and the sites that run on them.</p></div></li></ol>
     </div>
   </div>
 </main>

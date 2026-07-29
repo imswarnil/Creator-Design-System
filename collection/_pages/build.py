@@ -15,7 +15,7 @@ sys.path.insert(0, str(HERE.parent))
 
 from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
                    page_head, stats, cta, cta_sponsor, cine_hero, REL,
-                   win_browser, win_code, win_term, marquee, alert, vf)
+                   win_browser, win_code, win_term, marquee, alert, vf, timeline)
 
 NAME = 'Pages'
 
@@ -147,16 +147,15 @@ def summary_block(name, role, pitch, contacts, resume_href='#i'):
 
 
 def timeline_block(jobs):
-    items = ''.join(
-        f'<div class="col-order__item" style="text-decoration:none">'
-        f'<span class="col-order__num"><span class="rsm-order__icon">{icon("briefcase")}</span></span>'
-        f'<div class="col-order__body">'
-        f'<span class="col-order__title">{title} · {company}</span>'
-        f'<span class="col-order__note">{note}</span>'
-        f'<div class="col-order__meta"><span>{when}</span>'
-        + ''.join(f'<span>{t}</span>' for t in tags) + '</div></div></div>'
-        for title, company, when, note, tags in jobs)
-    return f'<div class="col-order">{items}</div>'
+    """`.tl.tl-ranged` — a career history is the one sequence where the node
+    should be a bar rather than a dot, because the thing being shown is
+    duration. Was `.col-order` (a collection's series spine, borrowed); the
+    ranged timeline is the component that actually means this."""
+    return timeline([
+        dict(time=when, title=f'{title} · {company}', note=note, meta=tags,
+             current=(when.endswith('Now')))
+        for title, company, when, note, tags in jobs
+    ], ranged=True)
 
 
 def education_block(schools):
@@ -895,20 +894,79 @@ def route_resume():
         </section>
       </div>
 
-      <aside>
-        {sec('Skills')}
-        {skills_block(SKILLS)}
+      <!-- The rail is every résumé widget the system can legitimately supply.
+           Each is an existing component: .col-widget, .badge cluster, .progress,
+           .stats-bare, .avatar, .list-group, .cta-sponsor. -->
+      <aside class="col-rail">
+        <div class="col-widget">
+          <span class="col-widget__title">At a glance</span>
+          <div class="cluster" style="gap:var(--space-3);align-items:center">
+            <span class="avatar avatar-xl">SS</span>
+            <div>
+              <b>Swarnil Singhai</b>
+              <span class="t-slate-sm" style="display:block;color:var(--fg-faint)">
+                Senior Product Engineer</span>
+              <span class="badge badge-live u-mt-2"><span class="dot dot-sm dot-live"></span>
+                Open to work</span>
+            </div>
+          </div>
+        </div>
 
-        <div class="u-mt-8">
-          {sec('Languages')}
+        <div class="col-widget">
+          <span class="col-widget__title">Skills</span>
+          {skills_block(SKILLS)}
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Core strengths</span>
+          {''.join(f'''<div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>{what}</span><span>{pct}%</span></span>
+            <div class="progress progress-thin">
+              <div class="progress__bar" style="--value:{pct}%"></div></div>
+          </div>''' for what, pct in [('Design systems', 95), ('CSS &amp; layout', 92),
+                                       ('Accessibility', 88), ('Motion', 74)])}
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Languages</span>
           {languages_block(LANGUAGES)}
         </div>
 
-        <div class="u-mt-8">
-          {sec('Links')}
+        <div class="col-widget">
+          <span class="col-widget__title">Links</span>
           {links_block(LINKS)}
         </div>
+
+        <div class="col-widget col-widget-accent">
+          <span class="col-widget__title">Available for work</span>
+          <p class="t-small">Design-system work — tokens, component libraries, and
+            migrating a site onto one.</p>
+          <div class="stack-sm u-mt-4">
+            <a class="btn btn-primary btn-sm u-w-full" href="./contact.html">Hire me →</a>
+            <a class="btn btn-quiet btn-sm u-w-full" href="#i">
+              {icon('download', group='resume')}Download PDF</a>
+          </div>
+        </div>
       </aside>
+    </div>
+
+    <!-- A horizontal timeline of the same career, for the one view a vertical
+         list cannot give: shape. Folds back to vertical under 48rem and in
+         print, both handled by the component. -->
+    <div class="u-mt-12 no-print">
+      {sec('The same nine years, as a line',
+           'The horizontal axis reads as a process rather than a list — useful '
+           'exactly once per page, and this is the once.')}
+      {timeline([
+          dict(time='2019', title='Loop &amp; Co', kind='start', done=True,
+               note='First engineering hire.'),
+          dict(time='2021', title='Fieldnote', done=True,
+               note='Two thirds less CSS, no framework.'),
+          dict(time='2023', title='Northwind Studio', current=True,
+               note='Owns the system this page is built with.'),
+          dict(time='Next', title='Open to work', kind='now',
+               note='Design systems, and the sites that run on them.'),
+      ], axis='h')}
     </div>
   </div>'''
     return page(HERE, 'resume.html', 'Résumé — Swarnil Singhai',

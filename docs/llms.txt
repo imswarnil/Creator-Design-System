@@ -82,9 +82,6 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Devices](https://creator.imswarnil.com/f-devices.html): Components — Three, and only three. Everything else on the site is plain. .dot · .dot-live · one per surface .frame · .frame-4 · .fra
 - [Frames](https://creator.imswarnil.com/f-frames.html): Components — Containers that say what a thing is before you read it: a Mac window says “app”, a terminal says “command”, a viewfinder
 - [Collection cards](https://creator.imswarnil.com/collection-cards.html): Components — routes.yaml , turned into cards. Each collection extends the base and changes exactly one device — the thing that says w
-- [Syllabus](https://creator.imswarnil.com/syllabus.html): Composites — The course curriculum: native <details> modules, lesson rows that tick off, the current lesson ringed, progress in the h
-- [Build log](https://creator.imswarnil.com/build-log.html): Composites — The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring. .buildlog > _
-- [Itinerary](https://creator.imswarnil.com/itinerary.html): Composites — The trip, day by day — same rail as the build log wearing travel clothes: day chips, notes, stop badges. .itinerary > __
 - [Page header](https://creator.imswarnil.com/page-header.html): Sections — How a collection opens: kicker with icon, display title, one line, quiet meta. Compact for child pages; the band header 
 - [Hero](https://creator.imswarnil.com/hero.html): Sections — A hero states, it does not list: one headline, one accent word, at most two actions. Four shapes — the fourth being the 
 - [Stats](https://creator.imswarnil.com/stats.html): Sections — Display-face tabular numbers, slate labels, hairlines not boxes. One surface, not four cards. .stats > .stat (+ __value/
@@ -97,6 +94,11 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Blog](https://creator.imswarnil.com/blog/index.html): Collections — The second collection, with no CSS of its own — the proof that the section vocabulary is shared rather than travel-shape
 - [Course](https://creator.imswarnil.com/course/index.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
 - [Webseries](https://creator.imswarnil.com/webseries/index.html): Collections — The fifth collection, and the second one to ship no CSS of its own — a season's spine and its cast are sections travel a
+- [Projects](https://creator.imswarnil.com/projects/index.html): Collections — GitHub-style repo cards, a sidebar carrying the live URL and the ask, and the one atom the collection genuinely needed —
+- [Course · curriculum](https://creator.imswarnil.com/course/curriculum.html): Collections — The course curriculum: native <details> modules, lesson rows that tick off, the current lesson ringed, progress in the h
+- [Projects · build log](https://creator.imswarnil.com/projects/build-log.html): Collections — The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring. .buildlog > _
+- [Travel · itinerary](https://creator.imswarnil.com/travel/itinerary.html): Collections — The trip, day by day — same rail as the build log wearing travel clothes: day chips, notes, stop badges. .itinerary > __
+- [Timeline](https://creator.imswarnil.com/timeline.html): Collections — An ordered sequence with a rail through it — vertical or horizontal, four modifiers, state in ARIA, and it prints. The g
 - [Résumé](https://creator.imswarnil.com/resume/index.html): Pages — The fourth collection, and a single page rather than five routes: a full-width summary, then experience, education and p
 - [Pages](https://creator.imswarnil.com/pages/index.html): Pages — Home, about, contact, the archive, now, the résumé, the legal pages and the subscriber welcome page — one document each,
 - [Homepage](https://creator.imswarnil.com/pages/home.html): Pages — The cinematic hero, the collections grid, the stats band and the newsletter CTA — the page that puts the most previously

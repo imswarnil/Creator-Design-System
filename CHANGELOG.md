@@ -7,6 +7,43 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Timeline (`35-timeline.css`)** — `.tl`, an ordered sequence with a rail
+  through it. `27-composite.css` opens by saying its four organs are "the same
+  idea — an ordered list that knows where you are — wearing its collection's
+  clothes"; this is that idea undressed, so a page needing a plain sequence
+  stops borrowing a build log and overriding the parts that say *project*.
+  Vertical and horizontal (`.tl-h`, which scrolls rather than wraps and folds
+  back to vertical under 48rem), four modifiers (`-compact`, `-lg`, `-alt`,
+  `-ranged`), state in ARIA (`[data-done]`, `aria-current="step"`,
+  `[data-kind]`), items after the current one recede via a `~` selector with no
+  class of their own, and it prints — horizontal folds, alternating collapses,
+  the accent ring drops, because a résumé is the most likely thing to be printed.
+- **`.progress-split`** — a proportional breakdown rather than a completion.
+  `.progress` asks "how far"; this asks "of what". Added because a repository's
+  language bar had no atom, and each segment carries its own `--value`/`--seg`
+  so the palette lives in the markup with the data. `.progress__key` is the
+  legend, and it is not optional — a bar of unlabelled colour is decoration.
+
+### Changed
+- **The "Composites" nav group is gone.** It was named after how three things
+  are *built* rather than what they are *for*, which put a course's curriculum
+  three groups away from the only collection that renders it. Each now sits with
+  its owner: `/course/curriculum`, `/projects/build-log`, `/travel/itinerary`,
+  with the old slugs redirecting. The generic sequence all three are dressings
+  of is the new Timeline page, which sits alongside them.
+- **The projects collection was rebuilt.** Repo cards read off a real GitHub
+  listing — `owner/name` with the owner receding, topics as pills, and a footer
+  carrying language dot, stars, forks, licence, live URL and last activity. The
+  project page gains a real sidebar (`.grid-rail`) holding the live demo URL,
+  topics, activity stats, the language bar, releases, and the hire-me /
+  check-my-résumé block that most portfolio sites bury on a contact page. The
+  index hero shows the flagship running in browser chrome instead of describing
+  it, and the four repos share one horizontal timeline.
+- **The résumé exercises every widget that legitimately fits one** — the ranged
+  timeline for roles (a role held three years is a bar, not a dot, which is what
+  makes a CV read as duration), plus an avatar/open-to-work card, skills,
+  strength bars, languages, links and the hire-me block in the rail, and a
+  horizontal career line that is hidden in print.
 - **`scripts/audit-classes.py`** — the gap between the CSS and the markup, in
   both directions: classes the markup uses that the CSS never defines (should
   always be empty; `--strict` gates CI on it) and classes the CSS defines that

@@ -34,6 +34,7 @@ blog = _load('col_blog_build', REPO / 'collection' / 'blog' / 'build.py')
 course = _load('col_course_build', REPO / 'collection' / 'course' / 'build.py')
 resume = _load('col_resume_build', REPO / 'collection' / '_pages' / 'build.py')
 webseries = _load('col_webseries_build', REPO / 'collection' / 'webseries' / 'build.py')
+projects = _load('col_projects_build', REPO / 'collection' / 'projects' / 'build.py')
 
 PAGES = {}
 
@@ -1402,3 +1403,72 @@ PAGES['webseries/index'] = ('Webseries collection',
     'The fifth collection, and the second one to ship no CSS of its own — a season\'s spine '
     'and its cast are sections travel and blog already built, and its episode navigation is '
     'a composite that had been sitting unused until this collection needed exactly it.', w)
+
+
+# ── 9 · projects ─────────────────────────────────────────────────────────────
+
+pj = ''
+pj += p('The collection with the most borrowed parts and the fewest of its own. A repo card '
+        'is <code class="t-code">.c-project</code>; the sidebar is four '
+        '<code class="t-code">.col-widget</code>s; the log is '
+        '<code class="t-code">.buildlog</code>. Exactly one atom had to be added for it, and '
+        'it was the language bar.')
+pj += p('<a class="btn btn-primary btn-sm" href="/collection/projects/index.html" '
+        'target="_blank" rel="noopener">Open /projects →</a> '
+        '<a class="btn btn-primary btn-sm" href="/collection/projects/project.html" '
+        'target="_blank" rel="noopener">Open a project page →</a> '
+        '<a class="btn btn-secondary btn-sm" href="/projects/build-log.html">'
+        'Its build log →</a>')
+pj += END
+
+pj += sec('card-pj', 'The repo card',
+    'Read off a real GitHub listing rather than invented: <code class="t-code">owner/name</code> '
+    'with the owner receding, the description, topics as pills, then one footer line carrying '
+    'the language dot, stars, forks, licence, the live URL and last activity. '
+    '<code class="t-code">.c-project</code> already shipped the logo tile and the stack row — '
+    'what was missing was everything in the footer that makes a repo card a repo card rather '
+    'than a blog card with a logo on it.')
+pj += live(projects.project_card(*projects.PROJECTS[0]),
+    '<b>.c.c-project</b> — <b>__logo</b> · <b>__stack</b> · <b>__foot</b>')
+pj += END
+
+pj += sec('langbar-pj', 'The one new atom',
+    'A repository\'s language breakdown is a proportional bar, and this system had only a '
+    'single-value one. <code class="t-code">.progress-split</code> is that: segments that sum '
+    'to the whole, each carrying its own <code class="t-code">--value</code> and '
+    '<code class="t-code">--seg</code> colour so the palette lives in the markup with the '
+    'data. It asks "of what", where <code class="t-code">.progress</code> asks "how far".')
+pj += live(f'<div style="max-width:22rem">{projects.language_bar()}</div>',
+    '<b>.progress.progress-split</b> + <b>.progress__seg</b> + <b>.progress__key</b> — the '
+    'legend is not optional; a bar of unlabelled colour is decoration')
+pj += END
+
+pj += sec('rail-pj', 'The sidebar is where the actions live',
+    'Content in the main column, the repo\'s own facts in the rail — the live URL, the topics, '
+    'the counts, the releases and the ask. Everything a reader wants to <em>act</em> on rather '
+    'than read. The last widget is the one most portfolio sites bury on a contact page: a '
+    'project page is where somebody decides they want to work with you.')
+pj += live(f'<div style="max-width:20rem">{projects.sidebar(*projects.PROJECTS[0])}</div>',
+    '<b>.col-widget</b> ×5 · <b>.stats-bare</b> · <b>.progress-split</b> · '
+    '<b>.list-group-flush</b> · <b>.col-widget-accent</b> for the hire-me block')
+pj += END
+
+pj += sec('tl-pj', 'Two sequences, two components',
+    'The index shows four repos across seven years on the generic horizontal '
+    '<code class="t-code">.tl</code>, because across several projects that is a history. A '
+    'single project page shows <code class="t-code">.buildlog</code>, because ▸ start, '
+    'numbered middles and ✓ ship are exactly the subject there. Same idea, different clothes '
+    '— which is the whole argument of <a href="/timeline.html">Timeline</a>.')
+pj += live(projects.timeline([
+    dict(time='2026', title='Creator Design System', kind='now', meta=['CSS']),
+    dict(time='2026', title='creator-cli', done=True, meta=['Python']),
+    dict(time='2025', title='Component Playground', done=True, meta=['JavaScript']),
+    dict(time='2025', title='Fieldnote', done=True, kind='start', meta=['CSS']),
+], axis='h'), '<b>.tl.tl-h</b> — the history, on the index')
+pj += live(projects.log_timeline(projects.LOG[:4]),
+    '<b>.buildlog</b> — the build log, on the project page')
+pj += END
+
+PAGES['projects/index'] = ('Projects collection',
+    'GitHub-style repo cards, a sidebar carrying the live URL and the ask, and the one atom '
+    'the collection genuinely needed — a proportional language bar.', pj)

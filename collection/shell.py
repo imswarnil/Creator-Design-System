@@ -516,3 +516,51 @@ def vf(body, tone='signal'):
     element. The pattern goes on a child, which is what this does."""
     return (f'<div class="vf vf-{tone}"><span class="vf__tr"></span>'
             f'<span class="vf__bl"></span>{body}</div>')
+
+
+def timeline(items, axis='', density='', alt=False, ranged=False):
+    """`.tl` (35-timeline.css) — a sequence with a rail through it.
+
+    Each item is a dict: `time`, `title`, `note`, `href`, `meta` (a list of
+    badge strings), `node` (what sits in the circle), `kind` (start|ship|now),
+    `done`, `current`. Only `title` is required.
+
+    `axis='h'` is the horizontal variant, which folds back to vertical under
+    48rem; `density` is 'compact' or 'lg'; `alt` alternates sides of the rail
+    (vertical only); `ranged` turns the node into a capsule for durations.
+    """
+    cls = 'tl'
+    if axis == 'h':
+        cls += ' tl-h'
+    if density:
+        cls += f' tl-{density}'
+    if alt:
+        cls += ' tl-alt'
+    if ranged:
+        cls += ' tl-ranged'
+
+    out = ''
+    for it in items:
+        attrs = ''
+        if it.get('done'):
+            attrs += ' data-done'
+        if it.get('current'):
+            # aria-current="step" is the right token for a position in a
+            # process; "true" would be right for a page.
+            attrs += ' aria-current="step"'
+        if it.get('kind'):
+            attrs += f' data-kind="{it["kind"]}"'
+
+        title = it['title']
+        t = (f'<a class="tl__title" href="{it["href"]}">{title}</a>'
+             if it.get('href') else f'<span class="tl__title">{title}</span>')
+        time = f'<span class="tl__time">{it["time"]}</span>' if it.get('time') else ''
+        note = f'<p class="tl__note">{it["note"]}</p>' if it.get('note') else ''
+        meta = ('<div class="tl__meta">'
+                + ''.join(f'<span class="badge">{m}</span>' for m in it['meta'])
+                + '</div>') if it.get('meta') else ''
+
+        out += (f'<li class="tl__item"{attrs}>'
+                f'<span class="tl__node">{it.get("node", "")}</span>'
+                f'<div class="tl__body">{time}{t}{note}{meta}</div></li>')
+    return f'<ol class="{cls}">{out}</ol>'

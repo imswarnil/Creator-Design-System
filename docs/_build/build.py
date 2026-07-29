@@ -124,13 +124,22 @@ NAV = [
                     ('pagination', 'Pagination'), ('popovers', 'Popovers'),
                     ('progress', 'Progress'), ('scrollspy', 'Scrollspy'),
                     ('spinners', 'Spinners'), ('toasts', 'Toasts'), ('tooltips', 'Tooltips')]),
-    ('Composites', [('syllabus', 'Syllabus'), ('build-log', 'Build log'),
-                    ('itinerary', 'Itinerary')]),
     ('Sections', [('page-header', 'Page header'), ('hero', 'Hero'), ('stats', 'Stats'),
                   ('cta', 'CTA'), ('footer', 'Footer')]),
+    # There was a "Composites" group here holding syllabus, build log and
+    # itinerary. It was a group named after how those three are BUILT rather
+    # than what they are FOR, which put a course's curriculum three groups away
+    # from the course collection that is the only thing that renders it. Each
+    # now sits with its owning collection; the generic sequence they are all
+    # variations of is the timeline, which is a component and lives with them.
     ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
+                     ('timeline', 'Timeline'),
                      ('col-default', 'Default'), ('travel/index', 'Travel'),
+                     ('travel/itinerary', 'Travel · itinerary'),
                      ('blog/index', 'Blog'), ('course/index', 'Course'),
+                     ('course/curriculum', 'Course · curriculum'),
+                     ('projects/index', 'Projects'),
+                     ('projects/build-log', 'Projects · build log'),
                      ('webseries/index', 'Webseries')]),
     ('Pages', [('pages/index', 'Pages'), ('pages/home', 'Homepage'),
               ('pages/about', 'About'), ('pages/contact', 'Contact'),
@@ -701,6 +710,10 @@ REDIRECTS = {
     'col-blog': 'blog/index',
     'col-pages': 'pages/index',
     'pages/components': 'pages/index',
+    # The dissolved "Composites" group.
+    'syllabus': 'course/curriculum',
+    'build-log': 'projects/build-log',
+    'itinerary': 'travel/itinerary',
 }
 
 

@@ -1,0 +1,289 @@
+/* =============================================================================
+   35 · TIMELINE
+   An ordered sequence with a rail through it. 27-composite.css opens by saying
+   its four organs are "the same idea — an ordered list that knows where you
+   are — wearing its collection's clothes"; this is that idea with no clothes
+   on, so a page that needs a plain sequence does not have to borrow a build
+   log and override the parts that say "project".
+
+   Two axes, and the axis is the only structural decision:
+
+     .tl        vertical   — the default. Unbounded length, reads as a list.
+     .tl-h      horizontal — bounded, reads as a process. Scrolls on overflow
+                             and folds back to vertical when the viewport is
+                             too narrow to hold it honestly.
+
+   Everything else is a modifier that works on both:
+
+     .tl-compact   tighter rhythm, no notes expected
+     .tl-lg        roomier, for three or four milestones that matter
+     .tl-alt       vertical only — items alternate sides of the rail
+     .tl-ranged    the rail is a span (a role, a trip) rather than points
+
+   State is ARIA and data attributes, never a styling-only class:
+
+     [data-done]     behind you — the node fills
+     [aria-current]  you are here — the node takes the accent ring
+     [data-kind]     start | ship | now — swaps the node glyph
+
+   MARKUP
+     <ol class="tl">
+       <li class="tl__item" data-done>
+         <span class="tl__node"></span>
+         <div class="tl__body">
+           <span class="tl__time">Jun 2024</span>
+           <span class="tl__title">Foundation tokens land</span>
+           <p class="tl__note">Three tiers, one rename from a rebrand.</p>
+         </div>
+       </li>
+     </ol>
+   ========================================================================== */
+
+.tl {
+	--tl-node: 1.45rem;
+	--tl-gap: var(--space-5);
+	--tl-rail: var(--border-hair);
+
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--tl-gap);
+}
+
+/* The rail. Inset by half a node so it runs through their centres, and stopped
+   short at both ends — a line that runs past the first and last node reads as
+   "there is more", which is a lie in a finished sequence. */
+.tl::before {
+	content: '';
+	position: absolute;
+	left: calc(var(--tl-node) / 2 - var(--tl-rail) / 2);
+	top: calc(var(--tl-node) / 2);
+	bottom: calc(var(--tl-node) / 2);
+	width: var(--tl-rail);
+	background: var(--line-default);
+}
+
+.tl__item {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-4);
+	min-width: 0;
+}
+
+.tl__node {
+	position: relative;
+	z-index: 1;
+	flex: none;
+	width: var(--tl-node);
+	height: var(--tl-node);
+	border-radius: var(--radius-full);
+	border: var(--border-2) solid var(--line-strong);
+	background: var(--bg-canvas);
+	display: grid;
+	place-items: center;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	font-variant-numeric: tabular-nums;
+	color: var(--fg-subtle);
+	transition: var(--t-colors), var(--t-shadow);
+}
+
+.tl__body {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding-top: calc((var(--tl-node) - 1.15rem) / 2);
+}
+
+.tl__time {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+	order: -1;
+}
+
+.tl__title {
+	font-weight: var(--weight-semibold);
+	font-size: var(--text-sm);
+	line-height: var(--leading-snug);
+	color: var(--fg-default);
+}
+
+/* A whole item can be a link. Kept as its own class so the title stays a title
+   when it isn't one. */
+a.tl__title { text-decoration: none; transition: var(--t-colors); }
+a.tl__title:hover { color: var(--fg-accent); }
+
+.tl__note {
+	font-size: var(--text-sm);
+	line-height: var(--leading-normal);
+	color: var(--fg-subtle);
+	max-width: var(--measure-ui);
+}
+
+.tl__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-1);
+	margin-top: var(--space-2);
+}
+
+/* ── State ────────────────────────────────────────────────────────────────── */
+
+.tl__item[data-done] .tl__node {
+	background: var(--fg-default);
+	border-color: var(--fg-default);
+	color: var(--bg-canvas);
+}
+
+.tl__item[data-done] .tl__node::before { content: '✓'; }
+
+.tl__item[aria-current] .tl__node {
+	border-color: var(--accent);
+	color: var(--accent);
+	background: var(--bg-canvas);
+	box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.tl__item[aria-current] .tl__node::before { content: none; }
+.tl__item[aria-current] .tl__title { color: var(--fg-default); }
+
+/* Everything after the current item is ahead of you — the rail behind stays
+   solid, the copy ahead recedes. */
+.tl__item[aria-current] ~ .tl__item .tl__title { font-weight: var(--weight-medium); }
+.tl__item[aria-current] ~ .tl__item .tl__node { border-style: dashed; }
+
+/* Glyph kinds. Content only — the node geometry never changes. */
+.tl__item[data-kind='start'] .tl__node::before { content: '▸'; }
+.tl__item[data-kind='ship'] .tl__node::before { content: '✓'; }
+.tl__item[data-kind='now'] .tl__node::before { content: ''; }
+
+.tl__item[data-kind='now'] .tl__node {
+	border-color: var(--accent);
+	background: var(--accent);
+	color: var(--fg-on-accent);
+}
+
+/* ── Density ──────────────────────────────────────────────────────────────── */
+
+.tl-compact { --tl-node: 1rem; --tl-gap: var(--space-3); }
+.tl-compact .tl__title { font-size: var(--text-xs); }
+.tl-compact .tl__node { font-size: 0; }
+
+.tl-lg { --tl-node: 2rem; --tl-gap: var(--space-8); }
+.tl-lg .tl__title { font-size: var(--text-base); }
+
+/* ── Ranged — the rail is a span, not a point ─────────────────────────────────
+   A role held for three years is a bar, not a dot. The node becomes a capsule
+   whose height fills its own row, which is what makes a CV read as duration. */
+
+.tl-ranged .tl__node {
+	border-radius: var(--radius-pill);
+	height: auto;
+	align-self: stretch;
+	min-height: var(--tl-node);
+}
+
+.tl-ranged .tl__item[data-done] .tl__node::before,
+.tl-ranged .tl__node::before { content: none; }
+
+/* ── Alternating — vertical only ──────────────────────────────────────────────
+   Items zig-zag either side of a centred rail. Only honest with short copy and
+   an even-ish count, and only above the fold-point — below it, it collapses to
+   the plain vertical rail rather than shrinking two columns into nothing. */
+
+@media (min-width: 48rem) {
+	.tl-alt::before { left: 50%; transform: translateX(-50%); }
+
+	.tl-alt .tl__item {
+		width: 50%;
+		padding-right: var(--space-8);
+		flex-direction: row-reverse;
+		text-align: right;
+	}
+
+	.tl-alt .tl__item .tl__body { align-items: flex-end; }
+
+	.tl-alt .tl__node {
+		position: absolute;
+		right: calc(-1 * var(--tl-node) / 2);
+		top: 0;
+	}
+
+	.tl-alt .tl__item:nth-child(even) {
+		margin-left: 50%;
+		padding-right: 0;
+		padding-left: var(--space-8);
+		flex-direction: row;
+		text-align: left;
+	}
+
+	.tl-alt .tl__item:nth-child(even) .tl__body { align-items: flex-start; }
+
+	.tl-alt .tl__item:nth-child(even) .tl__node {
+		right: auto;
+		left: calc(-1 * var(--tl-node) / 2);
+	}
+}
+
+/* ── Horizontal ───────────────────────────────────────────────────────────────
+   A process, not a list. Scrolls rather than wraps: a horizontal timeline that
+   wraps to a second row has stopped being one line of time. */
+
+@media (min-width: 48rem) {
+	.tl-h {
+		flex-direction: row;
+		gap: 0;
+		overflow-x: auto;
+		overscroll-behavior-x: contain;
+		scroll-snap-type: x proximity;
+		padding-bottom: var(--space-3);
+		scrollbar-width: thin;
+	}
+
+	.tl-h::before {
+		left: var(--space-6);
+		right: var(--space-6);
+		top: calc(var(--tl-node) / 2);
+		bottom: auto;
+		width: auto;
+		height: var(--tl-rail);
+	}
+
+	.tl-h .tl__item {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-3);
+		flex: 1 0 12rem;
+		min-width: 12rem;
+		padding-right: var(--space-5);
+		scroll-snap-align: start;
+	}
+
+	.tl-h .tl__body { padding-top: 0; }
+	.tl-h .tl__note { max-width: none; }
+
+	/* Centre the nodes over the rail rather than left-aligning them, so the
+	   first and last node sit inside the rail's inset. */
+	.tl-h .tl__item:first-child { padding-left: 0; }
+}
+
+/* ── Reduced motion / print ───────────────────────────────────────────────── */
+
+@media print {
+	.tl-h { flex-direction: column; overflow: visible; }
+	.tl-h::before { left: calc(var(--tl-node) / 2); right: auto; top: 0; bottom: 0; width: var(--tl-rail); height: auto; }
+	.tl__item[aria-current] .tl__node { box-shadow: none; }
+	.tl-alt .tl__item,
+	.tl-alt .tl__item:nth-child(even) { width: auto; margin-left: 0; padding: 0; text-align: left; flex-direction: row; }
+	.tl-alt::before { left: calc(var(--tl-node) / 2); transform: none; }
+	.tl-alt .tl__node { position: relative; right: auto; left: auto; }
+}

@@ -31,6 +31,50 @@
 	animation: fx-rail 1.4s var(--ease-inout) infinite;
 }
 
+/* ── Split — a breakdown, not a completion ────────────────────────────────────
+   One bar divided into parts that sum to the whole: a repository's languages, a
+   budget, a vote. Distinct from .progress because the question is different —
+   .progress asks "how far", this asks "of what". Each segment carries its own
+   --value and --seg colour, so the palette stays in the markup where the data
+   is rather than being invented here.
+
+     <div class="progress progress-split">
+       <span class="progress__seg" style="--value:62%;--seg:#563d7c"></span>
+       <span class="progress__seg" style="--value:31%;--seg:#f1e05a"></span>
+     </div>
+
+   Always label the segments somewhere adjacent — a bar of unlabelled colour is
+   decoration, and colour is never alone in this system. */
+
+.progress-split { display: flex; gap: 2px; background: var(--bg-muted); }
+
+.progress__seg {
+	height: 100%;
+	width: var(--value, 0%);
+	background: var(--seg, var(--accent));
+	flex: none;
+}
+
+.progress__seg:first-child { border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
+.progress__seg:last-child { border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
+
+/* The legend that makes the colours mean something. */
+.progress__key {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2) var(--space-4);
+	margin-top: var(--space-3);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-subtle);
+}
+
+.progress__key > span {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+
 /* Progress with a slate label above it (course completion, upload). */
 .progress-labelled {
 	display: flex;

@@ -2,9 +2,14 @@ from common import tile, sec, END, ct
 
 PAGES = {}
 
-# ── Composites ──────────────────────────────────────────────────────────────
+# ── The composites, relocated ───────────────────────────────────────────────
+# These three used to sit in their own "Composites" nav group — named after how
+# they are built rather than what they are for, which put a course's curriculum
+# three groups away from the only collection that renders it. Each now lives
+# with its owning collection. The content is unchanged; only the slug and the
+# framing moved, and the old slugs redirect.
 
-PAGES['syllabus'] = ('Syllabus',
+PAGES['course/curriculum'] = ('Course · curriculum',
     'The course curriculum: native &lt;details&gt; modules, lesson rows that tick off, '
     'the current lesson ringed, progress in the head. State lives in ARIA, never a styling class.',
     tile('<section class="curriculum" style="max-width:36rem">'
@@ -32,7 +37,7 @@ PAGES['syllabus'] = ('Syllabus',
          head=('Where', 'How')))
 
 
-PAGES['build-log'] = ('Build log',
+PAGES['projects/build-log'] = ('Projects · build log',
     'The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring.',
     tile('<ol class="buildlog" style="max-width:26rem">'
          '<li class="buildlog__step" data-kind="start" data-done><span class="buildlog__node"></span>'
@@ -46,7 +51,7 @@ PAGES['build-log'] = ('Build log',
          '</ol>',
          '<b>.buildlog &gt; __step[data-kind][data-done][aria-current] &gt; __node + __link + __date</b>'))
 
-PAGES['itinerary'] = ('Itinerary',
+PAGES['travel/itinerary'] = ('Travel · itinerary',
     'The trip, day by day — same rail as the build log wearing travel clothes: day chips, notes, stop badges.',
     tile('<ol class="itinerary" style="max-width:30rem">'
          '<li class="itinerary__day"><span class="itinerary__chip"><b>1</b><span>day</span></span>'
@@ -62,6 +67,125 @@ PAGES['itinerary'] = ('Itinerary',
          '<div class="itinerary__stops"><span class="badge">Sighnaghi</span><span class="badge">Telavi</span></div></li>'
          '</ol>',
          '<b>.itinerary &gt; __day &gt; __chip + __title + __note + __stops</b> — trip pages use it as the overview spine'))
+
+
+# ── Timeline — the generic sequence the three above are dressings of ─────────
+
+def _tl(items, cls='tl'):
+    out = ''
+    for it in items:
+        a = ''
+        if it.get('done'):
+            a += ' data-done'
+        if it.get('current'):
+            a += ' aria-current="step"'
+        if it.get('kind'):
+            a += f' data-kind="{it["kind"]}"'
+        time = f'<span class="tl__time">{it["time"]}</span>' if it.get('time') else ''
+        note = f'<p class="tl__note">{it["note"]}</p>' if it.get('note') else ''
+        meta = ('<div class="tl__meta">' + ''.join(
+            f'<span class="badge">{m}</span>' for m in it['meta']) + '</div>'
+        ) if it.get('meta') else ''
+        out += (f'<li class="tl__item"{a}><span class="tl__node">{it.get("node","")}</span>'
+                f'<div class="tl__body">{time}<span class="tl__title">{it["title"]}</span>'
+                f'{note}{meta}</div></li>')
+    return f'<ol class="{cls}">{out}</ol>'
+
+
+_TL_STEPS = [
+    dict(time='Jun 2024', title='Foundation tokens land', kind='start', done=True,
+         note='Three tiers, one rename away from a rebrand.'),
+    dict(time='Sep 2024', title='Components pass', node='2', done=True),
+    dict(time='Now', title='Collections and pages', current=True, node='3',
+         note='Twelve collections on one shared shell.', meta=['in flight']),
+    dict(time='Q4', title='Ship v1 to npm', kind='ship'),
+]
+
+_tl_body = (
+    '<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
+    'An ordered sequence with a rail through it. <b>27-composite.css</b> opens by saying its '
+    'four organs are "the same idea — an ordered list that knows where you are — wearing its '
+    'collection\'s clothes"; this is that idea with no clothes on, so a page that needs a plain '
+    'sequence does not borrow a build log and override every part that says <i>project</i>.</p>'
+
+    + sec('axis', 'The axis is the only structural decision',
+          'Vertical reads as a list and takes any length. Horizontal reads as a process, is '
+          'bounded, scrolls rather than wraps — a horizontal timeline that wraps to a second '
+          'row has stopped being one line of time — and folds back to vertical under 48rem '
+          'rather than crushing itself.')
+    + tile(_tl(_TL_STEPS), '<b>.tl</b> — vertical, the default')
+    + tile(_tl(_TL_STEPS, 'tl tl-h'),
+           '<b>.tl.tl-h</b> — horizontal. Narrow this window past 48rem and it becomes the '
+           'one above')
+    + END
+
+    + sec('state', 'State is ARIA, never a styling class',
+          'The node fills behind you, takes the accent ring where you are, and goes dashed '
+          'ahead of you — so "how far along is this" survives with CSS off, and the '
+          'accessibility tree and the styling can never disagree.')
+    + ct([
+        ('[data-done]', 'behind you — the node fills and shows a tick'),
+        ('aria-current="step"', 'you are here — accent ring. <code class="t-code">step</code>, '
+                                'not <code class="t-code">true</code>: this is a position in a '
+                                'process, not the current page'),
+        ('[data-kind]', '<code class="t-code">start</code> ▸ · <code class="t-code">ship</code> ✓ '
+                        '· <code class="t-code">now</code> filled accent. Glyph only — the node '
+                        'geometry never changes'),
+        ('~ selector', 'everything after the current item recedes automatically. No class on '
+                       'the future items'),
+    ], head=('Hook', 'What it does'))
+    + END
+
+    + sec('variants', 'Four modifiers, both axes')
+    + tile(_tl(_TL_STEPS[:3], 'tl tl-compact'),
+           '<b>.tl-compact</b> — tighter rhythm, no notes expected. For a rail beside content')
+    + tile(_tl([dict(time='2021 — 2024', title='Senior Product Engineer',
+                     note='Design systems, and the sites that run on them.'),
+                dict(time='2019 — 2021', title='Frontend Engineer',
+                     note='Component library, then the migration onto it.')], 'tl tl-ranged'),
+           '<b>.tl-ranged</b> — the node becomes a capsule that fills its row. A role held for '
+           'three years is a bar, not a dot, which is what makes a CV read as duration')
+    + tile(_tl(_TL_STEPS, 'tl tl-alt'),
+           '<b>.tl-alt</b> — items alternate sides of a centred rail. Vertical only, and only '
+           'above 48rem; below that it collapses to the plain rail rather than shrinking two '
+           'columns into nothing')
+    + tile(_tl(_TL_STEPS[:3], 'tl tl-lg'), '<b>.tl-lg</b> — roomier, for the three or four '
+           'milestones that actually matter')
+    + END
+
+    + sec('who', 'Who wears which clothes',
+          'The three collection composites are not replaced by this — each keeps a device that '
+          'is genuinely about its subject. This is what to reach for when you have none of '
+          'those subjects.')
+    + ct([
+        ('<code class="t-code">.tl</code>', 'a plain sequence — a roadmap, a changelog, a '
+                                            'career history, "what happens next"'),
+        ('<code class="t-code">.buildlog</code>', 'a project — ▸ start, numbered middles, ✓ ship. '
+                                                  '<a href="/projects/build-log.html">Projects → '
+                                                  'build log</a>'),
+        ('<code class="t-code">.itinerary</code>', 'a trip — the day chip and a photo strip per '
+                                                   'day. <a href="/travel/itinerary.html">Travel '
+                                                   '→ itinerary</a>'),
+        ('<code class="t-code">.curriculum</code>', 'a course — collapsible modules, tickable '
+                                                    'lesson rows. <a href="/course/curriculum.html">'
+                                                    'Course → curriculum</a>'),
+        ('<code class="t-code">.col-order</code>', 'a collection\'s own series spine — already '
+                                                   'in <b>collection.css</b>, used by trips, '
+                                                   'seasons and the archive'),
+    ], head=('Reach for', 'When'))
+    + END
+
+    + sec('print', 'It prints',
+          'Horizontal folds to vertical, alternating collapses to one column, and the accent '
+          'ring drops — a résumé is the most likely thing to be printed, and a two-column '
+          'zig-zag does not survive a page break.')
+    + END
+)
+
+PAGES['timeline'] = ('Timeline',
+    'An ordered sequence with a rail through it — vertical or horizontal, four modifiers, '
+    'state in ARIA, and it prints. The generic form the curriculum, build log and itinerary '
+    'are all dressings of.', _tl_body)
 
 # ── Sections ────────────────────────────────────────────────────────────────
 

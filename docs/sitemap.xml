@@ -9,7 +9,6 @@
 <url><loc>https://creator.imswarnil.com/blog/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/breadcrumb.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/breakpoints.html</loc><priority>0.5</priority></url>
-<url><loc>https://creator.imswarnil.com/build-log.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/button-group.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/buttons.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/card.html</loc><priority>0.5</priority></url>
@@ -26,6 +25,7 @@
 <url><loc>https://creator.imswarnil.com/components.html</loc><priority>0.8</priority></url>
 <url><loc>https://creator.imswarnil.com/containers.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/content.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/course/curriculum.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/course/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/cta.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/cutouts.html</loc><priority>0.5</priority></url>
@@ -60,7 +60,6 @@
 <url><loc>https://creator.imswarnil.com/input-group.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/install.html</loc><priority>0.8</priority></url>
 <url><loc>https://creator.imswarnil.com/introduction.html</loc><priority>0.8</priority></url>
-<url><loc>https://creator.imswarnil.com/itinerary.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/layout-patterns.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/list-group.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/m-annotations.html</loc><priority>0.5</priority></url>
@@ -88,6 +87,8 @@
 <url><loc>https://creator.imswarnil.com/popovers.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/principles.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/progress.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/projects/build-log.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/projects/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/quotes.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/range.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/reboot.html</loc><priority>0.5</priority></url>
@@ -99,13 +100,14 @@
 <url><loc>https://creator.imswarnil.com/spinners.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/sponsor.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/stats.html</loc><priority>0.5</priority></url>
-<url><loc>https://creator.imswarnil.com/syllabus.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/tables.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/templates.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/text-elements.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/timeline.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/toasts.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/tooltips.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/travel/index.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/travel/itinerary.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/typography.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/u-background.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/u-borders.html</loc><priority>0.5</priority></url>
