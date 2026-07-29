@@ -777,6 +777,47 @@ PAGES['resume/index'] = ('Resume collection',
     'component, all of it .col-order, .card and .badge.', r)
 
 
+# ── 7b · pages ───────────────────────────────────────────────────────────────
+# collection/_pages/ is the same module as `resume` above — the résumé lives
+# there too, moved from its own folder because one document is one page, not
+# a collection. This section is the folder itself: every other one-off route
+# it holds, demoed from its own real builder like everything above it.
+
+pg = ''
+pg += p('Not a collection of posts — the site\'s own one-offs: home, about, contact, the '
+        'archive, now, the résumé and the legal pages. Each is exactly one page, so they '
+        'share a folder instead of each inventing its own, and — since a folder full of '
+        'routes with no way to see them all in one place is not actually a collection — the '
+        'folder gets the same <code class="t-code">index.html</code> every collection above '
+        'it has.')
+pg += p('<a class="btn btn-primary btn-sm" href="/collection/_pages/index.html" '
+        'target="_blank" rel="noopener">Open /collection/_pages →</a>')
+pg += END
+
+pg += sec('list-p', 'Every page, in one list',
+    'The docs collection\'s row card — a label, a note, an arrow, no media — because a '
+    'one-off page is a fact to be found, not a scene to be looked at.')
+pg += live(resume.pages_block(), '<b>.c.c-doc</b> — unchanged, from '
+    '<code class="t-code">/collection/_pages/index.html</code>')
+pg += END
+
+pg += sec('demo-p', 'Every route, live', 'Not a screenshot of any of them — the real page, '
+    'opening in a new tab.')
+pg += tile('<div class="grid-3">' + ''.join(
+    f'<a class="card" href="/collection/_pages/{file}" target="_blank" rel="noopener">'
+    f'<div class="card__body"><span class="card__meta">{resume.icon(ico)}{title}</span>'
+    f'<p class="t-small u-fg-subtle u-mt-2">{note}</p></div></a>'
+    for title, file, note, ico in resume.PAGES_LIST) + '</div>',
+    f'{len(resume.PAGES_LIST)} routes, all of them from '
+    '<code class="t-code">collection/_pages/build.py</code>')
+pg += END
+
+PAGES['col-pages'] = ('Pages collection',
+    'Home, about, contact, the archive, now, the résumé, the legal pages and the '
+    'subscriber welcome page — one document each, so they share a folder and an index '
+    'rather than each inventing their own.', pg)
+
+
 # ── 8 · webseries ─────────────────────────────────────────────────────────────
 
 w = ''

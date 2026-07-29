@@ -98,6 +98,7 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Course](https://creator.imswarnil.com/course/index.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
 - [Resume](https://creator.imswarnil.com/resume/index.html): Collections — The fourth collection, and a single page rather than five routes: a full-width summary, then experience, education and p
 - [Webseries](https://creator.imswarnil.com/webseries/index.html): Collections — The fifth collection, and the second one to ship no CSS of its own — a season's spine and its cast are sections travel a
+- [Every one-off page](https://creator.imswarnil.com/col-pages.html): Pages — Home, about, contact, the archive, now, the résumé, the legal pages and the subscriber welcome page — one document each,
 - [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections, live: one @view-transition rule, nine flavours, and real links below to go see them f
 - [Motion basics](https://creator.imswarnil.com/m-basics.html): Animation & Motion — Four durations, four easings. No component may invent a duration. Entrances travel 16px, not 60 — long travel reads as "
 - [Text effects](https://creator.imswarnil.com/m-text-effects.html): Animation & Motion — Twelve. Most need the text split into spans carrying --i ; the preview does that with five lines of JS. Without spans ev
