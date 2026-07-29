@@ -132,7 +132,7 @@ NAV = [
                      ('col-default', 'Default'), ('travel/index', 'Travel'),
                      ('blog/index', 'Blog'), ('course/index', 'Course'),
                      ('resume/index', 'Resume'), ('webseries/index', 'Webseries')]),
-    ('Pages', [('col-pages', 'Every one-off page')]),
+    ('Pages', [('pages/index', 'Every one-off page'), ('pages/components', 'Components')]),
     ('Animation & Motion', [('m-basics', 'Motion basics'), ('m-text-effects', 'Text effects'),
                 ('m-annotations', 'Annotations'), ('m-micro', 'Micro-interactions'),
                 ('m-presets', 'Section presets'), ('m-stings', 'Logo sting'),
@@ -695,6 +695,7 @@ REDIRECTS = {
     'col-travel': 'travel/index',
     'col-course': 'course/index',
     'col-blog': 'blog/index',
+    'col-pages': 'pages/index',
 }
 
 
