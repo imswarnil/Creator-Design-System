@@ -13,9 +13,23 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, meta_strip, pagination   # noqa: E402
+from shell import icon, ph, page, sec, hero, meta_strip, pagination   # noqa: E402
 
 NAME = 'Pages'
+
+# title, file, note, icon — every one-off route this folder holds, in the
+# order a first-time visitor would actually want them.
+PAGES_LIST = [
+    ('Home', 'home.html', 'The site itself — every collection and what is lately in each.', 'pin'),
+    ('About', 'about.html', 'Who is building this, and why token-first.', 'take'),
+    ('Contact', 'contact.html', 'One form, no ticket system behind it.', 'chat'),
+    ('Archive', 'archive.html', 'Everything published, in one year-grouped timeline.', 'course'),
+    ('Now', 'now.html', 'What I am actually working on this month.', 'rec'),
+    ('Résumé', 'resume.html', 'Experience, education, skills — one page, print-ready.', 'briefcase'),
+    ('Terms', 'terms.html', 'The legal page, kept as short as it can legally be.', 'check'),
+    ('Privacy', 'privacy.html', 'What is collected, and what is not.', 'compass'),
+    ('Welcome, subscriber', 'welcome.html', 'The page a new subscriber lands on.', 'mail'),
+]
 
 CONTACTS = [
     ('mail', 'hello@swarnil.dev'),
@@ -92,6 +106,7 @@ COLLECTIONS = [
     ('Prompts', 'prompts', 'The exact wording, so the good version has a permalink.', 'chat'),
     ('Snippets', 'snippets', 'CSS and JS copy-pasted between projects often enough.', 'slate'),
     ('Products', 'products', 'What is actually on the desk and in the dock.', 'take'),
+    ('Pages', '_pages', 'Every one-off page on the site, in one list.', 'pin'),
 ]
 
 ARCHIVE = [
@@ -205,6 +220,40 @@ def collections_grid():
     return f'<div class="grid-3">{cards}</div>'
 
 
+def pages_block():
+    """.c-doc — a row with a label and an arrow, no media. A one-off page is
+    a fact, not a scene, so it gets the docs collection's device rather than
+    a photo card."""
+    rows = ''.join(
+        f'<a class="c c-doc" href="./{file}">'
+        f'<div class="c__body">'
+        f'<span class="c__meta">{icon(ico)}{title}</span>'
+        f'<p class="c__excerpt u-m-0" style="color:var(--fg-subtle)">{note}</p>'
+        f'</div>'
+        f'<span class="c__arrow">{icon("arrow-right")}</span></a>'
+        for title, file, note, ico in PAGES_LIST)
+    return f'<div class="stack-sm">{rows}</div>'
+
+
+# ── Index — every one-off page, in one list ─────────────────────────────────
+
+def route_index():
+    body = f'''
+  {hero('Pages', 'Not a collection of posts — the site\'s own one-offs: home, about, '
+        'contact, the archive, and the pages nobody publishes twice.',
+        'Site pages', [(str(len(PAGES_LIST)), 'pages')],
+        eyebrow_icon='pin', pattern='pattern-hairline')}
+
+  <div class="container section-sm" data-collection>
+    {sec('Every page')}
+    {pages_block()}
+  </div>'''
+    return page(HERE, 'index.html', 'Pages — Swarnil',
+                'Every one-off page on the site — home, about, contact, archive, '
+                'now, résumé, terms, privacy and the subscriber welcome page.',
+                body, NAME, own_css='pages.css', current='pages')
+
+
 # ── Home ─────────────────────────────────────────────────────────────────────
 
 def route_home():
@@ -213,7 +262,7 @@ def route_home():
     <span class="hero__eyebrow">{icon('pin')}Swarnil Singhai</span>
     <h1 class="hero__title">A creator's site, <em>built from tokens</em>.</h1>
     <p class="hero__lead">Videos, courses, a blog, a newsletter and the trips between
-      them — six collections, one design system, and a build log for all of it.</p>
+      them — {len(COLLECTIONS)} collections, one design system, and a build log for all of it.</p>
     <div class="hero__actions">
       <a class="btn btn-primary btn-pill" href="../travel/index.html">Start with travel →</a>
       <a class="btn btn-secondary btn-pill" href="./about.html">About me</a>
@@ -221,7 +270,7 @@ def route_home():
   </section>
 
   <section class="container section-sm">
-    {sec('Everything I publish', 'Six collections, the same tokens underneath all of them.')}
+    {sec('Everything I publish', f'{len(COLLECTIONS)} collections, the same tokens underneath all of them.')}
     {collections_grid()}
   </section>
 
@@ -490,7 +539,7 @@ def route_resume():
 
 
 if __name__ == '__main__':
-    made = [route_home(), route_about(), route_contact(), route_archive(),
+    made = [route_index(), route_home(), route_about(), route_contact(), route_archive(),
             route_now(), route_terms(), route_privacy(), route_welcome(),
             route_resume()]
     print('pages: ' + ', '.join(made))
