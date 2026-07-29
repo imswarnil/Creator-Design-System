@@ -76,8 +76,14 @@
 <url><loc>https://creator.imswarnil.com/offcanvas.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/page-header.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/page-transitions.html</loc><priority>0.5</priority></url>
-<url><loc>https://creator.imswarnil.com/pages/components.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/about.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/archive.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/contact.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/home.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/pages/index.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/legal.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/now.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/pages/welcome.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/pagination.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/popovers.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/principles.html</loc><priority>0.5</priority></url>

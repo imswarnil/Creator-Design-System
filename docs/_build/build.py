@@ -131,8 +131,12 @@ NAV = [
     ('Collections', [('collections', 'The contract'), ('col-sections', 'Sections'),
                      ('col-default', 'Default'), ('travel/index', 'Travel'),
                      ('blog/index', 'Blog'), ('course/index', 'Course'),
-                     ('resume/index', 'Resume'), ('webseries/index', 'Webseries')]),
-    ('Pages', [('pages/index', 'Every one-off page'), ('pages/components', 'Components')]),
+                     ('webseries/index', 'Webseries')]),
+    ('Pages', [('pages/index', 'Pages'), ('pages/home', 'Homepage'),
+              ('pages/about', 'About'), ('pages/contact', 'Contact'),
+              ('pages/archive', 'Archive'), ('pages/now', 'Now'),
+              ('resume/index', 'Résumé'), ('pages/legal', 'Terms & privacy'),
+              ('pages/welcome', 'Welcome, subscriber')]),
     ('Animation & Motion', [('m-basics', 'Motion basics'), ('m-text-effects', 'Text effects'),
                 ('m-annotations', 'Annotations'), ('m-micro', 'Micro-interactions'),
                 ('m-presets', 'Section presets'), ('m-stings', 'Logo sting'),
@@ -696,6 +700,7 @@ REDIRECTS = {
     'col-course': 'course/index',
     'col-blog': 'blog/index',
     'col-pages': 'pages/index',
+    'pages/components': 'pages/index',
 }
 
 

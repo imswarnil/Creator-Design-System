@@ -96,10 +96,16 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Default](https://creator.imswarnil.com/col-default.html): Collections — The starting point: five working routes with no subject in them, and the test of whether a section is genuinely shared. 
 - [Blog](https://creator.imswarnil.com/blog/index.html): Collections — The second collection, with no CSS of its own — the proof that the section vocabulary is shared rather than travel-shape
 - [Course](https://creator.imswarnil.com/course/index.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
-- [Resume](https://creator.imswarnil.com/resume/index.html): Collections — The fourth collection, and a single page rather than five routes: a full-width summary, then experience, education and p
 - [Webseries](https://creator.imswarnil.com/webseries/index.html): Collections — The fifth collection, and the second one to ship no CSS of its own — a season's spine and its cast are sections travel a
-- [Every one-off page](https://creator.imswarnil.com/pages/index.html): Pages — Home, about, contact, the archive, now, the résumé, the legal pages and the subscriber welcome page — one document each,
-- [Components](https://creator.imswarnil.com/pages/components.html): Pages — Not a shared vocabulary — the handful of components each individual page in collection/_pages/ actually reaches for, sho
+- [Résumé](https://creator.imswarnil.com/resume/index.html): Pages — The fourth collection, and a single page rather than five routes: a full-width summary, then experience, education and p
+- [Pages](https://creator.imswarnil.com/pages/index.html): Pages — Home, about, contact, the archive, now, the résumé, the legal pages and the subscriber welcome page — one document each,
+- [Homepage](https://creator.imswarnil.com/pages/home.html): Pages — The site itself: a statement hero, the collections grid, and what is lately in each medium. .grid-3 · .card .col-meta-pa
+- [About](https://creator.imswarnil.com/pages/about.html): Pages — A summary card condensed from the résumé, a career timeline, and a short checklist of what the work actually is. .card +
+- [Contact](https://creator.imswarnil.com/pages/contact.html): Pages — One form, native inputs and validation, then a row of icon links to everywhere else. .field · .label · .input .cluster .
+- [Archive](https://creator.imswarnil.com/pages/archive.html): Pages — Everything published, in one year-grouped timeline — .col-order, grouped by year instead of by collection. .col-order — 
+- [Now](https://creator.imswarnil.com/pages/now.html): Pages — The deliberately componentless one — a date, a heading, and long-form .content, nothing else. .t-slate-sm — the one devi
+- [Terms & privacy](https://creator.imswarnil.com/pages/legal.html): Pages — Two pages, one shell — crumbs, a title, a lead and .content, shared by _legal_page(). .content _legal_page() .content
+- [Welcome, subscriber](https://creator.imswarnil.com/pages/welcome.html): Pages — The confirmation page — home's own statement hero, reused with a different eyebrow. .hero.hero-statement — the same bloc
 - [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections, live: one @view-transition rule, nine flavours, and real links below to go see them f
 - [Motion basics](https://creator.imswarnil.com/m-basics.html): Animation & Motion — Four durations, four easings. No component may invent a duration. Entrances travel 16px, not 60 — long travel reads as "
 - [Text effects](https://creator.imswarnil.com/m-text-effects.html): Animation & Motion — Twelve. Most need the text split into spans carrying --i ; the preview does that with five lines of JS. Without spans ev

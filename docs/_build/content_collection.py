@@ -791,9 +791,7 @@ pg += p('Not a collection of posts — the site\'s own one-offs: home, about, co
         'folder gets the same <code class="t-code">index.html</code> every collection above '
         'it has.')
 pg += p('<a class="btn btn-primary btn-sm" href="/collection/_pages/index.html" '
-        'target="_blank" rel="noopener">Open /collection/_pages →</a> '
-        '<a class="btn btn-secondary btn-sm" href="/pages/components.html">'
-        'Its components, one page at a time →</a>')
+        'target="_blank" rel="noopener">Open /collection/_pages →</a>')
 pg += END
 
 pg += sec('list-p', 'Every page, in one list',
@@ -803,15 +801,25 @@ pg += live(resume.pages_block(), '<b>.c.c-doc</b> — unchanged, from '
     '<code class="t-code">/collection/_pages/index.html</code>')
 pg += END
 
-pg += sec('demo-p', 'Every route, live', 'Not a screenshot of any of them — the real page, '
-    'opening in a new tab.')
+pg += sec('demo-p', 'Each one, documented on its own page',
+    'Not a screenshot, and not one long combined tour — the same treatment the '
+    'résumé page already gets below: what the page is, a live link to it, and every '
+    'component it is built from.')
 pg += tile('<div class="grid-3">' + ''.join(
-    f'<a class="card" href="/collection/_pages/{file}" target="_blank" rel="noopener">'
+    f'<a class="card" href="{href}">'
     f'<div class="card__body"><span class="card__meta">{resume.icon(ico)}{title}</span>'
     f'<p class="t-small u-fg-subtle u-mt-2">{note}</p></div></a>'
-    for title, file, note, ico in resume.PAGES_LIST) + '</div>',
-    f'{len(resume.PAGES_LIST)} routes, all of them from '
-    '<code class="t-code">collection/_pages/build.py</code>')
+    for title, href, note, ico in [
+        ('Home', '/pages/home.html', 'The statement hero and the collections grid.', 'pin'),
+        ('About', '/pages/about.html', 'The summary card, the timeline, the checklist.', 'take'),
+        ('Contact', '/pages/contact.html', 'The plain form and the link cluster.', 'chat'),
+        ('Archive', '/pages/archive.html', 'A year-grouped .col-order.', 'course'),
+        ('Now', '/pages/now.html', 'Deliberately componentless.', 'rec'),
+        ('Résumé', '/resume/index.html', 'Six components, the fullest page in the folder.', 'briefcase'),
+        ('Terms & Privacy', '/pages/legal.html', 'One shell, two bodies.', 'check'),
+        ('Welcome, subscriber', '/pages/welcome.html', 'Home\'s own hero, reused.', 'mail'),
+    ]) + '</div>',
+    '8 doc pages, one per route in <code class="t-code">collection/_pages/build.py</code>')
 pg += END
 
 PAGES['pages/index'] = ('Pages collection',
@@ -820,66 +828,118 @@ PAGES['pages/index'] = ('Pages collection',
     'rather than each inventing their own.', pg)
 
 
-# ── 7c · pages, components ────────────────────────────────────────────────────
+# ── 7c · pages, one doc entry per individual page ───────────────────────────
 # Not a shared vocabulary the way travel or course is: nothing here is reused
 # across three routes, because every route in this folder is its own subject.
-# What follows instead is the handful of components each individual page
-# actually reaches for, shown once, in place — the same "sections in
-# isolation" idea travel/components and course/components cover, scoped to a
-# folder where the isolation is the whole point already.
+# So instead of one combined "components" tour, each individual page gets the
+# same treatment the résumé page already had below: a live link to the real
+# route, then every component that page is actually built from.
 
-pc = ''
-pc += p('Every route above is its own page rather than an item in a shared shape, so '
-        'there is no repeated vocabulary to pull out and demo once. What is worth seeing '
-        'in isolation instead is the handful of components each individual page reaches '
-        'for — most of them borrowed whole from a real collection, not invented here.')
-pc += END
+def open_btn(file, label='Open the live page'):
+    return (f'\n\t\t<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">'
+            f'<a class="btn btn-primary btn-sm" href="/collection/_pages/{file}" '
+            f'target="_blank" rel="noopener">{label} →</a></p>')
 
-pc += sec('home-c', 'Home — a statement, then the collections grid',
-    'The one index in the whole site that gets <code class="t-code">.hero.hero-statement</code> '
-    'instead of the collection hero every other index opens with — a homepage is making '
-    'a case, not listing a catalogue.')
-pc += live(resume.collections_grid(), '<b>.grid-3</b> · <b>.card</b> — the same card every '
-    'collection card wraps, one per collection instead of one per post')
-pc += END
 
-pc += sec('about-c', 'About — the summary card, then a career line',
-    'A résumé condensed to one card, then the same timeline the résumé page uses in '
-    'full underneath it.')
-pc += live(resume.summary_block('Swarnil Singhai', 'Senior Product Engineer',
+# Home
+hc = ''
+hc += p('The site itself — the one index that gets <code class="t-code">.hero.hero-statement</code> '
+        'instead of the collection hero every other index opens with, because a homepage is '
+        'making a case, not listing a catalogue.')
+hc += open_btn('home.html')
+hc += END
+
+hc += sec('grid-h', 'The collections grid', 'One card per collection, not one card per '
+    'post — the same <code class="t-code">.card</code> everything else on the site uses.')
+hc += live(resume.collections_grid(), '<b>.grid-3</b> · <b>.card</b>')
+hc += END
+
+hc += sec('meta-h', 'Lately, in one strip', 'A number per medium, the same '
+    '<code class="t-code">.col-meta</code> a travel or course index opens a section with.')
+hc += live('<div class="col-meta col-meta-paper col-meta-inline" style="border-top:0;padding-top:0">'
+    + ''.join(f'<div><span class="col-meta__n">{n}</span><span class="col-meta__l">{l}</span></div>'
+              for n, l in [('132', 'lessons'), ('41', 'newsletter issues'),
+                           ('31', 'travel posts'), ('6', 'projects')]) + '</div>',
+    '<b>.col-meta-paper</b> + <b>.col-meta-inline</b>')
+hc += END
+
+PAGES['pages/home'] = ('Home page',
+    'The site itself: a statement hero, the collections grid, and what is lately in '
+    'each medium.', hc)
+
+
+# About
+ac = ''
+ac += p('A résumé condensed to one card, then the same career timeline the résumé page '
+        'uses in full underneath it.')
+ac += open_btn('about.html')
+ac += END
+
+ac += sec('summary-a', 'The summary card',
+    'Name, role, one line, and the contact row — <code class="t-code">summary_block()</code>, '
+    'shared with the résumé page.')
+ac += live(resume.summary_block('Swarnil Singhai', 'Senior Product Engineer',
     'I build design systems and the sites that run on them.', resume.CONTACTS,
-    resume_href='./resume.html'), '<b>.card</b> + <b>.col-meta-inline</b> — '
-    '<code class="t-code">summary_block()</code>, shared with the résumé page below')
-pc += live(resume.timeline_block(resume.EXPERIENCE[:2]),
-    '<b>.col-order</b> — a career history is the same spine a trip or a webseries '
-    'season uses')
-pc += live('<div class="col-checks">' + ''.join(
+    resume_href='./resume.html'), '<b>.card</b> + <b>.col-meta-inline</b>')
+ac += END
+
+ac += sec('timeline-a', 'Where the time went',
+    'A career history is the same spine a trip or a webseries season uses.')
+ac += live(resume.timeline_block(resume.EXPERIENCE[:2]), '<b>.col-order</b>')
+ac += END
+
+ac += sec('checks-a', 'What I actually do', 'A tick native to the ARIA tree, not a '
+    'bulleted list pretending to be one.')
+ac += live('<div class="col-checks">' + ''.join(
     f'<span class="col-check"><span class="col-check__tick">'
     f'{resume.icon("check", group="ui")}</span><span>{t}</span></span>'
     for t in ['Design systems — tokens, components, and the discipline to reuse them',
               'Accessibility as a default, not an audit bolted on at the end']) + '</div>',
-    '<b>.col-checks</b> · <b>.col-check</b> — a tick native to the ARIA tree, not a '
-    'bulleted list pretending to be one')
-pc += END
+    '<b>.col-checks</b> · <b>.col-check</b>')
+ac += END
 
-pc += sec('contact-c', 'Contact — a plain form, then the link cluster',
-    'Native inputs, native validation — nothing here reinvents either.')
-pc += live('<form class="stack" onsubmit="return false" style="max-width:26rem">'
-    '<div class="field"><label class="label" for="pc-name">Name</label>'
-    '<input class="input" id="pc-name" type="text" autocomplete="name" /></div>'
-    '<div class="field"><label class="label" for="pc-email">Email</label>'
-    '<input class="input" id="pc-email" type="email" autocomplete="email" /></div>'
+PAGES['pages/about'] = ('About page',
+    'A summary card condensed from the résumé, a career timeline, and a short checklist '
+    'of what the work actually is.', ac)
+
+
+# Contact
+cc = ''
+cc += p('Native inputs, native validation — nothing here reinvents either.')
+cc += open_btn('contact.html')
+cc += END
+
+cc += sec('form-c', 'The form', 'Three fields, one button, the same '
+    '<code class="t-code">.field</code> every form on the site uses.')
+cc += live('<form class="stack" onsubmit="return false" style="max-width:26rem">'
+    '<div class="field"><label class="label" for="pgc-name">Name</label>'
+    '<input class="input" id="pgc-name" type="text" autocomplete="name" /></div>'
+    '<div class="field"><label class="label" for="pgc-email">Email</label>'
+    '<input class="input" id="pgc-email" type="email" autocomplete="email" /></div>'
     '<button class="btn btn-primary" type="submit">Send</button></form>',
-    '<b>.field</b> · <b>.label</b> · <b>.input</b> — the same three classes every form '
-    'on the site uses')
-pc += live(resume.links_block(resume.LINKS),
-    '<b>.cluster</b> — icon buttons, not a social bar bolted on separately')
-pc += END
+    '<b>.field</b> · <b>.label</b> · <b>.input</b>')
+cc += END
 
-pc += sec('archive-c', 'Archive — a year, then .col-order again',
-    'The one page that groups <code class="t-code">.col-order</code> by year instead '
-    'of by collection — the spine is unchanged; the grouping is the only new idea.')
-pc += live(resume.sec(resume.ARCHIVE[0][0]) + '<div class="col-order">' + ''.join(
+cc += sec('links-c', 'Or find me elsewhere', 'Icon buttons, not a social bar bolted on '
+    'separately.')
+cc += live(resume.links_block(resume.LINKS), '<b>.cluster</b>')
+cc += END
+
+PAGES['pages/contact'] = ('Contact page',
+    'One form, native inputs and validation, then a row of icon links to everywhere '
+    'else.', cc)
+
+
+# Archive
+rc = ''
+rc += p('Every post, episode, issue and log entry, across every collection, newest '
+        'first — grouped by year rather than by collection.')
+rc += open_btn('archive.html')
+rc += END
+
+rc += sec('order-r', 'A year, then .col-order again', 'The spine every trip, career '
+    'history and webseries season already uses — grouping by year is the only new idea.')
+rc += live(resume.sec(resume.ARCHIVE[0][0]) + '<div class="col-order">' + ''.join(
     f'<a class="col-order__item" href="#i">'
     f'<span class="col-order__num"><span class="col-order__dot"></span></span>'
     f'<div class="col-order__body"><span class="col-order__title">{title}</span>'
@@ -887,49 +947,76 @@ pc += live(resume.sec(resume.ARCHIVE[0][0]) + '<div class="col-order">' + ''.joi
     for title, href, when in resume.ARCHIVE[0][1][:3]) + '</div>',
     '<b>.col-order</b> — unchanged from '
     '<code class="t-code">/collection/_pages/archive.html</code>')
-pc += END
+rc += END
 
-pc += sec('legal-c', 'Terms &amp; privacy — one shell, two bodies',
-    'Both legal pages share exactly one helper, '
-    '<code class="t-code">_legal_page()</code> — crumbs, a title, a lead, and '
-    '<code class="t-code">.content</code> underneath. Nothing legal-specific exists in '
-    'the CSS, because nothing needed to.')
-pc += live('<div class="content" style="max-width:32rem">'
+PAGES['pages/archive'] = ('Archive page',
+    'Everything published, in one year-grouped timeline — .col-order, grouped by year '
+    'instead of by collection.', rc)
+
+
+# Now
+nc = ''
+nc += p('What I am building, writing and reading right now — updated by hand, not '
+        'generated.')
+nc += open_btn('now.html')
+nc += END
+
+nc += sec('content-n', 'No component at all, on purpose', 'A date, a heading, and '
+    '<code class="t-code">.content</code>. A status update does not need a card to be '
+    'read.')
+nc += live('<span class="t-slate-sm" style="color:var(--fg-faint)">Updated Jul 2026</span>',
+    '<b>.t-slate-sm</b> — the one device the page borrows')
+nc += END
+
+PAGES['pages/now'] = ('Now page',
+    'The deliberately componentless one — a date, a heading, and long-form '
+    '.content, nothing else.', nc)
+
+
+# Terms & Privacy
+lc = ''
+lc += p('Both legal pages share exactly one helper, '
+        '<code class="t-code">_legal_page()</code> — crumbs, a title, a lead, and '
+        '<code class="t-code">.content</code> underneath. Nothing legal-specific exists '
+        'in the CSS, because nothing needed to.')
+lc += open_btn('terms.html', 'Open Terms') + open_btn('privacy.html', 'Open Privacy')
+lc += END
+
+lc += sec('shell-l', 'One shell, two bodies', 'The same prose element every post and '
+    'doc page on the site uses — a legal page is not a special case.')
+lc += live('<div class="content" style="max-width:32rem">'
     '<p>The newsletter form collects an email address and nothing else. Analytics are '
     'aggregate and cookie-free.</p>'
     '<h2 style="margin-top:var(--space-4)">What is stored</h2>'
     '<p>Email address, subscription date, and which list you are on.</p></div>',
-    '<b>.content</b> — the same long-form prose element every post and doc page uses')
-pc += END
+    '<b>.content</b>')
+lc += END
 
-pc += sec('now-c', 'Now — no component at all, on purpose',
-    'The one page in the folder that is deliberately componentless: a date, a '
-    'heading, and <code class="t-code">.content</code>. A status update does not need '
-    'a card to be read.')
-pc += live('<span class="t-slate-sm" style="color:var(--fg-faint)">Updated Jul 2026</span>',
-    '<b>.t-slate-sm</b> — the one device the page borrows')
-pc += END
+PAGES['pages/legal'] = ('Terms & Privacy',
+    'Two pages, one shell — crumbs, a title, a lead and .content, shared by '
+    '_legal_page().', lc)
 
-pc += sec('welcome-c', 'Welcome — home\'s hero, confirmed',
-    'The same <code class="t-code">.hero.hero-statement</code> home opens with, the '
-    'eyebrow swapped for a confirmation instead of a name.')
-pc += live('<section class="hero hero-statement" style="padding:var(--space-8) 0">'
+
+# Welcome, subscriber
+wc = ''
+wc += p('The page a new subscriber lands on after confirming — one email when '
+        'something is worth it, nothing before that.')
+wc += open_btn('welcome.html')
+wc += END
+
+wc += sec('hero-w', 'Home\'s hero, confirmed', 'The same '
+    '<code class="t-code">.hero.hero-statement</code> home opens with, the eyebrow '
+    'swapped for a confirmation instead of a name.')
+wc += live('<section class="hero hero-statement" style="padding:var(--space-8) 0">'
     f'<span class="hero__eyebrow">{resume.icon("check", group="ui")}Confirmed</span>'
     '<h3 class="hero__title" style="font-size:var(--text-3xl)">You\'re <em>in</em>.</h3>'
     '<p class="hero__lead">One email when something is worth it.</p></section>',
     '<b>.hero.hero-statement</b> — the same block, a different eyebrow')
-pc += END
+wc += END
 
-pc += sec('resume-c', 'Résumé — documented on its own page',
-    'Six components — summary, timeline, education, projects, skills, certifications '
-    '— already get the full tour on the '
-    '<a href="/resume/index.html">Resume collection</a> page rather than a second copy '
-    'here.')
-pc += END
-
-PAGES['pages/components'] = ('Pages components',
-    'Not a shared vocabulary — the handful of components each individual page in '
-    'collection/_pages/ actually reaches for, shown once, in place.', pc)
+PAGES['pages/welcome'] = ('Welcome, subscriber',
+    'The confirmation page — home\'s own statement hero, reused with a different '
+    'eyebrow.', wc)
 
 
 # ── 8 · webseries ─────────────────────────────────────────────────────────────
