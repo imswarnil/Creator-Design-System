@@ -1,11 +1,16 @@
 /* =============================================================================
    GUIDES — collection-only CSS
-   Two things nothing else in the system needed yet: a book-cover treatment
-   (a colour wash blended over the placeholder tile, standing in for cover
-   art) and a stepper (a row of filled segments showing progress through a
-   guide's steps, with a prev/next pager riding under it). Everything else —
-   the card spine, the meta strip, the pager chrome — is `.c-guide` and
-   `.col-stagebar`, unchanged.
+   ONE thing nothing else in the system needed: the stepper, a row of filled
+   segments showing progress through a guide's steps, with the pager riding
+   under it.
+
+   It used to be two. The other was a book-cover treatment — until
+   `.book` / `.book__cover` / `.book-shelf` turned up in 12-frame.css, already
+   carrying a spine, a page edge and a shelf that tilts every second cover,
+   and with a doc comment naming the guides as what it was built for. The
+   cover here is now that component; what is left is the blend that gives each
+   cover its own two-hue wash, which is a placeholder concern rather than a
+   book one, and the row-card layout for the scanning list.
    ========================================================================== */
 
 .c-guide { flex-direction: row; align-items: stretch; }

@@ -27,4 +27,6 @@ jobs:
             git --no-pager diff --stat docs
             exit 1
           fi
+      - name: Fail on a class the markup uses but the CSS never defines
+        run: python3 scripts/audit-classes.py --strict
       - run: npm run size

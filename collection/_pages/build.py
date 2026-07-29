@@ -14,7 +14,8 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
 from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
-                   page_head, stats, cta, cta_sponsor, cine_hero, REL)
+                   page_head, stats, cta, cta_sponsor, cine_hero, REL,
+                   win_browser, win_code, win_term, marquee, alert, vf)
 
 NAME = 'Pages'
 
@@ -273,17 +274,105 @@ def route_home():
                 '<a class="btn btn-ghost btn-pill" href="./about.html">About me</a>',
         eyebrow_icon='pin', filter_id='home')
 
+    # A marquee of what is here, straight under the hero — the one place a
+    # scrolling strip is honest, because it is a list of nouns, not a headline.
     body += f'''
+  <section class="section-sm">
+    {marquee([f'{icon(ico)}{name}' for name, _, _, ico in COLLECTIONS], speed='slow')}
+  </section>
+
+  <section class="container section-sm">
+    {alert('Version 0.1 is on npm, and the Tailwind and SCSS builds landed with it. '
+           '<a href="' + REL + '/docs/usage.html">Read the usage guide →</a>',
+           tone='signal', title='New this month', ico='star')}
+  </section>
+
+  <!-- The split: the case on the left, the system running in a browser window
+       on the right. .win-browser is chrome that says "this is a page" before
+       anyone reads a word of it. -->
+  <section class="container">
+    <div class="hero hero-split">
+      <div>
+        <span class="hero__eyebrow">{icon('slate', group='creator')}The system</span>
+        <!-- .an wraps the words and holds the SVG as its own child; the stroke
+             draws itself via stroke-dashoffset, so it reads as a pen rather
+             than a fade. pathLength="100" is what lets one CSS rule drive it. -->
+        <h2 class="hero__title" style="font-size:var(--text-4xl)">Almost monochrome,
+          so <span class="an an-circle">one colour<svg viewBox="0 0 220 70"
+            preserveAspectRatio="none" aria-hidden="true"><ellipse cx="110" cy="35"
+            rx="103" ry="27" pathLength="100" /></svg></span> can mean something.</h2>
+        <p class="hero__lead">Two ramps. Ink does the whole site; signal is rationed
+          so hard that when it appears, it means live, now, here.</p>
+        <div class="hero__actions">
+          <a class="btn btn-primary btn-pill" href="{REL}/docs/introduction.html">Read the docs →</a>
+          <a class="btn btn-quiet btn-pill" href="{REL}/docs/components.html">All components</a>
+        </div>
+      </div>
+      <div class="hero-split__stage">
+        {win_browser('creator.imswarnil.com',
+                     f'<div class="pattern pattern-topo pattern-media">{ph("css", tall=True)}</div>')}
+        <p class="hero-split__caption"><span>The docs, in a browser</span>
+          <span class="timecode">0.1.0</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two windows side by side: install it, then write in it. .win-term and
+       .win-code, both chrome the foundation shipped and nothing had used. -->
+  <section class="container section-sm">
+    {sec('Two commands and a stylesheet',
+         'No init step, no config file, no runtime — the whole installation.')}
+    <div class="grid-2">
+      {win_term([(True, 'npm install creator-design-system'),
+                 (False, '<span class="tok-com">added 1 package in 1.2s</span>'),
+                 (True, '')])}
+      {win_code('main.css', [
+          '<span class="tok-com">/* your overrides, after the import */</span>',
+          '<span class="tok-key">@import</span> <span class="tok-str">"creator-design-system"</span>;',
+          '',
+          '<span class="tok-sel">:root</span> <span class="tok-punc">{{</span>',
+          '  <span class="tok-var">--accent</span><span class="tok-punc">:</span> <span class="tok-num">#6d4aff</span>;',
+          '  <span class="tok-var">--radius-card</span><span class="tok-punc">:</span> <span class="tok-num">1.25rem</span>;',
+          '<span class="tok-punc">}}</span>',
+      ])}
+    </div>
+  </section>
+
   <section class="container section-sm">
     {sec('Everything I publish',
          f'{len(COLLECTIONS)} collections, the same tokens underneath all of them.')}
     {collections_grid()}
   </section>
 
-  <section class="container section-sm">
+  <!-- .sec-cascade staggers its own children in on reveal, so the numbers do
+       not all arrive at once. Reduced motion collapses it to a short fade. -->
+  <section class="container section-sm sec-cascade">
     {sec('Lately', 'The numbers, rather than a claim about them.')}
     {stats([('132', 'Lessons', '+8 this month'), ('41', 'Newsletter issues'),
             ('31', 'Travel posts'), ('62', 'Videos', '+3 this month')])}
+  </section>
+
+  <!-- The viewfinder, on the one thing that is literally footage. .vf and
+       .pattern can never share an element — the pattern goes on the child. -->
+  <section class="container section-sm">
+    {sec('On camera', 'Sixty-two uploads, and the corners that say why this system '
+         'has a creator icon group at all.')}
+    <div class="grid-2">
+      {vf(f'<div class="pattern pattern-filmstrip pattern-media">{ph("motion", tall=True)}</div>')}
+      <div>
+        <h3 class="t-h3">The frame is the brand</h3>
+        <p class="t-subtle u-mt-3">Four corners, a record dot and a timecode — the
+          devices a production desk already uses, so nothing had to be invented to
+          make a video page look like a video page.</p>
+        <div class="cluster u-mt-6" style="gap:var(--space-3)">
+          <span class="badge badge-live"><span class="dot dot-sm dot-live"></span>Live</span>
+          <span class="badge">TAKE 47</span>
+          <span class="timecode">00:12:47</span>
+        </div>
+        <a class="btn btn-secondary btn-pill u-mt-6" href="../videos/index.html">
+          All videos →</a>
+      </div>
+    </div>
   </section>
 
   <section class="container section-sm">
@@ -293,6 +382,13 @@ def route_home():
          kicker=f'{icon("mail")}The newsletter', newsletter=True,
          fine='No spam. Unsubscribe any time.',
          pattern='pattern-glow pattern-lg')}
+  </section>
+
+  <section class="container section-sm">
+    {cta_sponsor('Free, MIT-licensed, and 37 KB gzipped.',
+        kicker=f'{icon("take", group="creator")}Sponsor',
+        actions='<a class="btn btn-secondary" href="https://github.com/sponsors/imswarnil" '
+                'target="_blank" rel="noopener">Sponsor →</a>')}
   </section>'''
     return page(HERE, 'home.html', 'Swarnil Singhai — Creator',
                 'Videos, courses, a blog and the trips between them — one design '
@@ -366,6 +462,28 @@ def route_about():
         to have them again.</p>
       <figcaption class="pullquote__cite">From the introduction to the docs</figcaption>
     </figure>
+
+    <div class="u-mt-10">
+      {sec('What the desk looks like', 'The editor, and the one command that '
+           'rebuilds all 138 pages.')}
+      <div class="grid-2">
+        {win_code('shell.py', [
+            '<span class="tok-com"># the head, navbar and footer every route shares</span>',
+            '<span class="tok-key">def</span> <span class="tok-fn">page</span>('
+            '<span class="tok-var">out_dir</span>, <span class="tok-var">name</span>, '
+            '<span class="tok-var">title</span>, <span class="tok-var">body</span>):',
+            '    <span class="tok-var">doc</span> = <span class="tok-var">HEAD</span>'
+            '.<span class="tok-fn">format</span>(...) + <span class="tok-var">body</span>',
+            '    (<span class="tok-fn">Path</span>(<span class="tok-var">out_dir</span>) / '
+            '<span class="tok-var">name</span>).<span class="tok-fn">write_text</span>('
+            '<span class="tok-var">doc</span>)',
+        ], tab='collection/shell.py')}
+        {win_term([(True, 'npm run build'),
+                   (False, '<span class="tok-com">postcss src/index.css → dist/creator.css</span>'),
+                   (False, '<span class="tok-str">built 138 pages</span>'),
+                   (True, '')])}
+      </div>
+    </div>
   </div>
 
   <div class="container section-sm">
@@ -427,6 +545,10 @@ def route_contact():
         <div class="col-widget">
           <span class="col-widget__title">What to expect</span>
           {stats([('2–4', 'Days to reply'), ('100%', 'Read')], bare=True)}
+        </div>
+        <div class="u-mt-6">
+          {alert('Nothing here is a ticket system. It is one inbox, read by one '
+                 'person, usually in the evening.', tone='info', ico='search')}
         </div>
         <div class="u-mt-8">
           {sec('Or find me elsewhere')}
@@ -503,6 +625,20 @@ def route_archive():
     </div>
 
     <div class="u-mt-10">{years}</div>
+
+    <!-- What the next page looks like before it arrives. .skeleton is the one
+         component that should ship visible in a demo: it is what a reader sees
+         first, and it is the easiest thing to leave untested. -->
+    <div class="u-mt-8" aria-hidden="true">
+      {''.join('''<div class="col-order__item" style="pointer-events:none">
+        <span class="col-order__num"><span class="skeleton skeleton-avatar"
+              style="width:.9rem;height:.9rem"></span></span>
+        <div class="col-order__body" style="gap:var(--space-2)">
+          <span class="skeleton skeleton-title" style="max-width:22rem"></span>
+          <span class="skeleton skeleton-text" style="max-width:7rem"></span>
+        </div></div>''' for _ in range(3))}
+    </div>
+
     <div class="u-mt-8">{pagination(1, 4, href='./archive.html', label='Archive')}</div>
   </div>'''
     return page(HERE, 'archive.html', 'Archive — Swarnil Singhai',
@@ -538,6 +674,21 @@ def route_now():
       ])}
     </div>
 
+    <div class="u-mt-8">
+      {sec('What is actually running', 'The terminal, not a claim about it.')}
+      {win_term([(True, 'npm run dev'),
+                 (False, '<span class="tok-com">docs → http://localhost:8080</span>'),
+                 (False, '<span class="tok-str">built 138 pages</span>'),
+                 (True, 'git log --oneline -1'),
+                 (False, '<span class="tok-num">70da94d</span> Promote the cinematic hero'),
+                 (True, '')])}
+    </div>
+
+    <div class="u-mt-8">
+      {alert('This page is updated by hand, roughly monthly. If the date above is '
+             'stale, the work below probably shipped.', tone='warning', ico='search')}
+    </div>
+
     <div class="content u-mt-10">
       <p>Mostly this: closing the gap between the collections that ship no CSS of
         their own and the ones that still owe the vocabulary something.</p>
@@ -559,10 +710,11 @@ def route_now():
 
 # ── Legal ────────────────────────────────────────────────────────────────────
 
-def _legal_page(slug, title, lead, body_html, toc=(), updated='Jul 2026'):
+def _legal_page(slug, title, lead, body_html, toc=(), updated='Jul 2026', summary=''):
     """One shell, two bodies. A legal page nobody can navigate is the same as a
-    legal page nobody reads, so this one gets a sticky TOC rail and a visible
-    last-updated date — the two things that make a wall of prose usable."""
+    legal page nobody reads, so this one gets a sticky TOC rail, a visible
+    last-updated date, and an `.alert` carrying the plain-English summary above
+    the prose — the three things that make a wall of legal text usable."""
     rail = ''.join(f'<a class="list-group__item" href="#{a}">{t}</a>' for a, t in toc)
     body = f'''
   <div class="container section-sm">
@@ -573,7 +725,10 @@ def _legal_page(slug, title, lead, body_html, toc=(), updated='Jul 2026'):
     {page_head(title, lead, eyebrow=f'{icon("check", group="ui")}Legal', small=True)}
 
     <div class="grid-rail u-mt-8">
-      <div class="content">{body_html}</div>
+      <div>
+        {alert(summary, tone='info', title='The short version', ico='check')}
+        <div class="content u-mt-8">{body_html}</div>
+      </div>
       <aside class="col-rail col-rail-sticky">
         <div class="col-widget">
           <span class="col-widget__title">On this page</span>
@@ -600,7 +755,9 @@ def route_terms():
         'course.</p>'
         '<h2 id="licence">Licence</h2><p>The design system itself is MIT-licensed, '
         'including for commercial and client work, with no attribution required.</p>',
-        toc=[('accounts', 'Accounts'), ('refunds', 'Refunds'), ('licence', 'Licence')])
+        toc=[('accounts', 'Accounts'), ('refunds', 'Refunds'), ('licence', 'Licence')],
+        summary='Use the system for anything, including client work. Do not resell '
+                'the courses. Thirty-day refund, no questions.')
 
 
 def route_privacy():
@@ -617,7 +774,9 @@ def route_privacy():
         '<h2 id="rights">Your rights</h2><p>Ask for a copy of everything held about '
         'you, or its deletion, at any time. Both are done by hand within a week.</p>',
         toc=[('stored', 'What is stored'), ('third-parties', 'Third parties'),
-             ('rights', 'Your rights')])
+             ('rights', 'Your rights')],
+        summary='An email address if you subscribe, and nothing else. No cookies, '
+                'no tracking, nothing sold. Ask for deletion any time.')
 
 
 # ── Welcome subscriber ───────────────────────────────────────────────────────
@@ -639,6 +798,12 @@ def route_welcome():
       </div>
     </section>
   </div>
+
+  <section class="container section-sm">
+    {alert('Check the spam folder if the confirmation is not there in five minutes — '
+           'it is the one email that gets filtered most.', tone='success',
+           title='Confirmation sent', ico='check')}
+  </section>
 
   <section class="container section-sm">
     {sec('What happens next', 'Three things, in this order, and nothing else.')}

@@ -45,6 +45,7 @@
     "docs": "python3 docs/_build/build.py",
     "dev": "npm run docs && python3 -m http.server 8080 --directory docs",
     "lint": "stylelint \"src/**/*.css\" \"collection/**/*.css\"",
+    "audit:classes": "python3 scripts/audit-classes.py",
     "size": "gzip -c dist/creator.min.css | wc -c | awk '{printf \"gzipped: %.1f KB\\n\", $1/1024}'",
     "prepublishOnly": "npm run build:css && npm run build:min"
   },

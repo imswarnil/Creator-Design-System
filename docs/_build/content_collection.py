@@ -162,6 +162,41 @@ python3 collection/podcast/build.py
 ''', 'change the six lists at the top of build.py and the collection is yours')
 c += END
 
+c += sec('audit', 'Auditing the rule',
+         '"Reuse before adding" is easy to agree with and hard to obey — the failure mode is '
+         'not malice, it is not knowing the thing already exists. Two ways to check, both '
+         'cheap enough to run on every build.')
+c += p('<b>1 · Find classes used but never defined.</b> A phantom class is worse than a '
+       'missing style, because the markup looks right and renders as unstyled HTML. Two were '
+       'found this way: <code class="t-code">.quote</code>, used in five collections and '
+       'defined nowhere — it only looked correct because those blockquotes sit inside '
+       '<code class="t-code">.content</code>, which styles <code class="t-code">blockquote</code> '
+       'directly — and <code class="t-code">.spec-table</code> in the reusable docs template, '
+       'which existed only in this repo\'s own docs stylesheet, so any project copying the '
+       'template got an unstyled table.')
+c += p('<b>2 · Find components defined but never used.</b> This is where the reuse rule '
+       'actually gets broken. The guides collection shipped its own '
+       '<code class="t-code">.guide-cover</code> while <code class="t-code">.book</code> sat '
+       'unused in <code class="t-code">12-frame.css</code> — already carrying a spine, a page '
+       'edge, and a <code class="t-code">.book-shelf</code> that tilts every second cover, '
+       'with a doc comment naming <em>the guides</em> as what it was for. Every collection '
+       'also hand-rolled a two-line footer while the real '
+       '<code class="t-code">.footer</code> — brand column, link columns, sign-off row — went '
+       'unused, which meant the one place a sitemap gets to be exhaustive was a single '
+       'sentence.')
+c += ct([
+    ('Used but undefined', 'grep every <code class="t-code">class="…"</code> in the built '
+                           'HTML against every <code class="t-code">.selector</code> in the '
+                           'compiled CSS. Should always be empty'),
+    ('Defined but unused', 'the same two sets, inverted. Will never be empty — utilities '
+                           'exist to be optional — but a whole <em>family</em> at zero is a '
+                           'component nobody knows about'),
+    ('The tell', 'a collection writing CSS for something the foundation already draws. If a '
+                 'new class describes a <em>thing</em> rather than a subject, it probably '
+                 'already exists'),
+], head=('Check', 'What it catches'))
+c += END
+
 PAGES['collections'] = ('Collections',
     'A collection is a kind of thing you publish. Five routes, one section vocabulary, and '
     'one rule: it is the same design system arranged for a different subject.', c)
@@ -886,9 +921,75 @@ hc += live('<div class="hero hero-band hero-band-media pattern pattern-topo"'
     'page runs it at 100dvh')
 hc += END
 
+hc += sec('marquee-h', 'The marquee',
+    'One run, duplicated and <code class="t-code">aria-hidden</code> so the loop is seamless '
+    'without a screen reader hearing every collection twice. Pauses on hover; the foundation '
+    'stops it under reduced motion. The one place a scrolling strip is honest is a list of '
+    'nouns.')
+hc += live(resume.marquee([f'{resume.icon(i)}{n}' for n, _, _, i in resume.COLLECTIONS],
+                          speed='slow'),
+    '<b>.marquee</b> · <b>.marquee__run</b> ×2 · <b>.marquee-slow</b>')
+hc += END
+
+hc += sec('alert-h', 'The announcement',
+    '<code class="t-code">.alert</code> — tone carries an icon as well as a colour, because '
+    'colour is never alone in this system. Five tones, all previously unused.')
+hc += live(''.join(resume.alert(b, tone=t, title=ti, ico=ic) + '<div class="u-mb-3"></div>'
+    for t, ti, ic, b in [
+        ('signal', 'New this month', 'star', 'Version 0.1 is on npm.'),
+        ('success', 'Confirmation sent', 'check', 'Check spam if it is not there in five minutes.'),
+        ('info', '', 'search', 'One inbox, read by one person, usually in the evening.'),
+        ('warning', '', 'search', 'This page is updated by hand, roughly monthly.'),
+    ]), '<b>.alert-signal</b> · <b>-success</b> · <b>-info</b> · <b>-warning</b> · <b>-danger</b>')
+hc += END
+
+hc += sec('win-h', 'Window chrome',
+    '"Containers that say what a thing IS before you read it." All three were defined in '
+    '<code class="t-code">12-frame.css</code> and used by nothing — a design system that '
+    'ships a browser mockup and never shows a page in one is leaving the obvious demo on '
+    'the table. The editor\'s gutter is drawn from the line count, so nothing numbers itself.')
+hc += live(resume.win_browser('creator.imswarnil.com',
+    '<div class="pattern pattern-topo pattern-media">' + resume.ph('css', tall=True) + '</div>'),
+    '<b>.win.win-browser</b> · <b>.win__dots-color</b> · <b>.win-browser__url</b>')
+hc += live('<div class="grid-2">' + resume.win_term([
+        (True, 'npm install creator-design-system'),
+        (False, '<span class="tok-com">added 1 package in 1.2s</span>'), (True, '')])
+    + resume.win_code('main.css', [
+        '<span class="tok-key">@import</span> <span class="tok-str">"creator-design-system"</span>;',
+        '<span class="tok-sel">:root</span> <span class="tok-punc">{</span>',
+        '  <span class="tok-var">--accent</span><span class="tok-punc">:</span> <span class="tok-num">#6d4aff</span>;',
+        '<span class="tok-punc">}</span>']) + '</div>',
+    '<b>.win-term</b> (with the blinking block cursor) · <b>.win-code</b> + the '
+    '<b>.tok-*</b> roles')
+hc += END
+
+hc += sec('an-h', 'The annotation',
+    'A hand-drawn circle round the words that matter. One trick: an SVG stroke with '
+    '<code class="t-code">stroke-dasharray</code> equal to its own length, animating '
+    '<code class="t-code">dashoffset</code> to zero — drawn rather than faded, so the eye '
+    'reads a gesture instead of an effect. <code class="t-code">pathLength="100"</code> '
+    'normalises every path so one rule drives all of them.')
+hc += live('<p class="t-h3" style="margin:var(--space-4) 0">Almost monochrome, so '
+    '<span class="an an-circle">one colour<svg viewBox="0 0 220 70" '
+    'preserveAspectRatio="none" aria-hidden="true"><ellipse cx="110" cy="35" rx="103" '
+    'ry="27" pathLength="100" /></svg></span> can mean something.</p>',
+    '<b>.an.an-circle</b> — the svg is a CHILD of the span, never a sibling')
+hc += END
+
 hc += sec('grid-h', 'The collections grid', 'One card per collection, not one card per '
     'post — the same <code class="t-code">.card</code> everything else on the site uses.')
 hc += live(resume.collections_grid(), '<b>.grid-3</b> · <b>.card</b>')
+hc += END
+
+hc += sec('vf-h', 'The viewfinder',
+    'Four corners, on the one thing that is literally footage. Note the foundation\'s own '
+    'warning: <code class="t-code">.vf</code> and <code class="t-code">.pattern</code> both '
+    'draw with <code class="t-code">::before</code>, so they can never share an element — '
+    'the pattern goes on a child, which is what <code class="t-code">shell.vf()</code> does.')
+hc += live(resume.vf('<div class="pattern pattern-filmstrip pattern-media">'
+                     + resume.ph('motion', tall=True) + '</div>'),
+    '<b>.vf.vf-signal</b> + <b>.vf__tr</b>/<b>.vf__bl</b> — two corners are pseudo-elements, '
+    'two are real spans')
 hc += END
 
 hc += sec('stats-h', 'Lately, as numbers',

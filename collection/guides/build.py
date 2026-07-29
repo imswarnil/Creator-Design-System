@@ -42,6 +42,7 @@ STEPS = [
 
 
 def guide_card(slug, title, seed, note, steps, ico):
+    """The row card — a cover beside the copy, for the full list."""
     return f'''<a class="c c-guide" href="./guide.html">
       <div class="c__media">{ph(seed, tall=True, blend=True)}</div>
       <div class="c__body">
@@ -51,6 +52,32 @@ def guide_card(slug, title, seed, note, steps, ico):
         <span class="c__steps" style="--value:100%">{steps} steps</span>
       </div>
     </a>'''
+
+
+def book_card(slug, title, seed, note, steps, ico):
+    """The cover on its own — `.book`, whose own doc comment names the guides
+    as what it is for. This collection shipped a bespoke `.guide-cover` before
+    anyone noticed the foundation already had a spine, a page edge and a shelf."""
+    hues = {'css': 262, 'motion': 190, 'craft': 24, 'notes': 96}
+    h = hues.get(seed, 220)
+    return f'''<a class="book hx-sheen" href="./guide.html"
+       style="background:linear-gradient(155deg, hsl({h} 62% 32%), hsl({h + 40} 54% 18%))">
+      <span class="book__cover">
+        <span class="book__kicker">{icon(ico)}Guide</span>
+        <span class="book__title">{title}</span>
+        <span class="book__foot">
+          <span class="c__steps" style="--value:100%;color:inherit;opacity:.75">{steps} steps</span>
+        </span>
+      </span>
+    </a>'''
+
+
+def shelf_block(limit=None):
+    """`.book-shelf` — covers stood up next to each other, every second one
+    tilted by the component itself so a row reads as a shelf, not a grid."""
+    rows = GUIDES[:limit] if limit else GUIDES
+    return ('<div class="book-shelf" style="flex-wrap:wrap">'
+            + ''.join(book_card(*g) for g in rows) + '</div>')
 
 
 def guides_block(limit=None):
@@ -74,8 +101,15 @@ def route_index():
                    (str(sum(g[4] for g in GUIDES)), 'steps total')],
         eyebrow_icon='course', pattern='pattern-hairline')}
 
+  <div class="container section-sm">
+    {sec('On the shelf', 'Covers, stood up — .book-shelf tilts every second one, '
+         'so a row of them reads as a shelf rather than a grid.')}
+    {shelf_block()}
+  </div>
+
   <div class="container section-sm" data-collection>
-    {sec('All guides')}
+    {sec('All guides', 'The same four as rows, for when you are scanning titles '
+         'rather than browsing covers.')}
     {guides_block()}
     <div class="u-mt-6">{pagination(1, 1, href='./index.html', label='Guides')}</div>
   </div>'''

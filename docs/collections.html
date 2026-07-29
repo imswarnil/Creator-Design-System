@@ -344,7 +344,12 @@
 		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The default collection exists to be copied. It has five working routes and nothing subject-specific in them, so the first thing you see is the shape rather than somebody else's content.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
 <figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>cp -r collection/_default collection/podcast
 python3 collection/podcast/build.py</code></pre></figure>
-		</div><p class="spec">change the six lists at the top of build.py and the collection is yours</p></div></section>
+		</div><p class="spec">change the six lists at the top of build.py and the collection is yours</p></div></section>		<section id="audit"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="auditing-the-rule">Auditing the rule</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">"Reuse before adding" is easy to agree with and hard to obey — the failure mode is not malice, it is not knowing the thing already exists. Two ways to check, both cheap enough to run on every build.</p>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>1 · Find classes used but never defined.</b> A phantom class is worse than a missing style, because the markup looks right and renders as unstyled HTML. Two were found this way: <code class="t-code">.quote</code>, used in five collections and defined nowhere — it only looked correct because those blockquotes sit inside <code class="t-code">.content</code>, which styles <code class="t-code">blockquote</code> directly — and <code class="t-code">.spec-table</code> in the reusable docs template, which existed only in this repo's own docs stylesheet, so any project copying the template got an unstyled table.</p>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><b>2 · Find components defined but never used.</b> This is where the reuse rule actually gets broken. The guides collection shipped its own <code class="t-code">.guide-cover</code> while <code class="t-code">.book</code> sat unused in <code class="t-code">12-frame.css</code> — already carrying a spine, a page edge, and a <code class="t-code">.book-shelf</code> that tilts every second cover, with a doc comment naming <em>the guides</em> as what it was for. Every collection also hand-rolled a two-line footer while the real <code class="t-code">.footer</code> — brand column, link columns, sign-off row — went unused, which meant the one place a sitemap gets to be exhaustive was a single sentence.</p>		<div class="surface demo-tile u-mb-6" style="overflow-x:auto"><table class="spec-table" style="width:100%"><thead><tr><th>Check</th><th>What it catches</th></tr></thead><tbody>
+			<tr><td><code class="t-code">Used but undefined</code></td><td>grep every <code class="t-code">class="…"</code> in the built HTML against every <code class="t-code">.selector</code> in the compiled CSS. Should always be empty</td></tr>
+			<tr><td><code class="t-code">Defined but unused</code></td><td>the same two sets, inverted. Will never be empty — utilities exist to be optional — but a whole <em>family</em> at zero is a component nobody knows about</td></tr>
+			<tr><td><code class="t-code">The tell</code></td><td>a collection writing CSS for something the foundation already draws. If a new class describes a <em>thing</em> rather than a subject, it probably already exists</td></tr>
+		</tbody></table></div></section>
 
 				<nav class="docs-pager" aria-label="Pages">
 					<a class="docs-pager__link" href="/footer.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Footer</span></a>
@@ -360,6 +365,7 @@ python3 collection/podcast/build.py</code></pre></figure>
 					<a href="#what-a-collection-folder-holds">What a collection folder holds</a>
 					<a href="#the-rules">The rules</a>
 					<a href="#starting-a-new-one">Starting a new one</a>
+					<a href="#auditing-the-rule">Auditing the rule</a>
 				</div>
 			</nav>
 			<div class="doc-sponsor">

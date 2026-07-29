@@ -7,6 +7,39 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **`scripts/audit-classes.py`** — the gap between the CSS and the markup, in
+  both directions: classes the markup uses that the CSS never defines (should
+  always be empty; `--strict` gates CI on it) and classes the CSS defines that
+  no page uses (never empty, but a whole *family* at zero is a component nobody
+  knows about). Both checks are grep; the value is in running them at all.
+  Wired into `npm run audit:classes` and the CI workflow.
+- **Six more `shell.py` helpers, all wrapping components that shipped unused** —
+  `win_browser()`, `win_code()`, `win_term()` (the window chrome from
+  `12-frame.css`, whose own header says "containers that say what a thing IS
+  before you read it" — a design system that ships a browser mockup and never
+  shows a page in one is leaving the obvious demo on the table), plus
+  `marquee()`, `alert()` and `vf()`.
+- **Many more variants per page.** Home now carries the marquee, a signal
+  alert, a split hero with the docs running in a browser window, a terminal and
+  an editor side by side, the collections grid, a cascading stats band, the
+  viewfinder over a filmstrip, the newsletter CTA and the sponsor strip. About
+  gains the editor + terminal pair; contact an info alert in the rail; now a
+  terminal and a warning; welcome a success alert; archive a skeleton
+  loading state; the legal pages a plain-English summary alert above the prose.
+  Framework classes actually shipping went from 412 to 487.
+
+### Fixed
+- **Two "reuse before adding" violations, both mine.** The guides collection
+  shipped a bespoke `.guide-cover` while `.book` / `.book__cover` /
+  `.book-shelf` sat unused in `12-frame.css` — already carrying a spine, a page
+  edge, and a shelf that tilts every second cover, with a doc comment naming
+  *the guides* as what it was built for. Guides now uses the component and gets
+  a real shelf; `guides.css` is down to the one thing that genuinely was new.
+  Separately, every collection hand-rolled a two-line `.row-between` footer
+  while the real `.footer` — brand column, link columns, sign-off row with the
+  record dot — went unused, which meant the one place a sitemap gets to be
+  exhaustive was a single sentence. `shell.FOOT` is now that component, so all
+  twelve collections got a real footer at once.
 - **The cinematic hero is a component now** — `.hero-band-full` (full viewport,
   full bleed, pulled up under the island nav) and `.hero-band__scan` (a film
   layer holding any `.pattern-scanline`, with an optional `data-ripple` that

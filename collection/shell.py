@@ -85,15 +85,62 @@ HEAD = '''<!doctype html>
 <main id="main">
 '''
 
+# The real .footer component (05-sections/34-footer.css) — brand column, link
+# columns, then the sign-off row with the dot ending the page the way the nav
+# opened it. Every collection used to hand-roll a `.row-between` here instead,
+# which meant the one place a sitemap gets to be exhaustive was two lines long.
 FOOT = '''
 </main>
 
-<footer class="section-sm">
+<footer class="footer">
   <div class="container">
-    <hr class="rule u-mb-6" />
-    <div class="row-between">
-      <p class="t-slate">{name} — a collection</p>
-      <p class="t-slate-sm"><a href="{rel}/collection/README.md">Built from the collection contract</a></p>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo logo-sm" href="{rel}/collection/_pages/home.html">Swarnil</a>
+        <p class="footer__tag">A creator's site, built from tokens — videos, courses,
+          a blog, a newsletter and the trips between them. One design system
+          underneath all of it.</p>
+      </div>
+
+      <div>
+        <p class="footer__head">Collections</p>
+        <div class="footer__links">
+          <a href="{rel}/collection/course/index.html">Courses</a>
+          <a href="{rel}/collection/travel/index.html">Travel</a>
+          <a href="{rel}/collection/blog/index.html">Blog</a>
+          <a href="{rel}/collection/videos/index.html">Videos</a>
+          <a href="{rel}/collection/guides/index.html">Guides</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__head">More</p>
+        <div class="footer__links">
+          <a href="{rel}/collection/newsletter/index.html">Newsletter</a>
+          <a href="{rel}/collection/projects/index.html">Projects</a>
+          <a href="{rel}/collection/snippets/index.html">Snippets</a>
+          <a href="{rel}/collection/prompts/index.html">Prompts</a>
+          <a href="{rel}/collection/products/index.html">Products I use</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__head">Site</p>
+        <div class="footer__links">
+          <a href="{rel}/collection/_pages/about.html">About</a>
+          <a href="{rel}/collection/_pages/contact.html">Contact</a>
+          <a href="{rel}/collection/_pages/archive.html">Archive</a>
+          <a href="{rel}/collection/_pages/now.html">Now</a>
+          <a href="{rel}/collection/_pages/resume.html">Résumé</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__signoff">
+      <span>© 2026 Swarnil Singhai · {name} — a collection ·
+        <a href="{rel}/collection/_pages/terms.html">Terms</a> ·
+        <a href="{rel}/collection/_pages/privacy.html">Privacy</a></span>
+      <span class="footer__rec"><span class="dot dot-sm dot-live"></span>Still rolling</span>
     </div>
   </div>
 </footer>
@@ -383,3 +430,89 @@ def cine_hero(title, lead, eyebrow, video, actions='', meta=None,
     </div>
   </section>
 '''
+
+
+# ── Window chrome (1-foundation/12-frame.css) ────────────────────────────────
+# "Containers that say what a thing IS before you read it." All three were
+# defined and used by nothing — a design system that ships a browser mockup and
+# never shows a page in one is leaving the obvious demo on the table.
+
+def win_browser(url, body, dots=True):
+    """A browser window. `body` is arbitrary markup — a screenshot, a
+    placeholder, a live fragment of the system itself."""
+    d = ('<span class="win__dots win__dots-color"><span></span><span></span>'
+         '<span></span></span>') if dots else ''
+    return f'''<div class="win win-browser">
+      <div class="win__bar">{d}
+        <span class="win-browser__url">{icon('search', 'icon-sm', group='ui')}{url}</span>
+      </div>
+      <div class="win__body">{body}</div>
+    </div>'''
+
+
+def win_code(filename, lines, tab=None):
+    """An editor window. `lines` is a list of already-escaped markup strings —
+    use the .tok-* classes for colour; the gutter is drawn from the count, so
+    nothing has to number itself."""
+    gutter = '<br />'.join(str(i + 1) for i in range(len(lines)))
+    t = (f'<div class="win-code__tabs"><span class="win-code__tab" '
+         f'data-active>{tab or filename}</span></div>') if tab or filename else ''
+    return f'''<div class="win win-code">
+      <div class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">{filename}</span>
+      </div>
+      {t}
+      <div class="win__body" style="display:flex">
+        <div class="win-code__gutter">{gutter}</div>
+        <div class="win-code__lines">{"<br />".join(lines)}</div>
+      </div>
+    </div>'''
+
+
+def win_term(lines, title='zsh'):
+    """A terminal. Each line is (prompt, text) — prompt=True gets the ❯ and the
+    blinking block cursor lands on the last prompted line."""
+    out = ''
+    for i, (is_prompt, text) in enumerate(lines):
+        last = i == len(lines) - 1
+        cur = '<span class="win-term__cursor"></span>' if last and is_prompt else ''
+        cls = ' class="win-term__prompt"' if is_prompt else ''
+        out += f'<div{cls}>{text}{cur}</div>'
+    return f'''<div class="win win-term">
+      <div class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">{title}</span>
+      </div>
+      <div class="win__body win-term__body">{out}</div>
+    </div>'''
+
+
+def marquee(items, speed='', reverse=False):
+    """`.marquee` — one run, duplicated and aria-hidden so the loop is seamless
+    without the screen reader hearing it twice. Pauses on hover, and the
+    foundation stops it under reduced motion."""
+    run = ''.join(f'<span class="t-slate" style="white-space:nowrap">{i}</span>'
+                  for i in items)
+    cls = 'marquee' + (f' marquee-{speed}' if speed else '') + \
+          (' marquee-reverse' if reverse else '')
+    return (f'<div class="{cls}">'
+            f'<div class="marquee__run">{run}</div>'
+            f'<div class="marquee__run" aria-hidden="true">{run}</div></div>')
+
+
+def alert(body, tone='', title='', ico='check'):
+    """`.alert` — the callout. Tone carries an icon as well as a colour, because
+    colour is never alone in this system."""
+    cls = 'alert' + (f' alert-{tone}' if tone else '')
+    t = f'<span class="alert__title">{title}</span>' if title else ''
+    return (f'<div class="{cls}">{icon(ico, group="ui")}'
+            f'<div>{t}{body}</div></div>')
+
+
+def vf(body, tone='signal'):
+    """`.vf` — the four viewfinder corners. Note the foundation's own warning:
+    .vf and .pattern both draw with ::before, so they can never share an
+    element. The pattern goes on a child, which is what this does."""
+    return (f'<div class="vf vf-{tone}"><span class="vf__tr"></span>'
+            f'<span class="vf__bl"></span>{body}</div>')

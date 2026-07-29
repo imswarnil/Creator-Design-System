@@ -72,6 +72,32 @@
     </div>
 
     <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">2026</h2></div></div><div class="col-order"><a class="col-order__item" href="../projects/log.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Ship v1</span><div class="col-order__meta"><span>Jul 22</span></div></div></a><a class="col-order__item" href="../newsletter/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Issue #41 — The grid lesson nobody asked for</span><div class="col-order__meta"><span>Jul 22</span></div></div></a><a class="col-order__item" href="../course/lesson.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Grid, in four rules</span><div class="col-order__meta"><span>Jul 09</span></div></div></a><a class="col-order__item" href="../webseries/episode.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">The pitch that almost worked</span><div class="col-order__meta"><span>Jun 30</span></div></div></a><a class="col-order__item" href="../blog/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Why I stopped using a CSS framework</span><div class="col-order__meta"><span>Jun 12</span></div></div></a><a class="col-order__item" href="../travel/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">The train south</span><div class="col-order__meta"><span>Mar 14</span></div></div></a></div><div class="row-between u-mb-5"><div><h2 class="t-h3">2025</h2></div></div><div class="col-order"><a class="col-order__item" href="../travel/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">What a month in Lisbon actually costs</span><div class="col-order__meta"><span>Sep 03</span></div></div></a><a class="col-order__item" href="../travel/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Kyoto in the rain is the correct Kyoto</span><div class="col-order__meta"><span>Nov 20</span></div></div></a></div></div>
+
+    <!-- What the next page looks like before it arrives. .skeleton is the one
+         component that should ship visible in a demo: it is what a reader sees
+         first, and it is the easiest thing to leave untested. -->
+    <div class="u-mt-8" aria-hidden="true">
+      <div class="col-order__item" style="pointer-events:none">
+        <span class="col-order__num"><span class="skeleton skeleton-avatar"
+              style="width:.9rem;height:.9rem"></span></span>
+        <div class="col-order__body" style="gap:var(--space-2)">
+          <span class="skeleton skeleton-title" style="max-width:22rem"></span>
+          <span class="skeleton skeleton-text" style="max-width:7rem"></span>
+        </div></div><div class="col-order__item" style="pointer-events:none">
+        <span class="col-order__num"><span class="skeleton skeleton-avatar"
+              style="width:.9rem;height:.9rem"></span></span>
+        <div class="col-order__body" style="gap:var(--space-2)">
+          <span class="skeleton skeleton-title" style="max-width:22rem"></span>
+          <span class="skeleton skeleton-text" style="max-width:7rem"></span>
+        </div></div><div class="col-order__item" style="pointer-events:none">
+        <span class="col-order__num"><span class="skeleton skeleton-avatar"
+              style="width:.9rem;height:.9rem"></span></span>
+        <div class="col-order__body" style="gap:var(--space-2)">
+          <span class="skeleton skeleton-title" style="max-width:22rem"></span>
+          <span class="skeleton skeleton-text" style="max-width:7rem"></span>
+        </div></div>
+    </div>
+
     <div class="u-mt-8"><nav class="pagination" aria-label="Archive">
       <a class="btn btn-quiet btn-sm" href="./archive.html" aria-disabled="true" tabindex="-1">← Newer</a>
       <span class="pagination__pages"><a class="page-dot" href="./archive.html" aria-current="page">1</a><a class="page-dot" href="./archive.html">2</a><a class="page-dot" href="./archive.html">3</a><a class="page-dot" href="./archive.html">4</a></span>
@@ -80,12 +106,55 @@
   </div>
 </main>
 
-<footer class="section-sm">
+<footer class="footer">
   <div class="container">
-    <hr class="rule u-mb-6" />
-    <div class="row-between">
-      <p class="t-slate">Pages — a collection</p>
-      <p class="t-slate-sm"><a href="../../collection/README.md">Built from the collection contract</a></p>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
+        <p class="footer__tag">A creator's site, built from tokens — videos, courses,
+          a blog, a newsletter and the trips between them. One design system
+          underneath all of it.</p>
+      </div>
+
+      <div>
+        <p class="footer__head">Collections</p>
+        <div class="footer__links">
+          <a href="../../collection/course/index.html">Courses</a>
+          <a href="../../collection/travel/index.html">Travel</a>
+          <a href="../../collection/blog/index.html">Blog</a>
+          <a href="../../collection/videos/index.html">Videos</a>
+          <a href="../../collection/guides/index.html">Guides</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__head">More</p>
+        <div class="footer__links">
+          <a href="../../collection/newsletter/index.html">Newsletter</a>
+          <a href="../../collection/projects/index.html">Projects</a>
+          <a href="../../collection/snippets/index.html">Snippets</a>
+          <a href="../../collection/prompts/index.html">Prompts</a>
+          <a href="../../collection/products/index.html">Products I use</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__head">Site</p>
+        <div class="footer__links">
+          <a href="../../collection/_pages/about.html">About</a>
+          <a href="../../collection/_pages/contact.html">Contact</a>
+          <a href="../../collection/_pages/archive.html">Archive</a>
+          <a href="../../collection/_pages/now.html">Now</a>
+          <a href="../../collection/_pages/resume.html">Résumé</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__signoff">
+      <span>© 2026 Swarnil Singhai · Pages — a collection ·
+        <a href="../../collection/_pages/terms.html">Terms</a> ·
+        <a href="../../collection/_pages/privacy.html">Privacy</a></span>
+      <span class="footer__rec"><span class="dot dot-sm dot-live"></span>Still rolling</span>
     </div>
   </div>
 </footer>

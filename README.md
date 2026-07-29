@@ -263,10 +263,20 @@ cannot drift from the code.
 
 ```bash
 npm install
-npm run dev     # builds the docs and serves them at http://localhost:8080
-npm run build   # dist/creator.css + dist/creator.min.css + docs
+npm run dev             # builds the docs and serves them at http://localhost:8080
+npm run build           # dist/creator.css + dist/creator.min.css + docs
 npm run lint
+npm run audit:classes   # CSS vs markup, in both directions
 ```
+
+`audit:classes` answers two questions that are easy to get wrong by hand.
+**Which classes does the markup use that the CSS never defines?** — a phantom
+class is worse than a missing style, because the markup looks right and renders
+as unstyled HTML, so nothing fails and nobody notices. That list should always
+be empty, and `--strict` gates CI on it. **Which classes does the CSS define
+that no page uses?** — never empty, since utilities exist to be optional, but a
+whole *family* sitting at zero is a component nobody knows about, and the next
+person to need it will write a second copy under a different name.
 
 The docs are generated: edit `docs/_build/content_*.py`, then `npm run docs`.
 Never edit the generated `docs/*.html` by hand.
