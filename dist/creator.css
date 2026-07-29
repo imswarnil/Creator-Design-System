@@ -11061,10 +11061,59 @@ button.list-group__item:hover { background: var(--bg-sunken); }
 /* Bottom-anchored copy for the media variant — billboard grammar. */
 .hero-band-media { display: flex; flex-direction: column; justify-content: flex-end; min-height: 24rem; }
 
+/* ── Cinematic — the band at full viewport, with film over the footage ──────
+   travel/index.html carried this as forty lines of inline style before it was
+   a component, which meant no other page could have it. Three parts, each
+   independent: the full-bleed height, the scanline film, and a pointer-tracked
+   ripple that reveals the film only where the cursor is.
+
+   Composes with .hero-band-media — that still owns the media and the scrim. */
+
+.hero-band-full {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	min-height: 100dvh;
+	border-radius: 0;
+	/* Sit UNDER the floating island rather than below it, so the nav reads as
+	   furniture on the footage. Same pull-up the collection hero uses. */
+	margin-top: calc(-1 * (var(--nav-h) + var(--space-3) * 2));
+	justify-content: center;
+	isolation: isolate;
+}
+
+/* The film. Put a .pattern-scanline (or -fine / -coarse) inside it. */
+.hero-band__scan {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	mix-blend-mode: overlay;
+}
+
+.hero-band__scan > * { position: absolute; inset: 0; }
+
+/* Ripple: --mx/--my are set by a pointermove handler (src/nav.js does it for
+   any [data-ripple]); with no script the mask rests centred and still, which
+   is a vignette rather than a broken effect. */
+.hero-band__scan[data-ripple] {
+	--mx: 50%;
+	--my: 40%;
+	mask-image: radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%);
+	-webkit-mask-image: radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%);
+}
+
+/* Reduced motion: no chase, no displacement — the film sits still and quiet
+   over the whole frame instead of following anything. */
+@media (prefers-reduced-motion: reduce) {
+	.hero-band__scan[data-ripple] { mask-image: none; -webkit-mask-image: none; opacity: 0.3; }
+}
+
 @media (max-width: 40rem) {
 	.hero { padding-block: var(--space-12) var(--space-10); }
 	.hero__title { font-size: var(--text-4xl); }
 	.hero-band { padding: var(--space-10) var(--space-5); }
+	/* A 100dvh hero on a phone is a full screen of nothing but a headline. */
+	.hero-band-full { min-height: 82dvh; }
 }
 
 /* ── Size modifier — for pages whose hero is an announcement, not a stage

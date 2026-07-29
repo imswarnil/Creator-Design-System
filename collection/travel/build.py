@@ -11,9 +11,15 @@ Every page is openable straight from disk — the stylesheets are linked by
 relative path, so nothing needs serving to look at it.
 """
 import pathlib
+import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent.parent
+sys.path.insert(0, str(HERE.parent))
+
+# Travel predates shell.py and keeps its own HEAD/nav, but there is no reason
+# to keep a second copy of the cinematic hero — that one is shared.
+from shell import cine_hero   # noqa: E402
 REL = '../..'          # from collection/travel/*.html back to the repo root
 
 # ── The demo data ───────────────────────────────────────────────────────────
@@ -406,78 +412,23 @@ def series_card():
 
 # ── 1 · /travel — the collection index ──────────────────────────────────────
 # Full-bleed, full-viewport: the video plays behind a scanline that ripples
-# outward from wherever the pointer sits — an SVG feDisplacementMap warping
-# the scanline layer, masked to a soft circle around --mx/--my so the
-# disturbance reads as coming FROM the cursor, the way a fingertip disturbs
-# water rather than the whole surface moving at once. JS only ever writes
-# those two custom properties; every visual decision stays in CSS/SVG.
+# outward from wherever the pointer sits. All of that used to live here as
+# forty lines of inline style plus its own <script>; it is now
+# `shell.cine_hero()` on top of .hero-band-full + .hero-band__scan, so any
+# page can have it and travel is not the only one that gets a cinematic hero.
+
 
 def video_hero():
-    m = ''.join(
-        f'<div><span class="col-meta__n">{n}</span><span class="col-meta__l">{l}</span></div>'
-        for n, l in [('31', 'posts'), ('6', 'countries'), ('4', 'trips'), ('18', 'cities')])
-    return f'''
-  <section id="trv-hero" style="position:relative;width:100vw;height:100dvh;
-       margin-left:calc(50% - 50vw);margin-top:calc(-1 * (var(--nav-h) + var(--space-3) * 2));
-       overflow:hidden;color:#fff;isolation:isolate;--mx:50%;--my:40%">
-    <video autoplay muted loop playsinline aria-hidden="true"
-           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3">
-      <source src="../../video/1280x720.mp4" type="video/mp4" />
-    </video>
-    <div aria-hidden="true" style="position:absolute;inset:0;z-index:-2;background:
-         linear-gradient(180deg, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0.15) 45%, rgb(0 0 0 / 0.8) 100%)"></div>
-
-    <div id="trv-ripple" aria-hidden="true" style="position:absolute;inset:0;z-index:-1;
-         pointer-events:none;filter:url(#trv-ripple-filter);mix-blend-mode:overlay;
-         mask-image:radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%);
-         -webkit-mask-image:radial-gradient(circle 260px at var(--mx) var(--my), #000 0%, transparent 72%)">
-      <div class="pattern pattern-scanline pattern-media pattern-lg" style="position:absolute;inset:0;opacity:.9"></div>
-    </div>
-
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-      <filter id="trv-ripple-filter" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="7" result="trv-noise">
-          <animate attributeName="baseFrequency" dur="7s"
-                   values="0.010 0.045;0.018 0.06;0.010 0.045" repeatCount="indefinite" />
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="trv-noise" scale="22"
-                            xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </svg>
-
-    <div class="container" style="position:relative;z-index:1;height:100%;
-         display:flex;flex-direction:column;justify-content:center;gap:var(--space-6)">
-      <span class="col-hero__eyebrow">{icon('pin')}The travel collection</span>
-      <h1 class="col-hero__title" style="font-size:clamp(2.5rem, 1.7rem + 3.6vw, 4.5rem);max-width:22ch">
-        Every road I have been down, <em>in order</em>.</h1>
-      <p class="col-hero__lead" style="max-width:38ch">Six countries, thirty-one posts and the
-        receipts. Move your pointer across the water.</p>
-      <div class="u-flex u-gap-3 u-wrap">
-        <a class="btn btn-primary btn-pill" href="#trips">Latest trip →</a>
-        <a class="btn btn-ghost btn-pill" href="#regions">Browse by region</a>
-      </div>
-      <div class="col-meta">{m}</div>
-    </div>
-  </section>
-  <script>
-  (function () {{
-    var h = document.getElementById('trv-hero');
-    if (!h) return;
-    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (still) {{
-      var v = h.querySelector('video');
-      if (v) v.pause();
-      [].slice.call(h.querySelectorAll('animate')).forEach(function (a) {{ a.setAttribute('dur', '0s'); }});
-      return;
-    }}
-    h.addEventListener('pointermove', function (e) {{
-      var r = h.getBoundingClientRect();
-      h.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-      h.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
-    }});
-  }})();
-  </script>
-'''
+    return cine_hero(
+        'Every road I have been down, <em>in order</em>.',
+        'Six countries, thirty-one posts and the receipts. Move your pointer '
+        'across the water.',
+        'The travel collection',
+        video=f'{REL}/video/1280x720.mp4',
+        actions='<a class="btn btn-primary btn-pill" href="#trips">Latest trip →</a>'
+                '<a class="btn btn-ghost btn-pill" href="#regions">Browse by region</a>',
+        meta=[('31', 'posts'), ('6', 'countries'), ('4', 'trips'), ('18', 'cities')],
+        filter_id='trv')
 
 
 def route_index():
@@ -704,7 +655,7 @@ def route_post():
         <h2>Booking it</h2>
         <p>IRCTC wants an Indian number for the OTP. There are two ways around that,
           and only one of them still works.</p>
-        <blockquote class="quote">
+        <blockquote>
           <p>Book the ticket before the visa. The trains fill up faster than the
             consulate does.</p>
         </blockquote>

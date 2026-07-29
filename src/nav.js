@@ -180,12 +180,43 @@
 		});
 	}
 
+	/* Pointer-tracked ripple on a cinematic hero. Sets --mx/--my on the
+	   [data-ripple] element's positioned ancestor; the CSS mask reads them.
+	   Additive: with the script blocked the mask rests centred, which is a
+	   vignette rather than a missing feature. Skipped entirely under reduced
+	   motion, where the film is meant to sit still. */
+	function ripple() {
+		var still = global.matchMedia &&
+			global.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		doc.querySelectorAll('[data-ripple]').forEach(function (el) {
+			var host = el.closest('.hero-band, .col-hero, section') || el.parentNode;
+
+			if (still) {
+				// Freeze any SVG displacement animation driving the film, and
+				// pause looping footage — a hero should not move at all here.
+				host.querySelectorAll('animate').forEach(function (a) {
+					a.setAttribute('dur', '0s');
+				});
+				host.querySelectorAll('video').forEach(function (v) { v.pause(); });
+				return;
+			}
+
+			host.addEventListener('pointermove', function (e) {
+				var r = host.getBoundingClientRect();
+				el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+				el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+			});
+		});
+	}
+
 	function start() {
 		scroll();
 		hover();
 		exclusive();
 		panel();
 		dialogs();
+		ripple();
 	}
 
 	if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', start);

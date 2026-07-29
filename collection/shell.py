@@ -251,3 +251,135 @@ def hero(title, lead, eyebrow, meta, art='', search=None, eyebrow_icon='pin',
    </div>
   </section>
 '''
+
+
+def page_head(title, lead='', eyebrow='', actions='', small=False):
+    """`.page-head` — the quiet heading band a page that is not making a case
+    opens with. A hero states; a page head just labels. Defined in
+    05-sections/30-header.css and, until now, used by nothing."""
+    e = (f'<span class="hero__eyebrow">{eyebrow}</span>' if eyebrow else '')
+    l = (f'<p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">{lead}</p>'
+         if lead else '')
+    a = f'<div class="hero__actions">{actions}</div>' if actions else ''
+    cls = 'page-head page-head-sm' if small else 'page-head'
+    return f'''
+  <header class="{cls}">
+    {e}
+    <h1 class="t-display-2">{title}</h1>
+    {l}
+    {a}
+  </header>'''
+
+
+def stats(rows, bare=False, inverse=False):
+    """`.stats` — numbers as one surface, not four cards. Each row is
+    (value, label) or (value, label, note); a note starting with '+' gets the
+    up-trend colour. `bare=True` drops the chrome for use inside a hero."""
+    cls = 'stats'
+    if bare:
+        cls += ' stats-bare'
+    if inverse:
+        cls += ' stats-inverse'
+    cells = ''
+    for row in rows:
+        value, label = row[0], row[1]
+        note = row[2] if len(row) > 2 else ''
+        trend = ' data-trend="up"' if note.startswith('+') else ''
+        n = f'<span class="stat__note"{trend}>{note}</span>' if note else ''
+        cells += (f'<div class="stat"><span class="stat__label">{label}</span>'
+                  f'<span class="stat__value">{value}</span>{n}</div>')
+    return f'<div class="{cls}">{cells}</div>'
+
+
+def cta(title, body='', kicker='', actions='', fine='', left=False,
+        newsletter=False, pattern=''):
+    """`.cta` — the ask. One per page, near the end, and it earns its contrast
+    by being the only inverse band in view.
+
+    `newsletter=True` swaps the actions for the email form; `left=True` is the
+    column-layout variant. `pattern` takes a foundation background-pattern
+    class, which the band already has the `position:relative` to carry."""
+    cls = 'cta' + (' cta-left' if left else '')
+    if pattern:
+        cls += f' pattern {pattern}'
+    k = f'<span class="cta__kicker">{kicker}</span>' if kicker else ''
+    b = f'<p class="cta__body">{body}</p>' if body else ''
+    f = f'<p class="cta__fine">{fine}</p>' if fine else ''
+    if newsletter:
+        act = ('<form class="cta-newsletter__form" onsubmit="return false">'
+               '<label class="u-sr-only" for="cta-email">Email</label>'
+               '<input class="input" id="cta-email" type="email" '
+               'placeholder="you@example.com" autocomplete="email" />'
+               '<button class="btn btn-primary" type="submit">Subscribe</button></form>')
+    else:
+        act = f'<div class="cta__actions">{actions}</div>' if actions else ''
+    return f'''
+  <section class="{cls}">
+    {k}
+    <h2 class="cta__title">{title}</h2>
+    {b}
+    {act}
+    {f}
+  </section>'''
+
+
+def cta_sponsor(title, kicker='', actions=''):
+    """The quiet one — bordered, on the paper, not inverse. Money asks
+    politely, so this is the only CTA shape that does not take the contrast."""
+    k = f'<span class="cta__kicker">{kicker}</span>' if kicker else ''
+    return f'''
+  <section class="cta-sponsor">
+    <div>{k}<h2 class="cta__title">{title}</h2></div>
+    <div class="cta__actions">{actions}</div>
+  </section>'''
+
+
+def cine_hero(title, lead, eyebrow, video, actions='', meta=None,
+              eyebrow_icon='pin', scan='pattern-scanline', ripple=True,
+              filter_id='cine'):
+    """The cinematic hero: footage, a scrim, a scanline film over it, and an
+    optional pointer-tracked ripple through the film.
+
+    Every part of this used to be inline in travel/build.py. It is
+    `.hero-band.hero-band-media.hero-band-full` plus `.hero-band__scan` — no
+    new CSS, and nothing here is travel-specific any more. `filter_id` only
+    needs changing if two cinematic heroes ever share one page.
+    """
+    rip = ' data-ripple' if ripple else ''
+    m = f'\n      {meta_strip(meta)}' if meta else ''
+    a = f'\n      <div class="hero__actions">{actions}</div>' if actions else ''
+    # The displacement filter is what makes the film ripple rather than just
+    # brighten. It is decoration, so the whole <svg> is aria-hidden and its
+    # <animate> is frozen by nav.js under reduced motion.
+    return f'''
+  <section class="hero hero-band hero-band-media hero-band-full">
+    <div class="hero-band__media">
+      <video autoplay muted loop playsinline aria-hidden="true">
+        <source src="{video}" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="hero-band__scan"{rip} aria-hidden="true"
+         style="filter:url(#{filter_id}-ripple)">
+      <div class="pattern {scan} pattern-media pattern-lg"></div>
+    </div>
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="{filter_id}-ripple" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2"
+                      seed="7" result="{filter_id}-noise">
+          <animate attributeName="baseFrequency" dur="7s"
+                   values="0.010 0.045;0.018 0.06;0.010 0.045" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="{filter_id}-noise" scale="22"
+                           xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <div class="container">
+      <span class="hero__eyebrow">{icon(eyebrow_icon)}{eyebrow}</span>
+      <h1 class="hero__title">{title}</h1>
+      <p class="hero__lead">{lead}</p>{a}{m}
+    </div>
+  </section>
+'''

@@ -238,7 +238,7 @@ def route_post():
         <p>It started with a card. The framework had one, and it was nearly right —
           which is worse than being wrong, because nearly right gets overridden
           instead of replaced.</p>
-        <blockquote class="quote">
+        <blockquote>
           <p>A component you have overridden four times is a component you now own,
             with none of the benefits of owning it.</p>
         </blockquote>

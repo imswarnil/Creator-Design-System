@@ -83,7 +83,8 @@ PAGES['page-header'] = ('Page header',
            '<b>.sec-head-row</b> — a band\'s opening line; one action allowed · <b>.page-head-sm</b> for child pages'))
 
 PAGES['hero'] = ('Hero',
-    'A hero states, it does not list: one headline, one accent word, at most two actions. Three shapes.',
+    'A hero states, it does not list: one headline, one accent word, at most two actions. '
+    'Four shapes — the fourth being the cinematic one.',
     tile('<div class="hero hero-statement" style="padding-block:var(--space-6)">'
          '<span class="hero__eyebrow"><span class="dot dot-sm dot-live"></span> Salesforce engineer · Budapest</span>'
          '<h1 class="hero__title" style="font-size:var(--text-5xl)">Frame the <em>work</em> — and cut the noise.</h1>'
@@ -104,7 +105,42 @@ PAGES['hero'] = ('Hero',
            '<span class="hero__eyebrow">Travel · 4 countries</span>'
            '<h1 class="hero__title" style="font-size:var(--text-4xl)">Leave the desk. <em>Keep</em> the camera.</h1>'
            '<div class="hero__actions"><a class="btn btn-primary btn-sm" href="#i">All trips</a></div></div>',
-           '<b>.hero-band.hero-band-media</b> — the inverse billboard, copy bottom-anchored'))
+           '<b>.hero-band.hero-band-media</b> — the inverse billboard, copy bottom-anchored')
+    + '<h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-2)">The cinematic one</h2>'
+    + '<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-lead)">'
+      'Two more modifiers on the same band, added because the travel collection had this '
+      'shape as forty lines of inline style that no other page could reach: '
+      '<code class="t-code">.hero-band-full</code> takes it to the full viewport and pulls '
+      'it up under the floating nav, and <code class="t-code">.hero-band__scan</code> lays '
+      'a film over the footage. Put any <code class="t-code">.pattern-scanline</code> inside '
+      'the scan layer; add <code class="t-code">data-ripple</code> and '
+      '<code class="t-code">nav.js</code> tracks the pointer through it via '
+      '<code class="t-code">--mx</code>/<code class="t-code">--my</code>. With the script '
+      'blocked the mask rests centred — a vignette, not a broken effect — and under '
+      '<code class="t-code">prefers-reduced-motion</code> the film stops chasing, the '
+      'displacement freezes and looping footage pauses.</p>'
+    + tile('<div class="hero hero-band hero-band-media pattern pattern-topo"'
+           ' data-surface="inverse" style="min-height:18rem;position:relative">'
+           '<div class="hero-band__media"></div>'
+           '<div class="hero-band__scan" data-ripple aria-hidden="true">'
+           '<div class="pattern pattern-scanline pattern-media pattern-lg"></div></div>'
+           '<div style="position:relative;z-index:1">'
+           '<span class="hero__eyebrow">The travel collection</span>'
+           '<h1 class="hero__title" style="font-size:var(--text-4xl)">'
+           'Every road, <em>in order</em>.</h1>'
+           '<p class="hero__lead">Move the pointer across the frame.</p></div></div>',
+           '<b>.hero-band__scan[data-ripple]</b> — the film, revealed where the pointer is. '
+           'Shown here at 18rem rather than the real <b>.hero-band-full</b> 100dvh, which '
+           'would take the whole docs viewport')
+    + ct([
+        ('.hero-band-full', 'full viewport, full bleed, pulled up under the island nav'),
+        ('.hero-band__scan', 'the film layer — holds a <code class="t-code">.pattern-*</code>, '
+                             'blends over the footage'),
+        ('[data-ripple]', 'nav.js tracks the pointer; CSS masks the film to a soft circle '
+                          'around it'),
+        ('--mx / --my', 'the only two things the script writes. Every visual decision stays '
+                        'in CSS'),
+    ], head=('Class', 'What it adds')))
 
 PAGES['stats'] = ('Stats',
     'Display-face tabular numbers, slate labels, hairlines not boxes. One surface, not four cards.',

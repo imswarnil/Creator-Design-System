@@ -522,7 +522,7 @@ def route_episode():
           <div class="content">
             <p>The room has forty minutes to fix an ending nobody likes, and every
               option on the table makes somebody's least favorite character right.</p>
-            <blockquote class="quote">
+            <blockquote>
               <p>Dana pitches the ending nobody asked for — and by the cold open of
                 episode two, it's the only one anyone remembers pitching.</p>
             </blockquote>

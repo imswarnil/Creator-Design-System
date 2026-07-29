@@ -13,7 +13,8 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip, pagination   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
+                   page_head, stats, cta, cta_sponsor, cine_hero, REL)
 
 NAME = 'Pages'
 
@@ -257,27 +258,41 @@ def route_index():
 # ── Home ─────────────────────────────────────────────────────────────────────
 
 def route_home():
-    body = f'''
-  <section class="hero hero-statement container section-sm">
-    <span class="hero__eyebrow">{icon('pin')}Swarnil Singhai</span>
-    <h1 class="hero__title">A creator's site, <em>built from tokens</em>.</h1>
-    <p class="hero__lead">Videos, courses, a blog, a newsletter and the trips between
-      them — {len(COLLECTIONS)} collections, one design system, and a build log for all of it.</p>
-    <div class="hero__actions">
-      <a class="btn btn-primary btn-pill" href="../travel/index.html">Start with travel →</a>
-      <a class="btn btn-secondary btn-pill" href="./about.html">About me</a>
-    </div>
-  </section>
+    # The cinematic hero, not the centred statement one: a homepage is the only
+    # page that gets to spend a full viewport making its case, and it is the
+    # page most likely to be someone's first impression of the system.
+    body = cine_hero(
+        'A creator\'s site, <em>built from tokens</em>.',
+        f'Videos, courses, a blog, a newsletter and the trips between them — '
+        f'{len(COLLECTIONS)} collections, one design system, and a build log for '
+        f'all of it. Move your pointer across the frame.',
+        'Swarnil Singhai',
+        video=f'{REL}/video/1280x720.mp4',
+        actions='<a class="btn btn-primary btn-pill" href="../travel/index.html">'
+                'Start with travel →</a>'
+                '<a class="btn btn-ghost btn-pill" href="./about.html">About me</a>',
+        eyebrow_icon='pin', filter_id='home')
 
+    body += f'''
   <section class="container section-sm">
-    {sec('Everything I publish', f'{len(COLLECTIONS)} collections, the same tokens underneath all of them.')}
+    {sec('Everything I publish',
+         f'{len(COLLECTIONS)} collections, the same tokens underneath all of them.')}
     {collections_grid()}
   </section>
 
   <section class="container section-sm">
-    {sec('Lately', 'The most recent thing in each medium.')}
-    {meta_strip([('132', 'lessons'), ('41', 'newsletter issues'), ('31', 'travel posts'),
-                 ('6', 'projects')], paper=True, inline=True)}
+    {sec('Lately', 'The numbers, rather than a claim about them.')}
+    {stats([('132', 'Lessons', '+8 this month'), ('41', 'Newsletter issues'),
+            ('31', 'Travel posts'), ('62', 'Videos', '+3 this month')])}
+  </section>
+
+  <section class="container section-sm">
+    {cta('One email when something is <em>worth it</em>.',
+         'Forty-one issues of practice behind each one. No drip sequence, no '
+         'course funnel, and an unsubscribe link that works on the first click.',
+         kicker=f'{icon("mail")}The newsletter', newsletter=True,
+         fine='No spam. Unsubscribe any time.',
+         pattern='pattern-glow pattern-lg')}
   </section>'''
     return page(HERE, 'home.html', 'Swarnil Singhai — Creator',
                 'Videos, courses, a blog and the trips between them — one design '
@@ -288,11 +303,39 @@ def route_home():
 # ── About ────────────────────────────────────────────────────────────────────
 
 def route_about():
+    # .hero-split — the two-column variant: the case on the left, one framed
+    # thing on the right. About is where a portrait belongs, and the frame
+    # device (layer 1) does the chrome so the stage only reserves the ratio.
     body = f'''
+  <div class="container">
+    <section class="hero hero-split">
+      <div>
+        <span class="hero__eyebrow">{icon('take')}About</span>
+        <h1 class="hero__title">I build the system, then <em>the site on it</em>.</h1>
+        <p class="hero__lead">Tokens first, components second, and as little
+          JavaScript as the page can get away with. Everything you are looking
+          at is the receipts.</p>
+        <div class="hero__actions">
+          <a class="btn btn-primary btn-pill" href="./resume.html">Read the résumé →</a>
+          <a class="btn btn-secondary btn-pill" href="./contact.html">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-split__stage">
+        <div class="frame frame-ink">{ph('about', tall=True)}</div>
+        <div class="hero-split__caption">
+          <span>Desk, Berlin</span><span>2026</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
   <div class="container section-sm">
-    <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
-      <a href="./home.html">Home</a> <span>/</span> <span>About</span>
-    </nav>
+    {stats([('9', 'Years shipping'), (f'{len(COLLECTIONS)}', 'Collections'),
+            ('37', 'KB gzipped', 'the whole system'), ('0', 'Dependencies')],
+           bare=True)}
+  </div>
+
+  <div class="container section-sm">
 
     {summary_block('Swarnil Singhai', 'Senior Product Engineer',
         'I build design systems and the sites that run on them — tokens first, '
@@ -316,6 +359,20 @@ def route_about():
           <span>As little JavaScript as a page can get away with</span></span>
       </div>
     </div>
+
+    <figure class="pullquote u-mt-10">
+      <p class="pullquote__text">A design system is not a component library. It is
+        the set of arguments you have already had, written down so you never have
+        to have them again.</p>
+      <figcaption class="pullquote__cite">From the introduction to the docs</figcaption>
+    </figure>
+  </div>
+
+  <div class="container section-sm">
+    {cta_sponsor('This is free and MIT-licensed.',
+        kicker=f'{icon("take")}Sponsor',
+        actions='<a class="btn btn-secondary" href="https://github.com/sponsors/imswarnil" '
+                'target="_blank" rel="noopener">Sponsor →</a>')}
   </div>'''
     return page(HERE, 'about.html', 'About — Swarnil Singhai',
                 'Design systems, accessibility, and as little JavaScript as a page '
@@ -331,30 +388,70 @@ def route_contact():
       <a href="./home.html">Home</a> <span>/</span> <span>Contact</span>
     </nav>
 
-    <h1 class="t-display-2">Say hello</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">For work, a
-      correction on something I wrote, or just to say a lesson helped. I read
-      everything; I don't always answer fast.</p>
+    {page_head('Say hello',
+        'For work, a correction on something I wrote, or just to say a lesson '
+        'helped. I read everything; I don\'t always answer fast.',
+        eyebrow=f'{icon("chat")}Contact')}
 
-    <form class="stack u-mt-8" onsubmit="return false" style="max-width:32rem">
-      <div class="field">
-        <label class="label" for="c-name">Name</label>
-        <input class="input" id="c-name" type="text" autocomplete="name" />
-      </div>
-      <div class="field">
-        <label class="label" for="c-email">Email</label>
-        <input class="input" id="c-email" type="email" autocomplete="email" />
-      </div>
-      <div class="field">
-        <label class="label" for="c-msg">Message</label>
-        <textarea class="input" id="c-msg" rows="5"></textarea>
-      </div>
-      <button class="btn btn-primary" type="submit">Send</button>
-    </form>
+    <!-- Two columns: the form is the job, the rail sets expectations before
+         anyone spends five minutes writing. A form with no stated response time
+         is how "did that even send?" happens. -->
+    <div class="grid-rail u-mt-10">
+      <form class="stack" onsubmit="return false">
+        <div class="field">
+          <label class="label" for="c-name">Name</label>
+          <input class="input" id="c-name" type="text" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label class="label" for="c-email">Email</label>
+          <input class="input" id="c-email" type="email" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label class="label" for="c-subject">What is it about?</label>
+          <select class="select" id="c-subject">
+            <option>Work — a project or a role</option>
+            <option>A correction on something I wrote</option>
+            <option>A question about the design system</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="c-msg">Message</label>
+          <textarea class="input" id="c-msg" rows="6"></textarea>
+          <span class="hint">Markdown is fine. Links are welcome.</span>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+
+      <aside>
+        <div class="col-widget">
+          <span class="col-widget__title">What to expect</span>
+          {stats([('2–4', 'Days to reply'), ('100%', 'Read')], bare=True)}
+        </div>
+        <div class="u-mt-8">
+          {sec('Or find me elsewhere')}
+          {links_block(LINKS)}
+        </div>
+      </aside>
+    </div>
 
     <div class="u-mt-10">
-      {sec('Or find me elsewhere')}
-      {links_block(LINKS)}
+      {sec('Before you write', 'Four things that come up most, answered here so a '
+           'reply is not the fastest way to find out.')}
+      <div class="acc">
+        <details class="collapse"><summary>Do you take freelance work?</summary>
+          <div class="collapse__body">Occasionally, and only design-system work —
+            tokens, component libraries, and migrating a site onto one.</div></details>
+        <details class="collapse"><summary>Can I use this design system commercially?</summary>
+          <div class="collapse__body">Yes. It is MIT-licensed, including for client
+            work, with no attribution required.</div></details>
+        <details class="collapse"><summary>Will you review my CSS?</summary>
+          <div class="collapse__body">If it is short and the question is specific,
+            usually yes. A whole repository, usually no.</div></details>
+        <details class="collapse"><summary>Are the courses paid?</summary>
+          <div class="collapse__body">Some are. Every paid one has a thirty-day
+            refund, no questions.</div></details>
+      </div>
     </div>
   </div>'''
     return page(HERE, 'contact.html', 'Contact — Swarnil Singhai',
@@ -378,9 +475,32 @@ def route_archive():
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./home.html">Home</a> <span>/</span> <span>Archive</span>
     </nav>
-    <h1 class="t-display-2">Everything, in order</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">Every post, episode,
-      issue and log entry, across every collection, newest first.</p>
+    {page_head('Everything, in order',
+        'Every post, episode, issue and log entry, across every collection, '
+        'newest first.', eyebrow=f'{icon("course")}Archive')}
+
+    <!-- An archive is the one page where search beats browsing: people arrive
+         knowing roughly what they want, so the field leads and the year groups
+         follow. Both are the collection vocabulary, unchanged. -->
+    <form class="col-search u-mt-8" onsubmit="return false">
+      <label class="col-search__field">
+        <span class="u-sr-only">Search the archive</span>
+        {icon('search', group='ui')}
+        <input type="search" placeholder="Search everything published…" />
+      </label>
+      <button class="btn btn-primary btn-pill" type="submit">Search</button>
+    </form>
+
+    <div class="col-tags u-mt-6">
+      <a class="col-tag" href="./archive.html" aria-current="page">Everything</a>
+      {''.join(f'<a class="col-tag" href="../{slug}/index.html">{name}</a>'
+               for name, slug, _, _ in COLLECTIONS[:6])}
+    </div>
+
+    <div class="u-mt-8">
+      {stats([('273', 'Things published'), (f'{len(COLLECTIONS)}', 'Collections'),
+              ('2019', 'Since')], bare=True)}
+    </div>
 
     <div class="u-mt-10">{years}</div>
     <div class="u-mt-8">{pagination(1, 4, href='./archive.html', label='Archive')}</div>
@@ -402,7 +522,23 @@ def route_now():
       what a <a href="https://nownownow.com" target="_blank" rel="noopener">now page</a> is</span>
     <h1 class="t-display-2 u-mt-3">What I'm doing now</h1>
 
-    <div class="content u-mt-8">
+    <!-- The one place a progress bar is honest: these are real, in-flight, and
+         the number moves. .progress-labelled ships the label and value; nothing
+         here is a fake loading state. -->
+    <div class="u-mt-8">
+      {sec('In flight')}
+      {''.join(f'''<div class="progress-labelled u-mb-4">
+        <span class="progress__label">{what}</span>
+        <div class="progress"><div class="progress__bar" style="--value:{pct}%"></div></div>
+        <span class="t-slate-sm" style="color:var(--fg-faint)">{note}</span>
+      </div>''' for what, pct, note in [
+          ('The pages collection', 90, 'home, about, archive, the legal pages'),
+          ('Newsletter issue 42', 60, 'on grid-auto-rows: minmax(0, auto)'),
+          ('npm package + Tailwind/SCSS builds', 35, 'the last roadmap item'),
+      ])}
+    </div>
+
+    <div class="content u-mt-10">
       <p>Mostly this: closing the gap between the collections that ship no CSS of
         their own and the ones that still owe the vocabulary something.</p>
       <h2>Building</h2>
@@ -423,15 +559,30 @@ def route_now():
 
 # ── Legal ────────────────────────────────────────────────────────────────────
 
-def _legal_page(slug, title, lead, body_html):
+def _legal_page(slug, title, lead, body_html, toc=(), updated='Jul 2026'):
+    """One shell, two bodies. A legal page nobody can navigate is the same as a
+    legal page nobody reads, so this one gets a sticky TOC rail and a visible
+    last-updated date — the two things that make a wall of prose usable."""
+    rail = ''.join(f'<a class="list-group__item" href="#{a}">{t}</a>' for a, t in toc)
     body = f'''
-  <div class="container-narrow section-sm">
+  <div class="container section-sm">
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./home.html">Home</a> <span>/</span> <span>{title}</span>
     </nav>
-    <h1 class="t-display-2">{title}</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">{lead}</p>
-    <div class="content u-mt-8">{body_html}</div>
+
+    {page_head(title, lead, eyebrow=f'{icon("check", group="ui")}Legal', small=True)}
+
+    <div class="grid-rail u-mt-8">
+      <div class="content">{body_html}</div>
+      <aside class="col-rail col-rail-sticky">
+        <div class="col-widget">
+          <span class="col-widget__title">On this page</span>
+          <div class="list-group list-group-flush">{rail}</div>
+        </div>
+        <p class="t-slate-sm u-mt-4" style="color:var(--fg-faint)">
+          Last updated {updated}</p>
+      </aside>
+    </div>
   </div>'''
     return page(HERE, f'{slug}.html', f'{title} — Swarnil Singhai', lead, body,
                 NAME, own_css='pages.css', current=slug)
@@ -443,9 +594,13 @@ def route_terms():
         '<p>This site and everything on it is provided as-is. Course and newsletter '
         'content is for personal use; do not resell it. Code samples are MIT-licensed '
         'unless a file says otherwise.</p>'
-        '<h2>Accounts</h2><p>Free accounts do not expire. Paid course access is '
-        'lifetime, tied to the email you purchased with.</p>'
-        '<h2>Refunds</h2><p>Thirty days, no questions, on any paid course.</p>')
+        '<h2 id="accounts">Accounts</h2><p>Free accounts do not expire. Paid course '
+        'access is lifetime, tied to the email you purchased with.</p>'
+        '<h2 id="refunds">Refunds</h2><p>Thirty days, no questions, on any paid '
+        'course.</p>'
+        '<h2 id="licence">Licence</h2><p>The design system itself is MIT-licensed, '
+        'including for commercial and client work, with no attribution required.</p>',
+        toc=[('accounts', 'Accounts'), ('refunds', 'Refunds'), ('licence', 'Licence')])
 
 
 def route_privacy():
@@ -454,27 +609,72 @@ def route_privacy():
         'server.',
         '<p>The newsletter form collects an email address and nothing else. Analytics '
         'are aggregate and cookie-free. No data is sold, ever.</p>'
-        '<h2>What is stored</h2><p>Email address, subscription date, and which list '
-        'you are on. Course progress, if you are signed in.</p>'
-        '<h2>Third parties</h2><p>The email provider that sends the newsletter, and '
-        'the payment processor for paid courses. Neither receives anything beyond '
-        'what a transaction needs.</p>')
+        '<h2 id="stored">What is stored</h2><p>Email address, subscription date, and '
+        'which list you are on. Course progress, if you are signed in.</p>'
+        '<h2 id="third-parties">Third parties</h2><p>The email provider that sends the '
+        'newsletter, and the payment processor for paid courses. Neither receives '
+        'anything beyond what a transaction needs.</p>'
+        '<h2 id="rights">Your rights</h2><p>Ask for a copy of everything held about '
+        'you, or its deletion, at any time. Both are done by hand within a week.</p>',
+        toc=[('stored', 'What is stored'), ('third-parties', 'Third parties'),
+             ('rights', 'Your rights')])
 
 
 # ── Welcome subscriber ───────────────────────────────────────────────────────
 
 def route_welcome():
+    # .hero-band — the inverse billboard, the third hero shape. A confirmation
+    # is the one moment a page has earned a full-contrast band: it is saying one
+    # thing, it is the only thing on the page, and there is nothing to browse.
     body = f'''
-  <section class="hero hero-statement container section-sm">
-    <span class="hero__eyebrow">{icon('check', group='ui')}Confirmed</span>
-    <h1 class="hero__title">You're <em>in</em>.</h1>
-    <p class="hero__lead">One email when something is worth forty-one issues of
-      practice behind it. First one lands within the week — nothing before that.</p>
-    <div class="hero__actions">
-      <a class="btn btn-primary btn-pill" href="../newsletter/index.html">Read the archive →</a>
-      <a class="btn btn-secondary btn-pill" href="./home.html">Back to home</a>
+  <div class="container u-mt-6">
+    <section class="hero hero-band hero-statement pattern pattern-rays pattern-lg">
+      <span class="hero__eyebrow">{icon('check', group='ui')}Confirmed</span>
+      <h1 class="hero__title">You're <em>in</em>.</h1>
+      <p class="hero__lead">One email when something is worth forty-one issues of
+        practice behind it. The first lands within the week — nothing before that.</p>
+      <div class="hero__actions" style="justify-content:center">
+        <a class="btn btn-primary btn-pill" href="../newsletter/index.html">Read the archive →</a>
+        <a class="btn btn-ghost btn-pill" href="./home.html">Back to home</a>
+      </div>
+    </section>
+  </div>
+
+  <section class="container section-sm">
+    {sec('What happens next', 'Three things, in this order, and nothing else.')}
+    <div class="col-order">
+      {''.join(f"""<a class="col-order__item" href="#i">
+        <span class="col-order__num"><span class="col-order__dot"></span>{i + 1:02d}</span>
+        <div class="col-order__body"><span class="col-order__title">{t}</span>
+        <span class="col-order__note">{note}</span></div></a>"""
+        for i, (t, note) in enumerate([
+            ('A confirmation, already sent', 'Check the spam folder if it is not there in five minutes.'),
+            ('The first issue, within the week', 'Then roughly fortnightly, when there is something.'),
+            ('Nothing else, ever', 'No drip sequence, no course funnel, no "just checking in".'),
+        ]))}
     </div>
-  </section>'''
+  </section>
+
+  <section class="container section-sm">
+    {sec('Start here', 'The three things most people read first.')}
+    <div class="grid-3">
+      {''.join(f'<a class="card" href="{href}"><div class="card__body">'
+               f'<span class="card__meta">{icon(ico)}{kind}</span>'
+               f'<h3 class="card__title">{title}</h3>'
+               f'<p class="card__excerpt">{note}</p></div></a>'
+               for kind, title, note, href, ico in [
+                   ('Newsletter', 'The grid issue', 'Why grid-auto-rows fixes more than any tutorial mentions.', '../newsletter/post.html', 'mail'),
+                   ('Course', 'CSS From Scratch', 'Tokens, layout and type — the whole system, built live.', '../course/course.html', 'course'),
+                   ('Guide', 'Grid, from scratch', 'Six steps, in the order you actually reach for them.', '../guides/guide.html', 'slate'),
+               ])}
+    </div>
+  </section>
+
+  <div class="container section-sm">
+    {cta_sponsor('Prefer to follow along elsewhere?',
+        kicker=f'{icon("chat")}Also here',
+        actions=links_block(LINKS))}
+  </div>'''
     return page(HERE, 'welcome.html', 'You\'re subscribed — Swarnil Singhai',
                 'Confirmed — the first issue lands within the week.',
                 body, NAME, own_css='pages.css', current='welcome')
@@ -488,6 +688,19 @@ def route_resume():
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./home.html">Home</a> <span>/</span> <span>Résumé</span>
     </nav>
+
+    {page_head('Swarnil Singhai',
+        'Senior Product Engineer — design systems, and the sites that run on them.',
+        eyebrow=f'{icon("briefcase", group="resume")}Résumé',
+        actions='<a class="btn btn-primary btn-pill" href="#i">'
+                + icon('download', group='resume') + 'Download PDF</a>'
+                '<a class="btn btn-secondary btn-pill" href="./contact.html">Get in touch</a>',
+        small=True)}
+
+    <div class="u-mt-8">
+      {stats([('9', 'Years'), ('3', 'Companies'), ('6', 'Certifications'),
+              ('4', 'Languages')], bare=True)}
+    </div>
 
     {summary_block('Swarnil Singhai', 'Senior Product Engineer',
         'I build design systems and the sites that run on them — tokens first, '

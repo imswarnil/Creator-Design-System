@@ -43,30 +43,72 @@
       <a href="./home.html">Home</a> <span>/</span> <span>Contact</span>
     </nav>
 
+    
+  <header class="page-head">
+    <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Contact</span>
     <h1 class="t-display-2">Say hello</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">For work, a
-      correction on something I wrote, or just to say a lesson helped. I read
-      everything; I don't always answer fast.</p>
+    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">For work, a correction on something I wrote, or just to say a lesson helped. I read everything; I don't always answer fast.</p>
+    
+  </header>
 
-    <form class="stack u-mt-8" onsubmit="return false" style="max-width:32rem">
-      <div class="field">
-        <label class="label" for="c-name">Name</label>
-        <input class="input" id="c-name" type="text" autocomplete="name" />
-      </div>
-      <div class="field">
-        <label class="label" for="c-email">Email</label>
-        <input class="input" id="c-email" type="email" autocomplete="email" />
-      </div>
-      <div class="field">
-        <label class="label" for="c-msg">Message</label>
-        <textarea class="input" id="c-msg" rows="5"></textarea>
-      </div>
-      <button class="btn btn-primary" type="submit">Send</button>
-    </form>
+    <!-- Two columns: the form is the job, the rail sets expectations before
+         anyone spends five minutes writing. A form with no stated response time
+         is how "did that even send?" happens. -->
+    <div class="grid-rail u-mt-10">
+      <form class="stack" onsubmit="return false">
+        <div class="field">
+          <label class="label" for="c-name">Name</label>
+          <input class="input" id="c-name" type="text" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label class="label" for="c-email">Email</label>
+          <input class="input" id="c-email" type="email" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label class="label" for="c-subject">What is it about?</label>
+          <select class="select" id="c-subject">
+            <option>Work — a project or a role</option>
+            <option>A correction on something I wrote</option>
+            <option>A question about the design system</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="c-msg">Message</label>
+          <textarea class="input" id="c-msg" rows="6"></textarea>
+          <span class="hint">Markdown is fine. Links are welcome.</span>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+
+      <aside>
+        <div class="col-widget">
+          <span class="col-widget__title">What to expect</span>
+          <div class="stats stats-bare"><div class="stat"><span class="stat__label">Days to reply</span><span class="stat__value">2–4</span></div><div class="stat"><span class="stat__label">Read</span><span class="stat__value">100%</span></div></div>
+        </div>
+        <div class="u-mt-8">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">Or find me elsewhere</h2></div></div>
+          <div class="cluster"><a class="btn btn-secondary btn-sm" href="https://swarnil.dev" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>swarnil.dev</a><a class="btn btn-secondary btn-sm" href="https://github.com/swarnil" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>github.com/swarnil</a><a class="btn btn-secondary btn-sm" href="https://linkedin.com/in/swarnil" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>linkedin.com/in/swarnil</a></div>
+        </div>
+      </aside>
+    </div>
 
     <div class="u-mt-10">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">Or find me elsewhere</h2></div></div>
-      <div class="cluster"><a class="btn btn-secondary btn-sm" href="https://swarnil.dev" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>swarnil.dev</a><a class="btn btn-secondary btn-sm" href="https://github.com/swarnil" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>github.com/swarnil</a><a class="btn btn-secondary btn-sm" href="https://linkedin.com/in/swarnil" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg>linkedin.com/in/swarnil</a></div>
+      <div class="row-between u-mb-5"><div><h2 class="t-h3">Before you write</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Four things that come up most, answered here so a reply is not the fastest way to find out.</p></div></div>
+      <div class="acc">
+        <details class="collapse"><summary>Do you take freelance work?</summary>
+          <div class="collapse__body">Occasionally, and only design-system work —
+            tokens, component libraries, and migrating a site onto one.</div></details>
+        <details class="collapse"><summary>Can I use this design system commercially?</summary>
+          <div class="collapse__body">Yes. It is MIT-licensed, including for client
+            work, with no attribution required.</div></details>
+        <details class="collapse"><summary>Will you review my CSS?</summary>
+          <div class="collapse__body">If it is short and the question is specific,
+            usually yes. A whole repository, usually no.</div></details>
+        <details class="collapse"><summary>Are the courses paid?</summary>
+          <div class="collapse__body">Some are. Every paid one has a thirty-day
+            refund, no questions.</div></details>
+      </div>
     </div>
   </div>
 </main>

@@ -219,7 +219,7 @@ def route_component():
 
         <div class="u-mt-8">
           {sec('Classes')}
-          <div class="surface" style="overflow-x:auto"><table class="spec-table" style="width:100%">
+          <div class="table-wrap"><table class="table">
             <thead><tr><th>Class</th><th>Does</th></tr></thead><tbody>
             {''.join(f'<tr><td><code class="t-code">{c}</code></td><td>{d}</td></tr>' for c, d in props)}
             </tbody></table></div>

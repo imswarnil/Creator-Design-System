@@ -42,9 +42,34 @@
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./home.html">Home</a> <span>/</span> <span>Archive</span>
     </nav>
+    
+  <header class="page-head">
+    <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>Archive</span>
     <h1 class="t-display-2">Everything, in order</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">Every post, episode,
-      issue and log entry, across every collection, newest first.</p>
+    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">Every post, episode, issue and log entry, across every collection, newest first.</p>
+    
+  </header>
+
+    <!-- An archive is the one page where search beats browsing: people arrive
+         knowing roughly what they want, so the field leads and the year groups
+         follow. Both are the collection vocabulary, unchanged. -->
+    <form class="col-search u-mt-8" onsubmit="return false">
+      <label class="col-search__field">
+        <span class="u-sr-only">Search the archive</span>
+        <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg>
+        <input type="search" placeholder="Search everything published…" />
+      </label>
+      <button class="btn btn-primary btn-pill" type="submit">Search</button>
+    </form>
+
+    <div class="col-tags u-mt-6">
+      <a class="col-tag" href="./archive.html" aria-current="page">Everything</a>
+      <a class="col-tag" href="../travel/index.html">Travel</a><a class="col-tag" href="../course/index.html">Courses</a><a class="col-tag" href="../blog/index.html">Blog</a><a class="col-tag" href="../webseries/index.html">Webseries</a><a class="col-tag" href="../newsletter/index.html">Newsletter</a><a class="col-tag" href="../projects/index.html">Projects</a>
+    </div>
+
+    <div class="u-mt-8">
+      <div class="stats stats-bare"><div class="stat"><span class="stat__label">Things published</span><span class="stat__value">273</span></div><div class="stat"><span class="stat__label">Collections</span><span class="stat__value">12</span></div><div class="stat"><span class="stat__label">Since</span><span class="stat__value">2019</span></div></div>
+    </div>
 
     <div class="u-mt-10"><div class="row-between u-mb-5"><div><h2 class="t-h3">2026</h2></div></div><div class="col-order"><a class="col-order__item" href="../projects/log.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Ship v1</span><div class="col-order__meta"><span>Jul 22</span></div></div></a><a class="col-order__item" href="../newsletter/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Issue #41 — The grid lesson nobody asked for</span><div class="col-order__meta"><span>Jul 22</span></div></div></a><a class="col-order__item" href="../course/lesson.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Grid, in four rules</span><div class="col-order__meta"><span>Jul 09</span></div></div></a><a class="col-order__item" href="../webseries/episode.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">The pitch that almost worked</span><div class="col-order__meta"><span>Jun 30</span></div></div></a><a class="col-order__item" href="../blog/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Why I stopped using a CSS framework</span><div class="col-order__meta"><span>Jun 12</span></div></div></a><a class="col-order__item" href="../travel/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">The train south</span><div class="col-order__meta"><span>Mar 14</span></div></div></a></div><div class="row-between u-mb-5"><div><h2 class="t-h3">2025</h2></div></div><div class="col-order"><a class="col-order__item" href="../travel/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">What a month in Lisbon actually costs</span><div class="col-order__meta"><span>Sep 03</span></div></div></a><a class="col-order__item" href="../travel/post.html"><span class="col-order__num"><span class="col-order__dot"></span></span><div class="col-order__body"><span class="col-order__title">Kyoto in the rain is the correct Kyoto</span><div class="col-order__meta"><span>Nov 20</span></div></div></a></div></div>
     <div class="u-mt-8"><nav class="pagination" aria-label="Archive">

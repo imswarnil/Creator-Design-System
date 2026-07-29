@@ -7,6 +7,37 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **The cinematic hero is a component now** — `.hero-band-full` (full viewport,
+  full bleed, pulled up under the island nav) and `.hero-band__scan` (a film
+  layer holding any `.pattern-scanline`, with an optional `data-ripple` that
+  `nav.js` tracks the pointer through via `--mx`/`--my`). This shape existed
+  before as ~40 lines of inline style and its own `<script>` inside
+  `travel/build.py`, which meant no other page could have it. Travel now calls
+  `shell.cine_hero()` like everyone else, and the homepage opens with it.
+  JS writes two custom properties; every visual decision stays in CSS/SVG.
+- **`shell.py` grows five helpers** — `page_head()`, `stats()`, `cta()`,
+  `cta_sponsor()` and `cine_hero()`, because the sections they wrap were
+  defined in `src/5-sections/` and reachable by nothing. Before this,
+  **the entire `33-cta.css` file — five variants — was used by zero pages**,
+  as were `.stat`/`.stats-bare`/`.stats-inverse`, `.page-head`, `.pullquote`,
+  `.acc`/`.collapse`, `.progress-labelled` and `.frame-ink`. All now ship.
+- **Each `_pages` route gets its own components** rather than a heading and a
+  paragraph: home takes the cinematic hero + stats + newsletter CTA; about the
+  split hero + framed portrait + bare stats + pull-quote + sponsor strip;
+  contact a page head + two-column form with response times in the rail + a
+  native-`<details>` FAQ; archive a search field + collection chips + totals;
+  now the one honest progress bar; the legal pages a sticky TOC rail and a
+  last-updated date; welcome the inverse billboard + a three-step "what happens
+  next" + a start-here grid; résumé a page head with the download in it.
+
+### Fixed
+- **Two phantom classes removed.** `.quote` was used in five collections
+  (blog, course, newsletter, travel, webseries) and **defined nowhere** — it
+  only looked right because those blockquotes sit inside `.content`, which
+  styles `blockquote` directly. Anyone copying that markup elsewhere got
+  nothing. `.spec-table` in `collection/docs/` existed only in this repo's own
+  `docs/preview.css`, so the reusable docs template rendered an unstyled table
+  in any project that copied it; it now uses the framework's own `.table`.
 - **Seven more collections** — newsletter (calendar-styled issue cards),
   projects (GitHub-style cards, a build-log timeline, and a shared-element
   hero that shrinks into a log entry on click via `view-transition-name`),

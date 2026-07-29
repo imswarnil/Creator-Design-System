@@ -331,7 +331,7 @@ Export canvases for YouTube and Instagram. Not for websites.
 Full-width bands: page header, hero, stats, CTA, footer.
 
 30-header.css: .page-head .page-head__kicker .icon .page-head__title .page-head__desc .page-head__meta .page-head__count .page-head-sm .sec-head-row .sec-head-row__title .sec-head-row__kicker .sec-head-row__more
-31-hero.css: .hero .hero__eyebrow .hero__title .hero__lead .hero__actions .hero-statement .hero-split .hero-split__stage .hero-split__caption .hero-band .hero-band__media .hero-band-media .hero-sm
+31-hero.css: .hero .hero__eyebrow .hero__title .hero__lead .hero__actions .hero-statement .hero-split .hero-split__stage .hero-split__caption .hero-band .hero-band__media .hero-band-media .hero-band-full .hero-band__scan .hero-sm
 32-stats.css: .stats .stat .stat__value .stat__label .stat__note .stat-live .stats-bare .stats-inverse
 33-cta.css: .cta .cta__kicker .cta__title .cta__body .cta__actions .cta__fine .cta-left .cta-newsletter__form .input .cta-sponsor
 34-footer.css: .footer .footer__grid .footer__brand .footer__tag .footer__social .footer__head .footer__links .icon .footer__signoff .footer__rec .footer-inverse

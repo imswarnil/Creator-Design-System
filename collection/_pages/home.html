@@ -38,14 +38,35 @@
 
 <main id="main">
 
-  <section class="hero hero-statement container section-sm">
-    <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Swarnil Singhai</span>
-    <h1 class="hero__title">A creator's site, <em>built from tokens</em>.</h1>
-    <p class="hero__lead">Videos, courses, a blog, a newsletter and the trips between
-      them — 12 collections, one design system, and a build log for all of it.</p>
-    <div class="hero__actions">
-      <a class="btn btn-primary btn-pill" href="../travel/index.html">Start with travel →</a>
-      <a class="btn btn-secondary btn-pill" href="./about.html">About me</a>
+  <section class="hero hero-band hero-band-media hero-band-full">
+    <div class="hero-band__media">
+      <video autoplay muted loop playsinline aria-hidden="true">
+        <source src="../../video/1280x720.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="hero-band__scan" data-ripple aria-hidden="true"
+         style="filter:url(#home-ripple)">
+      <div class="pattern pattern-scanline pattern-media pattern-lg"></div>
+    </div>
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="home-ripple" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2"
+                      seed="7" result="home-noise">
+          <animate attributeName="baseFrequency" dur="7s"
+                   values="0.010 0.045;0.018 0.06;0.010 0.045" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="home-noise" scale="22"
+                           xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <div class="container">
+      <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Swarnil Singhai</span>
+      <h1 class="hero__title">A creator's site, <em>built from tokens</em>.</h1>
+      <p class="hero__lead">Videos, courses, a blog, a newsletter and the trips between them — 12 collections, one design system, and a build log for all of it. Move your pointer across the frame.</p>
+      <div class="hero__actions"><a class="btn btn-primary btn-pill" href="../travel/index.html">Start with travel →</a><a class="btn btn-ghost btn-pill" href="./about.html">About me</a></div>
     </div>
   </section>
 
@@ -55,8 +76,19 @@
   </section>
 
   <section class="container section-sm">
-    <div class="row-between u-mb-5"><div><h2 class="t-h3">Lately</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The most recent thing in each medium.</p></div></div>
-    <div class="col-meta col-meta-paper col-meta-inline"><div><span class="col-meta__n">132</span><span class="col-meta__l">lessons</span></div><div><span class="col-meta__n">41</span><span class="col-meta__l">newsletter issues</span></div><div><span class="col-meta__n">31</span><span class="col-meta__l">travel posts</span></div><div><span class="col-meta__n">6</span><span class="col-meta__l">projects</span></div></div>
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">Lately</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The numbers, rather than a claim about them.</p></div></div>
+    <div class="stats"><div class="stat"><span class="stat__label">Lessons</span><span class="stat__value">132</span><span class="stat__note" data-trend="up">+8 this month</span></div><div class="stat"><span class="stat__label">Newsletter issues</span><span class="stat__value">41</span></div><div class="stat"><span class="stat__label">Travel posts</span><span class="stat__value">31</span></div><div class="stat"><span class="stat__label">Videos</span><span class="stat__value">62</span><span class="stat__note" data-trend="up">+3 this month</span></div></div>
+  </section>
+
+  <section class="container section-sm">
+    
+  <section class="cta pattern pattern-glow pattern-lg">
+    <span class="cta__kicker"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 5.5L20 7"/></svg>The newsletter</span>
+    <h2 class="cta__title">One email when something is <em>worth it</em>.</h2>
+    <p class="cta__body">Forty-one issues of practice behind each one. No drip sequence, no course funnel, and an unsubscribe link that works on the first click.</p>
+    <form class="cta-newsletter__form" onsubmit="return false"><label class="u-sr-only" for="cta-email">Email</label><input class="input" id="cta-email" type="email" placeholder="you@example.com" autocomplete="email" /><button class="btn btn-primary" type="submit">Subscribe</button></form>
+    <p class="cta__fine">No spam. Unsubscribe any time.</p>
+  </section>
   </section>
 </main>
 

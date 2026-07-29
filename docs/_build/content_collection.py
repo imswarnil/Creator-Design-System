@@ -760,6 +760,23 @@ r += sec('skills-r', 'Skills is not a new component',
 r += live(resume.skills_block(resume.SKILLS[:5]), '<b>.badge</b>, in a <b>.cluster</b>')
 r += END
 
+r += sec('head-r', 'The page head, with the download in it',
+    'A résumé is the one page whose primary action is "give me the file", so the download '
+    'sits in the <code class="t-code">.page-head</code> actions rather than at the bottom, '
+    'with a bare stats row under it.')
+r += live('<header class="page-head page-head-sm">'
+    '<span class="hero__eyebrow">Résumé</span>'
+    '<h1 class="t-display-2">Swarnil Singhai</h1>'
+    '<p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">Senior Product Engineer '
+    '— design systems, and the sites that run on them.</p>'
+    '<div class="hero__actions"><a class="btn btn-primary btn-pill" href="#i">'
+    + resume.icon('download', group='resume') + 'Download PDF</a>'
+    '<a class="btn btn-secondary btn-pill" href="#i">Get in touch</a></div></header>'
+    + '<div class="u-mt-8">' + resume.stats([('9', 'Years'), ('3', 'Companies'),
+        ('6', 'Certifications'), ('4', 'Languages')], bare=True) + '</div>',
+    '<b>.page-head-sm</b> + <b>.hero__actions</b> + <b>.stats-bare</b>')
+r += END
+
 r += sec('icons-r', 'Resume icons',
          'Five, on the same 24×24 grid at 1.5px, <code class="t-code">currentColor</code> '
          'only — briefcase, graduation cap, calendar, phone and download.')
@@ -843,10 +860,30 @@ def open_btn(file, label='Open the live page'):
 
 # Home
 hc = ''
-hc += p('The site itself — the one index that gets <code class="t-code">.hero.hero-statement</code> '
-        'instead of the collection hero every other index opens with, because a homepage is '
-        'making a case, not listing a catalogue.')
+hc += p('The site itself, and the only page that spends a full viewport making its case — '
+        'it gets the cinematic hero: footage, a scrim, a scanline film, and a ripple that '
+        'follows the pointer through the film.')
 hc += open_btn('home.html')
+hc += END
+
+hc += sec('hero-h', 'The cinematic hero',
+    'Footage behind a scrim, a scanline film over it, and a pointer-tracked ripple through '
+    'the film — <code class="t-code">.hero-band-full</code> + '
+    '<code class="t-code">.hero-band__scan</code>, documented in full on the '
+    '<a href="/hero.html">Hero</a> page. This shape used to be forty lines of inline style '
+    'inside <code class="t-code">travel/build.py</code>; it is now '
+    '<code class="t-code">shell.cine_hero()</code>, which is why the homepage can have it too.')
+hc += live('<div class="hero hero-band hero-band-media pattern pattern-topo"'
+    ' data-surface="inverse" style="min-height:16rem;position:relative">'
+    '<div class="hero-band__media"></div>'
+    '<div class="hero-band__scan" data-ripple aria-hidden="true">'
+    '<div class="pattern pattern-scanline pattern-media pattern-lg"></div></div>'
+    '<div style="position:relative;z-index:1">'
+    '<span class="hero__eyebrow">Swarnil Singhai</span>'
+    '<h1 class="hero__title" style="font-size:var(--text-4xl)">'
+    'A creator\'s site, <em>built from tokens</em>.</h1></div></div>',
+    '<b>.hero-band-full</b> · <b>.hero-band__scan[data-ripple]</b> — at 16rem here; the real '
+    'page runs it at 100dvh')
 hc += END
 
 hc += sec('grid-h', 'The collections grid', 'One card per collection, not one card per '
@@ -854,25 +891,62 @@ hc += sec('grid-h', 'The collections grid', 'One card per collection, not one ca
 hc += live(resume.collections_grid(), '<b>.grid-3</b> · <b>.card</b>')
 hc += END
 
-hc += sec('meta-h', 'Lately, in one strip', 'A number per medium, the same '
-    '<code class="t-code">.col-meta</code> a travel or course index opens a section with.')
-hc += live('<div class="col-meta col-meta-paper col-meta-inline" style="border-top:0;padding-top:0">'
-    + ''.join(f'<div><span class="col-meta__n">{n}</span><span class="col-meta__l">{l}</span></div>'
-              for n, l in [('132', 'lessons'), ('41', 'newsletter issues'),
-                           ('31', 'travel posts'), ('6', 'projects')]) + '</div>',
-    '<b>.col-meta-paper</b> + <b>.col-meta-inline</b>')
+hc += sec('stats-h', 'Lately, as numbers',
+    'The numbers rather than a claim about them — <code class="t-code">.stats</code>, one '
+    'surface with hairlines rather than four cards. Defined in <code class="t-code">32-stats.css</code> '
+    'and, until these pages, used by nothing.')
+hc += live(resume.stats([('132', 'Lessons', '+8 this month'), ('41', 'Newsletter issues'),
+                         ('31', 'Travel posts'), ('62', 'Videos', '+3 this month')]),
+    '<b>.stats</b> · <b>.stat__value</b> · <b>.stat__note[data-trend=up]</b>')
+hc += END
+
+hc += sec('cta-h', 'The ask, at the end',
+    'One per page, near the end, earning its contrast by being the only inverse band in '
+    'view. The whole <code class="t-code">33-cta.css</code> file — five variants — was '
+    'unused before these pages.')
+hc += live(resume.cta('One email when something is <em>worth it</em>.',
+    'Forty-one issues of practice behind each one.',
+    kicker='The newsletter', newsletter=True,
+    fine='No spam. Unsubscribe any time.', pattern='pattern-glow pattern-lg'),
+    '<b>.cta</b> + <b>.cta-newsletter__form</b> — the band with a form in it')
 hc += END
 
 PAGES['pages/home'] = ('Home page',
-    'The site itself: a statement hero, the collections grid, and what is lately in '
-    'each medium.', hc)
+    'The cinematic hero, the collections grid, the stats band and the newsletter CTA — '
+    'the page that puts the most previously-unused section components to work.', hc)
 
 
 # About
 ac = ''
-ac += p('A résumé condensed to one card, then the same career timeline the résumé page '
-        'uses in full underneath it.')
+ac += p('The two-column hero — the case on the left, one framed thing on the right — then '
+        'a résumé condensed to one card and the same career timeline the résumé page uses '
+        'in full.')
 ac += open_btn('about.html')
+ac += END
+
+ac += sec('hero-a', 'The split hero',
+    'The second of the four hero shapes: <code class="t-code">.hero-split</code>, copy '
+    'beside a stage. About is where a portrait belongs, and '
+    '<code class="t-code">.frame</code> (layer 1) does the chrome so the stage only '
+    'reserves the ratio.')
+ac += live('<div class="hero hero-split" style="padding-block:var(--space-4)"><div>'
+    '<span class="hero__eyebrow">About</span>'
+    '<h1 class="hero__title" style="font-size:var(--text-3xl)">'
+    'I build the system, then <em>the site on it</em>.</h1>'
+    '<p class="hero__lead">Tokens first, components second.</p></div>'
+    '<div class="hero-split__stage"><div class="frame frame-ink">'
+    + resume.ph('about', tall=True) + '</div>'
+    '<p class="hero-split__caption"><span>Desk, Berlin</span><span>2026</span></p></div></div>',
+    '<b>.hero-split</b> · <b>.hero-split__stage</b> · <b>.frame-ink</b> · '
+    '<b>.hero-split__caption</b>')
+ac += END
+
+ac += sec('stats-a', 'The bare stats row',
+    '<code class="t-code">.stats-bare</code> — no chrome, hairline dividers only, for use '
+    'directly under a hero where a bordered box would read as a second card.')
+ac += live(resume.stats([('9', 'Years shipping'), ('12', 'Collections'),
+                        ('37', 'KB gzipped', 'the whole system'), ('0', 'Dependencies')],
+                       bare=True), '<b>.stats.stats-bare</b>')
 ac += END
 
 ac += sec('summary-a', 'The summary card',
@@ -898,9 +972,30 @@ ac += live('<div class="col-checks">' + ''.join(
     '<b>.col-checks</b> · <b>.col-check</b>')
 ac += END
 
+ac += sec('pullquote-a', 'The pull-quote',
+    '<code class="t-code">.pullquote</code> is defined in '
+    '<code class="t-code">10-text.css</code> and was used by nothing until this page. Note '
+    'it is not <code class="t-code">.quote</code> — that class was used in five collections '
+    'and defined nowhere, working only by accident inside '
+    '<code class="t-code">.content</code>. It has been removed.')
+ac += live('<figure class="pullquote"><p class="pullquote__text">A design system is not a '
+    'component library. It is the set of arguments you have already had, written down so '
+    'you never have to have them again.</p>'
+    '<figcaption class="pullquote__cite">From the introduction to the docs</figcaption></figure>',
+    '<b>.pullquote</b> · <b>.pullquote__text</b> · <b>.pullquote__cite</b>')
+ac += END
+
+ac += sec('sponsor-a', 'The quiet CTA',
+    '<code class="t-code">.cta-sponsor</code> — the only CTA shape that does not take the '
+    'contrast, because money asks politely.')
+ac += live(resume.cta_sponsor('This is free and MIT-licensed.', kicker='Sponsor',
+    actions='<a class="btn btn-secondary" href="#i">Sponsor →</a>'),
+    '<b>.cta-sponsor</b> — bordered, on the paper, not inverse')
+ac += END
+
 PAGES['pages/about'] = ('About page',
-    'A summary card condensed from the résumé, a career timeline, and a short checklist '
-    'of what the work actually is.', ac)
+    'The split hero, a bare stats row, the summary card, a career timeline, a checklist, '
+    'the pull-quote and the quiet sponsor CTA.', ac)
 
 
 # Contact
@@ -925,9 +1020,46 @@ cc += sec('links-c', 'Or find me elsewhere', 'Icon buttons, not a social bar bol
 cc += live(resume.links_block(resume.LINKS), '<b>.cluster</b>')
 cc += END
 
+cc += sec('head-c', 'The page head, not a hero',
+    '<code class="t-code">.page-head</code> — a hero states, a page head just labels. '
+    'Contact is not making a case, so it gets the quiet band. Defined in '
+    '<code class="t-code">30-header.css</code>; nothing used it before these pages.')
+cc += live('<header class="page-head page-head-sm">'
+    '<span class="hero__eyebrow">Contact</span>'
+    '<h1 class="t-display-2">Say hello</h1>'
+    '<p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">For work, a correction, '
+    'or just to say a lesson helped.</p></header>',
+    '<b>.page-head</b> · <b>.page-head-sm</b>')
+cc += END
+
+cc += sec('expect-c', 'What to expect, in the rail',
+    'A form with no stated response time is how "did that even send?" happens — so the '
+    'two-column layout puts expectations beside the form rather than after it.')
+cc += live('<div class="col-widget" style="max-width:20rem">'
+    '<span class="col-widget__title">What to expect</span>'
+    + resume.stats([('2–4', 'Days to reply'), ('100%', 'Read')], bare=True) + '</div>',
+    '<b>.col-widget</b> + <b>.stats-bare</b> — the rail widget every collection post uses')
+cc += END
+
+cc += sec('faq-c', 'The FAQ accordion',
+    'Native <code class="t-code">&lt;details&gt;</code>, so the keyboard and find-in-page '
+    'work for free. <code class="t-code">.acc</code> wraps a stack of '
+    '<code class="t-code">.collapse</code> — both defined in '
+    '<code class="t-code">28-disclosure.css</code> and unused by any page until now.')
+cc += live('<div class="acc">'
+    '<details class="collapse"><summary>Do you take freelance work?</summary>'
+    '<div class="collapse__body">Occasionally, and only design-system work.</div></details>'
+    '<details class="collapse"><summary>Can I use this commercially?</summary>'
+    '<div class="collapse__body">Yes — MIT, no attribution required.</div></details>'
+    '<details class="collapse"><summary>Will you review my CSS?</summary>'
+    '<div class="collapse__body">If it is short and the question is specific, usually yes.'
+    '</div></details></div>',
+    '<b>.acc</b> · <b>.collapse</b> · <b>.collapse__body</b> — no JavaScript involved')
+cc += END
+
 PAGES['pages/contact'] = ('Contact page',
-    'One form, native inputs and validation, then a row of icon links to everywhere '
-    'else.', cc)
+    'A page head, a two-column form with expectations in the rail, the link cluster, and '
+    'a native-details FAQ accordion.', cc)
 
 
 # Archive
@@ -949,9 +1081,30 @@ rc += live(resume.sec(resume.ARCHIVE[0][0]) + '<div class="col-order">' + ''.joi
     '<code class="t-code">/collection/_pages/archive.html</code>')
 rc += END
 
+rc += sec('search-r', 'Search leads, browsing follows',
+    'An archive is the one page where search beats browsing: people arrive knowing roughly '
+    'what they want. Both the field and the chips are the collection vocabulary, unchanged.')
+rc += live('<form class="col-search" onsubmit="return false">'
+    '<label class="col-search__field"><span class="u-sr-only">Search the archive</span>'
+    + resume.icon('search', group='ui') +
+    '<input type="search" placeholder="Search everything published…" /></label>'
+    '<button class="btn btn-primary btn-pill" type="submit">Search</button></form>'
+    '<div class="col-tags u-mt-6"><a class="col-tag" href="#i" aria-current="page">Everything</a>'
+    '<a class="col-tag" href="#i">Travel</a><a class="col-tag" href="#i">Courses</a>'
+    '<a class="col-tag" href="#i">Blog</a><a class="col-tag" href="#i">Newsletter</a></div>',
+    '<b>.col-search</b> · <b>.col-tags</b> · <b>.col-tag</b> — '
+    '<code class="t-code">aria-current</code> marks the active cut')
+rc += END
+
+rc += sec('totals-r', 'The totals',
+    'How much is here, before the list of what it is.')
+rc += live(resume.stats([('273', 'Things published'), ('12', 'Collections'),
+                        ('2019', 'Since')], bare=True), '<b>.stats-bare</b>')
+rc += END
+
 PAGES['pages/archive'] = ('Archive page',
-    'Everything published, in one year-grouped timeline — .col-order, grouped by year '
-    'instead of by collection.', rc)
+    'A page head, a search field and collection chips, the totals, then everything '
+    'published in one year-grouped .col-order.', rc)
 
 
 # Now
@@ -961,16 +1114,32 @@ nc += p('What I am building, writing and reading right now — updated by hand, 
 nc += open_btn('now.html')
 nc += END
 
-nc += sec('content-n', 'No component at all, on purpose', 'A date, a heading, and '
+nc += sec('content-n', 'Mostly prose, on purpose', 'A date, a heading, and '
     '<code class="t-code">.content</code>. A status update does not need a card to be '
     'read.')
 nc += live('<span class="t-slate-sm" style="color:var(--fg-faint)">Updated Jul 2026</span>',
-    '<b>.t-slate-sm</b> — the one device the page borrows')
+    '<b>.t-slate-sm</b> — the one device the prose borrows')
+nc += END
+
+nc += sec('progress-n', 'The one honest progress bar',
+    'A progress bar is usually a lie — a fake loading state for something already loaded. '
+    'Here the numbers are real, in-flight and move by hand, which is the only case that '
+    'justifies the component. <code class="t-code">.progress-labelled</code> ships the '
+    'label and the rail together.')
+nc += live(''.join(f'''<div class="progress-labelled u-mb-4">
+    <span class="progress__label">{what}</span>
+    <div class="progress"><div class="progress__bar" style="--value:{pct}%"></div></div>
+    <span class="t-slate-sm" style="color:var(--fg-faint)">{note}</span></div>'''
+    for what, pct, note in [
+        ('The pages collection', 90, 'home, about, archive, the legal pages'),
+        ('Newsletter issue 42', 60, 'on grid-auto-rows: minmax(0, auto)'),
+        ('npm package + Tailwind/SCSS builds', 35, 'the last roadmap item')]),
+    '<b>.progress-labelled</b> · <b>.progress__bar[style=--value]</b>')
 nc += END
 
 PAGES['pages/now'] = ('Now page',
-    'The deliberately componentless one — a date, a heading, and long-form '
-    '.content, nothing else.', nc)
+    'A date, long-form .content, and the one place a progress bar is honest — real, '
+    'in-flight work rather than a fake loading state.', nc)
 
 
 # Terms & Privacy
@@ -992,9 +1161,25 @@ lc += live('<div class="content" style="max-width:32rem">'
     '<b>.content</b>')
 lc += END
 
+lc += sec('rail-l', 'A TOC rail and a date',
+    'A legal page nobody can navigate is the same as a legal page nobody reads. Both pages '
+    'get a sticky <code class="t-code">.col-rail</code> with the section list and a visible '
+    'last-updated date — the two things that make a wall of prose usable, and both already '
+    'existed for collection posts.')
+lc += live('<aside class="col-rail" style="max-width:20rem">'
+    '<div class="col-widget"><span class="col-widget__title">On this page</span>'
+    '<div class="list-group list-group-flush">'
+    '<a class="list-group__item" href="#i">What is stored</a>'
+    '<a class="list-group__item" href="#i">Third parties</a>'
+    '<a class="list-group__item" href="#i">Your rights</a></div></div>'
+    '<p class="t-slate-sm u-mt-4" style="color:var(--fg-faint)">Last updated Jul 2026</p></aside>',
+    '<b>.col-rail.col-rail-sticky</b> + <b>.list-group-flush</b> — the same rail a course '
+    'lesson uses for its curriculum')
+lc += END
+
 PAGES['pages/legal'] = ('Terms & Privacy',
-    'Two pages, one shell — crumbs, a title, a lead and .content, shared by '
-    '_legal_page().', lc)
+    'Two pages, one shell — a small page head, .content, and a sticky TOC rail with a '
+    'last-updated date, all from _legal_page().', lc)
 
 
 # Welcome, subscriber
@@ -1011,12 +1196,42 @@ wc += live('<section class="hero hero-statement" style="padding:var(--space-8) 0
     f'<span class="hero__eyebrow">{resume.icon("check", group="ui")}Confirmed</span>'
     '<h3 class="hero__title" style="font-size:var(--text-3xl)">You\'re <em>in</em>.</h3>'
     '<p class="hero__lead">One email when something is worth it.</p></section>',
-    '<b>.hero.hero-statement</b> — the same block, a different eyebrow')
+    '<b>.hero.hero-band.hero-statement</b> — the inverse billboard, centred')
+wc += END
+
+wc += sec('next-w', 'What happens next',
+    'Three things, in order, and nothing else — <code class="t-code">.col-order</code>, the '
+    'same spine a trip and a career history use. A confirmation page that does not say what '
+    'happens next is where "did I actually subscribe?" comes from.')
+wc += live('<div class="col-order">' + ''.join(f'''<a class="col-order__item" href="#i">
+    <span class="col-order__num"><span class="col-order__dot"></span>{i + 1:02d}</span>
+    <div class="col-order__body"><span class="col-order__title">{t}</span>
+    <span class="col-order__note">{note}</span></div></a>'''
+    for i, (t, note) in enumerate([
+        ('A confirmation, already sent', 'Check spam if it is not there in five minutes.'),
+        ('The first issue, within the week', 'Then roughly fortnightly.'),
+        ('Nothing else, ever', 'No drip sequence, no course funnel.')])) + '</div>',
+    '<b>.col-order</b>')
+wc += END
+
+wc += sec('start-w', 'Start here',
+    'The three things most people read first — a plain <code class="t-code">.card</code> '
+    'grid, because a confirmation page should hand someone somewhere to go.')
+wc += live('<div class="grid-3">' + ''.join(
+    f'<a class="card" href="#i"><div class="card__body">'
+    f'<span class="card__meta">{kind}</span>'
+    f'<h3 class="card__title">{title}</h3>'
+    f'<p class="card__excerpt">{note}</p></div></a>'
+    for kind, title, note in [
+        ('Newsletter', 'The grid issue', 'Why grid-auto-rows fixes more than any tutorial mentions.'),
+        ('Course', 'CSS From Scratch', 'Tokens, layout and type — built live.'),
+        ('Guide', 'Grid, from scratch', 'Six steps, in the order you reach for them.')]) + '</div>',
+    '<b>.grid-3</b> · <b>.card</b>')
 wc += END
 
 PAGES['pages/welcome'] = ('Welcome, subscriber',
-    'The confirmation page — home\'s own statement hero, reused with a different '
-    'eyebrow.', wc)
+    'The inverse billboard hero, a three-step "what happens next" spine, a start-here card '
+    'grid and the quiet follow CTA.', wc)
 
 
 # ── 8 · webseries ─────────────────────────────────────────────────────────────

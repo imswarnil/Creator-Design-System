@@ -86,7 +86,7 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Build log](https://creator.imswarnil.com/build-log.html): Composites — The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring. .buildlog > _
 - [Itinerary](https://creator.imswarnil.com/itinerary.html): Composites — The trip, day by day — same rail as the build log wearing travel clothes: day chips, notes, stop badges. .itinerary > __
 - [Page header](https://creator.imswarnil.com/page-header.html): Sections — How a collection opens: kicker with icon, display title, one line, quiet meta. Compact for child pages; the band header 
-- [Hero](https://creator.imswarnil.com/hero.html): Sections — A hero states, it does not list: one headline, one accent word, at most two actions. Three shapes. .hero.hero-statement 
+- [Hero](https://creator.imswarnil.com/hero.html): Sections — A hero states, it does not list: one headline, one accent word, at most two actions. Four shapes — the fourth being the 
 - [Stats](https://creator.imswarnil.com/stats.html): Sections — Display-face tabular numbers, slate labels, hairlines not boxes. One surface, not four cards. .stats > .stat (+ __value/
 - [CTA](https://creator.imswarnil.com/cta.html): Sections — One ask per page, near the end — the only inverse band in view. The sponsor strip stays on the paper. .cta.cta-newslette
 - [Footer](https://creator.imswarnil.com/footer.html): Sections — The end credits: brand + exhaustive sitemap over a hairline, then the sign-off where the dot ends the page. .footer — __
@@ -99,13 +99,13 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Webseries](https://creator.imswarnil.com/webseries/index.html): Collections — The fifth collection, and the second one to ship no CSS of its own — a season's spine and its cast are sections travel a
 - [Résumé](https://creator.imswarnil.com/resume/index.html): Pages — The fourth collection, and a single page rather than five routes: a full-width summary, then experience, education and p
 - [Pages](https://creator.imswarnil.com/pages/index.html): Pages — Home, about, contact, the archive, now, the résumé, the legal pages and the subscriber welcome page — one document each,
-- [Homepage](https://creator.imswarnil.com/pages/home.html): Pages — The site itself: a statement hero, the collections grid, and what is lately in each medium. .grid-3 · .card .col-meta-pa
-- [About](https://creator.imswarnil.com/pages/about.html): Pages — A summary card condensed from the résumé, a career timeline, and a short checklist of what the work actually is. .card +
-- [Contact](https://creator.imswarnil.com/pages/contact.html): Pages — One form, native inputs and validation, then a row of icon links to everywhere else. .field · .label · .input .cluster .
-- [Archive](https://creator.imswarnil.com/pages/archive.html): Pages — Everything published, in one year-grouped timeline — .col-order, grouped by year instead of by collection. .col-order — 
-- [Now](https://creator.imswarnil.com/pages/now.html): Pages — The deliberately componentless one — a date, a heading, and long-form .content, nothing else. .t-slate-sm — the one devi
-- [Terms & privacy](https://creator.imswarnil.com/pages/legal.html): Pages — Two pages, one shell — crumbs, a title, a lead and .content, shared by _legal_page(). .content _legal_page() .content
-- [Welcome, subscriber](https://creator.imswarnil.com/pages/welcome.html): Pages — The confirmation page — home's own statement hero, reused with a different eyebrow. .hero.hero-statement — the same bloc
+- [Homepage](https://creator.imswarnil.com/pages/home.html): Pages — The cinematic hero, the collections grid, the stats band and the newsletter CTA — the page that puts the most previously
+- [About](https://creator.imswarnil.com/pages/about.html): Pages — The split hero, a bare stats row, the summary card, a career timeline, a checklist, the pull-quote and the quiet sponsor
+- [Contact](https://creator.imswarnil.com/pages/contact.html): Pages — A page head, a two-column form with expectations in the rail, the link cluster, and a native-details FAQ accordion. .fie
+- [Archive](https://creator.imswarnil.com/pages/archive.html): Pages — A page head, a search field and collection chips, the totals, then everything published in one year-grouped .col-order. 
+- [Now](https://creator.imswarnil.com/pages/now.html): Pages — A date, long-form .content, and the one place a progress bar is honest — real, in-flight work rather than a fake loading
+- [Terms & privacy](https://creator.imswarnil.com/pages/legal.html): Pages — Two pages, one shell — a small page head, .content, and a sticky TOC rail with a last-updated date, all from _legal_page
+- [Welcome, subscriber](https://creator.imswarnil.com/pages/welcome.html): Pages — The inverse billboard hero, a three-step "what happens next" spine, a start-here card grid and the quiet follow CTA. .he
 - [Page transitions](https://creator.imswarnil.com/page-transitions.html): Animation & Motion — Scene changes between collections, live: one @view-transition rule, nine flavours, and real links below to go see them f
 - [Motion basics](https://creator.imswarnil.com/m-basics.html): Animation & Motion — Four durations, four easings. No component may invent a duration. Entrances travel 16px, not 60 — long travel reads as "
 - [Text effects](https://creator.imswarnil.com/m-text-effects.html): Animation & Motion — Twelve. Most need the text split into spans carrying --i ; the preview does that with five lines of JS. Without spans ev

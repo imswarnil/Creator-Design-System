@@ -4,18 +4,18 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Now page — Creator Design System</title>
-<meta name="description" content="The deliberately componentless one — a date, a heading, and long-form .content, nothing else." />
+<meta name="description" content="A date, long-form .content, and the one place a progress bar is honest — real, in-flight work rather than a fake loading state." />
 <link rel="canonical" href="https://creator.imswarnil.com/pages/now.html" />
 <link rel="alternate" type="text/plain" href="https://creator.imswarnil.com/llms.txt" title="Creator Design System for LLMs" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Creator Design System" />
 <meta property="og:title" content="Now page — Creator Design System" />
-<meta property="og:description" content="The deliberately componentless one — a date, a heading, and long-form .content, nothing else." />
+<meta property="og:description" content="A date, long-form .content, and the one place a progress bar is honest — real, in-flight work rather than a fake loading state." />
 <meta property="og:url" content="https://creator.imswarnil.com/pages/now.html" />
 <meta property="og:image" content="https://creator.imswarnil.com/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Now page — Creator Design System" />
-<meta name="twitter:description" content="The deliberately componentless one — a date, a heading, and long-form .content, nothing else." />
+<meta name="twitter:description" content="A date, long-form .content, and the one place a progress bar is honest — real, in-flight work rather than a fake loading state." />
 <meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Creator Design System","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Docs","url":"./introduction.html"},{"@type":"SiteNavigationElement","position":2,"name":"Components","url":"./components.html"},{"@type":"SiteNavigationElement","position":3,"name":"Showcase","url":"./showcase.html"},{"@type":"SiteNavigationElement","position":4,"name":"Templates","url":"./templates.html"},{"@type":"SiteNavigationElement","position":5,"name":"Sponsor","url":"./sponsor.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Docs","item":"./introduction.html"},{"@type":"ListItem","position":2,"name":"Pages"},{"@type":"ListItem","position":3,"name":"Now","item":"./pages/now.html"}]}</script>
@@ -298,16 +298,28 @@
 		<header class="docs-head">
 			<span class="t-slate" style="color:var(--fg-faint)">Pages · Creator Design System</span>
 			<h1 class="t-display-2" style="margin-top:var(--space-3)">Now page</h1>
-			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">The deliberately componentless one — a date, a heading, and long-form .content, nothing else.</p>
+			<p class="t-lead" style="margin-top:var(--space-4);max-width:var(--measure-lead)">A date, long-form .content, and the one place a progress bar is honest — real, in-flight work rather than a fake loading state.</p>
 		</header>
 
 		<div class="doc-split">
 			<div class="doc-split__main">
 		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">What I am building, writing and reading right now — updated by hand, not generated.</p>
-		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><a class="btn btn-primary btn-sm" href="/collection/_pages/now.html" target="_blank" rel="noopener">Open the live page →</a></p></section>		<section id="content-n"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="no-component-at-all-on-purpose">No component at all, on purpose</h2>
+		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><a class="btn btn-primary btn-sm" href="/collection/_pages/now.html" target="_blank" rel="noopener">Open the live page →</a></p></section>		<section id="content-n"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="mostly-prose-on-purpose">Mostly prose, on purpose</h2>
 		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">A date, a heading, and <code class="t-code">.content</code>. A status update does not need a card to be read.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
 <span class="t-slate-sm" style="color:var(--fg-faint)">Updated Jul 2026</span>
-		</div><p class="spec"><b>.t-slate-sm</b> — the one device the page borrows</p></div></section>
+		</div><p class="spec"><b>.t-slate-sm</b> — the one device the prose borrows</p></div></section>		<section id="progress-n"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="the-one-honest-progress-bar">The one honest progress bar</h2>
+		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">A progress bar is usually a lie — a fake loading state for something already loaded. Here the numbers are real, in-flight and move by hand, which is the only case that justifies the component. <code class="t-code">.progress-labelled</code> ships the label and the rail together.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
+<div class="progress-labelled u-mb-4">
+    <span class="progress__label">The pages collection</span>
+    <div class="progress"><div class="progress__bar" style="--value:90%"></div></div>
+    <span class="t-slate-sm" style="color:var(--fg-faint)">home, about, archive, the legal pages</span></div><div class="progress-labelled u-mb-4">
+    <span class="progress__label">Newsletter issue 42</span>
+    <div class="progress"><div class="progress__bar" style="--value:60%"></div></div>
+    <span class="t-slate-sm" style="color:var(--fg-faint)">on grid-auto-rows: minmax(0, auto)</span></div><div class="progress-labelled u-mb-4">
+    <span class="progress__label">npm package + Tailwind/SCSS builds</span>
+    <div class="progress"><div class="progress__bar" style="--value:35%"></div></div>
+    <span class="t-slate-sm" style="color:var(--fg-faint)">the last roadmap item</span></div>
+		</div><p class="spec"><b>.progress-labelled</b> · <b>.progress__bar[style=--value]</b></p></div></section>
 
 				<nav class="docs-pager" aria-label="Pages">
 					<a class="docs-pager__link" href="/pages/archive.html"><span class="docs-pager__dir">← Previous</span><span class="docs-pager__title">Archive</span></a>
@@ -319,7 +331,8 @@
 			<nav class="doc-toc" aria-label="On this page">
 				<span class="doc-toc__title">On this page</span>
 				<div class="doc-toc__links">
-					<a href="#no-component-at-all-on-purpose">No component at all, on purpose</a>
+					<a href="#mostly-prose-on-purpose">Mostly prose, on purpose</a>
+					<a href="#the-one-honest-progress-bar">The one honest progress bar</a>
 				</div>
 			</nav>
 			<div class="doc-sponsor">

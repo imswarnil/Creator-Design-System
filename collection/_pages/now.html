@@ -46,7 +46,27 @@
       what a <a href="https://nownownow.com" target="_blank" rel="noopener">now page</a> is</span>
     <h1 class="t-display-2 u-mt-3">What I'm doing now</h1>
 
-    <div class="content u-mt-8">
+    <!-- The one place a progress bar is honest: these are real, in-flight, and
+         the number moves. .progress-labelled ships the label and value; nothing
+         here is a fake loading state. -->
+    <div class="u-mt-8">
+      <div class="row-between u-mb-5"><div><h2 class="t-h3">In flight</h2></div></div>
+      <div class="progress-labelled u-mb-4">
+        <span class="progress__label">The pages collection</span>
+        <div class="progress"><div class="progress__bar" style="--value:90%"></div></div>
+        <span class="t-slate-sm" style="color:var(--fg-faint)">home, about, archive, the legal pages</span>
+      </div><div class="progress-labelled u-mb-4">
+        <span class="progress__label">Newsletter issue 42</span>
+        <div class="progress"><div class="progress__bar" style="--value:60%"></div></div>
+        <span class="t-slate-sm" style="color:var(--fg-faint)">on grid-auto-rows: minmax(0, auto)</span>
+      </div><div class="progress-labelled u-mb-4">
+        <span class="progress__label">npm package + Tailwind/SCSS builds</span>
+        <div class="progress"><div class="progress__bar" style="--value:35%"></div></div>
+        <span class="t-slate-sm" style="color:var(--fg-faint)">the last roadmap item</span>
+      </div>
+    </div>
+
+    <div class="content u-mt-10">
       <p>Mostly this: closing the gap between the collections that ship no CSS of
         their own and the ones that still owe the vocabulary something.</p>
       <h2>Building</h2>
