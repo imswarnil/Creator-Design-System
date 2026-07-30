@@ -4,14 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rename a variable everywhere, safely — Prompts — Swarnil</title>
-<meta name="description" content="A reusable Claude prompt — copy it, fill in the blanks." />
+<meta name="description" content="A reusable Claude prompt — edit the slots, then copy." />
 <link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../dist/creator.css" />
 <link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./prompts.css" />
 <script src="../../src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="../../src/highlight.js" defer></script>
 <script src="../../collection/collection.js" defer></script>
 </head>
 <body>
@@ -42,24 +47,48 @@
       <a href="./index.html">Prompts</a> <span>/</span> <span>Rename a variable everywhere, safely</span>
     </nav>
 
-    <span class="c__model"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Claude</span>
-    <h1 class="t-display-2 u-mt-2">Rename a variable everywhere, safely</h1>
+    <div class="grid-rail">
+      <div>
+        <span class="c__model"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Claude</span>
+        <h1 class="t-display-2 u-mt-2">Rename a variable everywhere, safely</h1>
+        <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">
+          Edit it in place, then copy. The highlighted parts are the ones meant
+          to change.</p>
 
-    <div class="c__bubble u-mt-6" style="max-width:var(--measure-lead);margin-left:0">
-      Rename `{old}` to `{new}` across this file and every file that imports it. Do not touch unrelated identifiers that happen to share the name.
-    </div>
-    <button class="btn btn-secondary btn-sm u-mt-4" type="button" data-copy>Copy prompt</button>
+        <!-- The prompt as a field, not a code block: a prompt is a template with
+             holes in it, so the useful action is "fill this in, then copy" rather
+             than "copy this". The textarea carries no chrome of its own — the
+             bubble takes the focus ring — because this is prose, not a form. -->
+        <div class="c__bubble prompt-field u-mt-6" style="margin:var(--space-6) 0 0">
+          <label class="u-sr-only" for="prompt-text">Prompt text, editable</label>
+          <textarea class="prompt-edit" id="prompt-text" data-copy-src
+                    rows="5" spellcheck="false">Rename `{old}` to `{new}` across this file and every file that imports it. Do not touch unrelated identifiers that happen to share the name.</textarea>
+        </div>
 
-    <div class="u-mt-10">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">More prompts</h2></div></div>
-      <div class="grid-auto-sm"><a class="c c-prompt" href="./prompt.html">
-      <div class="c__bubble">Rename `{old}` to `{new}` across this file and every file that imports it. Do not touch unrelated identifiers that happen to share the name.</div>
+        <div class="prompt-bar">
+          <span class="t-slate-sm" style="color:var(--fg-faint)">
+            Edits stay on this page — nothing is saved or sent.</span>
+          <span class="cluster" style="gap:var(--space-2)">
+            <button class="btn btn-quiet btn-sm" type="button" data-reset>Reset</button>
+            <button class="btn btn-primary btn-sm" type="button" data-copy>
+              <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>Copy prompt</button>
+          </span>
+        </div>
+
+        <div class="u-mt-8">
+          <div class="alert alert-info"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg><div>The slots are named rather than numbered — <code class="t-code">{{old}}</code> and <code class="t-code">{{new}}</code> beat <code class="t-code">$1</code> and <code class="t-code">$2</code> when you are reading a prompt back a month later.</div></div>
+        </div>
+
+        <div class="u-mt-10">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">More prompts</h2></div></div>
+          <div class="grid-auto-sm"><a class="c c-prompt" href="./prompt.html">
+      <div class="c__bubble">Rename `<span class="slot">{old}</span>` to `<span class="slot">{new}</span>` across this file and every file that imports it. Do not touch unrelated identifiers that happen to share the name.</div>
       <div class="c__body">
         <span class="c__model"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Claude</span>
         <h3 class="c__title">Rename a variable everywhere, safely</h3>
       </div>
     </a><a class="c c-prompt" href="./prompt.html">
-      <div class="c__bubble">Explain what this regex matches, in plain English, one clause at a time: `{pattern}`. Then give one input it matches and one it does not.</div>
+      <div class="c__bubble">Explain what this regex matches, in plain English, one clause at a time: `<span class="slot">{pattern}</span>`. Then give one input it matches and one it does not.</div>
       <div class="c__body">
         <span class="c__model"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Claude</span>
         <h3 class="c__title">Explain a regex, plainly</h3>
@@ -71,8 +100,130 @@
         <h3 class="c__title">Write a commit message from a diff</h3>
       </div>
     </a></div>
+        </div>
+
+        
+  <section class="comments" id="comments">
+    <div class="comments__head">
+      <h2 class="comments__count">3<span>comments</span></h2>
+      <label class="cluster" style="gap:var(--space-2)">
+        <span class="t-slate-sm" style="color:var(--fg-faint)">Sort</span>
+        <select class="select" style="width:auto">
+          <option>Newest</option><option>Oldest</option><option>Most liked</option>
+        </select>
+      </label>
+    </div>
+    
+    <form class="comment-box" onsubmit="return false">
+      <label class="u-sr-only" for="cmt">Your comment</label>
+      <textarea class="input" id="cmt" rows="3"
+                placeholder="Add to the thread — corrections especially welcome."></textarea>
+      <div class="comment-box__row">
+        <span class="comment-box__note">Markdown works. Be kind.</span>
+        <button class="btn btn-primary btn-sm" type="submit">Post comment</button>
+      </div>
+    </form>
+    <ol class="comment-list"><li class="comment">
+      <span class="comment__face">MR</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Maya Rodriguez</span>
+          <span class="comment__time">2 days ago</span>
+        </div>
+        <div class="comment__text"><p>The implicit grid explanation finally made this click for me. I had been declaring rows for years without knowing why it sometimes worked anyway.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>12</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        <ol class="comment-list"><li class="comment comment-author">
+      <span class="comment__face">SS</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Swarnil Singhai</span>
+          <span class="comment__time">2 days ago</span>
+        </div>
+        <div class="comment__text"><p>That is exactly the trap — it works right up until the content count changes. Glad it helped.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>4</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        
+      </div>
+    </li></ol>
+      </div>
+    </li><li class="comment">
+      <span class="comment__face">DK</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Dan K.</span>
+          <span class="comment__time">5 days ago</span>
+        </div>
+        <div class="comment__text"><p>Would love a follow-up on subgrid. It is the one part I still avoid.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>8</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        
+      </div>
+    </li></ol>
+  </section>
+      </div>
+
+      <aside class="col-rail col-rail-sticky">
+        <div class="col-widget">
+          <span class="col-widget__title">Slots</span>
+          <div class="list-group list-group-flush">
+            <span class="list-group__item"><code class="t-code">{{old}}</code><span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">the current name</span></span><span class="list-group__item"><code class="t-code">{{new}}</code><span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">what to rename it to</span></span>
+          </div>
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Works with</span>
+          <div class="cluster" style="gap:var(--space-1)">
+            <span class="badge badge-info">Claude</span>
+            <span class="badge badge-info">Any coding agent</span>
+          </div>
+        </div>
+
+        <div class="col-widget col-widget-accent">
+          <span class="col-widget__title">The whole library</span>
+          <p class="t-small">5 prompts, all copy-ready.</p>
+          <a class="btn btn-primary btn-sm u-w-full u-mt-4" href="./index.html">
+            Browse prompts →</a>
+        </div>
+      </aside>
     </div>
   </div>
+
+  <script>
+  (function () {
+    // Reset puts the original text back. Kept out of the copy handler so a
+    // reader can edit, copy, and still get back to the shipped version.
+    var ta = document.getElementById('prompt-text');
+    var btn = document.querySelector('[data-reset]');
+    if (!ta || !btn) return;
+    var original = ta.value;
+    btn.addEventListener('click', function () { ta.value = original; ta.focus(); });
+  })();
+  </script>
+  <script>
+  (function () {
+    document.querySelectorAll('[data-like]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = btn.getAttribute('aria-pressed') === 'true';
+        var n = btn.querySelector('[data-like-count]');
+        n.textContent = String(Number(n.textContent) + (on ? -1 : 1));
+        btn.setAttribute('aria-pressed', String(!on));
+      });
+    });
+  })();
+  </script>
 </main>
 
 <footer class="footer">

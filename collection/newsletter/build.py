@@ -20,7 +20,8 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip, pagination   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
+                   comments, LIKE_SCRIPT)
 
 NAME = 'Newsletter'
 
@@ -128,52 +129,103 @@ def route_index():
                 body, NAME, current='newsletter')
 
 
+def toc_rail(items):
+    """A sticky table of contents. Anchors into the article's own h2 ids, so it
+    cannot list a heading the prose does not have."""
+    links = ''.join(
+        f'<a class="list-group__item" href="#{a}">{t}</a>' for a, t in items)
+    return f'''<div class="col-widget">
+      <span class="col-widget__title">In this update</span>
+      <div class="list-group list-group-flush">{links}</div>
+    </div>'''
+
+
+def related_block(exclude=0, limit=3):
+    """Other updates, at the end. A newsletter archive lives or dies on whether
+    reading one leads to reading a second."""
+    rows = [u for k, u in enumerate(ISSUES) if k != exclude][:limit]
+    return '<div class="grid-3">' + ''.join(
+        f'''<a class="card" href="./post.html">
+          <div class="card__body">
+            <span class="card__meta">{icon('mail')}{mon} {day}, {yr}</span>
+            <h3 class="card__title">{subject}</h3>
+            <p class="card__excerpt">{excerpt}</p>
+            <span class="card__meta u-mt-2">{read}</span>
+          </div>
+        </a>''' for n, subject, day, mon, yr, excerpt, read in rows) + '</div>'
+
+
+TOC = [('why', 'The row you never declared'), ('fix', 'The one line that fixes it'),
+       ('rest', 'What it does not fix')]
+
+
 def route_post():
+    # .container-narrow centres the reading column; the rail sits outside it so
+    # the prose keeps its measure while the TOC stays reachable. A newsletter is
+    # read start to finish, so the measure matters more here than anywhere.
     body = f'''
   <article class="container section-sm">
-    <header class="col-post__head">
-      <nav class="col-post__crumbs" aria-label="Breadcrumb">
-        <a href="./index.html">Newsletter</a> <span>/</span> <span>Jul 22, 2026</span>
-      </nav>
-      {date_chip('22', 'Jul')}
-      <h1 class="t-display-2 u-mt-4">The grid lesson nobody asked for</h1>
-      <p class="t-lead" style="max-width:var(--measure-lead)">
-        Why the implicit grid is where every layout question actually starts.
-      </p>
-      <div class="col-post__crumbs">
-        <span>4 min read</span> <span>·</span> <span>Jul 22, 2026</span>
-        <span>·</span> <span>22 Jul 2026</span>
-      </div>
-    </header>
+    <div class="grid-rail">
+      <div>
+        <header class="col-post__head" style="text-align:center">
+          <nav class="col-post__crumbs" aria-label="Breadcrumb"
+               style="justify-content:center">
+            <a href="./index.html">Newsletter</a> <span>/</span>
+            <span>Jul 22, 2026</span>
+          </nav>
+          <div style="display:flex;justify-content:center;margin-top:var(--space-4)">
+            {date_chip('22', 'Jul')}
+          </div>
+          <h1 class="t-display-2 u-mt-4">The grid lesson nobody asked for</h1>
+          <p class="t-lead u-mt-3"
+             style="max-width:var(--measure-lead);margin-inline:auto">
+            Why the implicit grid is where every layout question actually starts.
+          </p>
+          <div class="col-post__crumbs" style="justify-content:center">
+            <span>4 min read</span> <span>·</span> <span>Sent to 9.2k readers</span>
+          </div>
+        </header>
 
-    <div class="col-post">
-      <div class="content">
-        <p>Every layout question I get eventually turns out to be the same question:
-          where did that extra row come from. It is always the implicit grid, and it
-          is never explained in the place people go looking.</p>
-        <h2>The row you never declared</h2>
-        <p>Content that overflows the tracks you named does not vanish — it gets a
-          new, implicit row, sized by <code>grid-auto-rows</code>, which defaults to
-          <code>auto</code> and surprises everyone equally.</p>
-        <blockquote>
-          <p>The implicit grid is not a bug in your layout. It is the layout, for
-            everything you forgot to name a place for.</p>
-        </blockquote>
-        <h2>The one line that fixes most of it</h2>
-        <p><code>grid-auto-rows: minmax(0, auto)</code> is the line I add to almost
-          every grid I ship, and the line almost no tutorial mentions.</p>
+        <div class="content u-mt-10" style="margin-inline:auto">
+          <p>Every layout question I get eventually turns out to be the same
+            question: where did that extra row come from. It is always the
+            implicit grid, and it is never explained in the place people go
+            looking.</p>
+          <h2 id="why">The row you never declared</h2>
+          <p>Content that overflows the tracks you named does not vanish — it gets
+            a new, implicit row, sized by <code>grid-auto-rows</code>, which
+            defaults to <code>auto</code> and surprises everyone equally.</p>
+          <blockquote>
+            <p>The implicit grid is not a bug in your layout. It is the layout, for
+              everything you forgot to name a place for.</p>
+          </blockquote>
+          <h2 id="fix">The one line that fixes most of it</h2>
+          <p><code>grid-auto-rows: minmax(0, auto)</code> is the line I add to
+            almost every grid I ship, and the line almost no tutorial mentions.</p>
+          <h2 id="rest">What it does not fix</h2>
+          <p>Nothing about <em>column</em> overflow, which is a different problem
+            with a different answer — <code>minmax(0, 1fr)</code>, for the same
+            underlying reason.</p>
+        </div>
+
+        {comments(locked=False)}
       </div>
 
       <aside class="col-post__rail col-rail col-rail-sticky">
+        {toc_rail(TOC)}
         {subscribe_block()}
       </aside>
     </div>
 
-    <a class="col-next u-mt-10" href="./index.html">
-      <span class="col-next__label">Back to</span>
-      <span class="col-order__title">Everything sent</span>
-    </a>
-  </article>'''
+    <div class="u-mt-12">
+      {sec('More updates', 'Three others, newest first.')}
+      {related_block(exclude=0)}
+      <div class="u-mt-6">
+        <a class="btn btn-secondary btn-pill" href="./index.html">
+          Everything sent →</a>
+      </div>
+    </div>
+  </article>{LIKE_SCRIPT}'''
     return page(HERE, 'post.html', 'The grid lesson nobody asked for — Newsletter',
                 'Why the implicit grid is where every layout question actually starts.',
                 body, NAME, current='newsletter')

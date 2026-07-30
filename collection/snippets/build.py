@@ -7,13 +7,15 @@ A code library: `.c-snippet` for the list (language tag + a fading code
 preview), `.codebox` for the single-snippet page — the same box the docs
 collection's component reference already uses for a copy-able block.
 """
+import html
 import pathlib
 import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip, pagination   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
+                   comments, LIKE_SCRIPT, alert)
 
 NAME = 'Snippets'
 
@@ -34,25 +36,49 @@ SNIPPETS = [
 
 
 def snippet_card(slug, title, lang, code):
-    return f'''<a class="c c-snippet" href="./snippet.html" data-post data-tags="{lang}">
-      <div class="c__body">
-        <span class="c__lang">{lang}</span>
-        <h3 class="c__title">{title}</h3>
-      </div>
-      <pre class="c__code">{code}</pre>
+    """Editor chrome, with the title in the window bar.
+
+    `.win.win-code` (12-frame.css) already draws an editor — traffic lights, a
+    dark body, a tab strip — and it says "this is code" before a word is read,
+    which is exactly a snippet card's whole job. The old version was
+    `.c-snippet`, a light card with a faded code preview; this replaces it,
+    because a code library that does not look like an editor is making the
+    reader work out what it is.
+
+    The <code> carries data-lang, which is what src/highlight.js reads."""
+    lines = code.split('\n')
+    gutter = '<br />'.join(str(i + 1) for i in range(len(lines)))
+    esc = html.escape(code)
+    return f'''<a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="{lang}">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">{title}</span>
+        <span class="snip-card__lang">{lang}</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">{gutter}</span>
+        <pre class="win-code__lines"><code data-lang="{lang}">{esc}</code></pre>
+      </span>
     </a>'''
 
 
 def snippets_block(limit=None):
     rows = SNIPPETS[:limit] if limit else SNIPPETS
-    return '<div class="grid-auto-sm">' + ''.join(snippet_card(*s) for s in rows) + '</div>'
+    return '<div class="grid-3">' + ''.join(snippet_card(*s) for s in rows) + '</div>'
 
 
-def code_block(code, lang='css'):
-    return (f'<figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head">'
+def code_block(code, lang='css', title=None):
+    """`.codebox` with the language on the caption — which is both what the
+    reader needs and what src/highlight.js reads to colour it. data-copy is now
+    handled by collection.js, so the button actually works on these pages."""
+    return (f'<figure class="codebox u-m-0"><figcaption class="codebox__head">'
             f'<span class="codebox__lang">{lang}</span>'
-            f'<button class="codebox__copy" type="button" data-copy>Copy</button></figcaption>'
-            f'<pre class="codebox__pre"><code>{code}</code></pre></figure>')
+            f'{f"<span class=\'win__title\'>{title}</span>" if title else ""}'
+            f'<button class="codebox__copy" type="button" data-copy>Copy</button>'
+            f'</figcaption>'
+            f'<pre class="codebox__pre"><code data-lang="{lang}">'
+            f'{html.escape(code)}</code></pre></figure>')
 
 
 def route_index():
@@ -69,32 +95,89 @@ def route_index():
   </div>'''
     return page(HERE, 'index.html', 'Snippets — Swarnil',
                 'CSS and JS I copy-paste between projects often enough to permalink.',
-                body, NAME, current='snippets')
+                body, NAME, own_css='snippets.css', current='snippets')
 
 
 def route_snippet():
     slug, title, lang, code = SNIPPETS[0]
+    langs = sorted({sn[2] for sn in SNIPPETS})
     body = f'''
   <div class="container section-sm">
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./index.html">Snippets</a> <span>/</span> <span>{title}</span>
     </nav>
 
-    <span class="c__lang">{lang}</span>
-    <h1 class="t-display-2 u-mt-2">{title}</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">One clamp,
-      one rule, and the fluid type scale everywhere on this site.</p>
+    <div class="grid-rail">
+      <div>
+        <span class="c__lang">{lang}</span>
+        <h1 class="t-display-2 u-mt-2">{title}</h1>
+        <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">One clamp,
+          one rule, and the fluid type scale everywhere on this site.</p>
 
-    <div class="u-mt-8">{code_block(code, lang)}</div>
+        <!-- .codebox with data-lang on the <code>: src/highlight.js colours it
+             at runtime from that attribute, and collection.js makes the copy
+             button work. Both shipped already; neither was wired up here. -->
+        <div class="u-mt-8">{code_block(code, lang, title=f'{slug}.{lang}')}</div>
 
-    <div class="u-mt-10">
-      {sec('More snippets')}
-      {snippets_block(limit=3)}
+        <div class="content u-mt-8" style="max-width:var(--measure-lead)">
+          <h2>Why this works</h2>
+          <p>The middle value is the one doing the work: a <code>rem</code> base
+            plus a <code>vw</code> term scales with the viewport, and the outer two
+            stop it going anywhere silly at either end.</p>
+          <h2>What to change</h2>
+          <p>The <code>0.5vw</code> term. Raise it for a steeper curve, lower it
+            for a flatter one — the two clamps stay as they are.</p>
+        </div>
+
+        <div class="u-mt-8">
+          {alert('Copy takes the whole block including the comment. The comment is '
+                 'the part you will want in six months.', tone='info', ico='search')}
+        </div>
+
+        <div class="u-mt-10">
+          {sec('More snippets', 'Three others worth a permalink.')}
+          {snippets_block(limit=3)}
+        </div>
+
+        {comments()}
+      </div>
+
+      <aside class="col-rail col-rail-sticky">
+        <div class="col-widget">
+          <span class="col-widget__title">This snippet</span>
+          {meta_strip([(lang.upper(), 'language'), (str(len(code.splitlines())), 'lines'),
+                       ('MIT', 'licence')], paper=True, border=False, inline=True)}
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Browser support</span>
+          <div class="list-group list-group-flush">
+            {''.join(f'<span class="list-group__item">{b}'
+                     f'<span class="u-ms-auto">{icon("check", group="ui")}</span></span>'
+                     for b in ['Chrome', 'Safari', 'Firefox', 'Edge'])}
+          </div>
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">By language</span>
+          <div class="cluster" style="gap:var(--space-1)">
+            {''.join(f'<a class="col-tag" href="./index.html">{l}</a>'
+                     for l in langs)}
+          </div>
+        </div>
+
+        <div class="col-widget col-widget-accent">
+          <span class="col-widget__title">The whole library</span>
+          <p class="t-small">{len(SNIPPETS)} snippets, all copy-ready.</p>
+          <a class="btn btn-primary btn-sm u-w-full u-mt-4" href="./index.html">
+            Browse snippets →</a>
+        </div>
+      </aside>
     </div>
-  </div>'''
+  </div>{LIKE_SCRIPT}'''
     return page(HERE, 'snippet.html', f'{title} — Snippets — Swarnil',
                 f'A {lang} snippet — copy the block, ship it.',
-                body, NAME, current='snippets')
+                body, NAME, own_css='snippets.css', current='snippets')
 
 
 if __name__ == '__main__':

@@ -13,6 +13,10 @@
 <link rel="stylesheet" href="../../collection/collection.css" />
 <link rel="stylesheet" href="./projects.css" />
 <script src="../../src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="../../src/highlight.js" defer></script>
 <script src="../../collection/collection.js" defer></script>
 </head>
 <body>
@@ -72,7 +76,7 @@
   <div data-collection>
   <section class="container section-sm">
     <div class="row-between u-mb-5"><div><h2 class="t-h3">All projects</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Newest activity first — the same card GitHub would show you.</p></div></div>
-    <div class="stack-sm">
+    <div class="grid-3">
     <a class="c c-project" href="./project.html">
       <span class="c__logo"><span class="col-ph" style="--h:101" aria-hidden="true"></span></span>
       <div class="c__body">

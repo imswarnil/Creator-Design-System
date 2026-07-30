@@ -59,6 +59,10 @@ HEAD = '''<!doctype html>
 <link rel="stylesheet" href="{rel}/dist/creator.css" />
 <link rel="stylesheet" href="{rel}/collection/collection.css" />{own_css}
 <script src="{rel}/src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="{rel}/src/highlight.js" defer></script>
 <script src="{rel}/collection/collection.js" defer></script>
 </head>
 <body>
@@ -580,3 +584,115 @@ def timeline(items, axis='', density='', alt=False, ranged=False):
                 f'<span class="tl__node">{it.get("node", "")}</span>'
                 f'<div class="tl__body">{time}{t}{note}{meta}</div></li>')
     return f'<ol class="{cls}">{out}</ol>'
+
+
+# Sample thread — deliberately shared, so every collection's comment section
+# demos the same shape and a difference between two pages is a real difference.
+_THREAD = [
+    ('MR', 'Maya Rodriguez', '2 days ago', False,
+     'The implicit grid explanation finally made this click for me. I had been '
+     'declaring rows for years without knowing why it sometimes worked anyway.',
+     12, [('SS', 'Swarnil Singhai', '2 days ago', True,
+           'That is exactly the trap — it works right up until the content count '
+           'changes. Glad it helped.', 4, [])]),
+    ('DK', 'Dan K.', '5 days ago', False,
+     'Would love a follow-up on subgrid. It is the one part I still avoid.',
+     8, []),
+]
+
+
+def comment(face, name, when, is_author, text, likes, replies, depth=0):
+    """One comment, and its replies. Recurses, but the CSS flattens past one
+    level on purpose — a thread that indents five times is unreadable on a
+    phone, and shrinking the indent to fit only makes the hierarchy invisible
+    instead."""
+    inner = ('<ol class="comment-list">'
+             + ''.join(comment(*r, depth=depth + 1) for r in replies)
+             + '</ol>') if replies else ''
+    return f'''<li class="comment{' comment-author' if is_author else ''}">
+      <span class="comment__face">{face}</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">{name}</span>
+          <span class="comment__time">{when}</span>
+        </div>
+        <div class="comment__text"><p>{text}</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            {icon('heart', group='social')}<span data-like-count>{likes}</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        {inner}
+      </div>
+    </li>'''
+
+
+def comments(thread=None, count=None, locked=False, wrap=False):
+    """`.comments` (36-comment.css) — the thread and the box that adds to it.
+
+    Reused on every collection's single page, because "someone said something
+    about this thing" is not a blog-specific idea and the alternative is four
+    slightly different comment sections. `locked=True` swaps the box for the
+    sign-in ask rather than disabling it: a disabled form is a dead end with no
+    explanation attached.
+
+    `wrap=True` adds a `.container` around it, for pages that close their own
+    container before the comments. The component carries no container itself
+    because on a post with a rail it belongs INSIDE the content column, and a
+    nested container there would narrow it twice."""
+    thread = _THREAD if thread is None else thread
+
+    def total(rows):
+        return sum(1 + total(r[6]) for r in rows)
+    n = total(thread) if count is None else count
+
+    box = (f'''
+    <div class="comment-box comment-box-locked">
+      <p class="t-small u-fg-subtle u-m-0">Sign in to comment. It takes one click
+        and there is no newsletter attached to it.</p>
+      <a class="btn btn-primary btn-sm" href="{REL}/collection/_pages/login.html">
+        Sign in</a>
+    </div>''' if locked else '''
+    <form class="comment-box" onsubmit="return false">
+      <label class="u-sr-only" for="cmt">Your comment</label>
+      <textarea class="input" id="cmt" rows="3"
+                placeholder="Add to the thread — corrections especially welcome."></textarea>
+      <div class="comment-box__row">
+        <span class="comment-box__note">Markdown works. Be kind.</span>
+        <button class="btn btn-primary btn-sm" type="submit">Post comment</button>
+      </div>
+    </form>''')
+
+    out = f'''
+  <section class="comments" id="comments">
+    <div class="comments__head">
+      <h2 class="comments__count">{n}<span>{'comment' if n == 1 else 'comments'}</span></h2>
+      <label class="cluster" style="gap:var(--space-2)">
+        <span class="t-slate-sm" style="color:var(--fg-faint)">Sort</span>
+        <select class="select" style="width:auto">
+          <option>Newest</option><option>Oldest</option><option>Most liked</option>
+        </select>
+      </label>
+    </div>
+    {box}
+    <ol class="comment-list">{''.join(comment(*c) for c in thread)}</ol>
+  </section>'''
+    return f'<div class="container">{out}</div>' if wrap else out
+
+
+# Toggles the like state and count. Additive: with the script blocked the
+# buttons are inert but the counts still read correctly.
+LIKE_SCRIPT = '''
+  <script>
+  (function () {
+    document.querySelectorAll('[data-like]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = btn.getAttribute('aria-pressed') === 'true';
+        var n = btn.querySelector('[data-like-count]');
+        n.textContent = String(Number(n.textContent) + (on ? -1 : 1));
+        btn.setAttribute('aria-pressed', String(!on));
+      });
+    });
+  })();
+  </script>'''

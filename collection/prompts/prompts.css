@@ -1,0 +1,62 @@
+/* =============================================================================
+   PROMPTS — collection-only CSS
+   Two things a prompt library needs that nothing else does.
+
+   1 · An EDITABLE prompt. A prompt is a template with holes in it, so the
+       useful interaction is not "copy this" but "fill this in, then copy it".
+       The field therefore has to look like the prose it replaces — a textarea
+       with visible chrome reads as a form, and this is not a form.
+
+   2 · A visible slot. `{like_this}` is the part you are meant to change, so it
+       is marked rather than left for the reader to spot.
+   ========================================================================== */
+
+/* The prompt itself, as a field that does not look like one until you touch it.
+   Sized to its content so a long prompt is not typed into a three-line window
+   (field-sizing is progressive — without it the rows attribute still applies). */
+.prompt-edit {
+	display: block;
+	width: 100%;
+	min-height: 6rem;
+	field-sizing: content;
+	resize: vertical;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	line-height: var(--leading-relaxed);
+}
+
+.prompt-edit:focus { outline: none; }
+
+/* The bubble carries the focus ring instead, so the whole block lights up
+   rather than a rectangle inside it. */
+.prompt-field:focus-within {
+	border-color: var(--line-accent);
+	box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.prompt-field {
+	position: relative;
+	transition: var(--t-colors), var(--t-shadow);
+}
+
+/* The row under the prompt: what changed, and the copy button. */
+.prompt-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-top: var(--space-4);
+}
+
+/* A slot to fill in. Not a colour alone — it carries a dotted underline too, so
+   it survives greyscale and colour-blindness. */
+.slot {
+	color: var(--fg-accent);
+	border-bottom: var(--border-hair) dashed currentcolor;
+	font-family: var(--font-slate);
+	font-size: 0.95em;
+}

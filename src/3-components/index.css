@@ -27,3 +27,4 @@
 @import url('./33-navbar.css');      /* alignment, dropdown, mega, sheet, contexts */
 @import url('./34-ad.css');          /* IAB ad slots — skeleton, lazy, hide  */
 @import url('./35-timeline.css');    /* timeline — vertical, horizontal, alt, ranged */
+@import url('./36-comment.css');     /* comments — thread, box, one level of replies */

@@ -11,7 +11,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../dist/creator.css" />
 <link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./snippets.css" />
 <script src="../../src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="../../src/highlight.js" defer></script>
 <script src="../../collection/collection.js" defer></script>
 </head>
 <body>
@@ -54,63 +59,93 @@
 
   <div class="container section-sm" data-collection>
     <div class="row-between u-mb-5"><div><h2 class="t-h3">All snippets</h2></div></div>
-    <div class="grid-auto-sm"><a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">Fluid type with one clamp()</h3>
-      </div>
-      <pre class="c__code">font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
-line-height: 1.5;</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">A grid that wraps itself</h3>
-      </div>
-      <pre class="c__code">display: grid;
+    <div class="grid-3"><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">Fluid type with one clamp()</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2</span>
+        <pre class="win-code__lines"><code data-lang="css">font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+line-height: 1.5;</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">A grid that wraps itself</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4</span>
+        <pre class="win-code__lines"><code data-lang="css">display: grid;
 grid-template-columns:
   repeat(auto-fit, minmax(16rem, 1fr));
-gap: var(--space-4);</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="js">
-      <div class="c__body">
-        <span class="c__lang">js</span>
-        <h3 class="c__title">A debounce in six lines</h3>
-      </div>
-      <pre class="c__code">function debounce(fn, ms) {
+gap: var(--space-4);</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="js">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">A debounce in six lines</span>
+        <span class="snip-card__lang">js</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4<br />5<br />6<br />7</span>
+        <pre class="win-code__lines"><code data-lang="js">function debounce(fn, ms) {
   let t;
-  return (...a) => {
+  return (...a) =&gt; {
     clearTimeout(t);
-    t = setTimeout(() => fn(...a), ms);
+    t = setTimeout(() =&gt; fn(...a), ms);
   };
-}</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">Morph one element across a navigation</h3>
-      </div>
-      <pre class="c__code">.hero { view-transition-name: hero; }
+}</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">Morph one element across a navigation</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3</span>
+        <pre class="win-code__lines"><code data-lang="css">.hero { view-transition-name: hero; }
 
-@view-transition { navigation: auto; }</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">A focus ring that only shows for keyboards</h3>
-      </div>
-      <pre class="c__code">:focus-visible {
+@view-transition { navigation: auto; }</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">A focus ring that only shows for keyboards</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4</span>
+        <pre class="win-code__lines"><code data-lang="css">:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="js">
-      <div class="c__body">
-        <span class="c__lang">js</span>
-        <h3 class="c__title">Copy to clipboard, with a fallback</h3>
-      </div>
-      <pre class="c__code">async function copy(text) {
+}</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="js">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">Copy to clipboard, with a fallback</span>
+        <span class="snip-card__lang">js</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4<br />5<br />6<br />7</span>
+        <pre class="win-code__lines"><code data-lang="js">async function copy(text) {
   try {
     await navigator.clipboard.writeText(text);
   } catch {
-    document.execCommand('copy');
+    document.execCommand(&#x27;copy&#x27;);
   }
-}</pre>
+}</code></pre>
+      </span>
     </a></div>
     <div class="u-mt-6"><nav class="pagination" aria-label="Snippets">
       <a class="btn btn-quiet btn-sm" href="./index.html" aria-disabled="true" tabindex="-1">← Newer</a>

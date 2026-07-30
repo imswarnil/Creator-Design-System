@@ -11,7 +11,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../dist/creator.css" />
 <link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./prompts.css" />
 <script src="../../src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="../../src/highlight.js" defer></script>
 <script src="../../collection/collection.js" defer></script>
 </head>
 <body>
@@ -55,13 +60,13 @@
   <div class="container section-sm" data-collection>
     <div class="row-between u-mb-5"><div><h2 class="t-h3">All prompts</h2></div></div>
     <div class="grid-auto-sm"><a class="c c-prompt" href="./prompt.html">
-      <div class="c__bubble">Rename `{old}` to `{new}` across this file and every file that imports it. Do not touch unrelated identifiers that happen to share the name.</div>
+      <div class="c__bubble">Rename `<span class="slot">{old}</span>` to `<span class="slot">{new}</span>` across this file and every file that imports it. Do not touch unrelated identifiers that happen to share the name.</div>
       <div class="c__body">
         <span class="c__model"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Claude</span>
         <h3 class="c__title">Rename a variable everywhere, safely</h3>
       </div>
     </a><a class="c c-prompt" href="./prompt.html">
-      <div class="c__bubble">Explain what this regex matches, in plain English, one clause at a time: `{pattern}`. Then give one input it matches and one it does not.</div>
+      <div class="c__bubble">Explain what this regex matches, in plain English, one clause at a time: `<span class="slot">{pattern}</span>`. Then give one input it matches and one it does not.</div>
       <div class="c__body">
         <span class="c__model"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></svg>Claude</span>
         <h3 class="c__title">Explain a regex, plainly</h3>

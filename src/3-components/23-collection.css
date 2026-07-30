@@ -154,7 +154,19 @@
 
 /* ── projects · #project ─────────────────────────────────────────────────
    A logo tile instead of a hero image, because a project is a thing, not a
-   scene. */
+   scene.
+
+   TWO shapes, because a repo card is read two different ways and one card
+   stretched to both widths does neither well:
+
+     .c-project        the grid card — stacked, for a three-up. The default,
+                       since a portfolio shows several at once.
+     .c-project-wide   the row — logo left, copy right, for a single
+                       full-width slot (a "related" strip, a search result).
+
+   The wide one is a modifier rather than the base precisely so a full-width
+   row is a decision someone made, not what you get by putting the grid card
+   in a wide container. */
 
 .c-project .c__logo {
 	width: 3rem;
@@ -167,8 +179,36 @@
 	overflow: hidden;
 }
 
-.c-project .c__body { flex-direction: row; gap: var(--space-4); align-items: flex-start; }
+.c-project .c__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	align-items: flex-start;
+}
+
 .c-project .c__stack { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+
+/* The footer wraps rather than scrolling: six facts on one line in a 1/3-width
+   card would either overflow or shrink the type below readable. */
+.c-project .c__foot { flex-wrap: wrap; row-gap: var(--space-2); }
+
+/* ── The wide row ────────────────────────────────────────────────────────── */
+
+.c-project-wide { flex-direction: row; align-items: stretch; }
+
+.c-project-wide .c__logo {
+	width: 4rem;
+	height: 4rem;
+	margin: var(--space-5) 0 var(--space-5) var(--space-5);
+}
+
+.c-project-wide .c__body { flex: 1; }
+
+@media (max-width: 40rem) {
+	/* No room for two columns — the wide card becomes the grid card. */
+	.c-project-wide { flex-direction: column; }
+	.c-project-wide .c__logo { margin: var(--space-5) var(--space-5) 0; }
+}
 
 /* ── project build-log · #project-detail ─────────────────────────────────── */
 

@@ -15,7 +15,8 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip, pagination   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
+                   comments, LIKE_SCRIPT)
 
 NAME = 'Videos'
 
@@ -172,7 +173,8 @@ def route_video():
         </div>
       </div>
     </div>
-  </div>'''
+  </div>
+  {comments(wrap=True)}{LIKE_SCRIPT}'''
     return page(HERE, 'video.html', 'CSS Grid in six minutes, no filler — Videos — Swarnil',
                 'Four properties are the whole grid system — chaptered, six minutes.',
                 body, NAME, current='videos')

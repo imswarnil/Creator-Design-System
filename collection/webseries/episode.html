@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="../../dist/creator.css" />
 <link rel="stylesheet" href="../../collection/collection.css" />
 <script src="../../src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="../../src/highlight.js" defer></script>
 <script src="../../collection/collection.js" defer></script>
 </head>
 <body>
@@ -136,6 +140,89 @@
     </a>
   </section>
   </div>
+  <div class="container">
+  <section class="comments" id="comments">
+    <div class="comments__head">
+      <h2 class="comments__count">3<span>comments</span></h2>
+      <label class="cluster" style="gap:var(--space-2)">
+        <span class="t-slate-sm" style="color:var(--fg-faint)">Sort</span>
+        <select class="select" style="width:auto">
+          <option>Newest</option><option>Oldest</option><option>Most liked</option>
+        </select>
+      </label>
+    </div>
+    
+    <form class="comment-box" onsubmit="return false">
+      <label class="u-sr-only" for="cmt">Your comment</label>
+      <textarea class="input" id="cmt" rows="3"
+                placeholder="Add to the thread — corrections especially welcome."></textarea>
+      <div class="comment-box__row">
+        <span class="comment-box__note">Markdown works. Be kind.</span>
+        <button class="btn btn-primary btn-sm" type="submit">Post comment</button>
+      </div>
+    </form>
+    <ol class="comment-list"><li class="comment">
+      <span class="comment__face">MR</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Maya Rodriguez</span>
+          <span class="comment__time">2 days ago</span>
+        </div>
+        <div class="comment__text"><p>The implicit grid explanation finally made this click for me. I had been declaring rows for years without knowing why it sometimes worked anyway.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>12</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        <ol class="comment-list"><li class="comment comment-author">
+      <span class="comment__face">SS</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Swarnil Singhai</span>
+          <span class="comment__time">2 days ago</span>
+        </div>
+        <div class="comment__text"><p>That is exactly the trap — it works right up until the content count changes. Glad it helped.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>4</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        
+      </div>
+    </li></ol>
+      </div>
+    </li><li class="comment">
+      <span class="comment__face">DK</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Dan K.</span>
+          <span class="comment__time">5 days ago</span>
+        </div>
+        <div class="comment__text"><p>Would love a follow-up on subgrid. It is the one part I still avoid.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>8</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        
+      </div>
+    </li></ol>
+  </section></div>
+  <script>
+  (function () {
+    document.querySelectorAll('[data-like]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = btn.getAttribute('aria-pressed') === 'true';
+        var n = btn.querySelector('[data-like-count]');
+        n.textContent = String(Number(n.textContent) + (on ? -1 : 1));
+        btn.setAttribute('aria-pressed', String(!on));
+      });
+    });
+  })();
+  </script>
 </main>
 
 <footer class="footer">

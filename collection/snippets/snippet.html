@@ -11,7 +11,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../dist/creator.css" />
 <link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./snippets.css" />
 <script src="../../src/nav.js" defer></script>
+<!-- The system's own highlighter. Collections were the one place shipping code
+     blocks without it, so snippets rendered as plain text while the docs site
+     three folders away coloured the identical markup. -->
+<script src="../../src/highlight.js" defer></script>
 <script src="../../collection/collection.js" defer></script>
 </head>
 <body>
@@ -42,47 +47,195 @@
       <a href="./index.html">Snippets</a> <span>/</span> <span>Fluid type with one clamp()</span>
     </nav>
 
-    <span class="c__lang">css</span>
-    <h1 class="t-display-2 u-mt-2">Fluid type with one clamp()</h1>
-    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">One clamp,
-      one rule, and the fluid type scale everywhere on this site.</p>
+    <div class="grid-rail">
+      <div>
+        <span class="c__lang">css</span>
+        <h1 class="t-display-2 u-mt-2">Fluid type with one clamp()</h1>
+        <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">One clamp,
+          one rule, and the fluid type scale everywhere on this site.</p>
 
-    <div class="u-mt-8"><figure class="codebox codebox-light u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code>font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+        <!-- .codebox with data-lang on the <code>: src/highlight.js colours it
+             at runtime from that attribute, and collection.js makes the copy
+             button work. Both shipped already; neither was wired up here. -->
+        <div class="u-mt-8"><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><span class='win__title'>clamp-fluid-type.css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code data-lang="css">font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
 line-height: 1.5;</code></pre></figure></div>
 
-    <div class="u-mt-10">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">More snippets</h2></div></div>
-      <div class="grid-auto-sm"><a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">Fluid type with one clamp()</h3>
-      </div>
-      <pre class="c__code">font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
-line-height: 1.5;</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">A grid that wraps itself</h3>
-      </div>
-      <pre class="c__code">display: grid;
+        <div class="content u-mt-8" style="max-width:var(--measure-lead)">
+          <h2>Why this works</h2>
+          <p>The middle value is the one doing the work: a <code>rem</code> base
+            plus a <code>vw</code> term scales with the viewport, and the outer two
+            stop it going anywhere silly at either end.</p>
+          <h2>What to change</h2>
+          <p>The <code>0.5vw</code> term. Raise it for a steeper curve, lower it
+            for a flatter one — the two clamps stay as they are.</p>
+        </div>
+
+        <div class="u-mt-8">
+          <div class="alert alert-info"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg><div>Copy takes the whole block including the comment. The comment is the part you will want in six months.</div></div>
+        </div>
+
+        <div class="u-mt-10">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">More snippets</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Three others worth a permalink.</p></div></div>
+          <div class="grid-3"><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">Fluid type with one clamp()</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2</span>
+        <pre class="win-code__lines"><code data-lang="css">font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+line-height: 1.5;</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">A grid that wraps itself</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4</span>
+        <pre class="win-code__lines"><code data-lang="css">display: grid;
 grid-template-columns:
   repeat(auto-fit, minmax(16rem, 1fr));
-gap: var(--space-4);</pre>
-    </a><a class="c c-snippet" href="./snippet.html" data-post data-tags="js">
-      <div class="c__body">
-        <span class="c__lang">js</span>
-        <h3 class="c__title">A debounce in six lines</h3>
-      </div>
-      <pre class="c__code">function debounce(fn, ms) {
+gap: var(--space-4);</code></pre>
+      </span>
+    </a><a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="js">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">A debounce in six lines</span>
+        <span class="snip-card__lang">js</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4<br />5<br />6<br />7</span>
+        <pre class="win-code__lines"><code data-lang="js">function debounce(fn, ms) {
   let t;
-  return (...a) => {
+  return (...a) =&gt; {
     clearTimeout(t);
-    t = setTimeout(() => fn(...a), ms);
+    t = setTimeout(() =&gt; fn(...a), ms);
   };
-}</pre>
+}</code></pre>
+      </span>
     </a></div>
+        </div>
+
+        
+  <section class="comments" id="comments">
+    <div class="comments__head">
+      <h2 class="comments__count">3<span>comments</span></h2>
+      <label class="cluster" style="gap:var(--space-2)">
+        <span class="t-slate-sm" style="color:var(--fg-faint)">Sort</span>
+        <select class="select" style="width:auto">
+          <option>Newest</option><option>Oldest</option><option>Most liked</option>
+        </select>
+      </label>
+    </div>
+    
+    <form class="comment-box" onsubmit="return false">
+      <label class="u-sr-only" for="cmt">Your comment</label>
+      <textarea class="input" id="cmt" rows="3"
+                placeholder="Add to the thread — corrections especially welcome."></textarea>
+      <div class="comment-box__row">
+        <span class="comment-box__note">Markdown works. Be kind.</span>
+        <button class="btn btn-primary btn-sm" type="submit">Post comment</button>
+      </div>
+    </form>
+    <ol class="comment-list"><li class="comment">
+      <span class="comment__face">MR</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Maya Rodriguez</span>
+          <span class="comment__time">2 days ago</span>
+        </div>
+        <div class="comment__text"><p>The implicit grid explanation finally made this click for me. I had been declaring rows for years without knowing why it sometimes worked anyway.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>12</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        <ol class="comment-list"><li class="comment comment-author">
+      <span class="comment__face">SS</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Swarnil Singhai</span>
+          <span class="comment__time">2 days ago</span>
+        </div>
+        <div class="comment__text"><p>That is exactly the trap — it works right up until the content count changes. Glad it helped.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>4</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        
+      </div>
+    </li></ol>
+      </div>
+    </li><li class="comment">
+      <span class="comment__face">DK</span>
+      <div class="comment__body">
+        <div class="comment__head">
+          <span class="comment__author">Dan K.</span>
+          <span class="comment__time">5 days ago</span>
+        </div>
+        <div class="comment__text"><p>Would love a follow-up on subgrid. It is the one part I still avoid.</p></div>
+        <div class="comment__actions">
+          <button class="comment__action" type="button" data-like aria-pressed="false">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg><span data-like-count>8</span>
+          </button>
+          <button class="comment__action" type="button">Reply</button>
+        </div>
+        
+      </div>
+    </li></ol>
+  </section>
+      </div>
+
+      <aside class="col-rail col-rail-sticky">
+        <div class="col-widget">
+          <span class="col-widget__title">This snippet</span>
+          <div class="col-meta col-meta-paper col-meta-inline" style="border-top:0;padding-top:0"><div><span class="col-meta__n">CSS</span><span class="col-meta__l">language</span></div><div><span class="col-meta__n">2</span><span class="col-meta__l">lines</span></div><div><span class="col-meta__n">MIT</span><span class="col-meta__l">licence</span></div></div>
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Browser support</span>
+          <div class="list-group list-group-flush">
+            <span class="list-group__item">Chrome<span class="u-ms-auto"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></span><span class="list-group__item">Safari<span class="u-ms-auto"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></span><span class="list-group__item">Firefox<span class="u-ms-auto"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></span><span class="list-group__item">Edge<span class="u-ms-auto"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></span>
+          </div>
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">By language</span>
+          <div class="cluster" style="gap:var(--space-1)">
+            <a class="col-tag" href="./index.html">css</a><a class="col-tag" href="./index.html">js</a>
+          </div>
+        </div>
+
+        <div class="col-widget col-widget-accent">
+          <span class="col-widget__title">The whole library</span>
+          <p class="t-small">6 snippets, all copy-ready.</p>
+          <a class="btn btn-primary btn-sm u-w-full u-mt-4" href="./index.html">
+            Browse snippets →</a>
+        </div>
+      </aside>
     </div>
   </div>
+  <script>
+  (function () {
+    document.querySelectorAll('[data-like]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = btn.getAttribute('aria-pressed') === 'true';
+        var n = btn.querySelector('[data-like-count]');
+        n.textContent = String(Number(n.textContent) + (on ? -1 : 1));
+        btn.setAttribute('aria-pressed', String(!on));
+      });
+    });
+  })();
+  </script>
 </main>
 
 <footer class="footer">

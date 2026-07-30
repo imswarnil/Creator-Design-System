@@ -15,7 +15,8 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip, pagination   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip, pagination,   # noqa: E402
+                   comments, LIKE_SCRIPT)
 
 NAME = 'Guides'
 
@@ -158,7 +159,8 @@ def route_guide():
                  for i, (t, _) in enumerate(STEPS))}
       </div>
     </div>
-  </div>'''
+  </div>
+  {comments(wrap=True)}{LIKE_SCRIPT}'''
     return page(HERE, 'guide.html', 'Grid, from scratch — Guides — Swarnil',
                 'Six steps, in the order you actually reach for them.',
                 body, NAME, own_css='guides.css', current='guides')

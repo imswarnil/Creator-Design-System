@@ -309,15 +309,20 @@
 			<div class="doc-split__main">
 		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)">A code library. <code class="t-code">.c-snippet</code> carries a language tag and a code preview that fades out under a mask, so a card shows enough to recognise the snippet without becoming a wall of code in a grid.</p>		<p class="u-fg-subtle u-mb-4" style="max-width:var(--measure-lead)"><a class="btn btn-primary btn-sm" href="/collection/snippets/index.html" target="_blank" rel="noopener">Open /snippets →</a> <a class="btn btn-primary btn-sm" href="/collection/snippets/snippet.html" target="_blank" rel="noopener">Open one snippet →</a></p></section>		<section id="card-sn"><h2 class="t-h3" style="margin:var(--space-10) 0 var(--space-4)" id="a-preview-that-fades-rather-than-truncates">A preview that fades rather than truncates</h2>
 		<p class="t-subtle u-mb-6" style="max-width:var(--measure-lead)">The mask is the whole idea: a hard cut at a fixed height implies the snippet ends there, and a fade implies it continues — which is true.</p>		<div class="surface demo-tile u-mb-6"><div class="demo">
-<a class="c c-snippet" href="./snippet.html" data-post data-tags="css">
-      <div class="c__body">
-        <span class="c__lang">css</span>
-        <h3 class="c__title">A grid that wraps itself</h3>
-      </div>
-      <pre class="c__code">display: grid;
+<a class="c win win-code snip-card" href="./snippet.html"
+       data-post data-tags="css">
+      <span class="win__bar">
+        <span class="win__dots"><span></span><span></span><span></span></span>
+        <span class="win__title">A grid that wraps itself</span>
+        <span class="snip-card__lang">css</span>
+      </span>
+      <span class="win__body snip-card__body">
+        <span class="win-code__gutter">1<br />2<br />3<br />4</span>
+        <pre class="win-code__lines"><code data-lang="css">display: grid;
 grid-template-columns:
   repeat(auto-fit, minmax(16rem, 1fr));
-gap: var(--space-4);</pre>
+gap: var(--space-4);</code></pre>
+      </span>
     </a>
 		</div><p class="spec"><b>.c.c-snippet</b> · <b>.c__lang</b> · <b>.c__code</b> with a mask-image fade</p></div></section>
 

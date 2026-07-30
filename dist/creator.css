@@ -6704,7 +6704,19 @@ a.card:hover { text-decoration: none; color: inherit; }
 
 /* ── projects · #project ─────────────────────────────────────────────────
    A logo tile instead of a hero image, because a project is a thing, not a
-   scene. */
+   scene.
+
+   TWO shapes, because a repo card is read two different ways and one card
+   stretched to both widths does neither well:
+
+     .c-project        the grid card — stacked, for a three-up. The default,
+                       since a portfolio shows several at once.
+     .c-project-wide   the row — logo left, copy right, for a single
+                       full-width slot (a "related" strip, a search result).
+
+   The wide one is a modifier rather than the base precisely so a full-width
+   row is a decision someone made, not what you get by putting the grid card
+   in a wide container. */
 
 .c-project .c__logo {
 	width: 3rem;
@@ -6717,8 +6729,36 @@ a.card:hover { text-decoration: none; color: inherit; }
 	overflow: hidden;
 }
 
-.c-project .c__body { flex-direction: row; gap: var(--space-4); align-items: flex-start; }
+.c-project .c__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	align-items: flex-start;
+}
+
 .c-project .c__stack { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+
+/* The footer wraps rather than scrolling: six facts on one line in a 1/3-width
+   card would either overflow or shrink the type below readable. */
+.c-project .c__foot { flex-wrap: wrap; row-gap: var(--space-2); }
+
+/* ── The wide row ────────────────────────────────────────────────────────── */
+
+.c-project-wide { flex-direction: row; align-items: stretch; }
+
+.c-project-wide .c__logo {
+	width: 4rem;
+	height: 4rem;
+	margin: var(--space-5) 0 var(--space-5) var(--space-5);
+}
+
+.c-project-wide .c__body { flex: 1; }
+
+@media (max-width: 40rem) {
+	/* No room for two columns — the wide card becomes the grid card. */
+	.c-project-wide { flex-direction: column; }
+	.c-project-wide .c__logo { margin: var(--space-5) var(--space-5) 0; }
+}
 
 /* ── project build-log · #project-detail ─────────────────────────────────── */
 
@@ -11367,6 +11407,241 @@ a.tl__title:hover { color: var(--fg-accent); }
 	.tl-alt .tl__node { position: relative; right: auto; left: auto; }
 }    /* timeline — vertical, horizontal, alt, ranged */
 /* =============================================================================
+   36 · COMMENTS
+   A thread, and the box that adds to it. Framework-agnostic on purpose: this is
+   the markup Ghost, Disqus, Giscus and a hand-rolled endpoint all end up
+   needing, so the CSS commits to a shape and nothing else.
+
+   Every collection's single page can carry it — a blog post, a lesson, an
+   episode, a build-log entry — because "someone said something about this
+   thing" is not a blog-specific idea, and the alternative is four slightly
+   different comment sections.
+
+     <section class="comments">
+       <header class="comments__head"> count · sort </header>
+       <form class="comment-box"> … </form>
+       <ol class="comment-list">
+         <li class="comment">
+           <span class="comment__face"> avatar </span>
+           <div class="comment__body">
+             <div class="comment__head"> author · time · badge </div>
+             <div class="comment__text"> … </div>
+             <div class="comment__actions"> reply · like </div>
+             <ol class="comment-list"> … nested replies … </ol>
+           </div>
+         </li>
+       </ol>
+     </section>
+
+   Nesting is ONE level deep by design. A thread that indents five times is a
+   thread nobody can read on a phone, and the fix people reach for — shrinking
+   the indent — just makes the hierarchy invisible instead of unreadable.
+   ========================================================================== */
+
+.comments {
+	margin-top: var(--space-12);
+	padding-top: var(--space-8);
+	border-top: var(--border-hair) solid var(--line-default);
+}
+
+.comments__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin-bottom: var(--space-6);
+}
+
+.comments__count {
+	font-family: var(--font-display);
+	font-size: var(--text-xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--tracking-tight);
+}
+
+.comments__count span {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	font-weight: var(--weight-regular);
+	margin-left: var(--space-2);
+}
+
+/* ── The box ──────────────────────────────────────────────────────────────── */
+
+.comment-box {
+	display: grid;
+	gap: var(--space-3);
+	padding: var(--space-4);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	margin-bottom: var(--space-8);
+}
+
+.comment-box__row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+}
+
+/* The textarea grows with its content where the browser supports it, so a long
+   comment does not get typed into a three-line window. */
+.comment-box textarea.input {
+	min-height: 5.5rem;
+	resize: vertical;
+	field-sizing: content;
+}
+
+.comment-box__note {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+}
+
+/* Signed-out state: the box is replaced by the ask, not disabled — a disabled
+   form is a dead end with no explanation attached. */
+.comment-box-locked {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-4);
+	background: var(--bg-sunken);
+}
+
+/* ── The thread ───────────────────────────────────────────────────────────── */
+
+.comment-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--space-6);
+}
+
+.comment {
+	display: flex;
+	gap: var(--space-4);
+	min-width: 0;
+}
+
+.comment__face {
+	flex: none;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: var(--radius-full);
+	overflow: hidden;
+	background: var(--bg-sunken);
+	display: grid;
+	place-items: center;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-subtle);
+}
+
+.comment__face > img { width: 100%; height: 100%; object-fit: cover; }
+
+.comment__body { min-width: 0; flex: 1; }
+
+.comment__head {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: var(--space-2) var(--space-3);
+	margin-bottom: var(--space-2);
+}
+
+.comment__author { font-weight: var(--weight-semibold); font-size: var(--text-sm); }
+
+.comment__time {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+}
+
+.comment__text {
+	font-size: var(--text-sm);
+	line-height: var(--leading-relaxed);
+	color: var(--fg-muted);
+}
+
+.comment__text > * + * { margin-top: var(--space-3); }
+
+.comment__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	margin-top: var(--space-3);
+}
+
+.comment__action {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	background: none;
+	border: 0;
+	padding: 0;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+	cursor: pointer;
+	transition: var(--t-colors);
+}
+
+.comment__action:hover { color: var(--fg-default); }
+.comment__action .icon { width: 0.9rem; height: 0.9rem; }
+
+/* Liked is a state, so it lives in ARIA. */
+.comment__action[aria-pressed='true'] { color: var(--accent); }
+.comment__action[aria-pressed='true'] .icon { fill: currentcolor; }
+
+/* The author of the thing being discussed. Named, not just coloured. */
+.comment-author .comment__author::after {
+	content: 'Author';
+	margin-left: var(--space-2);
+	padding: 1px 6px;
+	border-radius: var(--radius-pill);
+	background: var(--accent-soft);
+	color: var(--accent-soft-fg);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	vertical-align: 1px;
+}
+
+/* ── Replies — one level, with a rail ─────────────────────────────────────── */
+
+.comment .comment-list {
+	margin-top: var(--space-5);
+	padding-left: var(--space-5);
+	border-left: var(--border-hair) solid var(--line-subtle);
+	gap: var(--space-5);
+}
+
+.comment .comment .comment__face { width: 2rem; height: 2rem; }
+
+/* A reply to a reply flattens rather than indenting again — the rail already
+   said "this is a response", and a second one says nothing new. */
+.comment .comment .comment-list {
+	padding-left: 0;
+	border-left: 0;
+}
+
+@media (max-width: 40rem) {
+	/* On a phone the indent costs more than the hierarchy is worth. */
+	.comment .comment-list { padding-left: var(--space-3); }
+	.comment { gap: var(--space-3); }
+}     /* comments — thread, box, one level of replies */
+/* =============================================================================
    SWARNIL DESIGN SYSTEM · 5 — SECTIONS
    Full-width bands: a section is a component that owns its own rhythm. Cards
    know nothing about the page; sections ARE the page. Everything here is a
@@ -11463,6 +11738,11 @@ a.tl__title:hover { color: var(--fg-accent); }
 	gap: var(--space-8);
 	align-items: start;
 }
+
+/* The copy column. Its own class so the grid has two named children rather than
+   one named and one positional — a bare <div> here is the thing that breaks the
+   next time someone adds a wrapper. */
+.page-head__main { min-width: 0; }
 
 @media (min-width: 56rem) {
 	.page-head-split {

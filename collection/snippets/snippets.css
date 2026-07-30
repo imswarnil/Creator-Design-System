@@ -1,0 +1,51 @@
+/* =============================================================================
+   SNIPPETS — collection-only CSS
+   The card is `.win.win-code` — the editor chrome from 12-frame.css, because a
+   code library that does not look like an editor makes the reader work out what
+   it is. What this adds is only what a CARD needs that a window does not: the
+   language chip in the bar, a clipped preview height, and the card's own hover.
+   ========================================================================== */
+
+.snip-card {
+	text-decoration: none;
+	/* .c gives it the card transition; .win gives it the chrome. The two agree
+	   on border-radius and overflow already, so nothing has to be undone. */
+	display: flex;
+	flex-direction: column;
+}
+
+.snip-card__lang {
+	margin-left: auto;
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-accent);
+	flex: none;
+}
+
+/* A preview, not the whole file: clipped to about six lines and faded out, so
+   the card says "there is more" rather than implying the snippet ends here. */
+.snip-card__body {
+	display: flex;
+	max-height: 9.5rem;
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent);
+	mask-image: linear-gradient(to bottom, #000 62%, transparent);
+}
+
+.snip-card .win-code__lines {
+	font-size: var(--text-2xs);
+	line-height: 1.75;
+}
+
+.snip-card .win-code__gutter {
+	font-size: var(--text-2xs);
+	line-height: 1.75;
+	padding-block: var(--space-3);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.snip-card:hover { transform: translate3d(0, -3px, 0); box-shadow: var(--shadow-4); }
+	.snip-card:hover .win__title { color: var(--ink-50); }
+}

@@ -17,7 +17,8 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip,   # noqa: E402
+                   comments, LIKE_SCRIPT)
 
 NAME = 'Webseries'
 
@@ -562,7 +563,8 @@ def route_episode():
         inventory count.</span>
     </a>
   </section>
-  </div>'''
+  </div>
+  {comments(wrap=True)}{LIKE_SCRIPT}'''
     return page(HERE, 'episode.html', 'The Pitch That Almost Worked — After Hours',
                 'The episode player: the video, the season playlist beside it, '
                 'and the transcript under it.', body, NAME,

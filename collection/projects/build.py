@@ -84,7 +84,7 @@ GALLERY = ['tokens', 'components', 'collections', 'docs', 'icons', 'motion']
 
 
 def project_card(slug, name, desc, lang, color, stars, forks, updated, topics,
-                 demo, licence):
+                 demo, licence, wide=False):
     """The repo card, read off a real GitHub listing: owner/name, a Public
     chip, the description, topics as pills, then the footer line — language
     dot, stars, forks, licence, last activity. `.c-project` already shipped the
@@ -93,7 +93,7 @@ def project_card(slug, name, desc, lang, color, stars, forks, updated, topics,
     live = (f'<span>{icon("external", group="ui")}'
             f'<span class="u-sr-only">Live at </span>{demo}</span>') if demo else ''
     return f'''
-    <a class="c c-project" href="./project.html">
+    <a class="c c-project{' c-project-wide' if wide else ''}" href="./project.html">
       <span class="c__logo">{ph(slug)}</span>
       <div class="c__body">
         <h3 class="c__title"><span class="u-fg-faint"
@@ -113,10 +113,16 @@ def project_card(slug, name, desc, lang, color, stars, forks, updated, topics,
     </a>'''
 
 
-def projects_block(limit=None):
+def projects_block(limit=None, cols=3):
+    """A three-up grid by default — a portfolio is compared, and comparing means
+    seeing several at once. `cols=1` switches to the wide row variant, which is
+    a different card rather than the same one stretched."""
     rows = PROJECTS[:limit] if limit else PROJECTS
-    cards = ''.join(project_card(*p) for p in rows)
-    return f'<div class="stack-sm">{cards}</div>'
+    if cols == 1:
+        return ('<div class="stack-sm">'
+                + ''.join(project_card(*p, wide=True) for p in rows) + '</div>')
+    return (f'<div class="grid-{cols}">'
+            + ''.join(project_card(*p) for p in rows) + '</div>')
 
 
 def log_timeline(entries, linkable=False):
@@ -164,7 +170,7 @@ def related_block(exclude=0, limit=3):
     keep someone reading — a project page that dead-ends is a page that ends
     the visit."""
     rows = [p for i, p in enumerate(PROJECTS) if i != exclude][:limit]
-    return '<div class="stack-sm">' + ''.join(project_card(*p) for p in rows) + '</div>'
+    return '<div class="grid-3">' + ''.join(project_card(*p) for p in rows) + '</div>'
 
 
 def log_pager(active):

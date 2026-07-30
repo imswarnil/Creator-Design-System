@@ -322,3 +322,78 @@
 
 	redraw();
 })();
+
+
+/* ── Copy to clipboard ────────────────────────────────────────────────────────
+   [data-copy] copies text and says so. Delegated from the document, so it works
+   for buttons added after load.
+
+   Where the text comes from, in order:
+     data-copy="<selector>"  the matched element's text
+     [data-copy-src]         the nearest one inside the same container
+     otherwise               the nearest <pre>/<code> in the same figure/card
+
+   This lived only in docs/preview.js before, which meant every copy button on a
+   collection page rendered and did nothing — the worst kind of broken, because
+   it looks fine.
+   ------------------------------------------------------------------------- */
+(function () {
+	var doc = document;
+
+	function sourceFor(btn) {
+		var sel = btn.getAttribute('data-copy');
+		if (sel) {
+			var bySel = doc.querySelector(sel);
+			if (bySel) return bySel;
+		}
+		var scope = btn.closest('figure, .card, .c, .col-widget, form, section') || doc;
+		return scope.querySelector('[data-copy-src]') ||
+			scope.querySelector('textarea, pre code, pre, code');
+	}
+
+	function textOf(el) {
+		if (!el) return '';
+		// A textarea/input holds its value, which is what an edited prompt needs.
+		return ('value' in el && el.value !== undefined) ? el.value : el.innerText;
+	}
+
+	function flash(btn, msg) {
+		if (btn.dataset.busy) return;
+		btn.dataset.busy = '1';
+		var was = btn.textContent;
+		btn.textContent = msg;
+		btn.setAttribute('aria-live', 'polite');
+		setTimeout(function () {
+			btn.textContent = was;
+			delete btn.dataset.busy;
+		}, 1400);
+	}
+
+	doc.addEventListener('click', function (e) {
+		var btn = e.target.closest('[data-copy]');
+		if (!btn) return;
+		e.preventDefault();
+
+		var text = textOf(sourceFor(btn)).trim();
+		if (!text) return;
+
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(text)
+				.then(function () { flash(btn, 'Copied'); })
+				.catch(function () { flash(btn, 'Press ⌘C'); });
+		} else {
+			// No clipboard API (or no secure context): select it so the keyboard
+			// shortcut works rather than failing silently.
+			var ta = doc.createElement('textarea');
+			ta.value = text;
+			ta.setAttribute('readonly', '');
+			ta.style.cssText = 'position:fixed;top:-1000px';
+			doc.body.appendChild(ta);
+			ta.select();
+			var ok = false;
+			try { ok = doc.execCommand('copy'); } catch (err) { ok = false; }
+			doc.body.removeChild(ta);
+			flash(btn, ok ? 'Copied' : 'Press ⌘C');
+		}
+	});
+})();

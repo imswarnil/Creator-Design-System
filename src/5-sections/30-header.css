@@ -86,6 +86,11 @@
 	align-items: start;
 }
 
+/* The copy column. Its own class so the grid has two named children rather than
+   one named and one positional — a bare <div> here is the thing that breaks the
+   next time someone adds a wrapper. */
+.page-head__main { min-width: 0; }
+
 @media (min-width: 56rem) {
 	.page-head-split {
 		grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);

@@ -16,7 +16,8 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from shell import icon, ph, page, sec, hero, meta_strip   # noqa: E402
+from shell import (icon, ph, page, sec, hero, meta_strip,   # noqa: E402
+                   comments, LIKE_SCRIPT)
 
 NAME = 'Blog'
 
@@ -206,8 +207,6 @@ def route_index():
 
 def route_post():
     body = f'''
-  <div class="col-progress"><div class="col-progress__bar" style="--value:38%"></div></div>
-
   <article class="container section-sm">
     <header class="col-post__head">
       <nav class="col-post__crumbs" aria-label="Breadcrumb">
@@ -270,7 +269,14 @@ def route_post():
       <span class="col-order__title">Tokens are a contract, not a theme</span>
       <span class="t-small u-fg-subtle">Two tiers, and why one override reaches everything.</span>
     </a>
-  </article>'''
+
+    <div class="u-mt-12">
+      {sec('Related posts', 'Three more on the same argument.')}
+      {posts_block(limit=3)}
+    </div>
+
+    {comments()}
+  </article>{LIKE_SCRIPT}'''
     return page(HERE, 'post.html', 'Why I stopped using a CSS framework — Blog',
                 'Three years of overriding someone else’s opinions.',
                 body, NAME, current='blog')

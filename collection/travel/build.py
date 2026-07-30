@@ -19,7 +19,8 @@ sys.path.insert(0, str(HERE.parent))
 
 # Travel predates shell.py and keeps its own HEAD/nav, but there is no reason
 # to keep a second copy of the cinematic hero — that one is shared.
-from shell import cine_hero   # noqa: E402
+from shell import (cine_hero,   # noqa: E402
+                   comments, LIKE_SCRIPT)
 REL = '../..'          # from collection/travel/*.html back to the repo root
 
 # ── The demo data ───────────────────────────────────────────────────────────
@@ -688,7 +689,8 @@ def route_post():
       <span class="t-small u-fg-subtle">North and south, and the road between them.</span>
     </a>
   </article>
-'''
+
+  {comments(wrap=True)}{LIKE_SCRIPT}'''
     return page('post.html', 'The train south — Travel — Swarnil',
                 'Sixteen hours, three classes, and which one to book.', body)
 
