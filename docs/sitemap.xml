@@ -29,6 +29,7 @@
 <url><loc>https://creator.imswarnil.com/course/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/cta.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/cutouts.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/docs/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/dropdowns.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/f-a11y.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/f-color.html</loc><priority>0.5</priority></url>
@@ -86,9 +87,11 @@
 <url><loc>https://creator.imswarnil.com/pagination.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/popovers.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/principles.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/products/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/progress.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/projects/build-log.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/projects/index.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/prompts/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/quotes.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/range.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/reboot.html</loc><priority>0.5</priority></url>
@@ -97,6 +100,7 @@
 <url><loc>https://creator.imswarnil.com/select.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/setup.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/showcase.html</loc><priority>0.5</priority></url>
+<url><loc>https://creator.imswarnil.com/snippets/index.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/spinners.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/sponsor.html</loc><priority>0.5</priority></url>
 <url><loc>https://creator.imswarnil.com/stats.html</loc><priority>0.5</priority></url>

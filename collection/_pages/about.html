@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>About — Swarnil Singhai</title>
-<meta name="description" content="Design systems, accessibility, and as little JavaScript as a page can get away with." />
+<meta name="description" content="How a design degree, a component library nobody used and one stubborn rebuild turned into a design system." />
 <link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,98 +41,66 @@
   <div class="container">
     <section class="hero hero-split">
       <div>
-        <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18.5 15 7.5a2.4 2.4 0 0 1 3.4 3.4L7.5 22H4v-3.5Z"/><path d="M13 9.5 17.5 14"/></svg>About</span>
-        <h1 class="hero__title">I build the system, then <em>the site on it</em>.</h1>
-        <p class="hero__lead">Tokens first, components second, and as little
-          JavaScript as the page can get away with. Everything you are looking
-          at is the receipts.</p>
+        <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18.5 15 7.5a2.4 2.4 0 0 1 3.4 3.4L7.5 22H4v-3.5Z"/><path d="M13 9.5 17.5 14"/></svg>My story</span>
+        <h1 class="hero__title">I got tired of having the <em>same argument</em>.</h1>
+        <p class="hero__lead">Which grey. Which radius. Where the sidebar goes. Nine
+          years of the same four arguments on every new project — so I wrote the
+          answers down once, and the answers became this.</p>
         <div class="hero__actions">
-          <a class="btn btn-primary btn-pill" href="./resume.html">Read the résumé →</a>
-          <a class="btn btn-secondary btn-pill" href="./contact.html">Get in touch</a>
+          <a class="btn btn-primary btn-pill" href="#journey">The long version ↓</a>
+          <a class="btn btn-secondary btn-pill" href="./resume.html">
+            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"/><path d="M3.5 13h17M10.5 13v1.5h3V13"/></svg>The résumé instead</a>
         </div>
       </div>
       <div class="hero-split__stage">
         <div class="frame frame-ink"><span class="col-ph" style="--h:143" data-tall aria-hidden="true"></span></div>
-        <div class="hero-split__caption">
-          <span>Desk, Berlin</span><span>2026</span>
-        </div>
+        <div class="hero-split__caption"><span>Desk, wherever it is that month</span>
+          <span>2026</span></div>
       </div>
     </section>
   </div>
 
   <div class="container section-sm">
-    <div class="stats stats-bare"><div class="stat"><span class="stat__label">Years shipping</span><span class="stat__value">9</span></div><div class="stat"><span class="stat__label">Collections</span><span class="stat__value">12</span></div><div class="stat"><span class="stat__label">KB gzipped</span><span class="stat__value">37</span><span class="stat__note">the whole system</span></div><div class="stat"><span class="stat__label">Dependencies</span><span class="stat__value">0</span></div></div>
+    <div class="stats stats-bare"><div class="stat"><span class="stat__label">Years shipping</span><span class="stat__value">9</span></div><div class="stat"><span class="stat__label">Collections built</span><span class="stat__value">12</span></div><div class="stat"><span class="stat__label">KB gzipped</span><span class="stat__value">37</span><span class="stat__note">the whole system</span></div><div class="stat"><span class="stat__label">Dependencies</span><span class="stat__value">0</span></div></div>
   </div>
 
-  <div class="container section-sm">
+  <!-- The journey. An alternating timeline, because a story with turns in it
+       reads better zig-zagged than as a single column of dates. -->
+  <section class="container section-sm" id="journey">
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">How it actually went</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Including the part where I built the wrong thing first, which is the part most of these pages leave out.</p></div></div>
+    <ol class="tl tl-alt"><li class="tl__item" data-done data-kind="start"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2015</span><span class="tl__title">A design degree I did not finish using</span><p class="tl__note">Learned to make one beautiful page. Learned nothing about making the second one match it.</p></div></li><li class="tl__item" data-done><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2019</span><span class="tl__title">First engineering hire at Loop &amp; Co</span><p class="tl__note">Built a component library nobody used, because I built it before anyone had felt the pain it solved.</p></div></li><li class="tl__item" data-done><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2021</span><span class="tl__title">The rebuild that taught me the lesson</span><p class="tl__note">Cut two thirds of a marketing site's CSS by deleting decisions rather than code.</p></div></li><li class="tl__item" data-done><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2023</span><span class="tl__title">Tokens before templates</span><p class="tl__note">Started writing the answers down instead of re-deciding them. That file became this system.</p></div></li><li class="tl__item" aria-current="step"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">Now</span><span class="tl__title">Twelve collections on one contract</span><p class="tl__note">Eight of the twelve needed no new CSS. That was the whole test.</p></div></li></ol>
+  </section>
 
+  <section class="container section-sm">
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">What came out of it</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The things I would point at if you asked what nine years bought.</p></div></div>
+    <div class="grid-3">
+      <div class="card"><div class="card__body"><span class="card__meta"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18.5 15 7.5a2.4 2.4 0 0 1 3.4 3.4L7.5 22H4v-3.5Z"/><path d="M13 9.5 17.5 14"/></svg>Shipped</span><h3 class="card__title">A system, not a stylesheet</h3><p class="card__excerpt">Twelve collections, one vocabulary, 37 KB — and a rebrand that is one file.</p></div></div><div class="card"><div class="card__body"><span class="card__meta"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5v-13Z"/></svg>Taught</span><h3 class="card__title">132 lessons, 9.2k readers</h3><p class="card__excerpt">Six courses and a newsletter, all built on the thing they teach.</p></div></div><div class="card"><div class="card__body"><span class="card__meta"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="m3.5 11 17-0M7 4l3 3.5M12 4l3 3.5M17 4l3 3.5"/></svg>Held</span><h3 class="card__title">Zero dependencies, nine years</h3><p class="card__excerpt">Nothing here breaks because something else released a major version.</p></div></div>
+    </div>
+  </section>
+
+  <!-- The mission, on the one inverse band this page gets. -->
+  <section class="container section-sm">
     
-    <div class="rsm-summary">
-      <div>
-        <h1 class="rsm-summary__name">Swarnil Singhai</h1>
-        <p class="rsm-summary__role">Senior Product Engineer</p>
-      </div>
-      <p class="rsm-summary__pitch">I build design systems and the sites that run on them — tokens first, components second, and as little JavaScript as the page can get away with. This whole site is the receipts.</p>
-      <div class="rsm-summary__contacts"><span class="rsm-summary__contact"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 5.5L20 7"/></svg><span>hello@swarnil.dev</span></span><span class="rsm-summary__contact"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h3.2l1.3 4-2 1.3a10 10 0 0 0 6.7 6.7l1.3-2 4 1.3V19a1.5 1.5 0 0 1-1.6 1.5A15.5 15.5 0 0 1 5 5.9 1.5 1.5 0 0 1 5 4.5Z"/></svg><span>+1 555 0100</span></span><span class="rsm-summary__contact"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 1 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Remote · UTC+5:30</span></span><span class="rsm-summary__contact"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg><span>swarnil.dev</span></span></div>
-      <div class="rsm-summary__actions">
-        <a class="btn btn-primary btn-sm" href="./resume.html"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M8 11l4 4 4-4"/><path d="M4.5 16.5V19a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2.5"/></svg>Download résumé</a>
-        <a class="btn btn-secondary btn-sm" href="#experience">See experience</a>
-      </div>
-    </div>
+  <section class="cta pattern pattern-mesh pattern-lg">
+    <span class="cta__kicker"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M20 8V6a2 2 0 0 0-2-2h-2M4 16v2a2 2 0 0 0 2 2h2M20 16v2a2 2 0 0 1-2 2h-2"/><circle cx="17" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg>The mission</span>
+    <h2 class="cta__title">Fewer decisions, made <em>better</em>.</h2>
+    <p class="cta__body">A design system is not a component library. It is the set of arguments you have already had, written down so nobody has to have them again — and every hour that buys back is an hour spent on the work itself.</p>
+    <div class="cta__actions"><a class="btn btn-primary btn-pill" href="./contact.html">Work with me →</a><a class="btn btn-ghost btn-pill" href="./now.html">What I am on now</a></div>
+    
+  </section>
+  </section>
 
-    <div class="u-mt-10">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">Where the time went</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The short version is on the résumé; this is the same three jobs with the parts that mattered.</p></div></div>
-      <ol class="tl tl-ranged"><li class="tl__item" aria-current="step"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2023 — Now</span><span class="tl__title">Senior Product Engineer · Northwind Studio</span><p class="tl__note">Owns the design system this page is built with: tokens, components and the collections that ship on top of them.</p><div class="tl__meta"><span class="badge">Design systems</span><span class="badge">CSS</span><span class="badge">Accessibility</span></div></div></li><li class="tl__item"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2021 — 2023</span><span class="tl__title">Frontend Engineer · Fieldnote</span><p class="tl__note">Rebuilt the marketing site on a token-first stylesheet, cutting shipped CSS by two thirds with no framework underneath it.</p><div class="tl__meta"><span class="badge">CSS</span><span class="badge">Performance</span></div></div></li><li class="tl__item"><span class="tl__node"></span><div class="tl__body"><span class="tl__time">2019 — 2021</span><span class="tl__title">Frontend Developer · Loop & Co</span><p class="tl__note">First engineering hire. Built the component library the rest of the product grew from.</p><div class="tl__meta"><span class="badge">JavaScript</span><span class="badge">Component libraries</span></div></div></li></ol>
-    </div>
-
-    <div class="u-mt-10">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">What I actually do</h2></div></div>
-      <div class="col-checks">
-        <span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-          <span>Design systems — tokens, components, and the discipline to reuse them</span></span>
-        <span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-          <span>Accessibility as a default, not an audit bolted on at the end</span></span>
-        <span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span>
-          <span>As little JavaScript as a page can get away with</span></span>
-      </div>
-    </div>
-
-    <figure class="pullquote u-mt-10">
-      <p class="pullquote__text">A design system is not a component library. It is
-        the set of arguments you have already had, written down so you never have
-        to have them again.</p>
-      <figcaption class="pullquote__cite">From the introduction to the docs</figcaption>
-    </figure>
-
-    <div class="u-mt-10">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">What the desk looks like</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The editor, and the one command that rebuilds all 138 pages.</p></div></div>
-      <div class="grid-2">
-        <div class="win win-code">
-      <div class="win__bar">
-        <span class="win__dots"><span></span><span></span><span></span></span>
-        <span class="win__title">shell.py</span>
-      </div>
-      <div class="win-code__tabs"><span class="win-code__tab" data-active>collection/shell.py</span></div>
-      <div class="win__body" style="display:flex">
-        <div class="win-code__gutter">1<br />2<br />3<br />4</div>
-        <div class="win-code__lines"><span class="tok-com"># the head, navbar and footer every route shares</span><br /><span class="tok-key">def</span> <span class="tok-fn">page</span>(<span class="tok-var">out_dir</span>, <span class="tok-var">name</span>, <span class="tok-var">title</span>, <span class="tok-var">body</span>):<br />    <span class="tok-var">doc</span> = <span class="tok-var">HEAD</span>.<span class="tok-fn">format</span>(...) + <span class="tok-var">body</span><br />    (<span class="tok-fn">Path</span>(<span class="tok-var">out_dir</span>) / <span class="tok-var">name</span>).<span class="tok-fn">write_text</span>(<span class="tok-var">doc</span>)</div>
-      </div>
-    </div>
-        <div class="win win-term">
-      <div class="win__bar">
-        <span class="win__dots"><span></span><span></span><span></span></span>
-        <span class="win__title">zsh</span>
-      </div>
-      <div class="win__body win-term__body"><div class="win-term__prompt">npm run build</div><div><span class="tok-com">postcss src/index.css → dist/creator.css</span></div><div><span class="tok-str">built 138 pages</span></div><div class="win-term__prompt"><span class="win-term__cursor"></span></div></div>
-    </div>
-      </div>
+  <div class="container section-sm">
+    <div class="row-between u-mb-5"><div><h2 class="t-h3">How I work</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Three rules, and the reasons rather than the slogans.</p></div></div>
+    <div class="col-checks">
+      <span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Tokens before templates — a value used twice is a decision, not a number</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Accessibility as a default, because retrofitting it costs more than it saves</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>As little JavaScript as the page can get away with, so less can break</span></span>
     </div>
   </div>
 
   <div class="container section-sm">
     
   <section class="cta-sponsor">
-    <div><span class="cta__kicker"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18.5 15 7.5a2.4 2.4 0 0 1 3.4 3.4L7.5 22H4v-3.5Z"/><path d="M13 9.5 17.5 14"/></svg>Sponsor</span><h2 class="cta__title">This is free and MIT-licensed.</h2></div>
+    <div><span class="cta__kicker"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18.5 15 7.5a2.4 2.4 0 0 1 3.4 3.4L7.5 22H4v-3.5Z"/><path d="M13 9.5 17.5 14"/></svg>Sponsor</span><h2 class="cta__title">The whole thing is free and MIT-licensed.</h2></div>
     <div class="cta__actions"><a class="btn btn-secondary" href="https://github.com/sponsors/imswarnil" target="_blank" rel="noopener">Sponsor →</a></div>
   </section>
   </div>

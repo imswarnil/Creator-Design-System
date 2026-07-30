@@ -268,7 +268,7 @@ def hero(title, lead, eyebrow, meta, art='', search=None, eyebrow_icon='pin',
       </form>'''
     if full:
         return f'''
-  <section class="col-hero" style="border-radius:0;margin-top:calc(-1 * (var(--nav-h) + var(--space-3) * 2))">
+  <section class="col-hero" style="border-radius:0;margin-top:calc(-1 * var(--nav-bleed))">
     {art}
     <div class="col-hero__in" style="max-width:var(--w-site);margin-inline:auto;
          padding-top:calc(var(--nav-h) + var(--space-24))">

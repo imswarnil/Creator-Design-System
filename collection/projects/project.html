@@ -75,11 +75,6 @@
         <div class="grid-auto-sm"><div class="surface" style="overflow:hidden;border-radius:var(--radius-card)"><div style="aspect-ratio:4/3"><span class="col-ph" style="--h:300" aria-hidden="true"></span></div></div><div class="surface" style="overflow:hidden;border-radius:var(--radius-card)"><div style="aspect-ratio:4/3"><span class="col-ph" style="--h:158" aria-hidden="true"></span></div></div><div class="surface" style="overflow:hidden;border-radius:var(--radius-card)"><div style="aspect-ratio:4/3"><span class="col-ph" style="--h:211" aria-hidden="true"></span></div></div><div class="surface" style="overflow:hidden;border-radius:var(--radius-card)"><div style="aspect-ratio:4/3"><span class="col-ph" style="--h:245" aria-hidden="true"></span></div></div><div class="surface" style="overflow:hidden;border-radius:var(--radius-card)"><div style="aspect-ratio:4/3"><span class="col-ph" style="--h:180" aria-hidden="true"></span></div></div><div class="surface" style="overflow:hidden;border-radius:var(--radius-card)"><div style="aspect-ratio:4/3"><span class="col-ph" style="--h:190" aria-hidden="true"></span></div></div></div>
 
         <div class="u-mt-10">
-          <div class="row-between u-mb-5"><div><h2 class="t-h3">Project log</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Every entry links to its own page — the log is the series this collection does not otherwise have.</p></div></div>
-          <ol class="buildlog"><li class="buildlog__step" data-kind="ship" data-done><span class="buildlog__node"></span><a class="buildlog__link" href="./log.html">Ship v1<span class="buildlog__date">Jul 22, 2026</span></a></li><li class="buildlog__step" data-kind=""><span class="buildlog__node"></span><a class="buildlog__link" href="./log.html">Six collections, one contract<span class="buildlog__date">Jul 18, 2026</span></a></li><li class="buildlog__step" data-kind=""><span class="buildlog__node"></span><a class="buildlog__link" href="./log.html">The docs site<span class="buildlog__date">Jul 09, 2026</span></a></li><li class="buildlog__step" data-kind=""><span class="buildlog__node"></span><a class="buildlog__link" href="./log.html">Components pass<span class="buildlog__date">Jun 28, 2026</span></a></li><li class="buildlog__step" data-kind=""><span class="buildlog__node"></span><a class="buildlog__link" href="./log.html">Foundation tokens land<span class="buildlog__date">Jun 12, 2026</span></a></li><li class="buildlog__step" data-kind="start" data-done><span class="buildlog__node"></span><a class="buildlog__link" href="./log.html">Kick-off — scope and sketches<span class="buildlog__date">Jun 02, 2026</span></a></li></ol>
-        </div>
-
-        <div class="u-mt-10">
           <div class="row-between u-mb-5"><div><h2 class="t-h3">Case study</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The short version, for anyone who wants the receipts before the log.</p></div></div>
           <div class="col-checks">
             <span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Twelve collections built on one shared section vocabulary</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>Zero new CSS for eight of the twelve — the vocabulary held</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>One token change reaches every page, every collection</span></span><span class="col-check"><span class="col-check__tick"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span><span>37 KB gzipped, no dependencies, no build step required</span></span>
@@ -106,7 +101,7 @@
         </div>
       </div>
 
-      <aside class="col-rail col-rail-sticky">
+      <aside class="col-rail col-rail-sticky col-rail-scroll">
       <div class="col-widget">
         <span class="col-widget__title">About</span>
         <p class="t-small u-fg-subtle">A token-first CSS design system for creators — tokens, components, sections and twelve collections built on top of them.</p>
@@ -135,6 +130,11 @@
         <span class="col-widget__title">Releases</span>
         <div class="list-group list-group-flush"><a class="list-group__item" href="#i">v0.1.0 <span class="badge badge-live">Latest</span><span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">Jul 22, 2026</span></a><a class="list-group__item" href="#i">v0.0.9<span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">Jun 30, 2026</span></a><a class="list-group__item" href="#i">v0.0.8<span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">Jun 12, 2026</span></a></div>
       </div>
+      
+      <div class="col-widget">
+        <span class="col-widget__title">Build log</span>
+        <div class="list-group list-group-flush"><a class="list-group__item log-rail__item" href="./log.html"><span class="log-rail__no">06</span><span><span style="display:block">Ship v1</span><span class="t-slate-sm" style="color:var(--fg-faint)">Jul 22, 2026</span></span></a><a class="list-group__item log-rail__item" href="./log.html"><span class="log-rail__no">05</span><span><span style="display:block">Six collections, one contract</span><span class="t-slate-sm" style="color:var(--fg-faint)">Jul 18, 2026</span></span></a><a class="list-group__item log-rail__item" href="./log.html"><span class="log-rail__no">04</span><span><span style="display:block">The docs site</span><span class="t-slate-sm" style="color:var(--fg-faint)">Jul 09, 2026</span></span></a><a class="list-group__item log-rail__item" href="./log.html"><span class="log-rail__no">03</span><span><span style="display:block">Components pass</span><span class="t-slate-sm" style="color:var(--fg-faint)">Jun 28, 2026</span></span></a><a class="list-group__item log-rail__item" href="./log.html"><span class="log-rail__no">02</span><span><span style="display:block">Foundation tokens land</span><span class="t-slate-sm" style="color:var(--fg-faint)">Jun 12, 2026</span></span></a><a class="list-group__item log-rail__item" href="./log.html"><span class="log-rail__no">01</span><span><span style="display:block">Kick-off — scope and sketches</span><span class="t-slate-sm" style="color:var(--fg-faint)">Jun 02, 2026</span></span></a></div>
+      </div>
 
       <!-- The ask. A project page is the most likely place someone decides
            they want to work with you, so this is where it goes — not buried
@@ -151,6 +151,66 @@
         </div>
       </div>
     </aside>
+    </div>
+
+    <!-- A project page that dead-ends is a page that ends the visit. -->
+    <div class="u-mt-12">
+      <div class="row-between u-mb-5"><div><h2 class="t-h3">Other projects</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">Three more, newest activity first.</p></div></div>
+      <div class="stack-sm">
+    <a class="c c-project" href="./project.html">
+      <span class="c__logo"><span class="col-ph" style="--h:18" aria-hidden="true"></span></span>
+      <div class="c__body">
+        <h3 class="c__title"><span class="u-fg-faint"
+          style="font-weight:var(--weight-regular)">imswarnil/</span>fieldnote</h3>
+        <p class="c__excerpt">A marketing site rebuilt on a token-first stylesheet with no framework, shipping two thirds less CSS than the version it replaced.</p>
+        <div class="c__stack"><span class="badge badge-info">css</span><span class="badge badge-info">performance</span><span class="badge badge-info">static-site</span></div>
+      </div>
+      <div class="c__foot">
+        <span><span class="dot dot-sm" style="background:#563d7c"></span>CSS</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L12 16.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7L12 3.5Z"/></svg>64</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>6</span>
+        <span>MIT</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18V6.5A1.5 1.5 0 0 1 6.5 5H10"/></svg><span class="u-sr-only">Live at </span>fieldnote.dev</span>
+        <span>Updated 3mo ago</span>
+      </div>
+    </a>
+    <a class="c c-project" href="./project.html">
+      <span class="c__logo"><span class="col-ph" style="--h:209" aria-hidden="true"></span></span>
+      <div class="c__body">
+        <h3 class="c__title"><span class="u-fg-faint"
+          style="font-weight:var(--weight-regular)">imswarnil/</span>component-playground</h3>
+        <p class="c__excerpt">An internal tool for previewing every component in both themes before it ships anywhere real.</p>
+        <div class="c__stack"><span class="badge badge-info">javascript</span><span class="badge badge-info">accessibility</span><span class="badge badge-info">tooling</span></div>
+      </div>
+      <div class="c__foot">
+        <span><span class="dot dot-sm" style="background:#f1e05a"></span>JavaScript</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L12 16.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7L12 3.5Z"/></svg>41</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>3</span>
+        <span>MIT</span>
+        
+        <span>Updated 5mo ago</span>
+      </div>
+    </a>
+    <a class="c c-project" href="./project.html">
+      <span class="c__logo"><span class="col-ph" style="--h:353" aria-hidden="true"></span></span>
+      <div class="c__body">
+        <h3 class="c__title"><span class="u-fg-faint"
+          style="font-weight:var(--weight-regular)">imswarnil/</span>creator-cli</h3>
+        <p class="c__excerpt">A small CLI that scaffolds a new collection from the default one and wires it into the docs build.</p>
+        <div class="c__stack"><span class="badge badge-info">python</span><span class="badge badge-info">cli</span><span class="badge badge-info">codegen</span></div>
+      </div>
+      <div class="c__foot">
+        <span><span class="dot dot-sm" style="background:#3572A5"></span>Python</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L12 16.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7L12 3.5Z"/></svg>19</span>
+        <span><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>2</span>
+        <span>MIT</span>
+        
+        <span>Updated 7mo ago</span>
+      </div>
+    </a></div>
+      <div class="u-mt-6">
+        <a class="btn btn-secondary btn-pill" href="./index.html">All projects →</a>
+      </div>
     </div>
   </div>
   <script>

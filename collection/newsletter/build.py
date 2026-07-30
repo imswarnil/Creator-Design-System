@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-"""The newsletter collection — /newsletter and a single issue.
+"""The newsletter collection — /newsletter and a single update.
 
-Two routes, like blog: an archive and a post. What makes an issue different
-from a blog post is entirely the archive card — .c-newsletter (issue number
-+ envelope rule) already existed in 23-collection.css, unused; the date tile
-is .itinerary__chip (the day-by-day trip composite) reused flat, because a
-send date and a trip day are the same fact — a number and a unit under it.
-No new CSS for either.
+Two routes, like blog: an archive and a post. This is a newsletter where
+updates get shared, NOT a numbered publication — so nothing here carries an
+issue number. Numbering a newsletter promises a cadence, and the promise this
+one makes is the opposite: something arrives when there is something worth
+sending. The date is the identifier, because the date is the only fact that
+is always true.
+
+What makes an update different from a blog post is entirely the archive card
+— .c-newsletter (an envelope rule) already existed in 23-collection.css,
+unused; the date tile is .itinerary__chip (the day-by-day trip composite)
+reused flat, because a send date and a trip day are the same fact — a number
+and a unit under it. No new CSS for either.
 """
 import pathlib
 import sys
@@ -46,10 +52,10 @@ def date_chip(day, month):
 def issues_block(limit=None):
     rows = ISSUES[:limit] if limit else ISSUES
     cards = ''.join(
-        f'<a class="c c-newsletter" href="./post.html" data-post data-tags="issue">'
+        f'<a class="c c-newsletter" href="./post.html" data-post data-tags="update">'
         f'<div class="c__body" style="flex-direction:row;align-items:center;gap:var(--space-4)">'
         f'{date_chip(day, mon)}'
-        f'<div style="min-width:0"><span class="c__issue">Issue #{n}</span>'
+        f'<div style="min-width:0"><span class="c__issue">{mon} {day}, {yr}</span>'
         f'<h3 class="c__title" style="margin-top:2px">{subject}</h3>'
         f'<p class="c__excerpt">{excerpt}</p></div></div>'
         f'<div class="c__foot"><span>{yr}</span><span>{read}</span></div></a>'
@@ -61,8 +67,8 @@ def subscribe_block():
     return '''
     <div class="col-widget col-widget-accent">
       <span class="col-widget__title">Get the next one</span>
-      <p class="t-small">Weekly, whenever there is something worth forty-one issues
-        of practice behind it. No spam, one click to leave.</p>
+      <p class="t-small">Sent when there is something to say — not weekly, not
+        monthly, not on a schedule that needs filling. One click to leave.</p>
       <form class="col-sub__form" onsubmit="return false">
         <input type="email" placeholder="you@example.com" aria-label="Email address" />
         <button class="btn btn-primary btn-sm" type="submit">Subscribe</button>
@@ -78,9 +84,10 @@ def route_index():
                     max-width:calc(var(--w-site) - 4rem);margin-inline:auto">
       <div>
         <span class="hero__eyebrow">{icon('mail')}The newsletter</span>
-        <h1 class="hero__title">Forty-one issues, <em>and counting</em>.</h1>
-        <p class="hero__lead">One email when something is worth forty-one issues of
-          practice behind it. No schedule beyond that — no padding either.</p>
+        <h1 class="hero__title">Updates, <em>when there are any</em>.</h1>
+        <p class="hero__lead">What I am building, what broke, and what I would do
+          differently — sent when there is something to say rather than on a
+          schedule that needs filling.</p>
         <div class="hero__actions">
           <form onsubmit="return false" style="max-width:26rem">
             <div class="input-group">
@@ -90,12 +97,13 @@ def route_index():
             </div>
           </form>
         </div>
-        {meta_strip([('41', 'issues'), ('9.2k', 'subscribers'), ('46%', 'open rate'),
-                     ('2024', 'since')], paper=True, border=False, inline=True)}
+        {meta_strip([('9.2k', 'readers'), ('46%', 'open rate'), ('2024', 'since'),
+                     ('0', 'drip sequences')], paper=True, border=False, inline=True)}
       </div>
       <div class="hero-split__stage">
         {issues_block(limit=1)}
-        <p class="hero-split__caption">Latest issue <span>#41</span></p>
+        <p class="hero-split__caption"><span>Most recent</span>
+          <span>Jul 22, 2026</span></p>
       </div>
     </section>
   </div>
@@ -104,10 +112,10 @@ def route_index():
   <section class="container section-sm">
     <div class="grid-rail">
       <div>
-        {sec('All issues', 'Newest first. Every issue is also just a post — nothing '
-             'about the archive is special-cased.')}
+        {sec('Everything sent', 'Newest first. Every update is also just a post — '
+             'nothing about the archive is special-cased.')}
         {issues_block()}
-        <div class="u-mt-6">{pagination(1, 7, href='./index.html', label='Issue archive')}</div>
+        <div class="u-mt-6">{pagination(1, 7, href='./index.html', label='Archive')}</div>
       </div>
       <aside>
         {subscribe_block()}
@@ -116,7 +124,7 @@ def route_index():
   </section>
   </div>'''
     return page(HERE, 'index.html', 'Newsletter — Swarnil',
-                'Forty-one issues on CSS, motion and the craft of shipping a site.',
+                'Updates on CSS, motion and the craft of shipping a site.',
                 body, NAME, current='newsletter')
 
 
@@ -125,7 +133,7 @@ def route_post():
   <article class="container section-sm">
     <header class="col-post__head">
       <nav class="col-post__crumbs" aria-label="Breadcrumb">
-        <a href="./index.html">Newsletter</a> <span>/</span> <span>Issue 41</span>
+        <a href="./index.html">Newsletter</a> <span>/</span> <span>Jul 22, 2026</span>
       </nav>
       {date_chip('22', 'Jul')}
       <h1 class="t-display-2 u-mt-4">The grid lesson nobody asked for</h1>
@@ -133,7 +141,7 @@ def route_post():
         Why the implicit grid is where every layout question actually starts.
       </p>
       <div class="col-post__crumbs">
-        <span>4 min read</span> <span>·</span> <span>Issue #41</span>
+        <span>4 min read</span> <span>·</span> <span>Jul 22, 2026</span>
         <span>·</span> <span>22 Jul 2026</span>
       </div>
     </header>
@@ -163,7 +171,7 @@ def route_post():
 
     <a class="col-next u-mt-10" href="./index.html">
       <span class="col-next__label">Back to</span>
-      <span class="col-order__title">All issues</span>
+      <span class="col-order__title">Everything sent</span>
     </a>
   </article>'''
     return page(HERE, 'post.html', 'The grid lesson nobody asked for — Newsletter',

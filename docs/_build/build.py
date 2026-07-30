@@ -140,7 +140,9 @@ NAV = [
                      ('course/curriculum', 'Course · curriculum'),
                      ('projects/index', 'Projects'),
                      ('projects/build-log', 'Projects · build log'),
-                     ('webseries/index', 'Webseries')]),
+                     ('webseries/index', 'Webseries'),
+                     ('prompts/index', 'Prompts'), ('snippets/index', 'Snippets'),
+                     ('products/index', 'Products'), ('docs/index', 'Docs template')]),
     ('Pages', [('pages/index', 'Pages'), ('pages/home', 'Homepage'),
               ('pages/about', 'About'), ('pages/contact', 'Contact'),
               ('pages/archive', 'Archive'), ('pages/now', 'Now'),
@@ -669,7 +671,8 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
             if slug.startswith('col-') or slug == 'collections'
             or slug.split('/')[0] in ('travel', 'course', 'blog', 'resume', 'webseries',
                                        'pages', 'projects', 'newsletter', 'videos',
-                                       'guides') else ''))
+                                       'guides', 'prompts', 'snippets', 'products',
+                                       'docs') else ''))
     return (out, toc) if return_toc else out
 
 

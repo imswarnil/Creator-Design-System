@@ -5081,7 +5081,80 @@ button.cut-sticker:hover {
 	font-size: var(--text-2xs);
 	font-variant-numeric: tabular-nums;
 	letter-spacing: var(--tracking-wide);
-}       /* badge, chip, eyebrow, avatar, kbd     */
+}
+
+/* ── Certification seal · .cert ────────────────────────────────────────────────
+   A credential, drawn the way credentials are drawn: a scalloped seal carrying
+   a SHORT name — the acronym a certificate is actually known by — with the full
+   title and issuer set beside it.
+
+   The scallop is a clip-path polygon, generated once from a cosine so the lobes
+   are rounded rather than spiky (a star reads as a rating; a rosette reads as an
+   award). CSS-only, so it inherits currentColor and retheme for free — no image
+   to re-export when the accent changes.
+
+     <div class="cert">
+       <span class="cert__seal">WAS</span>
+       <div class="cert__body">
+         <span class="cert__name">Web Accessibility Specialist</span>
+         <span class="cert__issuer">IAAP · 2023</span>
+       </div>
+     </div>
+
+   The short name is content, not decoration: it is the thing a reader scans for.
+   Keep it to 2–4 characters — the seal is 3rem and does not grow.
+   -------------------------------------------------------------------------- */
+
+.cert {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+}
+
+.cert__seal {
+	--cert-color: var(--accent);
+	flex: none;
+	width: 3rem;
+	height: 3rem;
+	display: grid;
+	place-items: center;
+	clip-path: polygon(50.0% 0.0%, 54.1% 3.7%, 57.5% 7.7%, 62.0% 5.1%, 67.1% 3.0%, 69.7% 7.9%, 71.5% 12.8%, 76.7% 11.9%, 82.1% 11.7%, 82.9% 17.1%, 82.9% 22.4%, 88.1% 23.3%, 93.3% 25.0%, 92.1% 30.3%, 90.4% 35.3%, 94.9% 38.0%, 99.2% 41.3%, 96.3% 45.9%, 93.0% 50.0%, 96.3% 54.1%, 99.2% 58.7%, 94.9% 62.0%, 90.4% 64.7%, 92.1% 69.7%, 93.3% 75.0%, 88.1% 76.7%, 82.9% 77.6%, 82.9% 82.9%, 82.1% 88.3%, 76.7% 88.1%, 71.5% 87.2%, 69.7% 92.1%, 67.1% 97.0%, 62.0% 94.9%, 57.5% 92.3%, 54.1% 96.3%, 50.0% 100.0%, 45.9% 96.3%, 42.5% 92.3%, 38.0% 94.9%, 32.9% 97.0%, 30.3% 92.1%, 28.5% 87.2%, 23.3% 88.1%, 17.9% 88.3%, 17.1% 82.9%, 17.1% 77.6%, 11.9% 76.7%, 6.7% 75.0%, 7.9% 69.7%, 9.6% 64.7%, 5.1% 62.0%, 0.8% 58.7%, 3.7% 54.1%, 7.0% 50.0%, 3.7% 45.9%, 0.8% 41.3%, 5.1% 38.0%, 9.6% 35.3%, 7.9% 30.3%, 6.7% 25.0%, 11.9% 23.3%, 17.1% 22.4%, 17.1% 17.1%, 17.9% 11.7%, 23.3% 11.9%, 28.5% 12.8%, 30.3% 7.9%, 32.9% 3.0%, 38.0% 5.1%, 42.5% 7.7%, 45.9% 3.7%);
+	background: var(--cert-color);
+	color: var(--fg-on-accent);
+	font-family: var(--font-display);
+	font-size: var(--text-2xs);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	text-transform: uppercase;
+	line-height: 1;
+	text-align: center;
+}
+
+/* Quiet variant — for a rail of six, where six accent seals would be six
+   competing signals rather than one. */
+.cert-quiet .cert__seal {
+	--cert-color: var(--bg-muted);
+	color: var(--fg-subtle);
+}
+
+.cert__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.cert__name {
+	font-size: var(--text-sm);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-snug);
+}
+
+.cert__issuer {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* A shelf of them. */
+.cert-list { display: grid; gap: var(--space-4); }       /* badge, chip, eyebrow, avatar, kbd     */
 /* =============================================================================
    15 · TABLE & LIST
    Mono caps headers, tabular numerals, hover rows. Tables scroll inside their
@@ -6344,7 +6417,137 @@ a.card:hover { text-decoration: none; color: inherit; }
 }
 
 .deck-sm { grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); }
-.deck-lg { grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr)); }        /* the base card and its layouts         */
+.deck-lg { grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr)); }
+
+/* ── Plan · membership pricing ─────────────────────────────────────────────────
+   A card that has to answer four questions in a fixed order — what tier, what
+   price, what you get, how to start — because a pricing grid is read across
+   rather than down: people compare the same line on three cards at once. So
+   every part is a named slot and the order is not negotiable.
+
+   Exactly one card in a grid may be .plan-featured. Two featured plans is the
+   same as none, and the accent is rationed in this system precisely so that
+   "this one" can mean something.
+
+     <div class="plan-grid">
+       <article class="plan plan-featured">
+         <span class="plan__flag">Most popular</span>
+         <span class="plan__name">Member</span>
+         <p class="plan__price">$9<span class="plan__period">/month</span></p>
+         <p class="plan__note">Everything, and the archive.</p>
+         <ul class="plan__features"> <li> … </ul>
+         <a class="btn btn-primary plan__cta"> … </a>
+       </article>
+     </div>
+   -------------------------------------------------------------------------- */
+
+.plan-grid {
+	display: grid;
+	gap: var(--space-5);
+	grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+	align-items: start;
+}
+
+.plan {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	padding: var(--space-6);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	height: 100%;
+}
+
+/* The one that is recommended. A 2px accent rule, never a colour fill — the
+   same house rule the navbar's active state follows. */
+.plan-featured {
+	border-color: var(--accent);
+	box-shadow: var(--shadow-2);
+}
+
+.plan__flag {
+	position: absolute;
+	top: 0;
+	right: var(--space-5);
+	transform: translateY(-50%);
+	padding: 2px var(--space-3);
+	border-radius: var(--radius-pill);
+	background: var(--accent);
+	color: var(--fg-on-accent);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+}
+
+.plan__name {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+.plan__price {
+	font-family: var(--font-display);
+	font-size: var(--text-4xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tighter);
+	line-height: var(--leading-flat);
+	font-variant-numeric: tabular-nums;
+}
+
+.plan__period {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-medium);
+	letter-spacing: var(--tracking-normal);
+	color: var(--fg-faint);
+}
+
+.plan__note {
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	line-height: var(--leading-normal);
+}
+
+.plan__features {
+	list-style: none;
+	margin: var(--space-2) 0 0;
+	padding: 0;
+	display: grid;
+	gap: var(--space-2);
+	font-size: var(--text-sm);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	padding-top: var(--space-4);
+}
+
+.plan__features > li {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	color: var(--fg-subtle);
+}
+
+/* The tick is drawn, so a feature list needs no icon markup per row. */
+.plan__features > li::before {
+	content: '✓';
+	color: var(--fg-accent);
+	font-size: var(--text-xs);
+	line-height: 1.5;
+	flex: none;
+}
+
+/* A feature the tier does NOT include still earns a row — an absence you can
+   see beats a list you have to diff against the next card. */
+.plan__features > li[data-off] { color: var(--fg-faint); }
+.plan__features > li[data-off]::before { content: '−'; color: var(--fg-faint); }
+
+/* Pushed to the bottom so every CTA in the grid lines up regardless of how
+   many features each tier lists. */
+.plan__cta { margin-top: auto; width: 100%; justify-content: center; }        /* the base card and its layouts         */
 /* =============================================================================
    23 · COLLECTION CARDS
    routes.yaml, turned into cards. Every collection the site publishes gets a
@@ -6937,6 +7140,22 @@ a.c:hover { text-decoration: none; color: inherit; }  /* one card per routes.yam
 
 :root {
 	--nav-h: 3.5rem;
+
+	/* Space between the floating island and the first thing under it. The
+	   island is sticky, so on scroll it passes OVER the content — without a
+	   real gap the first heading of a page ends up tucked beneath it, which is
+	   worst on a narrow screen where there is no room for the eye to separate
+	   the two. Wider on small viewports for exactly that reason. */
+	--nav-gap: var(--space-6);
+
+	/* How far a full-bleed hero has to pull up to sit UNDER the island rather
+	   than below it. Derived from the three things it depends on, so no page
+	   hardcodes the sum and none of them drift when --nav-gap changes. */
+	--nav-bleed: calc(var(--nav-h) + var(--space-3) * 2 + var(--nav-gap));
+}
+
+@media (max-width: 48rem) {
+	:root { --nav-gap: var(--space-8); }
 }
 
 /* ── The nav island ──────────────────────────────────────────────────────
@@ -6950,6 +7169,7 @@ a.c:hover { text-decoration: none; color: inherit; }  /* one card per routes.yam
 	width: 100%;
 	max-width: calc(var(--w-site) + var(--gutter) * 2);
 	margin-inline: auto;
+	margin-bottom: var(--nav-gap);
 	padding-inline: var(--gutter);
 }
 
@@ -11025,10 +11245,20 @@ a.tl__title:hover { color: var(--fg-accent); }
 	height: auto;
 	align-self: stretch;
 	min-height: var(--tl-node);
+	/* A capsule that fills the row carries its mark at the TOP, where the span
+	   begins — an icon floating in the vertical middle of a three-year bar is
+	   pointing at nothing. */
+	place-items: start center;
+	padding-top: calc((var(--tl-node) - 1rem) / 2);
 }
 
+/* The tick/glyph is meaningless on a duration: the bar IS the statement. An
+   icon placed in the node deliberately (a company mark) still shows. */
 .tl-ranged .tl__item[data-done] .tl__node::before,
 .tl-ranged .tl__node::before { content: none; }
+
+.tl-ranged .tl__node > .icon,
+.tl-ranged .tl__node > .icon-sm { opacity: 0.9; }
 
 /* ── Alternating — vertical only ──────────────────────────────────────────────
    Items zig-zag either side of a centred rail. Only honest with short copy and
@@ -11409,7 +11639,7 @@ a.tl__title:hover { color: var(--fg-accent); }
 	border-radius: 0;
 	/* Sit UNDER the floating island rather than below it, so the nav reads as
 	   furniture on the footage. Same pull-up the collection hero uses. */
-	margin-top: calc(-1 * (var(--nav-h) + var(--space-3) * 2));
+	margin-top: calc(-1 * var(--nav-bleed));
 	justify-content: center;
 	isolation: isolate;
 }

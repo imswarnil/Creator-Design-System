@@ -1173,14 +1173,23 @@ rc += END
 
 rc += sec('order-r', 'A year, then .col-order again', 'The spine every trip, career '
     'history and webseries season already uses — grouping by year is the only new idea.')
-rc += live(resume.sec(resume.ARCHIVE[0][0]) + '<div class="col-order">' + ''.join(
-    f'<a class="col-order__item" href="#i">'
-    f'<span class="col-order__num"><span class="col-order__dot"></span></span>'
-    f'<div class="col-order__body"><span class="col-order__title">{title}</span>'
-    f'<div class="col-order__meta"><span>{when}</span></div></div></a>'
-    for title, href, when in resume.ARCHIVE[0][1][:3]) + '</div>',
-    '<b>.col-order</b> — unchanged from '
-    '<code class="t-code">/collection/_pages/archive.html</code>')
+rc += live(resume.sec(resume.ARCHIVE[0][0]) + '<div class="col-order">'
+    + ''.join(resume.archive_row(*it) for it in resume.ARCHIVE[0][1][:5]) + '</div>',
+    '<b>.col-order</b> + a per-collection tag — called from '
+    '<code class="t-code">archive_row()</code> itself, so this cannot drift from the '
+    'real page')
+rc += END
+
+rc += sec('tags-r', 'The visual tag is three signals, not one',
+    'The archive is the one page where a reader cannot tell what kind of thing they are '
+    'looking at from context, so every row says. Icon, label, and a hue on the node — '
+    'three signals, so it survives greyscale, colour-blindness and CSS-off. The hues ride '
+    'the same ladder <code class="t-code">ph()</code> uses, which is why ten kinds read as '
+    'one set rather than ten separate colour decisions.')
+rc += ct([(f'<span class="badge badge-info">{resume.icon(ico)}{label}</span>',
+           f'<code class="t-code">{k}</code> · hue {hue}')
+          for k, (label, ico, hue) in resume.KINDS.items()],
+         head=('Tag', 'Collection'))
 rc += END
 
 rc += sec('search-r', 'Search leads, browsing follows',
@@ -1472,3 +1481,99 @@ pj += END
 PAGES['projects/index'] = ('Projects collection',
     'GitHub-style repo cards, a sidebar carrying the live URL and the ask, and the one atom '
     'the collection genuinely needed — a proportional language bar.', pj)
+
+
+# ── 10 · the four that had no docs page ──────────────────────────────────────
+# prompts, snippets, products and docs all shipped as real folders with real
+# routes and were absent from this nav, which made them undiscoverable — the
+# same bug the pages collection had. One page each, loaded from their own
+# builders like everything above.
+
+prompts = _load('col_prompts_build', REPO / 'collection' / 'prompts' / 'build.py')
+snippets = _load('col_snippets_build', REPO / 'collection' / 'snippets' / 'build.py')
+products = _load('col_products_build', REPO / 'collection' / 'products' / 'build.py')
+docscol = _load('col_docs_build', REPO / 'collection' / 'docs' / 'build.py')
+
+pr = ''
+pr += p('A prompt library. <code class="t-code">.c-prompt</code> gives it the one device '
+        'it needs — a chat bubble, because that is what a prompt actually is — and the '
+        'model tag underneath. Both were in '
+        '<code class="t-code">23-collection.css</code> and unused until this collection.')
+pr += p('<a class="btn btn-primary btn-sm" href="/collection/prompts/index.html" '
+        'target="_blank" rel="noopener">Open /prompts →</a> '
+        '<a class="btn btn-primary btn-sm" href="/collection/prompts/prompt.html" '
+        'target="_blank" rel="noopener">Open one prompt →</a>')
+pr += END
+pr += sec('card-pr', 'The bubble is the card',
+    'The prompt text sits in the bubble and the title underneath it — inverted from '
+    'every other collection card, because with a prompt the body <em>is</em> the thing '
+    'you are scanning for. The asymmetric corner is what makes it read as speech.')
+pr += live(prompts.prompt_card(*prompts.PROMPTS[0]),
+    '<b>.c.c-prompt</b> · <b>.c__bubble</b> · <b>.c__model</b>')
+pr += END
+PAGES['prompts/index'] = ('Prompts collection',
+    'A prompt library on .c-prompt — a chat bubble, because that is what a prompt is.', pr)
+
+sn = ''
+sn += p('A code library. <code class="t-code">.c-snippet</code> carries a language tag and '
+        'a code preview that fades out under a mask, so a card shows enough to recognise '
+        'the snippet without becoming a wall of code in a grid.')
+sn += p('<a class="btn btn-primary btn-sm" href="/collection/snippets/index.html" '
+        'target="_blank" rel="noopener">Open /snippets →</a> '
+        '<a class="btn btn-primary btn-sm" href="/collection/snippets/snippet.html" '
+        'target="_blank" rel="noopener">Open one snippet →</a>')
+sn += END
+sn += sec('card-sn', 'A preview that fades rather than truncates',
+    'The mask is the whole idea: a hard cut at a fixed height implies the snippet ends '
+    'there, and a fade implies it continues — which is true.')
+sn += live(snippets.snippet_card(*snippets.SNIPPETS[1]),
+    '<b>.c.c-snippet</b> · <b>.c__lang</b> · <b>.c__code</b> with a mask-image fade')
+sn += END
+PAGES['snippets/index'] = ('Snippets collection',
+    'CSS and JS worth a permalink, on .c-snippet — a language tag and a code preview '
+    'that fades rather than truncates.', sn)
+
+pd = ''
+pd += p('The things on the desk. <code class="t-code">.c-product</code> is a row rather '
+        'than a card — a thumb, a name, a price pushed right — because a list of forty '
+        'products is a list, and forty cards is a scroll.')
+pd += p('<a class="btn btn-primary btn-sm" href="/collection/products/index.html" '
+        'target="_blank" rel="noopener">Open /products →</a>')
+pd += END
+pd += sec('card-pd', 'A row, not a card')
+pd += live(products.products_block(limit=4),
+    '<b>.c.c-product</b> · <b>.c__thumb</b> · <b>.c__price</b>')
+pd += END
+pd += sec('groups-pd', 'Grouped by what it is for',
+    'The same <code class="t-code">.col-groups</code> every collection index opens with.')
+pd += live(products.groups_block(), '<b>.col-groups</b> · <b>.col-group</b>')
+pd += END
+PAGES['products/index'] = ('Products collection',
+    'What is actually on the desk, on .c-product — a row with a price, because a list '
+    'of forty things is a list.', pd)
+
+dc = ''
+dc += p('A <b>reusable</b> docs template — not the bespoke 1500-line generator this site '
+        'runs on. What a collection gives you if the thing you are documenting is your '
+        'own project: an index, a section, a doc post and a component reference, all on '
+        'the three-column shape the course lesson player already uses.')
+dc += p('<a class="btn btn-primary btn-sm" href="/collection/docs/index.html" '
+        'target="_blank" rel="noopener">Open /docs →</a> '
+        '<a class="btn btn-primary btn-sm" href="/collection/docs/component.html" '
+        'target="_blank" rel="noopener">Open a component page →</a>')
+dc += END
+dc += sec('shape-dc', 'Nav, content, table of contents',
+    '<code class="t-code">.grid-rail-left</code> wrapping <code class="t-code">.grid-rail</code> '
+    '— two primitives, one three-column layout, no docs-specific CSS anywhere in it.')
+dc += live(docscol.sections_block(), '<b>.col-groups</b> — the section index')
+dc += live(docscol.docs_list(limit=3), '<b>.col-posts</b> · <b>.col-post-row</b>')
+dc += END
+dc += ct([
+    ('This repo\'s docs', '<code class="t-code">docs/_build/</code> — bespoke, knows about '
+                          'this specific system, 140 pages'),
+    ('The docs collection', '<code class="t-code">collection/docs/</code> — generic, four '
+                            'routes, meant to be copied into your own project'),
+], head=('Which', 'What it is'))
+PAGES['docs/index'] = ('Docs collection',
+    'A reusable documentation template — index, section, post and component reference on '
+    'the three-column shape, with no docs-specific CSS.', dc)

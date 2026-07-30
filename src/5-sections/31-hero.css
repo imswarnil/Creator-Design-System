@@ -153,7 +153,7 @@
 	border-radius: 0;
 	/* Sit UNDER the floating island rather than below it, so the nav reads as
 	   furniture on the footage. Same pull-up the collection hero uses. */
-	margin-top: calc(-1 * (var(--nav-h) + var(--space-3) * 2));
+	margin-top: calc(-1 * var(--nav-bleed));
 	justify-content: center;
 	isolation: isolate;
 }

@@ -38,61 +38,90 @@
 
 <main id="main">
 
-  <div class="container-narrow section-sm">
+  <div class="container section-sm">
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./home.html">Home</a> <span>/</span> <span>Now</span>
     </nav>
-    <span class="t-slate-sm" style="color:var(--fg-faint)">Updated Jul 2026 ·
-      what a <a href="https://nownownow.com" target="_blank" rel="noopener">now page</a> is</span>
-    <h1 class="t-display-2 u-mt-3">What I'm doing now</h1>
 
-    <!-- The one place a progress bar is honest: these are real, in-flight, and
-         the number moves. .progress-labelled ships the label and value; nothing
-         here is a fake loading state. -->
-    <div class="u-mt-8">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">In flight</h2></div></div>
-      <div class="progress-labelled u-mb-4">
-        <span class="progress__label">The pages collection</span>
-        <div class="progress"><div class="progress__bar" style="--value:90%"></div></div>
-        <span class="t-slate-sm" style="color:var(--fg-faint)">home, about, archive, the legal pages</span>
-      </div><div class="progress-labelled u-mb-4">
-        <span class="progress__label">Newsletter issue 42</span>
-        <div class="progress"><div class="progress__bar" style="--value:60%"></div></div>
-        <span class="t-slate-sm" style="color:var(--fg-faint)">on grid-auto-rows: minmax(0, auto)</span>
-      </div><div class="progress-labelled u-mb-4">
-        <span class="progress__label">npm package + Tailwind/SCSS builds</span>
-        <div class="progress"><div class="progress__bar" style="--value:35%"></div></div>
-        <span class="t-slate-sm" style="color:var(--fg-faint)">the last roadmap item</span>
+    
+  <header class="page-head page-head-sm">
+    <span class="hero__eyebrow"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="16.5" cy="7.5" r="1.8" fill="currentColor" stroke="none"/></svg>Now · Jul 2026</span>
+    <h1 class="t-display-2">What I am doing now</h1>
+    <p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">Updated by hand, roughly monthly. If the date looks stale, the work below probably shipped.</p>
+    
+  </header>
+
+    <div class="grid-rail u-mt-8">
+      <div>
+        <div class="content">
+          <p>Mostly this: closing the gap between the collections that ship no CSS
+            of their own and the ones that still owe the vocabulary something.</p>
+        </div>
+
+        <div class="u-mt-8">
+          <div class="row-between u-mb-5"><div><h2 class="t-h3">In flight</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The one place a progress bar is honest — these are real, and the numbers move by hand.</p></div></div>
+          <div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>The pages collection</span><span>90%</span></span>
+            <div class="progress"><div class="progress__bar" style="--value:90%"></div></div>
+            <span class="t-slate-sm" style="color:var(--fg-faint)">home, about, archive, the legal pages</span>
+          </div><div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>The next newsletter</span><span>60%</span></span>
+            <div class="progress"><div class="progress__bar" style="--value:60%"></div></div>
+            <span class="t-slate-sm" style="color:var(--fg-faint)">on grid-auto-rows: minmax(0, auto)</span>
+          </div><div class="progress-labelled u-mb-4">
+            <span class="progress__label"><span>npm package + Tailwind/SCSS builds</span><span>35%</span></span>
+            <div class="progress"><div class="progress__bar" style="--value:35%"></div></div>
+            <span class="t-slate-sm" style="color:var(--fg-faint)">the last roadmap item</span>
+          </div>
+        </div>
+
+        <div class="content u-mt-10">
+          <h2>Building</h2>
+          <p>The pages collection — home, about, archive, and the legal pages
+            nobody reads but every site needs anyway.</p>
+          <h2>Writing</h2>
+          <p>The next newsletter, on why <code>grid-auto-rows: minmax(0, auto)</code>
+            fixes more layouts than any tutorial mentions.</p>
+          <h2>Reading</h2>
+          <p>Old CSS specs, mostly, looking for the one line that explains a
+            behaviour everyone works around instead of naming.</p>
+          <h2>Not doing</h2>
+          <p>Client work until the npm release is out. Saying that out loud is the
+            only thing that has ever made it true.</p>
+        </div>
+
+        <div class="u-mt-8">
+          <div class="alert alert-warning"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg><div>This page is a status, not a commitment. Anything here can be dropped without ceremony, which is the point of having it.</div></div>
+        </div>
       </div>
-    </div>
 
-    <div class="u-mt-8">
-      <div class="row-between u-mb-5"><div><h2 class="t-h3">What is actually running</h2><p class="t-subtle u-mt-2" style="max-width:var(--measure-lead)">The terminal, not a claim about it.</p></div></div>
-      <div class="win win-term">
-      <div class="win__bar">
-        <span class="win__dots"><span></span><span></span><span></span></span>
-        <span class="win__title">zsh</span>
-      </div>
-      <div class="win__body win-term__body"><div class="win-term__prompt">npm run dev</div><div><span class="tok-com">docs → http://localhost:8080</span></div><div><span class="tok-str">built 138 pages</span></div><div class="win-term__prompt">git log --oneline -1</div><div><span class="tok-num">70da94d</span> Promote the cinematic hero</div><div class="win-term__prompt"><span class="win-term__cursor"></span></div></div>
-    </div>
-    </div>
+      <aside class="col-rail col-rail-sticky">
+        <div class="col-widget">
+          <span class="col-widget__title">Where</span>
+          <div class="rsm-summary__contacts">
+            <div class="rsm-summary__contact"><span>Remote · UTC+5:30</span></div><div class="rsm-summary__contact"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 21V3.5m0 0h10.2l-1.4 3.6 1.4 3.6H5.5"/></svg><span>Indian · EU work authorised</span></div>
+          </div>
+        </div>
 
-    <div class="u-mt-8">
-      <div class="alert alert-warning"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg><div>This page is updated by hand, roughly monthly. If the date above is stale, the work below probably shipped.</div></div>
-    </div>
+        <div class="col-widget">
+          <span class="col-widget__title">This month</span>
+          <div class="stats stats-bare"><div class="stat"><span class="stat__label">Shipping</span><span class="stat__value">3</span></div><div class="stat"><span class="stat__label">Writing</span><span class="stat__value">1</span></div></div>
+        </div>
 
-    <div class="content u-mt-10">
-      <p>Mostly this: closing the gap between the collections that ship no CSS of
-        their own and the ones that still owe the vocabulary something.</p>
-      <h2>Building</h2>
-      <p>The pages collection — home, about, archive, the legal pages nobody reads
-        but every site needs anyway.</p>
-      <h2>Writing</h2>
-      <p>Issue 42 of the newsletter, on why <code>grid-auto-rows: minmax(0, auto)</code>
-        fixes more layouts than any tutorial mentions.</p>
-      <h2>Reading</h2>
-      <p>Old CSS specs, mostly, looking for the one line that explains a behaviour
-        everyone works around instead of naming.</p>
+        <div class="col-widget">
+          <span class="col-widget__title">On repeat</span>
+          <div class="list-group list-group-flush">
+            <span class="list-group__item">Old CSS specs<span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">reading</span></span><span class="list-group__item">Ambient, no lyrics<span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">listening</span></span><span class="list-group__item">Berlin, for now<span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">living</span></span>
+          </div>
+        </div>
+
+        <div class="col-widget col-widget-accent">
+          <span class="col-widget__title">Next up</span>
+          <p class="t-small">The npm release, then the Tailwind and SCSS builds.</p>
+          <a class="btn btn-primary btn-sm u-w-full u-mt-4" href="../projects/index.html">
+            Follow the build log →</a>
+        </div>
+      </aside>
     </div>
   </div>
 </main>

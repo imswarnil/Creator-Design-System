@@ -145,8 +145,56 @@ def language_bar(langs=LANGUAGES):
             f'<div class="progress__key">{key}</div>')
 
 
+def log_rail(active=None):
+    """The build log as a rail list. `.list-group` draws the rows; the walked /
+    current marking comes from `.log-rail__item[aria-current]` so the rail and
+    the log itself never disagree about where you are."""
+    rows = ''.join(
+        f'<a class="list-group__item log-rail__item" href="./log.html"'
+        f'{" aria-current=\"page\"" if lid == active else ""}>'
+        f'<span class="log-rail__no">{lid:02d}</span>'
+        f'<span><span style="display:block">{title}</span>'
+        f'<span class="t-slate-sm" style="color:var(--fg-faint)">{date}</span></span></a>'
+        for lid, date, title, body, kind in LOG)
+    return f'<div class="list-group list-group-flush">{rows}</div>'
+
+
+def related_block(exclude=0, limit=3):
+    """Other projects, at the end of a project page. A portfolio's job is to
+    keep someone reading — a project page that dead-ends is a page that ends
+    the visit."""
+    rows = [p for i, p in enumerate(PROJECTS) if i != exclude][:limit]
+    return '<div class="stack-sm">' + ''.join(project_card(*p) for p in rows) + '</div>'
+
+
+def log_pager(active):
+    """Prev / next between log entries. LOG is newest-first, so "older" is a
+    HIGHER index and "newer" a lower one — the labels say which, because
+    ← and → alone are ambiguous on a list sorted this way."""
+    ids = [l[0] for l in LOG]
+    i = ids.index(active)
+    newer = LOG[i - 1] if i > 0 else None
+    older = LOG[i + 1] if i < len(LOG) - 1 else None
+
+    def side(entry, label, cls):
+        if not entry:
+            return (f'<span class="btn btn-quiet btn-sm" aria-disabled="true" '
+                    f'tabindex="-1">{label}</span>')
+        return (f'<a class="btn {cls} btn-sm" href="./log.html">'
+                f'{label}<span class="u-sr-only">: {entry[2]}</span></a>')
+
+    return f'''<nav class="pagination u-mt-10" aria-label="Log entries">
+      {side(newer, '← Newer entry', 'btn-secondary')}
+      <span class="pagination__pages">
+        <span class="t-slate-sm" style="color:var(--fg-faint)">
+          Entry {i + 1} of {len(LOG)}</span>
+      </span>
+      {side(older, 'Older entry →', 'btn-secondary')}
+    </nav>'''
+
+
 def sidebar(slug, name, desc, lang, color, stars, forks, updated, topics,
-            demo, licence):
+            demo, licence, log=True):
     """The repo sidebar — GitHub's "About" rail, which is where the live URL,
     the topics and the counts actually belong. Everything in it is an existing
     widget: `.col-widget`, `.stats-bare`, `.progress-split`, `.list-group`."""
@@ -160,7 +208,17 @@ def sidebar(slug, name, desc, lang, color, stars, forks, updated, topics,
         f'{f" <span class=\"badge badge-live\">{note}</span>" if note else ""}'
         f'<span class="u-ms-auto t-slate-sm" style="color:var(--fg-faint)">{when}</span></a>'
         for tag, when, note in RELEASES)
-    return f'''<aside class="col-rail col-rail-sticky">
+    # The build log lives in the rail on a project page — it is navigation
+    # between log entries, and navigation belongs beside the content rather
+    # than as a block halfway down it. .col-rail-scroll lets the rail keep its
+    # own end reachable once six entries make it taller than the viewport.
+    logw = f'''
+      <div class="col-widget">
+        <span class="col-widget__title">Build log</span>
+        {log_rail()}
+      </div>''' if log else ''
+
+    return f'''<aside class="col-rail col-rail-sticky col-rail-scroll">
       <div class="col-widget">
         <span class="col-widget__title">About</span>
         <p class="t-small u-fg-subtle">{desc}</p>
@@ -190,6 +248,7 @@ def sidebar(slug, name, desc, lang, color, stars, forks, updated, topics,
         <span class="col-widget__title">Releases</span>
         <div class="list-group list-group-flush">{rels}</div>
       </div>
+      {logw}
 
       <!-- The ask. A project page is the most likely place someone decides
            they want to work with you, so this is where it goes — not buried
@@ -351,12 +410,6 @@ def route_project():
         {gallery_block(GALLERY)}
 
         <div class="u-mt-10">
-          {sec('Project log', 'Every entry links to its own page — the log is the series '
-               'this collection does not otherwise have.')}
-          {log_timeline(LOG, linkable=True)}
-        </div>
-
-        <div class="u-mt-10">
           {sec('Case study', 'The short version, for anyone who wants the receipts '
                'before the log.')}
           <div class="col-checks">
@@ -395,44 +448,99 @@ def route_project():
 
       {sidebar(*p)}
     </div>
+
+    <!-- A project page that dead-ends is a page that ends the visit. -->
+    <div class="u-mt-12">
+      {sec('Other projects', 'Three more, newest activity first.')}
+      {related_block(exclude=0)}
+      <div class="u-mt-6">
+        <a class="btn btn-secondary btn-pill" href="./index.html">All projects →</a>
+      </div>
+    </div>
   </div>{STAR_SCRIPT}'''
     return page(HERE, 'project.html', f'{name} — Projects — Swarnil', desc, body, NAME,
                 own_css='projects.css', current='projects')
 
 
 def route_log():
-    slug, name, *_ = PROJECTS[0]
-    entry = LOG[0]
+    p = PROJECTS[0]
+    slug, name, desc, lang, color, stars, forks, updated, topics, demo, licence = p
+    # Entry 3 rather than the first, so the rail, the pager and the "walked"
+    # rail all have something on both sides of them to show.
+    entry = next(l for l in LOG if l[0] == 3)
     lid, date, title, text, kind = entry
+
     body = f'''
   <div class="container section-sm">
     <nav class="col-post__crumbs u-mb-6" aria-label="Breadcrumb">
       <a href="./index.html">Projects</a> <span>/</span>
-      <a href="./project.html">{name}</a> <span>/</span> <span>Log</span>
+      <a href="./project.html">{name}</a> <span>/</span> <span>Log {lid:02d}</span>
     </nav>
 
+    <!-- The project header, kept — just short and pinned. Shares
+         view-transition-name with the tall version on the project page, so
+         navigating between them morphs the header instead of replacing it. -->
     <header class="proj-hero-sm surface u-mb-8"
-            style="padding:var(--space-5) var(--space-6);border-radius:var(--radius-sheet);
-                   display:flex;align-items:center;gap:var(--space-4)">
-      <span class="c__logo" style="width:2.75rem;height:2.75rem;overflow:hidden;
+            style="padding:var(--space-4) var(--space-5);border-radius:var(--radius-sheet);
+                   display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap">
+      <span class="c__logo" style="width:2.5rem;height:2.5rem;overflow:hidden;
             display:grid;place-items:center;border-radius:var(--radius-md);
             background:var(--bg-muted);flex:none">{ph(slug)}</span>
-      <div>
-        <span class="t-slate-sm" style="color:var(--fg-faint)">{name} · log #{lid}</span>
-        <h1 class="t-h3" style="margin-top:2px">{title}</h1>
+      <div style="flex:1;min-width:10rem">
+        <span class="t-slate-sm" style="color:var(--fg-faint)">
+          imswarnil / {slug}</span>
+        <span style="display:block;font-weight:var(--weight-semibold)">{name}</span>
       </div>
-      <a class="btn btn-secondary btn-sm u-ms-auto" href="./project.html">
-        ← Back to project</a>
+      <span class="cluster" style="gap:var(--space-2)">
+        <a class="btn btn-quiet btn-sm" href="https://{demo}"
+           target="_blank" rel="noopener">{icon('external', group='ui')}Demo</a>
+        <a class="btn btn-quiet btn-sm" href="https://github.com/imswarnil/{slug}"
+           target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-secondary btn-sm" href="./project.html">← Back to project</a>
+      </span>
     </header>
 
-    <div class="content" style="max-width:var(--measure-lead)">
-      <p class="t-slate-sm" style="color:var(--fg-faint)">{date}</p>
-      <p>{text}</p>
-    </div>
+    <div class="grid-rail">
+      <article>
+        <span class="t-slate-sm" style="color:var(--fg-faint)">
+          Log {lid:02d} · {date}</span>
+        <h1 class="t-display-2 u-mt-2">{title}</h1>
 
-    <div class="u-mt-10">
-      {sec('The rest of the log')}
-      {log_timeline(LOG)}
+        <div class="content u-mt-6" style="max-width:var(--measure-lead)">
+          <p>{text}</p>
+          <p>Each entry is its own page because each one was its own decision.
+            The rail on the right is the whole log; the pager at the bottom walks
+            it in order.</p>
+        </div>
+
+        {log_pager(lid)}
+
+        <!-- The links, at the end, where someone who read the whole entry is. -->
+        <div class="u-mt-10">
+          {cta_sponsor('Want the code, or the person who wrote it?',
+              kicker=f'{icon("take", group="creator")}This project',
+              actions=f'<a class="btn btn-primary btn-sm" href="https://{demo}" '
+                      f'target="_blank" rel="noopener">Live demo</a>'
+                      f'<a class="btn btn-secondary btn-sm" '
+                      f'href="https://github.com/imswarnil/{slug}" target="_blank" '
+                      f'rel="noopener">GitHub</a>'
+                      f'<a class="btn btn-quiet btn-sm" '
+                      f'href="{REL}/collection/_pages/contact.html">Hire me</a>')}
+        </div>
+      </article>
+
+      <aside class="col-rail col-rail-sticky col-rail-scroll">
+        <div class="col-widget">
+          <span class="col-widget__title">Build log</span>
+          {log_rail(active=lid)}
+        </div>
+
+        <div class="col-widget">
+          <span class="col-widget__title">Progress</span>
+          {stats([(f'{sum(1 for l in LOG if l[4])}', 'Shipped'),
+                  (str(len(LOG)), 'Entries')], bare=True)}
+        </div>
+      </aside>
     </div>
   </div>'''
     return page(HERE, 'log.html', f'{title} — {name} — Projects',

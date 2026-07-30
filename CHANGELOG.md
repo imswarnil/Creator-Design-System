@@ -7,6 +7,70 @@ versioning follows [SemVer](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **`.plan` — membership pricing** (`22-card.css`). A pricing grid is read
+  *across* rather than down, so every part is a named slot in a fixed order:
+  `__flag`, `__name`, `__price`/`__period`, `__note`, `__features`, `__cta`.
+  Exactly one card may be `.plan-featured` — two featured plans is the same as
+  none. Features a tier does *not* include still get a row (`[data-off]`),
+  because an absence you can see beats a list you have to diff.
+- **`.cert` — the certification seal** (`11-badge.css`). A scalloped rosette
+  carrying the acronym a certificate is actually known by, with the full title
+  beside it. The scallop is a `clip-path` polygon generated from a cosine so the
+  lobes are rounded — a star reads as a rating, a rosette reads as an award.
+  CSS-only, so it rethemes for free with no image to re-export.
+- **Four auth/membership pages** — `login` (centred card), `signup` (split, the
+  form still has to sell), `signup-minimal` (inverse band, one field, for a page
+  reached from an email) and `membership`. Three shapes for one form, because
+  which is right depends on how many decisions the reader has already made.
+- **Social icons** — `github`, `linkedin`, `x`, `youtube`, plus `globe` and
+  `flag` for the résumé. Brand marks are filled paths rather than 1.5px strokes,
+  because a stroke cannot render a recognisable GitHub cat; they still use
+  `currentColor`, so theming holds.
+- **Docs pages for the four undiscoverable collections** — prompts, snippets,
+  products and the docs template all shipped as real folders with real routes
+  and were absent from the docs nav, the same bug the pages collection had.
+
+### Fixed
+- **Content sat under the floating navbar on mobile.** `.nav-shell` is sticky
+  with no bottom margin, so content had only its own small top spacing to clear
+  an island that scrolls *over* it — worst on narrow screens. Fixed at the
+  source with `--nav-gap` (wider under 48rem) plus a derived `--nav-bleed` for
+  the full-bleed heroes, so the pull-up sum is computed from the three things it
+  depends on rather than hardcoded in three places that could drift.
+
+### Changed
+- **The projects collection got the shape a repo page actually has.** The build
+  log moved into the sidebar — it is navigation between entries, and navigation
+  belongs beside the content. The rail is sticky and, via the new
+  `.col-rail-scroll`, scrolls itself: a sticky rail taller than the viewport
+  otherwise has its bottom cut off and unreachable, because the page cannot
+  scroll something that is not moving. Project pages now end with other
+  projects rather than dead-ending.
+- **The log page keeps the project header** — compact and sticky rather than
+  removed, sharing `view-transition-name` with the tall one so navigating
+  between them morphs the header. Adds a log rail with the active entry marked,
+  prev/next pagination that says *newer*/*older* (← and → are ambiguous on a
+  newest-first list), and the repo links at the end where a reader who finished
+  the entry actually is.
+- **The résumé header answers what a recruiter opens it to ask** — location,
+  nationality, website, email, availability and the handles, above the fold.
+  Experience nodes carry the company mark; certifications moved to the rail as
+  seals, because credentials are scanned rather than read.
+- **The newsletter is no longer numbered.** It is a newsletter where updates get
+  shared, not a numbered publication — and numbering promises a cadence, where
+  the promise here is the opposite. The date is the identifier now, because the
+  date is the only fact that is always true.
+- **The archive tags every row with its collection.** It is the one page where a
+  reader cannot tell what kind of thing they are looking at from context, so
+  each row carries three signals — icon, label, and a hue on the node — which
+  survives greyscale, colour-blindness and CSS-off. Hues ride the `ph()` ladder,
+  so ten kinds read as one set.
+- **About is a story, not the résumé again.** Hero, the journey on an
+  alternating timeline (including the part where the wrong thing got built
+  first), what came out of it, and the mission. The résumé is one link away.
+- **Now has a rail** carrying the facts that change independently of the
+  narrative; contact lists the handles with the platform named, since a row of
+  bare glyphs makes people hover to find out which is which.
 - **Timeline (`35-timeline.css`)** — `.tl`, an ordered sequence with a rail
   through it. `27-composite.css` opens by saying its four organs are "the same
   idea — an ordered list that knows where you are — wearing its collection's

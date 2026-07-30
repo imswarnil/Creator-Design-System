@@ -16,3 +16,38 @@
    morphs between them — the big intro shrinking into the small log header —
    instead of the browser's default cross-fade of the whole page. */
 .proj-hero, .proj-hero-sm { view-transition-name: proj-hero; }
+
+/* ── The log page's compact hero ───────────────────────────────────────────────
+   Same project header as the project page, at a fraction of the height and
+   pinned: on a log page the project identity is context you want to keep, not
+   a banner you scroll past. It shares `view-transition-name` with the tall one
+   above, so navigating between them MORPHS the header rather than replacing it.
+
+   Sticky rather than fixed — fixed would take it out of flow and the content
+   would start underneath it. */
+
+@media (min-width: 64rem) {
+	.proj-hero-sm {
+		position: sticky;
+		top: calc(var(--nav-h) + var(--space-3) + var(--nav-gap));
+		z-index: var(--z-raised);
+		/* Opaque, because content now scrolls behind it. */
+		background: var(--bg-surface);
+	}
+}
+
+/* The log rail's own list. .list-group already draws the rows; this adds the
+   walked/current marking the build log has, so the rail and the log agree. */
+.log-rail__item { display: flex; gap: var(--space-3); align-items: baseline; }
+
+.log-rail__no {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	color: var(--fg-faint);
+	font-variant-numeric: tabular-nums;
+	flex: none;
+	min-width: 1.4rem;
+}
+
+.log-rail__item[aria-current] { color: var(--fg-default); font-weight: var(--weight-semibold); }
+.log-rail__item[aria-current] .log-rail__no { color: var(--accent); }

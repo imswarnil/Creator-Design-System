@@ -761,8 +761,30 @@
 
 @media (min-width: 64rem) {
 	/* Below the floating island, not behind it — the nav is itself sticky at
-	   top: space-3, so a rail stuck at the same offset sits under its shadow. */
-	.col-rail-sticky { position: sticky; top: calc(var(--nav-h) + var(--space-6)); }
+	   top: space-3, so a rail stuck at the same offset sits under its shadow.
+	   Derived from --nav-gap (24-nav.css) so the clearance under the island is
+	   the same number everywhere rather than three approximations of it. */
+	.col-rail-sticky {
+		position: sticky;
+		top: calc(var(--nav-h) + var(--space-3) + var(--nav-gap));
+	}
+
+	/* A sticky rail TALLER than the viewport has its bottom cut off and
+	   unreachable: the page cannot scroll it, because the rail is not moving.
+	   This lets it scroll itself, so a rail carrying a long list — a build log,
+	   a chapter list — stays sticky without losing its own end.
+
+	   Opt-in rather than folded into .col-rail-sticky because the overflow
+	   clips shadows, which is only worth paying for when the rail is long. */
+	.col-rail-scroll {
+		max-height: calc(100dvh - var(--nav-h) - var(--space-3) - var(--nav-gap) - var(--space-6));
+		overflow-y: auto;
+		overscroll-behavior-y: contain;
+		scrollbar-width: thin;
+		/* Room for the scrollbar and for the widgets' own shadows. */
+		padding-right: var(--space-2);
+		margin-right: calc(-1 * var(--space-2));
+	}
 }
 
 .col-widget {

@@ -95,6 +95,10 @@ Customise by overriding tokens AFTER the import — never by editing source. Dar
 - [Course](https://creator.imswarnil.com/course/index.html): Collections — The third collection: /course, the lesson player, and the five sections a video-bodied post needed that reading-shaped c
 - [Webseries](https://creator.imswarnil.com/webseries/index.html): Collections — The fifth collection, and the second one to ship no CSS of its own — a season's spine and its cast are sections travel a
 - [Projects](https://creator.imswarnil.com/projects/index.html): Collections — GitHub-style repo cards, a sidebar carrying the live URL and the ask, and the one atom the collection genuinely needed —
+- [Prompts](https://creator.imswarnil.com/prompts/index.html): Collections — A prompt library on .c-prompt — a chat bubble, because that is what a prompt is. .c.c-prompt · .c__bubble · .c__model .c
+- [Snippets](https://creator.imswarnil.com/snippets/index.html): Collections — CSS and JS worth a permalink, on .c-snippet — a language tag and a code preview that fades rather than truncates. .c.c-s
+- [Products](https://creator.imswarnil.com/products/index.html): Collections — What is actually on the desk, on .c-product — a row with a price, because a list of forty things is a list. .c.c-product
+- [Docs template](https://creator.imswarnil.com/docs/index.html): Collections — A reusable documentation template — index, section, post and component reference on the three-column shape, with no docs
 - [Course · curriculum](https://creator.imswarnil.com/course/curriculum.html): Collections — The course curriculum: native <details> modules, lesson rows that tick off, the current lesson ringed, progress in the h
 - [Projects · build log](https://creator.imswarnil.com/projects/build-log.html): Collections — The project timeline: ▸ start, numbered middles, ✓ ship. Walked steps fill; the current one gets the ring. .buildlog > _
 - [Travel · itinerary](https://creator.imswarnil.com/travel/itinerary.html): Collections — The trip, day by day — same rail as the build log wearing travel clothes: day chips, notes, stop badges. .itinerary > __

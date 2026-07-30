@@ -224,3 +224,133 @@ a.card:hover { text-decoration: none; color: inherit; }
 
 .deck-sm { grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); }
 .deck-lg { grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr)); }
+
+/* ── Plan · membership pricing ─────────────────────────────────────────────────
+   A card that has to answer four questions in a fixed order — what tier, what
+   price, what you get, how to start — because a pricing grid is read across
+   rather than down: people compare the same line on three cards at once. So
+   every part is a named slot and the order is not negotiable.
+
+   Exactly one card in a grid may be .plan-featured. Two featured plans is the
+   same as none, and the accent is rationed in this system precisely so that
+   "this one" can mean something.
+
+     <div class="plan-grid">
+       <article class="plan plan-featured">
+         <span class="plan__flag">Most popular</span>
+         <span class="plan__name">Member</span>
+         <p class="plan__price">$9<span class="plan__period">/month</span></p>
+         <p class="plan__note">Everything, and the archive.</p>
+         <ul class="plan__features"> <li> … </ul>
+         <a class="btn btn-primary plan__cta"> … </a>
+       </article>
+     </div>
+   -------------------------------------------------------------------------- */
+
+.plan-grid {
+	display: grid;
+	gap: var(--space-5);
+	grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+	align-items: start;
+}
+
+.plan {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-3);
+	padding: var(--space-6);
+	border: var(--border-hair) solid var(--line-default);
+	border-radius: var(--radius-card);
+	background: var(--bg-surface);
+	height: 100%;
+}
+
+/* The one that is recommended. A 2px accent rule, never a colour fill — the
+   same house rule the navbar's active state follows. */
+.plan-featured {
+	border-color: var(--accent);
+	box-shadow: var(--shadow-2);
+}
+
+.plan__flag {
+	position: absolute;
+	top: 0;
+	right: var(--space-5);
+	transform: translateY(-50%);
+	padding: 2px var(--space-3);
+	border-radius: var(--radius-pill);
+	background: var(--accent);
+	color: var(--fg-on-accent);
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+}
+
+.plan__name {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-subtle);
+}
+
+.plan__price {
+	font-family: var(--font-display);
+	font-size: var(--text-4xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tighter);
+	line-height: var(--leading-flat);
+	font-variant-numeric: tabular-nums;
+}
+
+.plan__period {
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-medium);
+	letter-spacing: var(--tracking-normal);
+	color: var(--fg-faint);
+}
+
+.plan__note {
+	font-size: var(--text-sm);
+	color: var(--fg-subtle);
+	line-height: var(--leading-normal);
+}
+
+.plan__features {
+	list-style: none;
+	margin: var(--space-2) 0 0;
+	padding: 0;
+	display: grid;
+	gap: var(--space-2);
+	font-size: var(--text-sm);
+	border-top: var(--border-hair) solid var(--line-subtle);
+	padding-top: var(--space-4);
+}
+
+.plan__features > li {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	color: var(--fg-subtle);
+}
+
+/* The tick is drawn, so a feature list needs no icon markup per row. */
+.plan__features > li::before {
+	content: '✓';
+	color: var(--fg-accent);
+	font-size: var(--text-xs);
+	line-height: 1.5;
+	flex: none;
+}
+
+/* A feature the tier does NOT include still earns a row — an absence you can
+   see beats a list you have to diff against the next card. */
+.plan__features > li[data-off] { color: var(--fg-faint); }
+.plan__features > li[data-off]::before { content: '−'; color: var(--fg-faint); }
+
+/* Pushed to the bottom so every CTA in the grid lines up regardless of how
+   many features each tier lists. */
+.plan__cta { margin-top: auto; width: 100%; justify-content: center; }

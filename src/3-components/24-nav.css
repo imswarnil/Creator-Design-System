@@ -9,6 +9,22 @@
 
 :root {
 	--nav-h: 3.5rem;
+
+	/* Space between the floating island and the first thing under it. The
+	   island is sticky, so on scroll it passes OVER the content — without a
+	   real gap the first heading of a page ends up tucked beneath it, which is
+	   worst on a narrow screen where there is no room for the eye to separate
+	   the two. Wider on small viewports for exactly that reason. */
+	--nav-gap: var(--space-6);
+
+	/* How far a full-bleed hero has to pull up to sit UNDER the island rather
+	   than below it. Derived from the three things it depends on, so no page
+	   hardcodes the sum and none of them drift when --nav-gap changes. */
+	--nav-bleed: calc(var(--nav-h) + var(--space-3) * 2 + var(--nav-gap));
+}
+
+@media (max-width: 48rem) {
+	:root { --nav-gap: var(--space-8); }
 }
 
 /* ── The nav island ──────────────────────────────────────────────────────
@@ -22,6 +38,7 @@
 	width: 100%;
 	max-width: calc(var(--w-site) + var(--gutter) * 2);
 	margin-inline: auto;
+	margin-bottom: var(--nav-gap);
 	padding-inline: var(--gutter);
 }
 

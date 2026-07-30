@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sign in — Swarnil Singhai</title>
+<meta name="description" content="Sign in to your account." />
+<link rel="icon" href="../../docs/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../dist/creator.css" />
+<link rel="stylesheet" href="../../collection/collection.css" />
+<link rel="stylesheet" href="./pages.css" />
+<script src="../../src/nav.js" defer></script>
+<script src="../../collection/collection.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav-shell">
+  <nav class="nav-bar" aria-label="Main">
+    <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
+    <div class="nav-links">
+      <a class="nav-link" href="../../collection/course/index.html">Courses</a>
+      <a class="nav-link" href="../../collection/travel/index.html">Travel</a>
+      <a class="nav-link" href="../../collection/blog/index.html">Blog</a>
+      <a class="nav-link" href="../../collection/webseries/index.html">Series</a>
+      <a class="nav-link" href="../../collection/newsletter/index.html">Newsletter</a>
+      <a class="nav-link" href="../../collection/projects/index.html">Projects</a>
+      <a class="nav-link" href="../../collection/_pages/resume.html">Résumé</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm btn-pill" href="#i">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <div class="container-narrow section" style="max-width:26rem">
+    <div class="u-text-center">
+      <a class="logo" href="./home.html">Swarnil</a>
+      <h1 class="t-h2 u-mt-5">Welcome back</h1>
+      <p class="t-subtle u-mt-2">Sign in to pick up where the last lesson stopped.</p>
+    </div>
+
+    <div class="surface u-mt-8" style="padding:var(--space-6);border-radius:var(--radius-card)">
+      <div class="stack-sm"><button class="btn btn-secondary u-w-full" type="button" style="justify-content:center"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.75a10.25 10.25 0 0 0-3.24 19.98c.51.09.7-.22.7-.44v-1.7c-2.85.62-3.45-1.24-3.45-1.24-.47-1.18-1.14-1.5-1.14-1.5-.93-.63.07-.62.07-.62 1.03.07 1.57 1.06 1.57 1.06.91 1.56 2.39 1.11 2.97.85.09-.66.36-1.11.65-1.37-2.28-.26-4.67-1.14-4.67-5.06 0-1.12.4-2.03 1.05-2.75-.11-.26-.46-1.3.1-2.71 0 0 .86-.28 2.81 1.05a9.7 9.7 0 0 1 5.12 0c1.95-1.33 2.81-1.05 2.81-1.05.56 1.41.21 2.45.1 2.71.65.72 1.05 1.63 1.05 2.75 0 3.93-2.4 4.79-4.68 5.05.37.32.7.94.7 1.9v2.82c0 .22.19.54.71.44A10.25 10.25 0 0 0 12 1.75Z"/></svg>Continue with GitHub</button><button class="btn btn-secondary u-w-full" type="button" style="justify-content:center"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.53 3h3.02l-6.6 7.54L21.5 21h-5.6l-4.4-5.75L6.5 21H3.47l6.85-7.83L2.9 3h5.74l4.1 5.42L17.53 3Zm-1.06 16.2h1.67L7.1 4.7H5.3l11.17 14.5Z"/></svg>Continue with X</button></div>
+      <div class="cluster u-mt-5 u-mb-5" style="gap:var(--space-3)"><hr class="rule" style="flex:1" /><span class="t-slate-sm" style="color:var(--fg-faint)">or with email</span><hr class="rule" style="flex:1" /></div>
+      
+    <form class="stack" onsubmit="return false">
+      <div class="field">
+        <label class="label" for="a-email">Email</label>
+        <input class="input" id="a-email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <div class="row-between"><label class="label" for="a-pw">Password</label><a class="t-slate-sm" href="#i">Forgot?</a></div>
+        <input class="input" id="a-pw" type="password"
+               autocomplete="current-password" required />
+        
+      </div>
+      
+      <label class="check">
+        <input type="checkbox" />
+        <span>Keep me signed in</span>
+      </label>
+      <button class="btn btn-primary u-w-full" type="submit"
+              style="justify-content:center">Sign in</button>
+    </form>
+    </div>
+
+    <p class="t-small u-fg-subtle u-text-center u-mt-6">
+      No account? <a href="./signup.html">Create one</a> — it is free, and the
+      free tier is not a trial.</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo logo-sm" href="../../collection/_pages/home.html">Swarnil</a>
+        <p class="footer__tag">A creator's site, built from tokens — videos, courses,
+          a blog, a newsletter and the trips between them. One design system
+          underneath all of it.</p>
+      </div>
+
+      <div>
+        <p class="footer__head">Collections</p>
+        <div class="footer__links">
+          <a href="../../collection/course/index.html">Courses</a>
+          <a href="../../collection/travel/index.html">Travel</a>
+          <a href="../../collection/blog/index.html">Blog</a>
+          <a href="../../collection/videos/index.html">Videos</a>
+          <a href="../../collection/guides/index.html">Guides</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__head">More</p>
+        <div class="footer__links">
+          <a href="../../collection/newsletter/index.html">Newsletter</a>
+          <a href="../../collection/projects/index.html">Projects</a>
+          <a href="../../collection/snippets/index.html">Snippets</a>
+          <a href="../../collection/prompts/index.html">Prompts</a>
+          <a href="../../collection/products/index.html">Products I use</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__head">Site</p>
+        <div class="footer__links">
+          <a href="../../collection/_pages/about.html">About</a>
+          <a href="../../collection/_pages/contact.html">Contact</a>
+          <a href="../../collection/_pages/archive.html">Archive</a>
+          <a href="../../collection/_pages/now.html">Now</a>
+          <a href="../../collection/_pages/resume.html">Résumé</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__signoff">
+      <span>© 2026 Swarnil Singhai · Pages — a collection ·
+        <a href="../../collection/_pages/terms.html">Terms</a> ·
+        <a href="../../collection/_pages/privacy.html">Privacy</a></span>
+      <span class="footer__rec"><span class="dot dot-sm dot-live"></span>Still rolling</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

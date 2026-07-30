@@ -190,10 +190,20 @@ a.tl__title:hover { color: var(--fg-accent); }
 	height: auto;
 	align-self: stretch;
 	min-height: var(--tl-node);
+	/* A capsule that fills the row carries its mark at the TOP, where the span
+	   begins — an icon floating in the vertical middle of a three-year bar is
+	   pointing at nothing. */
+	place-items: start center;
+	padding-top: calc((var(--tl-node) - 1rem) / 2);
 }
 
+/* The tick/glyph is meaningless on a duration: the bar IS the statement. An
+   icon placed in the node deliberately (a company mark) still shows. */
 .tl-ranged .tl__item[data-done] .tl__node::before,
 .tl-ranged .tl__node::before { content: none; }
+
+.tl-ranged .tl__node > .icon,
+.tl-ranged .tl__node > .icon-sm { opacity: 0.9; }
 
 /* ── Alternating — vertical only ──────────────────────────────────────────────
    Items zig-zag either side of a centred rail. Only honest with short copy and

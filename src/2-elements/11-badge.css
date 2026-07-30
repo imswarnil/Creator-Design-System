@@ -200,3 +200,76 @@
 	font-variant-numeric: tabular-nums;
 	letter-spacing: var(--tracking-wide);
 }
+
+/* ── Certification seal · .cert ────────────────────────────────────────────────
+   A credential, drawn the way credentials are drawn: a scalloped seal carrying
+   a SHORT name — the acronym a certificate is actually known by — with the full
+   title and issuer set beside it.
+
+   The scallop is a clip-path polygon, generated once from a cosine so the lobes
+   are rounded rather than spiky (a star reads as a rating; a rosette reads as an
+   award). CSS-only, so it inherits currentColor and retheme for free — no image
+   to re-export when the accent changes.
+
+     <div class="cert">
+       <span class="cert__seal">WAS</span>
+       <div class="cert__body">
+         <span class="cert__name">Web Accessibility Specialist</span>
+         <span class="cert__issuer">IAAP · 2023</span>
+       </div>
+     </div>
+
+   The short name is content, not decoration: it is the thing a reader scans for.
+   Keep it to 2–4 characters — the seal is 3rem and does not grow.
+   -------------------------------------------------------------------------- */
+
+.cert {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+}
+
+.cert__seal {
+	--cert-color: var(--accent);
+	flex: none;
+	width: 3rem;
+	height: 3rem;
+	display: grid;
+	place-items: center;
+	clip-path: polygon(50.0% 0.0%, 54.1% 3.7%, 57.5% 7.7%, 62.0% 5.1%, 67.1% 3.0%, 69.7% 7.9%, 71.5% 12.8%, 76.7% 11.9%, 82.1% 11.7%, 82.9% 17.1%, 82.9% 22.4%, 88.1% 23.3%, 93.3% 25.0%, 92.1% 30.3%, 90.4% 35.3%, 94.9% 38.0%, 99.2% 41.3%, 96.3% 45.9%, 93.0% 50.0%, 96.3% 54.1%, 99.2% 58.7%, 94.9% 62.0%, 90.4% 64.7%, 92.1% 69.7%, 93.3% 75.0%, 88.1% 76.7%, 82.9% 77.6%, 82.9% 82.9%, 82.1% 88.3%, 76.7% 88.1%, 71.5% 87.2%, 69.7% 92.1%, 67.1% 97.0%, 62.0% 94.9%, 57.5% 92.3%, 54.1% 96.3%, 50.0% 100.0%, 45.9% 96.3%, 42.5% 92.3%, 38.0% 94.9%, 32.9% 97.0%, 30.3% 92.1%, 28.5% 87.2%, 23.3% 88.1%, 17.9% 88.3%, 17.1% 82.9%, 17.1% 77.6%, 11.9% 76.7%, 6.7% 75.0%, 7.9% 69.7%, 9.6% 64.7%, 5.1% 62.0%, 0.8% 58.7%, 3.7% 54.1%, 7.0% 50.0%, 3.7% 45.9%, 0.8% 41.3%, 5.1% 38.0%, 9.6% 35.3%, 7.9% 30.3%, 6.7% 25.0%, 11.9% 23.3%, 17.1% 22.4%, 17.1% 17.1%, 17.9% 11.7%, 23.3% 11.9%, 28.5% 12.8%, 30.3% 7.9%, 32.9% 3.0%, 38.0% 5.1%, 42.5% 7.7%, 45.9% 3.7%);
+	background: var(--cert-color);
+	color: var(--fg-on-accent);
+	font-family: var(--font-display);
+	font-size: var(--text-2xs);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--tracking-tight);
+	text-transform: uppercase;
+	line-height: 1;
+	text-align: center;
+}
+
+/* Quiet variant — for a rail of six, where six accent seals would be six
+   competing signals rather than one. */
+.cert-quiet .cert__seal {
+	--cert-color: var(--bg-muted);
+	color: var(--fg-subtle);
+}
+
+.cert__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.cert__name {
+	font-size: var(--text-sm);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-snug);
+}
+
+.cert__issuer {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+/* A shelf of them. */
+.cert-list { display: grid; gap: var(--space-4); }
