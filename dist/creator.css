@@ -11216,6 +11216,20 @@ a.tl__title:hover { color: var(--fg-accent); }
 .tl__item[aria-current] ~ .tl__item .tl__title { font-weight: var(--weight-medium); }
 .tl__item[aria-current] ~ .tl__item .tl__node { border-style: dashed; }
 
+/* A node carrying a real mark — a company logo, an avatar — does not also get
+   the generated tick: two glyphs in one 2rem circle is one too many. The mark
+   wins, because it says more than "done" does. Sized so a 1rem icon sits inside
+   the 2rem node of .tl-lg with room to breathe. */
+.tl__node:has(> svg)::before { content: none !important; }
+
+.tl__node > svg {
+	width: 1rem;
+	height: 1rem;
+	/* Inherits the node's colour, so it flips to the canvas colour on a filled
+	   [data-done] node without a second rule. */
+	color: currentcolor;
+}
+
 /* Glyph kinds. Content only — the node geometry never changes. */
 .tl__item[data-kind='start'] .tl__node::before { content: '▸'; }
 .tl__item[data-kind='ship'] .tl__node::before { content: '✓'; }
@@ -11428,6 +11442,68 @@ a.tl__title:hover { color: var(--fg-accent); }
 }
 
 .page-head__count b { color: var(--fg-default); font-weight: var(--weight-medium); }
+
+/* ── Split page header — copy left, facts right ───────────────────────────────
+   For a page whose header has to carry a block of standing facts as well as a
+   title: a résumé (location, nationality, phone, availability), a profile, a
+   product page's spec block. Those are a *reference table*, not a lead — they
+   are scanned, and stacking them under the lead pushes the content down while
+   making them read as prose.
+
+     <header class="page-head page-head-split">
+       <div class="page-head__main"> kicker · title · desc · actions </div>
+       <aside class="page-head__aside"> the facts </aside>
+     </header>
+
+   One column below 56rem, because two columns of small print on a phone is
+   worse than either one alone. */
+
+.page-head-split {
+	display: grid;
+	gap: var(--space-8);
+	align-items: start;
+}
+
+@media (min-width: 56rem) {
+	.page-head-split {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
+		gap: var(--space-12);
+	}
+
+	/* Optically aligned to the title rather than the kicker above it — the
+	   kicker is a label, and the facts are answering the title. */
+	.page-head__aside { padding-top: var(--space-6); }
+}
+
+/* A definition row: label above, value below, so the column scans down the
+   values without the labels competing for the same weight. */
+.page-head__facts {
+	display: grid;
+	gap: var(--space-3);
+}
+
+.page-head__fact {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-3);
+	font-size: var(--text-sm);
+}
+
+.page-head__fact > .icon {
+	color: var(--fg-faint);
+	flex: none;
+	margin-top: 1px;
+}
+
+.page-head__fact dt {
+	font-family: var(--font-slate);
+	font-size: var(--text-2xs);
+	letter-spacing: var(--tracking-slate);
+	text-transform: uppercase;
+	color: var(--fg-faint);
+}
+
+.page-head__fact dd { margin: 0; color: var(--fg-default); }
 
 /* Compact page header — child pages (a lesson index, a tag) breathe less. */
 .page-head-sm { padding-block: var(--space-8) var(--space-6); }

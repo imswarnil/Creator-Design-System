@@ -300,15 +300,31 @@ def hero(title, lead, eyebrow, meta, art='', search=None, eyebrow_icon='pin',
 '''
 
 
-def page_head(title, lead='', eyebrow='', actions='', small=False):
+def page_head(title, lead='', eyebrow='', actions='', small=False, aside=''):
     """`.page-head` — the quiet heading band a page that is not making a case
     opens with. A hero states; a page head just labels. Defined in
-    05-sections/30-header.css and, until now, used by nothing."""
+    05-sections/30-header.css and, until now, used by nothing.
+
+    `aside` puts a block of standing facts in a second column on the right
+    (`.page-head-split`) rather than stacked under the lead. Use it for facts
+    that are *scanned* — a résumé's location and availability, a spec block —
+    since stacking those reads them as prose and pushes the content down."""
     e = (f'<span class="hero__eyebrow">{eyebrow}</span>' if eyebrow else '')
     l = (f'<p class="t-lead u-mt-3" style="max-width:var(--measure-lead)">{lead}</p>'
          if lead else '')
     a = f'<div class="hero__actions">{actions}</div>' if actions else ''
     cls = 'page-head page-head-sm' if small else 'page-head'
+    if aside:
+        return f'''
+  <header class="{cls} page-head-split">
+    <div class="page-head__main">
+      {e}
+      <h1 class="t-display-2">{title}</h1>
+      {l}
+      {a}
+    </div>
+    <aside class="page-head__aside">{aside}</aside>
+  </header>'''
     return f'''
   <header class="{cls}">
     {e}

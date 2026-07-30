@@ -161,6 +161,20 @@ a.tl__title:hover { color: var(--fg-accent); }
 .tl__item[aria-current] ~ .tl__item .tl__title { font-weight: var(--weight-medium); }
 .tl__item[aria-current] ~ .tl__item .tl__node { border-style: dashed; }
 
+/* A node carrying a real mark — a company logo, an avatar — does not also get
+   the generated tick: two glyphs in one 2rem circle is one too many. The mark
+   wins, because it says more than "done" does. Sized so a 1rem icon sits inside
+   the 2rem node of .tl-lg with room to breathe. */
+.tl__node:has(> svg)::before { content: none !important; }
+
+.tl__node > svg {
+	width: 1rem;
+	height: 1rem;
+	/* Inherits the node's colour, so it flips to the canvas colour on a filled
+	   [data-done] node without a second rule. */
+	color: currentcolor;
+}
+
 /* Glyph kinds. Content only — the node geometry never changes. */
 .tl__item[data-kind='start'] .tl__node::before { content: '▸'; }
 .tl__item[data-kind='ship'] .tl__node::before { content: '✓'; }

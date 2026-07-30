@@ -60,10 +60,11 @@ EXPERIENCE = [
 # in the order they ask them. Kept as data so the header and the print view
 # cannot drift.
 PROFILE = [
-    ('pin', 'Location', 'Remote · UTC+5:30'),
+    ('pin', 'Location', 'Berlin · Remote, UTC+2'),
     ('flag', 'Nationality', 'Indian · EU work authorised'),
-    ('globe', 'Website', 'swarnil.dev'),
+    ('phone', 'Phone', '+49 155 0100 200'),
     ('mail', 'Email', 'hello@swarnil.dev'),
+    ('globe', 'Website', 'swarnil.dev'),
 ]
 
 SOCIALS = [
@@ -196,18 +197,20 @@ def summary_block(name, role, pitch, contacts, resume_href='#i'):
 
 
 def timeline_block(jobs):
-    """`.tl.tl-ranged` — a career history is the one sequence where the node
-    should be a bar rather than a dot, because the thing being shown is
-    duration. Was `.col-order` (a collection's series spine, borrowed); the
-    ranged timeline is the component that actually means this."""
+    """`.tl.tl-lg` with an icon in each node.
+
+    Not `.tl-ranged`: that stretches the node into a capsule the height of its
+    row, which is right when duration is the only thing being shown but wrong
+    the moment the node carries a mark — a company icon centred in a
+    three-year bar points at nothing in particular. A round node at `.tl-lg`
+    (2rem) holds a 1rem icon comfortably, and the date already states the
+    duration in words."""
     return timeline([
-        # The node carries the company mark rather than a bare capsule, so the
-        # rail answers "where" before the copy does.
         dict(time=when, title=f'{title} · {company}', note=note, meta=tags,
              current=(when.endswith('Now')),
              node=icon('briefcase', 'icon-sm', group='resume'))
         for title, company, when, note, tags in jobs
-    ], ranged=True)
+    ], density='lg')
 
 
 def education_block(schools):
@@ -254,24 +257,29 @@ def certifications_block(certs, quiet=True):
 
 
 def profile_block(rows=PROFILE, socials=SOCIALS, open_to_work=OPEN_TO_WORK):
-    """The header's facts: where, what passport, how to reach, and whether the
-    answer to "are you available" is yes — which is the one thing a résumé is
-    usually missing and the reader most wants."""
+    """The header's right-hand column: where, what passport, how to reach, and
+    whether the answer to "are you available" is yes — the one thing a résumé
+    usually leaves out and the reader most wants to know.
+
+    A <dl>, because that is what this is: labelled values. Screen readers get
+    the label/value pairing for free, and the label is visible rather than
+    sr-only, since a column of bare values makes a reader guess which number is
+    the phone."""
     status = ('<span class="badge badge-live"><span class="dot dot-sm dot-live"></span>'
               'Open to work</span>' if open_to_work else
               '<span class="badge">Not looking right now</span>')
     facts = ''.join(
-        f'<div class="rsm-summary__contact">{icon(i, group="resume")}'
-        f'<span><span class="u-sr-only">{label}: </span>{value}</span></div>'
+        f'<div class="page-head__fact">{icon(i, "icon-sm", group="resume")}'
+        f'<div><dt>{label}</dt><dd>{value}</dd></div></div>'
         for i, label, value in rows)
     handles = ''.join(
-        f'<a class="btn btn-quiet btn-sm" href="{url}" target="_blank" rel="noopener">'
-        f'{icon(i, group="social")}{handle}</a>'
+        f'<a class="btn btn-quiet btn-sm" href="{url}" target="_blank" rel="noopener"'
+        f' aria-label="{label}: {handle}">{icon(i, group="social")}</a>'
         for i, label, handle, url in socials)
     return f'''
-    <div class="u-mt-5">{status}</div>
-    <div class="rsm-summary__contacts u-mt-4">{facts}</div>
-    <div class="cluster u-mt-4" style="gap:var(--space-2)">{handles}</div>'''
+      {status}
+      <dl class="page-head__facts u-mt-5">{facts}</dl>
+      <div class="cluster u-mt-5" style="gap:var(--space-1)">{handles}</div>'''
 
 
 def languages_block(languages):
@@ -1304,12 +1312,11 @@ def route_resume():
         actions='<a class="btn btn-primary btn-pill" href="#i">'
                 + icon('download', group='resume') + 'Download PDF</a>'
                 '<a class="btn btn-secondary btn-pill" href="./contact.html">Get in touch</a>',
-        small=True)}
-
-    <!-- Location, nationality, website, email, availability and the handles —
-         the questions a recruiter opens a résumé to answer, above the fold
-         rather than in a footer. -->
-    {profile_block()}
+        small=True,
+        # Location, nationality, phone, email, website, availability and the
+        # handles — in the header's right-hand column, because they are facts
+        # to be scanned rather than a lead to be read.
+        aside=profile_block())}
 
     <div class="u-mt-8">
       {stats([('9', 'Years'), ('3', 'Companies'),
