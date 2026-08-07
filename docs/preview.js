@@ -661,3 +661,20 @@ document.addEventListener('click', function (e) {
 
 	render();
 })();
+
+/* ── Install tabs (homepage) ──────────────────────────────────────────────
+   The homepage now runs the same shell as every docs page, so its one piece
+   of behaviour lives here rather than in a template-only <script>. */
+(function () {
+	var tabs = document.querySelectorAll('[data-install-tab]');
+	if (!tabs.length) return;
+	tabs.forEach(function (tab) {
+		tab.addEventListener('click', function () {
+			var k = tab.getAttribute('data-install-tab');
+			tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t === tab)); });
+			document.querySelectorAll('[data-install-panel]').forEach(function (p) {
+				p.hidden = p.getAttribute('data-install-panel') !== k;
+			});
+		});
+	});
+})();

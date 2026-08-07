@@ -925,6 +925,9 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 @media (min-width: 62rem) { .cds-bar__links { display: flex; } }
 
 .cds-bar__links a {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
 	padding: 5px var(--space-3);
 	border-radius: var(--radius-pill);
 	font-size: var(--text-sm);
@@ -932,13 +935,20 @@ table.spec-table tr:last-child td { border-bottom: 0; }
 	transition: var(--t-colors);
 }
 
+/* The glyph is a landmark, not a second label: it sits back until the link is
+   hovered or current, so the row still reads as words first. */
+.cds-bar__links a .icon { opacity: 0.55; transition: opacity var(--dur-2) var(--ease-out); }
+
 .cds-bar__links a:hover { color: var(--fg-default); background: var(--bg-sunken); }
+.cds-bar__links a:hover .icon { opacity: 1; }
 
 .cds-bar__links a[aria-current] {
 	color: var(--fg-default);
 	font-weight: var(--weight-semibold);
 	background: var(--bg-sunken);
 }
+
+.cds-bar__links a[aria-current] .icon { opacity: 1; color: var(--accent); }
 
 .cds-bar__end { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
 @media (min-width: 62rem) { .cds-bar__end { margin-left: 0; } }
@@ -1187,14 +1197,15 @@ button.doc-reopen.doc-reopen { top: calc(var(--bar-h) + var(--space-3)); }
 /* Icon-set page: dark theme inverts the demo tiles' <img> icons. */
 [data-theme='dark'] .cds-ico { filter: invert(1); }
 
-/* ── Docs landing page (docs/_build/build.py LANDING) ──────────────────── */
-	.lp-nav { position: sticky; top: 0; z-index: var(--z-nav); background: color-mix(in srgb, var(--bg-canvas) 88%, transparent); backdrop-filter: saturate(160%) blur(12px); border-bottom: var(--border-hair) solid var(--line-default); }
-	.lp-nav__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3); }
-	.lp-nav nav { display: none; }
-	@media (min-width: 56rem) { .lp-nav nav { display: flex; } }
-	.lp-hero { display: grid; gap: var(--space-10); align-items: center; padding-block: var(--section-lg); }
-	@media (min-width: 64rem) { .lp-hero { grid-template-columns: 1fr 1fr; } }
-	.lp-hero__title { font-family: var(--font-display); font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }
+/* ── Homepage (docs/_build/content_site.py build_home) ─────────────────────
+   The homepage runs the docs shell, so the hero takes the docs-head slot and
+   the sections below it take the content column. Everything here is therefore
+   sized against that column, not the viewport: the two-up hero needs a wider
+   window than a full-bleed one would, because the left rail has already spent
+   16rem of it. */
+	.lp-hero { display: grid; gap: var(--space-10); align-items: center; padding-block: var(--space-6) var(--section-sm); }
+	@media (min-width: 78rem) { .lp-hero { grid-template-columns: 1.05fr 1fr; } }
+	.lp-hero__title { font-family: var(--font-display); font-size: clamp(2.25rem, 1.4rem + 2.6vw, 3.25rem); max-width: 15ch; font-weight: var(--weight-bold); letter-spacing: var(--tracking-tighter); line-height: var(--leading-flat); text-wrap: balance; margin-top: var(--space-5); }
 	.lp-hero__title em { font-style: normal; color: var(--accent); }
 	.lp-illo { width: 100%; height: auto; max-width: 32rem; margin-inline: auto; display: block; border-radius: var(--radius-lg); border: var(--border-hair) solid var(--line-default); }
 	@keyframes lp-scan { 0%,100% { transform: translateY(0); } 50% { transform: translateY(354px); } }

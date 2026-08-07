@@ -162,13 +162,16 @@ def _install_block():
         '</div>')
 
 
-def build_landing():
+def build_home():
+    """Returns (head, body). The head takes the docs-head slot in the page shell
+    and the body takes the content column, so the homepage is a docs page whose
+    first section happens to be a hero — same sidebar, same 'On this page' rail."""
     show = _load('showcase')[:3]
     tpl = _load('templates')[:2]
 
     cards = ''.join(
         f'<div class="lp-feat"><span class="lp-feat__ico">{ICON(p)}</span>'
-        f'<h3 class="t-h4">{t}</h3><p class="t-small u-fg-subtle u-mt-2">{d}</p></div>'
+        f'<h3 class="t-h4" data-no-toc>{t}</h3><p class="t-small u-fg-subtle u-mt-2">{d}</p></div>'
         for p, t, d in FEATURES)
 
     showcards = ''.join(
@@ -187,59 +190,7 @@ def build_landing():
         f'<span class="card__excerpt">{t.get("description","")}</span></span></a>'
         for t in tpl) or '<p class="t-small u-fg-faint">No templates listed yet.</p>'
 
-    return f'''
-<header class="lp-nav">
-	<div class="container lp-nav__in">
-		<a class="cds-mark cds-mark-live" href="/index.html">
-			<span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span>
-			<span class="cds-mark__sub">design system</span>
-		</a>
-		<nav class="cluster-sm">
-			<a class="nav-link" href="/introduction.html">Docs</a>
-			<a class="nav-link" href="/components.html">Components</a>
-			<a class="nav-link" href="/showcase.html">Showcase</a>
-			<a class="nav-link" href="/templates.html">Templates</a>
-		</nav>
-		<div class="cluster-sm">
-			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
-			        aria-expanded="false" aria-controls="cds-menu" data-dialog="cds-menu" data-menu-burger>
-				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
-				<span class="u-sr-only">Menu</span>
-			</button>
-			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
-				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
-			</button>
-			<a class="btn btn-secondary btn-sm" href="https://github.com/imswarnil/Creator-Design-System"
-			   rel="noopener" target="_blank">
-				<svg class="icon btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-				GitHub <span class="badge" data-gh-stars>★</span>
-			</a>
-		</div>
-	</div>
-</header>
-<dialog class="nav-sheet" id="cds-menu">
-	<div class="nav-sheet__in">
-		<span class="nav-sheet__scan" aria-hidden="true"></span>
-		<div class="nav-sheet__head">
-			<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
-			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
-		</div>
-		<nav class="nav-sheet__links" aria-label="Site">
-			<a class="nav-sheet__link" style="--i:0" href="/introduction.html">Docs</a>
-			<a class="nav-sheet__link" style="--i:1" href="/components.html">Components</a>
-			<a class="nav-sheet__link" style="--i:2" href="/showcase.html">Showcase</a>
-			<a class="nav-sheet__link" style="--i:3" href="/templates.html">Templates</a>
-			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html">Sponsor</a>
-		</nav>
-		<div class="nav-sheet__foot">
-			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
-			<a class="btn btn-primary btn-sm btn-pill" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
-		</div>
-	</div>
-</dialog>
-
-<main id="main">
-	<section class="container lp-hero pattern pattern-grid pattern-lg fade-corners">
+    head = f'''\t\t<header class="lp-hero pattern pattern-grid pattern-lg fade-corners">
 		<div class="lp-hero__copy">
 			<span class="eyebrow"><span class="dot dot-sm dot-live"></span> MIT · v0.1 · dependency-free CSS</span>
 			<h1 class="lp-hero__title">The design system for people who <em>make things</em>.</h1>
@@ -257,94 +208,69 @@ def build_landing():
 			</p>
 		</div>
 		<div class="lp-hero__art">{HERO_SVG}</div>
-	</section>
+	</header>'''
 
-	<section class="container section">
-		<div class="sec-head-row">
-			<div><span class="sec-head-row__kicker">Why it exists</span>
-			<h2 class="sec-head-row__title">Opinions, so you can stop having them</h2></div>
-		</div>
-		<div class="lp-feats">{cards}</div>
-	</section>
+    body = f'''
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Why it exists</span>
+		<h2 class="sec-head-row__title">Opinions, so you can stop having them</h2></div>
+	</div>
+	<div class="lp-feats">{cards}</div>
+</section>
 
-	<section class="container section">
-		<div class="grid-2" style="gap:var(--space-10);align-items:center">
-			<div>
-				<span class="sec-head-row__kicker">Install</span>
-				<h2 class="sec-head-row__title u-mb-4">Three lines, any stack</h2>
-				<p class="u-fg-subtle" style="max-width:var(--measure-ui)">
-					It is a stylesheet. Use it with plain CSS, SCSS, Tailwind, Ghost,
-					Astro or a single HTML file — then override three variables and
-					it is yours.
-				</p>
-				<a class="t-link fx-shift u-inline-block u-mt-4" href="/install.html">
-					Full install guide <span class="fx-shift__icon">→</span></a>
-			</div>
-			{_install_block()}
-		</div>
-	</section>
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Install</span>
+		<h2 class="sec-head-row__title">Three lines, any stack</h2></div>
+		<a class="sec-head-row__more fx-shift" href="/install.html">Full guide <span class="fx-shift__icon">→</span></a>
+	</div>
+	<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-ui)">
+		It is a stylesheet. Use it with plain CSS, SCSS, Tailwind, Ghost,
+		Astro or a single HTML file — then override three variables and
+		it is yours.
+	</p>
+	{_install_block()}
+</section>
 
-	<section class="container section">
-		<div class="sec-head-row">
-			<div><span class="sec-head-row__kicker">Built with it</span>
-			<h2 class="sec-head-row__title">Showcase</h2></div>
-			<a class="sec-head-row__more fx-shift" href="/showcase.html">All sites <span class="fx-shift__icon">→</span></a>
-		</div>
-		<div class="deck-c">{showcards}</div>
-	</section>
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Built with it</span>
+		<h2 class="sec-head-row__title">Showcase</h2></div>
+		<a class="sec-head-row__more fx-shift" href="/showcase.html">All sites <span class="fx-shift__icon">→</span></a>
+	</div>
+	<div class="deck-c">{showcards}</div>
+</section>
 
-	<section class="container section">
-		<div class="sec-head-row">
-			<div><span class="sec-head-row__kicker">Start from a finished thing</span>
-			<h2 class="sec-head-row__title">Templates</h2></div>
-			<a class="sec-head-row__more fx-shift" href="/templates.html">All templates <span class="fx-shift__icon">→</span></a>
-		</div>
-		<div class="stack">{tplcards}</div>
-	</section>
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Start from a finished thing</span>
+		<h2 class="sec-head-row__title">Templates</h2></div>
+		<a class="sec-head-row__more fx-shift" href="/templates.html">All templates <span class="fx-shift__icon">→</span></a>
+	</div>
+	<div class="stack">{tplcards}</div>
+</section>
 
-	<section class="container section">
-		<div class="cta pattern pattern-grid" data-surface="inverse">
-			<span class="cta__kicker">Open source</span>
-			<h2 class="cta__title">Free forever. <em>Sponsored</em> keeps it maintained.</h2>
-			<p class="cta__body">
-				MIT-licensed and built in public. If it saved you a weekend, sponsorship
-				pays for the next component — and templates fund the rest.
-			</p>
-			<div class="cta__actions">
-				<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">Sponsor the project</a>
-				<a class="btn btn-secondary btn-lg" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
-			</div>
-			<p class="cta__fine">Or contribute — issues and pull requests are genuinely welcome.</p>
+<section class="section">
+	<div class="cta pattern pattern-grid" data-surface="inverse">
+		<span class="cta__kicker">Open source</span>
+		<h2 class="cta__title">Free forever. <em>Sponsored</em> keeps it maintained.</h2>
+		<p class="cta__body">
+			MIT-licensed and built in public. If it saved you a weekend, sponsorship
+			pays for the next component — and templates fund the rest.
+		</p>
+		<div class="cta__actions">
+			<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">Sponsor the project</a>
+			<a class="btn btn-secondary btn-lg" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
 		</div>
-	</section>
-
-	<footer class="container footer">
-		<div class="footer__grid">
-			<div class="footer__brand">
-				<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
-				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
-			</div>
-			<div><h2 class="footer__head">Docs</h2><div class="footer__links">
-				<a href="/introduction.html">Introduction</a><a href="/principles.html">Principles</a>
-				<a href="/install.html">Install</a><a href="/components.html">Components</a></div></div>
-			<div><h2 class="footer__head">Project</h2><div class="footer__links">
-				<a href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
-				<a href="https://github.com/imswarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
-				<a href="https://github.com/imswarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
-			<div><h2 class="footer__head">More</h2><div class="footer__links">
-				<a href="/showcase.html">Showcase</a><a href="/templates.html">Templates</a>
-				<a href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor</a></div></div>
-		</div>
-		<div class="footer__signoff">
-			<span>MIT © 2026 Swarnil Singhai</span>
-			<span class="footer__rec"><span class="dot dot-sm dot-live"></span> still rolling</span>
-		</div>
-	</footer>
-</main>
+		<p class="cta__fine">Or contribute — issues and pull requests are genuinely welcome.</p>
+	</div>
+</section>
 '''
+    return head, body
 
 
-LANDING['index'] = ('Creator Design System — Frame & Signal', build_landing)
+LANDING['index'] = ('Creator Design System — Frame & Signal', build_home)
 
 
 # ── Showcase ────────────────────────────────────────────────────────────────

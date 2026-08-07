@@ -192,6 +192,8 @@ SPRITE = '''<svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns=
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></symbol>
 <symbol id="i-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m8.8 10.8 6.4-3.1M8.8 13.2l6.4 3.1"/></symbol>
 <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></symbol>
+<symbol id="i-layout" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="15" rx="2"/><path d="M4 9.5h16M10.5 9.5v10"/></symbol>
 </svg>'''
 
 
@@ -216,12 +218,16 @@ def keywords(body, lead):
 
 
 def add_heading_ids(body):
-    """Give ids to prose headings (class contains t-h) and collect the TOC."""
+    """Give ids to prose headings and collect the TOC. `t-h*` is the docs voice;
+    `sec-head-row__title` is the landing voice — both are section headings a
+    reader would want in the rail, so both are indexed."""
     toc, seen = [], set()
 
     def repl(m):
         tag, attrs, text = m.group(1), m.group(2), m.group(3)
-        if 't-h' not in attrs:
+        if 'data-no-toc' in attrs:   # a heading inside a card, not a section of the page
+            return m.group(0)
+        if 't-h' not in attrs and 'sec-head-row__title' not in attrs:
             return m.group(0)
         plain = html.unescape(re.sub(r'<[^>]+>', '', text)).strip()
         if not plain or len(plain) > 60:
@@ -324,6 +330,14 @@ def jsonld(current):
                 'name': label, 'url': f'./{slug}.html'}
                for i, (label, slug) in enumerate(site)]}
 
+    if current == 'index':
+        trail = {'@context': 'https://schema.org', '@type': 'BreadcrumbList',
+                 'itemListElement': [{'@type': 'ListItem', 'position': 1,
+                                      'name': 'Home', 'item': f'{SITE}/'}]}
+        dump = lambda d: json.dumps(d, separators=(',', ':'), ensure_ascii=False)
+        return (f'<script type="application/ld+json">{dump(nav)}</script>\n'
+                f'<script type="application/ld+json">{dump(trail)}</script>')
+
     label, group = {s: (l, g) for s, l, g in ORDER}.get(
         current, (current, OFF_NAV.get(current, '')))
     crumbs = [('Docs', './introduction.html')]
@@ -364,92 +378,6 @@ def pager(current):
 
 
 
-LANDING_TEMPLATE = '''<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{title}</title>
-<meta name="description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site. Videos, courses, build logs and trips, decided once in tokens." />
-<link rel="canonical" href="{site}/" />
-<link rel="alternate" type="text/plain" href="{site}/llms.txt" title="Creator Design System for LLMs" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Creator Design System" />
-<meta property="og:title" content="{title}" />
-<meta property="og:description" content="A token-first, dependency-free CSS design system for creators building their site." />
-<meta property="og:url" content="{site}/" />
-<meta property="og:image" content="{site}/og.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="{title}" />
-<meta name="twitter:description" content="A token-first, dependency-free CSS design system for creators building their site." />
-<meta name="twitter:image" content="{site}/og.png" />
-<link rel="icon" href="/favicon.svg{v}" type="image/svg+xml" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/src/1-foundation/index.css{v}" />
-<link rel="stylesheet" href="/src/2-elements/index.css{v}" />
-<link rel="stylesheet" href="/src/3-components/index.css{v}" />
-<link rel="stylesheet" href="/src/5-sections/index.css{v}" />
-<link rel="stylesheet" href="/src/6-utilities/index.css{v}" />
-<link rel="stylesheet" href="/preview.css{v}" />{collection_css}
-<script src="/src/highlight.js{v}" defer></script>
-<script src="/src/nav.js{v}" defer></script>
-<script src="/preview.js{v}" defer></script>
-</head>
-<body class="lp">
-<a class="skip-link" href="#main">Skip to content</a>
-{sprite}
-{body}
-<script>
-(function () {{
-	var root = document.documentElement, btn = document.getElementById('themeToggle'),
-		label = document.getElementById('themeLabel');
-	var sync = function () {{
-		var d = root.getAttribute('data-theme') === 'dark';
-		label.textContent = d ? 'Dark' : 'Light';
-		btn.setAttribute('aria-pressed', String(d));
-	}};
-	try {{ var t = localStorage.getItem('cds-theme'); if (t) root.setAttribute('data-theme', t); }} catch (e) {{}}
-	sync();
-	btn.addEventListener('click', function () {{
-		var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-		root.setAttribute('data-theme', next);
-		try {{ localStorage.setItem('cds-theme', next); }} catch (e) {{}}
-		sync();
-	}});
-
-	// Install tabs
-	document.querySelectorAll('[data-install-tab]').forEach(function (tab) {{
-		tab.addEventListener('click', function () {{
-			var k = tab.getAttribute('data-install-tab');
-			document.querySelectorAll('[data-install-tab]').forEach(function (t) {{
-				t.setAttribute('aria-selected', String(t === tab));
-			}});
-			document.querySelectorAll('[data-install-panel]').forEach(function (p) {{
-				p.hidden = p.getAttribute('data-install-panel') !== k;
-			}});
-		}});
-	}});
-
-	// Live star count — falls back to the star glyph if the API is unreachable.
-	var stars = document.querySelector('[data-gh-stars]');
-	if (stars) {{
-		fetch('https://api.github.com/repos/imswarnil/Creator-Design-System')
-			.then(function (r) {{ return r.ok ? r.json() : null; }})
-			.then(function (d) {{
-				if (d && typeof d.stargazers_count === 'number') {{
-					stars.textContent = '★ ' + d.stargazers_count.toLocaleString();
-				}}
-			}})
-			.catch(function () {{}});
-	}}
-}})();
-</script>
-</body>
-</html>
-'''
-
 TEMPLATE = '''<!DOCTYPE html>
 <html lang="en" data-theme="{theme}">
 <head>
@@ -459,7 +387,7 @@ TEMPLATE = '''<!DOCTYPE html>
 <meta name="description" content="{meta_desc}" />
 <link rel="canonical" href="{canonical}" />
 <link rel="alternate" type="text/plain" href="{site}/llms.txt" title="Creator Design System for LLMs" />
-<meta property="og:type" content="article" />
+<meta property="og:type" content="{og_type}" />
 <meta property="og:site_name" content="Creator Design System" />
 <meta property="og:title" content="{page_title}" />
 <meta property="og:description" content="{meta_desc}" />
@@ -492,11 +420,11 @@ TEMPLATE = '''<!DOCTYPE html>
 	<div class="cds-bar__in u-relative">
 		<a class="cds-mark" href="/index.html"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span><span class="cds-mark__sub">design system</span></a>
 		<nav class="cds-bar__links" aria-label="Site">
-			<a href="/introduction.html">Docs</a>
-			<a href="/components.html">Components</a>
-			<a href="/showcase.html">Showcase</a>
-			<a href="/templates.html">Templates</a>
-			<a href="/sponsor.html">Sponsor</a>
+			<a href="/introduction.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-book"/></svg>Docs</a>
+			<a href="/components.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-grid"/></svg>Components</a>
+			<a href="/showcase.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-camera"/></svg>Showcase</a>
+			<a href="/templates.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-layout"/></svg>Templates</a>
+			<a href="/sponsor.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-heart"/></svg>Sponsor</a>
 		</nav>
 		<div class="cds-bar__end">
 	<div class="doc-search">
@@ -528,11 +456,11 @@ TEMPLATE = '''<!DOCTYPE html>
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
-			<a class="nav-sheet__link" style="--i:0" href="/introduction.html">Docs</a>
-			<a class="nav-sheet__link" style="--i:1" href="/components.html">Components</a>
-			<a class="nav-sheet__link" style="--i:2" href="/showcase.html">Showcase</a>
-			<a class="nav-sheet__link" style="--i:3" href="/templates.html">Templates</a>
-			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html">Sponsor</a>
+			<a class="nav-sheet__link" style="--i:0" href="/introduction.html"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="/components.html"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="/showcase.html"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="/templates.html"><svg class="icon" aria-hidden="true"><use href="#i-layout"/></svg>Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>Sponsor</a>
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
@@ -558,10 +486,7 @@ TEMPLATE = '''<!DOCTYPE html>
 </header>
 <main id="main">
 	<div class="container-wide section">
-		<header class="docs-head">
-			<span class="t-slate" style="color:var(--fg-faint)">{group} · Creator Design System</span>
-			<h1 class="t-display-2" style="margin-top:var(--space-3)">{title}</h1>{lead_html}
-		</header>
+{head_html}
 
 		<div class="doc-split">
 			<div class="doc-split__main">
@@ -639,6 +564,10 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
     lead_html = (f'\n\t\t\t<p class="t-lead" style="margin-top:var(--space-4);'
                  f'max-width:var(--measure-lead)">{lead}</p>') if lead else ''
     esc_title = html.escape(title)
+    head_html = ('\t\t<header class="docs-head">\n'
+                 f'\t\t\t<span class="t-slate" style="color:var(--fg-faint)">{group} · Creator Design System</span>\n'
+                 f'\t\t\t<h1 class="t-display-2" style="margin-top:var(--space-3)">{esc_title}</h1>{lead_html}\n'
+                 '\t\t</header>')
     pg = pager(slug)
     pager_html = ('\n\t\t\t\t<nav class="docs-pager" aria-label="Pages">\n'
                   f'\t\t\t\t\t{pg}\n\t\t\t\t</nav>') if pg else ''
@@ -651,7 +580,7 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
 
     out = TEMPLATE.format(
         page_title=esc_title if 'Creator Design System' in esc_title else esc_title + ' — Creator Design System',
-        title=esc_title, group=group, lead_html=lead_html, body=body,
+        title=esc_title, head_html=head_html, body=body, og_type='article',
         meta_desc=meta_desc, canonical=f'{SITE}/{slug}.html', site=SITE,
         nav=sidebar(slug), pager_html=pager_html, aside=aside(toc, slug),
         jsonld=jsonld(slug), sprite=SPRITE, v=V,
@@ -674,6 +603,25 @@ def render(slug, title, group, lead, body, opts, return_toc=False):
                                        'guides', 'prompts', 'snippets', 'products',
                                        'docs') else ''))
     return (out, toc) if return_toc else out
+
+
+def render_home(title, head, body):
+    """The homepage runs the docs shell — left sidebar, right rail — with the
+    hero standing in for the docs-head. A front door that is already the map:
+    the system's contents are visible before you have clicked anything, and the
+    page's own sections feed 'On this page' exactly as a docs page does."""
+    body, toc = add_heading_ids(body)
+    return TEMPLATE.format(
+        page_title=html.escape(title), title='Home', head_html=head, body=body,
+        og_type='website',
+        meta_desc='Frame &amp; Signal — a token-first, dependency-free CSS design '
+                  'system for creators building their site. Videos, courses, build '
+                  'logs and trips, decided once in tokens.',
+        canonical=f'{SITE}/', site=SITE,
+        nav=sidebar('index'), pager_html='', aside=aside(toc, 'index'),
+        jsonld=jsonld('index'), sprite=SPRITE, v=V,
+        theme='light', theme_label='Light', dark='false', guides_btn='',
+        broadcast_css='', extra_style='', body_class='lp', collection_css='')
 
 
 def mirror_assets():
@@ -961,11 +909,10 @@ def main():
         built.add(slug)
 
     for slug, (title, builder) in content_site.LANDING.items():
+        head, body = builder()
         out = OUT / f'{slug}.html'
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(
-            LANDING_TEMPLATE.format(title=html.escape(title), body=builder(),
-                                    sprite=SPRITE, v=V, site=SITE, collection_css=''))
+        out.write_text(render_home(title, head, body))
 
     write_redirects()
     write_flavour_routes()

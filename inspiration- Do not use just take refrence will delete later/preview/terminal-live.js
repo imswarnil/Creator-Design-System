@@ -1,0 +1,534 @@
+import { createGhosttyTerminal } from "@openclaw/libterminal/browser";
+import { resolvePreviewSiteRoot } from "./router.js";
+
+// Live terminal prompts: real Ghostty terminals accepting real keyboard
+// input, driven by a small client-side engine that renders the exact glyph
+// vocabulary of the captured OpenClaw Clack prompts (◆ │ └ ● ○ ◻ ◼ █).
+// The captures on each page remain the canonical runtime proof; these are
+// labeled interactive simulations so readers can feel focus, filtering,
+// validation, and confirmation behavior without an OpenClaw install.
+
+const encoder = new TextEncoder();
+
+// Palette primitives, matching the theme-invariant capture surface.
+const ESC = "\u001b";
+const INK = {
+  accent: `${ESC}[38;2;245;101;74m`,
+  warning: `${ESC}[38;2;224;175;104m`,
+  success: `${ESC}[38;2;125;200;140m`,
+  muted: `${ESC}[38;2;138;138;138m`,
+  dim: `${ESC}[2m`,
+  bold: `${ESC}[1m`,
+  reset: `${ESC}[0m`,
+};
+
+const CLEAR = `${ESC}[2J${ESC}[3J${ESC}[H${ESC}[?25l`;
+
+// Decode a DOM keydown. event.key is authoritative; event.code covers
+// environments that deliver keydown with an empty key string.
+const CODE_KEYS = {
+  ArrowUp: "up",
+  ArrowDown: "down",
+  ArrowLeft: "left",
+  ArrowRight: "right",
+  Enter: "enter",
+  NumpadEnter: "enter",
+  Tab: "tab",
+  Backspace: "backspace",
+  Escape: "cancel",
+  Space: "space",
+};
+
+function keyFromEvent(event) {
+  const named = CODE_KEYS[event.key] ?? CODE_KEYS[event.code];
+  if (named) return { name: named };
+  if (event.key === " ") return { name: "space" };
+  if (event.key?.length === 1 && event.key >= " " && event.key <= "~" && !event.metaKey && !event.ctrlKey && !event.altKey) {
+    return { name: "char", value: event.key };
+  }
+  return null;
+}
+
+function guide(lines, { state = "active", footer = "", error = "" } = {}) {
+  const head = state === "error" ? `${INK.warning}▲${INK.reset}` : state === "done" ? `${INK.success}◇${INK.reset}` : `${INK.accent}◆${INK.reset}`;
+  const bar = `${INK.muted}│${INK.reset}`;
+  const out = [`${INK.muted}│${INK.reset}`];
+  lines.forEach((line, index) => {
+    out.push(index === 0 ? `${head}  ${line}` : `${bar}  ${line}`);
+  });
+  if (footer) out.push(`${bar}  ${INK.muted}${footer}${INK.reset}`);
+  out.push(`${INK.muted}└${INK.reset}${error ? `  ${INK.warning}${error}${INK.reset}` : ""}`);
+  return `${CLEAR}${out.join("\r\n")}`;
+}
+
+function radio(selected) {
+  return selected ? `${INK.success}●${INK.reset}` : `${INK.muted}○${INK.reset}`;
+}
+
+function checkbox(checked) {
+  return checked ? `${INK.success}◼${INK.reset}` : `${INK.muted}◻${INK.reset}`;
+}
+
+function focusLabel(label, focused) {
+  return focused ? `${INK.bold}${label}${INK.reset}` : label;
+}
+
+function clip(text, max) {
+  return text.length > max ? `${text.slice(0, Math.max(0, max - 1))}…` : text;
+}
+
+const widgets = {
+  select: () => {
+    const options = [
+      { label: "QuickStart (recommended)", hint: "Recommended local setup." },
+      { label: "Advanced", hint: "Choose every setting." },
+      { label: "Import from Claude", hint: "~/.claude" },
+    ];
+    let index = 0;
+    let done = false;
+    return {
+      frame() {
+        if (done) {
+          return guide([`Setup mode`, `${INK.dim}${options[index].label}${INK.reset}`], { state: "done", footer: "press R to restart" });
+        }
+        const rows = options.map((option, i) => {
+          const hint = i === index ? ` ${INK.muted}(${clip(option.hint, 34)})${INK.reset}` : "";
+          return `${radio(i === index)} ${focusLabel(option.label, i === index)}${hint}`;
+        });
+        return guide(["Setup mode", ...rows], { footer: "← back  → next  ↑/↓ option  Enter confirm" });
+      },
+      handle(k) {
+        if (done) {
+          if (k.name === "char" && k.value.toLowerCase() === "r") done = false;
+          return;
+        }
+        if (k.name === "up") index = (index + options.length - 1) % options.length;
+        if (k.name === "down") index = (index + 1) % options.length;
+        if (k.name === "enter") done = true;
+        if (k.name === "cancel") index = 0;
+      },
+    };
+  },
+
+  multiselect: () => {
+    const options = [
+      { label: "session-memory", hint: "Save context on /new" },
+      { label: "command-logger", hint: "Log command events" },
+      { label: "bootstrap-extra-files", hint: "Add workspace files" },
+    ];
+    let index = 0;
+    let filter = "";
+    let done = false;
+    const picked = new Set(["session-memory"]);
+    const visible = () => options.filter((option) => option.label.includes(filter));
+    return {
+      frame() {
+        const shown = visible();
+        if (done) {
+          const value = [...picked].join(", ") || "none";
+          return guide(["Enable hooks?", `${INK.dim}${value}${INK.reset}`], { state: "done", footer: "press R to restart" });
+        }
+        const searchRow = `${INK.muted}Search:${INK.reset} ${filter}${INK.accent}█${INK.reset} ${INK.muted}(${shown.length} match${shown.length === 1 ? "" : "es"})${INK.reset}`;
+        const rows = shown.map((option, i) => {
+          const hint = i === index ? ` ${INK.muted}(${clip(option.hint, 34)})${INK.reset}` : "";
+          return `${checkbox(picked.has(option.label))} ${focusLabel(option.label, i === index)}${hint}`;
+        });
+        if (!rows.length) rows.push(`${INK.muted}No hook matches "${filter}"${INK.reset}`);
+        return guide(["Enable hooks?", searchRow, ...rows], { footer: "↑/↓ to navigate • Tab: select • Enter: confirm • Type: to search" });
+      },
+      handle(k) {
+        if (done) {
+          if (k.name === "char" && k.value.toLowerCase() === "r") { done = false; filter = ""; }
+          return;
+        }
+        const shown = visible();
+        if (k.name === "up") index = (index + shown.length - 1) % Math.max(shown.length, 1);
+        if (k.name === "down") index = (index + 1) % Math.max(shown.length, 1);
+        if ((k.name === "tab" || k.name === "space") && shown[index]) {
+          const label = shown[index].label;
+          if (picked.has(label)) picked.delete(label);
+          else picked.add(label);
+        }
+        if (k.name === "char") { filter += k.value; index = 0; }
+        if (k.name === "backspace") { filter = filter.slice(0, -1); index = 0; }
+        if (k.name === "enter") done = true;
+        if (k.name === "cancel") { filter = ""; index = 0; }
+      },
+    };
+  },
+
+  confirm: () => {
+    let no = true;
+    let done = false;
+    return {
+      frame() {
+        if (done) {
+          return guide(["Continue with lock-down?", `${INK.dim}${no ? "No" : "Yes"}${INK.reset}`], { state: "done", footer: "press R to restart" });
+        }
+        return guide(
+          [
+            "Personal-by-default; shared or multi-user use requires lock-down. Continue?",
+            `${radio(!no)} ${focusLabel("Yes", !no)}`,
+            `${radio(no)} ${focusLabel("No", no)}`,
+          ],
+          { footer: "← back  ↑/↓ option  Enter confirm" },
+        );
+      },
+      handle(k) {
+        if (done) {
+          if (k.name === "char" && k.value.toLowerCase() === "r") done = false;
+          return;
+        }
+        if (k.name === "up" || k.name === "down") no = !no;
+        if (k.name === "char" && k.value.toLowerCase() === "y") no = false;
+        if (k.name === "char" && k.value.toLowerCase() === "n") no = true;
+        if (k.name === "enter") done = true;
+      },
+    };
+  },
+
+  approval: () => {
+    const decisions = [
+      { value: "allow-once", label: "Allow once", hint: "Approve this change" },
+      { value: "deny", label: "Deny", hint: "Do not apply this change" },
+    ];
+    let index = decisions.length - 1;
+    let allowArmed = false;
+    let confirmation = "";
+    let outcome = "";
+    const reset = () => {
+      index = decisions.length - 1;
+      allowArmed = false;
+      confirmation = "";
+      outcome = "";
+    };
+    return {
+      frame() {
+        if (outcome) {
+          return `${CLEAR}${INK.muted}workspace skill approval: ${outcome}${INK.reset}\r\n\r\n${INK.muted}Press R to restart.${INK.reset}`;
+        }
+        const rows = decisions.map(
+          (decision, optionIndex) =>
+            `${radio(optionIndex === index)} ${focusLabel(decision.label, optionIndex === index)} ${INK.muted}${decision.hint}${INK.reset}`,
+        );
+        return `${CLEAR}${[
+          `${INK.accent}${INK.bold}workspace skill approval: Apply workspace skill proposal${INK.reset}`,
+          `${INK.muted}Severity: Warning${INK.reset}`,
+          `${INK.muted}Tool: skill_workshop${INK.reset}`,
+          `${INK.muted}Plugin: workspace-skills${INK.reset}`,
+          `${INK.muted}Request: Apply a pending workspace skill proposal into live workspace skills.${INK.reset}`,
+          "",
+          ...(confirmation ? [`${INK.accent}${confirmation}${INK.reset}`, ""] : []),
+          ...rows,
+        ].join("\r\n")}`;
+      },
+      handle(k) {
+        if (k.name === "char" && k.value.toLowerCase() === "r") {
+          reset();
+          return;
+        }
+        if (outcome) {
+          return;
+        }
+        if (k.name === "up" || k.name === "down") {
+          const delta = k.name === "up" ? -1 : 1;
+          index = (index + decisions.length + delta) % decisions.length;
+          allowArmed = false;
+          confirmation = "";
+          return;
+        }
+        if (k.name === "cancel") {
+          outcome = "denied";
+          return;
+        }
+        if (k.name !== "enter") return;
+        const decision = decisions[index];
+        if (decision.value !== "deny" && !allowArmed) {
+          allowArmed = true;
+          confirmation = `Press Enter again to confirm ${decision.label}.`;
+          return;
+        }
+        outcome = decision.value === "deny" ? "denied" : "allowed once";
+      },
+    };
+  },
+
+  composer: () => {
+    const transcript = [];
+    let value = "";
+    const replies = [
+      "Noted. I will keep the transcript and composer in one shell.",
+      "Streaming reply complete; the status row returns to idle.",
+      "Try a longer prompt -- the composer owns wrapping and the cursor.",
+    ];
+    return {
+      frame() {
+        const rows = [];
+        for (const turn of transcript.slice(-2)) {
+          rows.push(`${INK.muted}›${INK.reset} ${INK.bold}${clip(turn.user, 70)}${INK.reset}`);
+          rows.push(`${INK.muted}${clip(turn.reply, 74)}${INK.reset}`);
+        }
+        if (!rows.length) rows.push(`${INK.muted}Transcript is empty. Type below and press Enter to send.${INK.reset}`);
+        rows.push("");
+        rows.push(`${INK.accent}>${INK.reset} ${clip(value, 70)}${INK.accent}█${INK.reset}`);
+        return guide(["Agent composer", ...rows], { footer: "Type · Enter send · R restart" });
+      },
+      handle(k) {
+        if (k.name === "char" && k.value.toLowerCase() === "r" && value === "") {
+          transcript.length = 0;
+          return;
+        }
+        if (k.name === "char") value += k.value;
+        if (k.name === "space") value += " ";
+        if (k.name === "backspace") value = value.slice(0, -1);
+        if (k.name === "enter" && value.trim()) {
+          transcript.push({ user: value.trim(), reply: replies[transcript.length % replies.length] });
+          value = "";
+        }
+      },
+    };
+  },
+
+  flow: () => {
+    const modes = ["QuickStart (recommended)", "Advanced"];
+    let step = 0;
+    let mode = 0;
+    let hooks = true;
+    let done = false;
+    return {
+      frame() {
+        const history = step > 0 || done
+          ? [`${INK.success}◇${INK.reset}  ${INK.muted}Setup mode${INK.reset}`, `${INK.muted}│  ${INK.dim}${modes[mode]}${INK.reset}`]
+          : [];
+        if (done) {
+          return `${CLEAR}${[...history, ""].join("\r\n")}${guide(["Enable hooks now?", `${INK.dim}${hooks ? "Yes" : "No"}${INK.reset}`], { state: "done", footer: "press R to restart" }).slice(CLEAR.length)}`;
+        }
+        if (step === 0) {
+          const rows = modes.map((label, i) => `${radio(i === mode)} ${focusLabel(label, i === mode)}`);
+          return guide(["Setup mode", ...rows], { footer: "→ next  ↑/↓ option  Enter confirm" });
+        }
+        return `${CLEAR}${[...history, ""].join("\r\n")}${guide(["Enable hooks now?", `${radio(hooks)} ${focusLabel("Yes", hooks)}`, `${radio(!hooks)} ${focusLabel("No", !hooks)}`], { footer: "← back  ↑/↓ option  Enter confirm" }).slice(CLEAR.length)}`;
+      },
+      handle(k) {
+        if (done) {
+          if (k.name === "char" && k.value.toLowerCase() === "r") { done = false; step = 0; }
+          return;
+        }
+        if (step === 0) {
+          if (k.name === "up" || k.name === "down") mode = (mode + 1) % modes.length;
+          if (k.name === "enter" || k.name === "right") step = 1;
+          return;
+        }
+        if (k.name === "left") step = 0;
+        if (k.name === "up" || k.name === "down") hooks = !hooks;
+        if (k.name === "enter") done = true;
+      },
+    };
+  },
+
+  progress: () => {
+    const spinner = ["◐", "◓", "◑", "◒"];
+    let phase = 0;
+    let state = "running";
+    return {
+      interval: 160,
+      frame() {
+        if (state === "done") {
+          return guide(["Checking local gateway", `${INK.dim}Gateway reachable.${INK.reset}`], { state: "done", footer: "press R to restart" });
+        }
+        if (state === "failed") {
+          return guide(["Checking local gateway", `${INK.dim}Gateway did not answer.${INK.reset}`], { state: "error", footer: "press R to restart", error: "Connection refused on 127.0.0.1:18789" });
+        }
+        return guide([
+          "Checking local gateway",
+          `${INK.accent}${spinner[phase % spinner.length]}${INK.reset} Verifying gateway reachability`,
+        ], { footer: "C complete  F fail  R restart" });
+      },
+      tick() {
+        if (state !== "running") return false;
+        phase += 1;
+        return true;
+      },
+      handle(k) {
+        if (k.name === "char") {
+          const value = k.value.toLowerCase();
+          if (value === "c") state = "done";
+          if (value === "f") state = "failed";
+          if (value === "r") { state = "running"; phase = 0; }
+        }
+      },
+    };
+  },
+
+  text: () => {
+    let value = "18789";
+    let error = "";
+    let done = false;
+    const validate = (v) => (Number(v) >= 1 && Number(v) <= 65535 ? "" : "Enter a port from 1 to 65535");
+    return {
+      frame() {
+        if (done) {
+          return guide(["Gateway port", `${INK.dim}${value}${INK.reset}`], { state: "done", footer: "press R to restart" });
+        }
+        return guide(["Gateway port", `${value}${INK.accent}█${INK.reset}`], {
+          state: error ? "error" : "active",
+          footer: "← back  → next  Enter submit",
+          error,
+        });
+      },
+      handle(k) {
+        if (done) {
+          if (k.name === "char" && k.value.toLowerCase() === "r") { done = false; value = ""; error = ""; }
+          return;
+        }
+        if (k.name === "char") { value += k.value; error = ""; }
+        if (k.name === "backspace") { value = value.slice(0, -1); error = ""; }
+        if (k.name === "enter") {
+          error = validate(value);
+          if (!error) done = true;
+        }
+      },
+    };
+  },
+};
+
+export function createTerminalLiveWidget(widgetId) {
+  return widgets[widgetId]?.();
+}
+
+async function mountTerminalLive(host, widgetId, signal) {
+  const widget = createTerminalLiveWidget(widgetId);
+  if (!widget) return undefined;
+  host.dataset.terminalLiveState = "loading";
+  try {
+    const siteRoot = resolvePreviewSiteRoot(host.ownerDocument.location.href);
+    const columns = Number(host.dataset.terminalLiveColumns || 80);
+    const rows = Number(host.dataset.terminalLiveRows || 10);
+    const controller = await createGhosttyTerminal({
+      parent: host,
+      runtimeOptions: { wasmUrl: new URL("vendor/ghostty-vt.wasm", siteRoot).href },
+      terminalOptions: {
+        cursorBlink: false,
+        cursorStyle: "block",
+        fontFamily: terminalFontFamily(host),
+        fontSize: 20,
+        scrollback: 0,
+        theme: captureTheme(host),
+      },
+      size: { columns, rows },
+      autoFit: false,
+      readOnly: false,
+      signal,
+    });
+    controller.write(encoder.encode(widget.frame()));
+    host.dataset.terminalLiveState = "ready";
+    const apply = (decoded) => {
+      widget.handle(decoded);
+      controller.write(encoder.encode(widget.frame()));
+    };
+    // The widget owns input directly: keydown for real keyboards (with a
+    // code fallback for degenerate events), beforeinput for text insertion
+    // paths (IME, synthetic typing). Capture phase runs before the
+    // renderer's own listeners, and stopPropagation keeps each event from
+    // being interpreted twice.
+    host.addEventListener(
+      "keydown",
+      (event) => {
+        const decoded = keyFromEvent(event);
+        if (!decoded) return;
+        event.preventDefault();
+        event.stopPropagation();
+        apply(decoded);
+      },
+      { capture: true, signal },
+    );
+    host.addEventListener(
+      "beforeinput",
+      (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.inputType === "insertText" && event.data) {
+          for (const character of event.data) {
+            apply(character === " " ? { name: "space" } : { name: "char", value: character });
+          }
+        }
+        if (event.inputType === "insertLineBreak" || event.inputType === "insertParagraph") apply({ name: "enter" });
+        if (event.inputType === "deleteContentBackward") apply({ name: "backspace" });
+      },
+      { capture: true, signal },
+    );
+    // Clicking anywhere on the surface focuses the renderer's hidden
+    // textarea so the prompt never looks dead.
+    const focusInput = () => (host.querySelector("textarea") ?? host).focus();
+    host.addEventListener("mousedown", (event) => {
+      event.preventDefault();
+      focusInput();
+    });
+    let timer;
+    if (widget.interval && widget.tick) {
+      timer = setInterval(() => {
+        if (signal.aborted) return;
+        if (widget.tick()) controller.write(encoder.encode(widget.frame()));
+      }, widget.interval);
+      signal.addEventListener("abort", () => clearInterval(timer), { once: true });
+    }
+    return controller;
+  } catch (error) {
+    if (signal.aborted) return undefined;
+    host.dataset.terminalLiveState = "error";
+    console.error("Failed to mount live terminal", error);
+    return undefined;
+  }
+}
+
+function terminalFontFamily(host) {
+  const document = host.ownerDocument;
+  return (
+    document.defaultView
+      ?.getComputedStyle(document.documentElement)
+      .getPropertyValue("--oc-font-mono")
+      .trim() || "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+  );
+}
+
+function captureTheme(host) {
+  const resolve = (property, fallback) => {
+    const document = host.ownerDocument;
+    const view = document.defaultView;
+    if (!view) return fallback;
+    const probe = document.createElement("span");
+    probe.style.color = `var(${property}, ${fallback})`;
+    probe.style.display = "none";
+    host.append(probe);
+    const value = view.getComputedStyle(probe).color;
+    probe.remove();
+    return value || fallback;
+  };
+  const background = resolve("--terminal-capture-bg", "#0d0d0f");
+  return {
+    background,
+    foreground: resolve("--terminal-capture-fg", "#ededed"),
+    cursor: resolve("--terminal-capture-cursor", "#f5654a"),
+    cursorAccent: background,
+  };
+}
+
+export function bindTerminalLive(root = globalThis.document) {
+  const abortController = new AbortController();
+  const controllers = new Set();
+  for (const host of root.querySelectorAll("[data-terminal-live]")) {
+    void mountTerminalLive(host, host.dataset.terminalLive, abortController.signal).then((controller) => {
+      if (!controller) return;
+      if (abortController.signal.aborted) {
+        controller.dispose();
+        return;
+      }
+      controllers.add(controller);
+    });
+  }
+  return () => {
+    abortController.abort();
+    for (const controller of controllers) controller.dispose();
+    controllers.clear();
+  };
+}

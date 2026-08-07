@@ -1,0 +1,6 @@
+self-hosted-runner:
+  labels:
+    - crabbox
+    - openclaw
+    - design-system
+    - carapace

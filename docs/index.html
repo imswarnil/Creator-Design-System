@@ -10,13 +10,15 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Creator Design System" />
 <meta property="og:title" content="Creator Design System — Frame &amp; Signal" />
-<meta property="og:description" content="A token-first, dependency-free CSS design system for creators building their site." />
+<meta property="og:description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site. Videos, courses, build logs and trips, decided once in tokens." />
 <meta property="og:url" content="https://creator.imswarnil.com/" />
 <meta property="og:image" content="https://creator.imswarnil.com/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Creator Design System — Frame &amp; Signal" />
-<meta name="twitter:description" content="A token-first, dependency-free CSS design system for creators building their site." />
+<meta name="twitter:description" content="Frame &amp; Signal — a token-first, dependency-free CSS design system for creators building their site. Videos, courses, build logs and trips, decided once in tokens." />
 <meta name="twitter:image" content="https://creator.imswarnil.com/og.png" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Creator Design System","itemListElement":[{"@type":"SiteNavigationElement","position":1,"name":"Docs","url":"./introduction.html"},{"@type":"SiteNavigationElement","position":2,"name":"Components","url":"./components.html"},{"@type":"SiteNavigationElement","position":3,"name":"Showcase","url":"./showcase.html"},{"@type":"SiteNavigationElement","position":4,"name":"Templates","url":"./templates.html"},{"@type":"SiteNavigationElement","position":5,"name":"Sponsor","url":"./sponsor.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://creator.imswarnil.com/"}]}</script>
 <link rel="icon" href="/favicon.svg?v=cds25" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,9 +31,10 @@
 <link rel="stylesheet" href="/preview.css?v=cds25" />
 <script src="/src/highlight.js?v=cds25" defer></script>
 <script src="/src/nav.js?v=cds25" defer></script>
+<script src="/src/ad.js?v=cds25" defer></script>
 <script src="/preview.js?v=cds25" defer></script>
 </head>
-<body class="lp">
+<body class="lp has-side">
 <a class="skip-link" href="#main">Skip to content</a>
 <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></symbol>
@@ -47,33 +50,37 @@
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z"/></symbol>
 <symbol id="i-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="m8.8 10.8 6.4-3.1M8.8 13.2l6.4 3.1"/></symbol>
 <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></symbol>
+<symbol id="i-layout" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="15" rx="2"/><path d="M4 9.5h16M10.5 9.5v10"/></symbol>
 </svg>
-
-<header class="lp-nav">
-	<div class="container lp-nav__in">
-		<a class="cds-mark cds-mark-live" href="/index.html">
-			<span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span>
-			<span class="cds-mark__sub">design system</span>
-		</a>
-		<nav class="cluster-sm">
-			<a class="nav-link" href="/introduction.html">Docs</a>
-			<a class="nav-link" href="/components.html">Components</a>
-			<a class="nav-link" href="/showcase.html">Showcase</a>
-			<a class="nav-link" href="/templates.html">Templates</a>
+<header class="cds-bar cds-bar-wide">
+	<div class="cds-bar__in u-relative">
+		<a class="cds-mark" href="/index.html"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span><span class="cds-mark__sub">design system</span></a>
+		<nav class="cds-bar__links" aria-label="Site">
+			<a href="/introduction.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-book"/></svg>Docs</a>
+			<a href="/components.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-grid"/></svg>Components</a>
+			<a href="/showcase.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-camera"/></svg>Showcase</a>
+			<a href="/templates.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-layout"/></svg>Templates</a>
+			<a href="/sponsor.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-heart"/></svg>Sponsor</a>
 		</nav>
-		<div class="cluster-sm">
+		<div class="cds-bar__end">
+	<div class="doc-search">
+		<svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+		<input id="docSearch" type="search" placeholder="Search…" aria-label="Search the design system"
+		       autocomplete="off" role="combobox" aria-expanded="false" aria-controls="docResults" />
+		<kbd class="kbd">/</kbd>
+	</div>
+	<div class="doc-results" id="docResults" role="listbox" hidden></div>
+			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
+				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
+			</button>
 			<button class="nav-burger nav-burger-aperture cds-bar__burger" type="button"
 			        aria-expanded="false" aria-controls="cds-menu" data-dialog="cds-menu" data-menu-burger>
 				<span class="nav-burger__box"><span class="nav-burger__bars"></span></span>
 				<span class="u-sr-only">Menu</span>
 			</button>
-			<button class="doc-btn" id="themeToggle" type="button" aria-pressed="false">
-				<span class="dot dot-sm" aria-hidden="true"></span><span id="themeLabel">Light</span>
-			</button>
-			<a class="btn btn-secondary btn-sm" href="https://github.com/imswarnil/Creator-Design-System"
-			   rel="noopener" target="_blank">
-				<svg class="icon btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-				GitHub <span class="badge" data-gh-stars>★</span>
+			<a class="cds-gh" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">
+				<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 18 6.14 18a2.7 2.7 0 0 0-1.13-1.49c-.92-.63.07-.62.07-.62a2.14 2.14 0 0 1 1.56 1.05 2.17 2.17 0 0 0 2.96.85 2.18 2.18 0 0 1 .65-1.37c-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.47 9.47 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 0 1 .1 2.65 3.87 3.87 0 0 1 1.03 2.69c0 3.85-2.34 4.7-4.57 4.95a2.43 2.43 0 0 1 .69 1.88v2.79c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg><span>GitHub</span><span class="cds-gh__stars" data-gh-stars>★</span>
 			</a>
 		</div>
 	</div>
@@ -86,11 +93,11 @@
 			<button class="btn-close" type="button" data-dialog-close aria-label="Close menu"></button>
 		</div>
 		<nav class="nav-sheet__links" aria-label="Site">
-			<a class="nav-sheet__link" style="--i:0" href="/introduction.html">Docs</a>
-			<a class="nav-sheet__link" style="--i:1" href="/components.html">Components</a>
-			<a class="nav-sheet__link" style="--i:2" href="/showcase.html">Showcase</a>
-			<a class="nav-sheet__link" style="--i:3" href="/templates.html">Templates</a>
-			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html">Sponsor</a>
+			<a class="nav-sheet__link" style="--i:0" href="/introduction.html"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Docs</a>
+			<a class="nav-sheet__link" style="--i:1" href="/components.html"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Components</a>
+			<a class="nav-sheet__link" style="--i:2" href="/showcase.html"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>Showcase</a>
+			<a class="nav-sheet__link" style="--i:3" href="/templates.html"><svg class="icon" aria-hidden="true"><use href="#i-layout"/></svg>Templates</a>
+			<a class="nav-sheet__link" style="--i:4" href="/sponsor.html"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>Sponsor</a>
 		</nav>
 		<div class="nav-sheet__foot">
 			<span class="t-slate-sm" style="color:var(--fg-faint)"><span class="dot dot-sm dot-live"></span> still rolling</span>
@@ -98,9 +105,197 @@
 		</div>
 	</div>
 </dialog>
+<aside class="doc-side">
+	<div class="doc-side__head">
+		<span class="t-slate-sm" style="color:var(--fg-faint)">Contents</span>
+		<button class="doc-btn doc-side__hide" type="button" data-side-toggle aria-label="Hide menu" title="Hide menu">«</button>
+	</div>
 
+	<nav class="doc-side__nav" aria-label="Creator Design System">
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>Start</span></summary>
+			<a href="/introduction.html">Introduction</a>
+			<a href="/why.html">Why this system</a>
+			<a href="/principles.html">Principles</a>
+			<a href="/usage.html">Usage — CSS · SCSS · Tailwind</a>
+			<a href="/components.html">Components explorer</a>
+			<a href="/all.html">All pages</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Getting started</span></summary>
+			<a href="/install.html">Installation</a>
+			<a href="/setup.html">Setup & theming</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/></svg>Foundation</span></summary>
+			<a href="/f-logo.html">Logo</a>
+			<a href="/f-color.html">Color</a>
+			<a href="/f-type.html">Typography</a>
+			<a href="/f-space.html">Spacing & radius</a>
+			<a href="/f-elevation.html">Elevation</a>
+			<a href="/f-pattern.html">Patterns</a>
+			<a href="/breakpoints.html">Breakpoints</a>
+			<a href="/f-a11y.html">Accessibility</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h13"/></svg>Elements</span></summary>
+			<a href="/reboot.html">Reboot</a>
+			<a href="/typography.html">Type roles</a>
+			<a href="/text-elements.html">Text elements</a>
+			<a href="/images.html">Images & figures</a>
+			<a href="/tables.html">Tables</a>
+			<a href="/quotes.html">Quotes</a>
+			<a href="/code.html">Code & syntax</a>
+			<a href="/content.html">Long-form content</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 7.5V12l3 2"/></svg>Icons</span></summary>
+			<a href="/f-icons.html">Guidelines</a>
+			<a href="/icon-set.html">Icon set</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l7 16H5l7-16Z"/></svg>Shape & Cutout</span></summary>
+			<a href="/f-shape.html">Shapes</a>
+			<a href="/cutouts.html">Cutouts</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg>Grid & Layout</span></summary>
+			<a href="/containers.html">Containers</a>
+			<a href="/grid.html">Grid</a>
+			<a href="/columns.html">Columns & gutters</a>
+			<a href="/f-layout.html">Composition</a>
+			<a href="/z-index.html">Z-index</a>
+			<a href="/layout-patterns.html">Patterns</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="5" rx="1.5"/><rect x="4" y="14" width="16" height="5" rx="1.5"/></svg>Forms</span></summary>
+			<a href="/forms.html">Overview</a>
+			<a href="/form-control.html">Form control</a>
+			<a href="/select.html">Select</a>
+			<a href="/checks-radios.html">Checks & radios</a>
+			<a href="/range.html">Range</a>
+			<a href="/input-group.html">Input group</a>
+			<a href="/floating-labels.html">Floating labels</a>
+			<a href="/form-layout.html">Layout</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/><path d="M13 7.5h7M7.5 13v7"/></svg>Components</span></summary>
+			<a href="/accordion.html">Accordion</a>
+			<a href="/ads.html">Ads</a>
+			<a href="/alerts.html">Alerts</a>
+			<a href="/badge.html">Badge</a>
+			<a href="/breadcrumb.html">Breadcrumb</a>
+			<a href="/buttons.html">Buttons</a>
+			<a href="/button-group.html">Button group</a>
+			<a href="/card.html">Card</a>
+			<a href="/collection-cards.html">Collection cards</a>
+			<a href="/carousel.html">Carousel</a>
+			<a href="/close-button.html">Close button</a>
+			<a href="/collapse.html">Collapse</a>
+			<a href="/f-devices.html">Devices</a>
+			<a href="/dropdowns.html">Dropdowns</a>
+			<a href="/f-frames.html">Frames</a>
+			<a href="/list-group.html">List group</a>
+			<a href="/marquee.html">Marquee</a>
+			<a href="/modal.html">Modal</a>
+			<a href="/navbar.html">Navbar</a>
+			<a href="/navs-tabs.html">Navs & tabs</a>
+			<a href="/offcanvas.html">Offcanvas</a>
+			<a href="/pagination.html">Pagination</a>
+			<a href="/popovers.html">Popovers</a>
+			<a href="/progress.html">Progress</a>
+			<a href="/scrollspy.html">Scrollspy</a>
+			<a href="/spinners.html">Spinners</a>
+			<a href="/toasts.html">Toasts</a>
+			<a href="/tooltips.html">Tooltips</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="12" width="16" height="8" rx="1"/></svg>Sections</span></summary>
+			<a href="/page-header.html">Page header</a>
+			<a href="/hero.html">Hero</a>
+			<a href="/stats.html">Stats</a>
+			<a href="/cta.html">CTA</a>
+			<a href="/footer.html">Footer</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>Collections</span></summary>
+			<a href="/collections.html">The contract</a>
+			<a href="/col-sections.html">Sections</a>
+			<a href="/timeline.html">Timeline</a>
+			<a href="/col-default.html">Default</a>
+			<a href="/travel/index.html">Travel</a>
+			<a href="/travel/itinerary.html">Travel · itinerary</a>
+			<a href="/blog/index.html">Blog</a>
+			<a href="/course/index.html">Course</a>
+			<a href="/course/curriculum.html">Course · curriculum</a>
+			<a href="/projects/index.html">Projects</a>
+			<a href="/projects/build-log.html">Projects · build log</a>
+			<a href="/webseries/index.html">Webseries</a>
+			<a href="/prompts/index.html">Prompts</a>
+			<a href="/snippets/index.html">Snippets</a>
+			<a href="/products/index.html">Products</a>
+			<a href="/docs/index.html">Docs template</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5M8 12h8M8 16h5"/></svg>Pages</span></summary>
+			<a href="/pages/index.html">Pages</a>
+			<a href="/pages/home.html">Homepage</a>
+			<a href="/pages/about.html">About</a>
+			<a href="/pages/contact.html">Contact</a>
+			<a href="/pages/archive.html">Archive</a>
+			<a href="/pages/now.html">Now</a>
+			<a href="/resume/index.html">Résumé</a>
+			<a href="/pages/legal.html">Terms & privacy</a>
+			<a href="/pages/welcome.html">Welcome, subscriber</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg>Animation & Motion</span></summary>
+			<a href="/m-basics.html">Motion basics</a>
+			<a href="/m-text-effects.html">Text effects</a>
+			<a href="/m-annotations.html">Annotations</a>
+			<a href="/m-micro.html">Micro-interactions</a>
+			<a href="/m-presets.html">Section presets</a>
+			<a href="/m-stings.html">Logo sting</a>
+			<a href="/page-transitions.html">Page transitions</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" stroke="none"/><rect x="3.5" y="5.5" width="17" height="13" rx="3"/></svg>Broadcast · YouTube</span></summary>
+			<a href="/yt-thumbs.html">Thumbnails</a>
+			<a href="/yt-layouts.html">Thumb layouts</a>
+			<a href="/yt-categories.html">Categories</a>
+			<a href="/yt-series.html">Series art</a>
+			<a href="/yt-livescenes.html">Live scenes</a>
+			<a href="/yt-screens.html">Screens</a>
+			<a href="/yt-scenes.html">Scenes</a>
+			<a href="/yt-live.html">Live</a>
+			<a href="/yt-end.html">End screens</a>
+			<a href="/yt-subs.html">Subscribe</a>
+			<a href="/yt-engage.html">Engagement</a>
+			<a href="/yt-brand.html">Branding</a>
+			<a href="/yt-backdrops.html">Backdrops</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/></svg>Broadcast · Social</span></summary>
+			<a href="/ig-posts.html">Posts</a>
+			<a href="/ig-carousel.html">Carousel</a>
+			<a href="/ig-story.html">Stories</a>
+			<a href="/ig-grid.html">Grid</a>
+			<a href="/ig-follow.html">Follow</a>
+			<a href="/ig-share.html">Share</a>
+			</details>
+			<details class="doc-group"><summary><span class="doc-group__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 0-5.6 5L4 16.5V20h3.5l5-4.9a4 4 0 0 0 5-5.6l-2.6 2.6-2.4-2.4 2.5-2.6Z"/></svg>Helpers & Utilities</span></summary>
+			<a href="/u-background.html">Background</a>
+			<a href="/u-borders.html">Borders</a>
+			<a href="/u-colors.html">Colors</a>
+			<a href="/u-display.html">Display</a>
+			<a href="/u-flex.html">Flex</a>
+			<a href="/u-float.html">Float</a>
+			<a href="/u-interactions.html">Interactions</a>
+			<a href="/u-overflow.html">Overflow</a>
+			<a href="/u-position.html">Position</a>
+			<a href="/u-shadows.html">Shadows</a>
+			<a href="/u-sizing.html">Sizing</a>
+			<a href="/u-spacing.html">Spacing</a>
+			<a href="/u-text.html">Text</a>
+			<a href="/u-valign.html">Vertical align</a>
+			<a href="/u-visibility.html">Visibility</a>
+			</details>
+	</nav>
+</aside>
+<div class="doc-scrim" aria-hidden="true"></div>
+<button class="doc-btn doc-reopen" type="button" data-side-toggle aria-label="Show menu">☰</button>
+<header class="doc-top">
+	<button class="doc-btn" type="button" data-nav-toggle aria-label="Open navigation">☰ Contents</button>
+	<span class="t-slate-sm" style="color:var(--fg-faint)">Home</span>
+</header>
 <main id="main">
-	<section class="container lp-hero pattern pattern-grid pattern-lg fade-corners">
+	<div class="container-wide section">
+		<header class="lp-hero pattern pattern-grid pattern-lg fade-corners">
 		<div class="lp-hero__copy">
 			<span class="eyebrow"><span class="dot dot-sm dot-live"></span> MIT · v0.1 · dependency-free CSS</span>
 			<h1 class="lp-hero__title">The design system for people who <em>make things</em>.</h1>
@@ -200,91 +395,105 @@
 		      fill="var(--fg-subtle)">--accent</text>
 	</g>
 </svg></div>
-	</section>
+	</header>
 
-	<section class="container section">
-		<div class="sec-head-row">
-			<div><span class="sec-head-row__kicker">Why it exists</span>
-			<h2 class="sec-head-row__title">Opinions, so you can stop having them</h2></div>
+		<div class="doc-split">
+			<div class="doc-split__main">
+
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Why it exists</span>
+		<h2 class="sec-head-row__title" id="opinions-so-you-can-stop-having-them">Opinions, so you can stop having them</h2></div>
+	</div>
+	<div class="lp-feats"><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/><path d="M12 12v9M12 12 4 7.5M12 12l8-4.5"/></svg></span><h3 class="t-h4" data-no-toc>Token-first</h3><p class="t-small u-fg-subtle u-mt-2">Every value is a variable off a ladder. Change three and the whole site rebrands — site, player, thumbnails.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 4"/></svg></span><h3 class="t-h4" data-no-toc>One rationed accent</h3><p class="t-small u-fg-subtle u-mt-2">Near-monochrome ink so a single colour can mean <em>live</em>. Attention is budgeted, not sprayed.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><rect x="3.5" y="4.5" width="17" height="13" rx="2"/><path d="M3.5 8.5h17M12 17.5V20M8 20h8"/></svg></span><h3 class="t-h4" data-no-toc>The platform first</h3><p class="t-small u-fg-subtle u-mt-2">&lt;details&gt;, &lt;dialog&gt;, the Popover API and native inputs. Keyboard and focus come free.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg></span><h3 class="t-h4" data-no-toc>Honest motion</h3><p class="t-small u-fg-subtle u-mt-2">Under 200ms for feedback, one property at a time, and every animation off under reduced-motion.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></span><h3 class="t-h4" data-no-toc>Light and dark</h3><p class="t-small u-fg-subtle u-mt-2">Both themes from the same variables. Ink and paper flip; the record-red is the one hue that stays.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m3.5 15 4.5-4 4 3.5 3-2.5 5.5 4.5"/><circle cx="9" cy="9.5" r="1.3"/></svg></span><h3 class="t-h4" data-no-toc>Site and channel</h3><p class="t-small u-fg-subtle u-mt-2">The same tokens export to YouTube thumbnails, banners and Instagram posts. One brand, not two.</p></div></div>
+</section>
+
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Install</span>
+		<h2 class="sec-head-row__title" id="three-lines-any-stack">Three lines, any stack</h2></div>
+		<a class="sec-head-row__more fx-shift" href="/install.html">Full guide <span class="fx-shift__icon">→</span></a>
+	</div>
+	<p class="u-fg-subtle u-mb-6" style="max-width:var(--measure-ui)">
+		It is a stylesheet. Use it with plain CSS, SCSS, Tailwind, Ghost,
+		Astro or a single HTML file — then override three variables and
+		it is yours.
+	</p>
+	<div class="lp-install"><div class="tabs" role="tablist" aria-label="Install"><button class="tab" role="tab" aria-selected="true" data-install-tab="npm">npm</button><button class="tab" role="tab" aria-selected="false" data-install-tab="cdn">CDN</button><button class="tab" role="tab" aria-selected="false" data-install-tab="css">Download</button></div><div data-install-panel="npm"><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">npm install creator-design-system</span></code></pre></figure><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class='tok-key'>@import</span> <span class='tok-str'>&quot;creator-design-system&quot;</span>;</span></code></pre></figure></div><div data-install-panel="cdn" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">&lt;<span class='tok-key'>link</span> rel=<span class='tok-str'>&quot;stylesheet&quot;</span></span><span class="ln">      href=<span class='tok-str'>&quot;https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css&quot;</span>&gt;</span></code></pre></figure></div><div data-install-panel="css" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">curl -O https://unpkg.com/creator-design-system/dist/creator.css</span><span class="ln"><span class='tok-com'># link it. that is the whole installation.</span></span></code></pre></figure></div></div>
+</section>
+
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Built with it</span>
+		<h2 class="sec-head-row__title" id="showcase">Showcase</h2></div>
+		<a class="sec-head-row__more fx-shift" href="/showcase.html">All sites <span class="fx-shift__icon">→</span></a>
+	</div>
+	<div class="deck-c"><a class="card" href="https://imswarnil.com" rel="noopener" target="_blank"><span class="card__media pattern pattern-grid pattern-media"></span><span class="card__body"><span class="card__meta">Swarnil Singhai</span><span class="card__title">imswarnil.com</span><span class="card__excerpt">The site the system was built for — videos, courses, build logs and trips under one identity.</span></span></a></div>
+</section>
+
+<section class="section">
+	<div class="sec-head-row">
+		<div><span class="sec-head-row__kicker">Start from a finished thing</span>
+		<h2 class="sec-head-row__title" id="templates">Templates</h2></div>
+		<a class="sec-head-row__more fx-shift" href="/templates.html">All templates <span class="fx-shift__icon">→</span></a>
+	</div>
+	<div class="stack"><a class="card card-row" href="https://imswarnil.com/shop/" rel="noopener" target="_blank"><span class="card__body"><span class="card__meta">Ghost · <b>$49</b></span><span class="card__title">Swarnil — Ghost theme</span><span class="card__excerpt">The full creator theme: videos, courses with syllabus, web series, projects with build logs, travel and docs.</span></span></a></div>
+</section>
+
+<section class="section">
+	<div class="cta pattern pattern-grid" data-surface="inverse">
+		<span class="cta__kicker">Open source</span>
+		<h2 class="cta__title">Free forever. <em>Sponsored</em> keeps it maintained.</h2>
+		<p class="cta__body">
+			MIT-licensed and built in public. If it saved you a weekend, sponsorship
+			pays for the next component — and templates fund the rest.
+		</p>
+		<div class="cta__actions">
+			<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">Sponsor the project</a>
+			<a class="btn btn-secondary btn-lg" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
 		</div>
-		<div class="lp-feats"><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/><path d="M12 12v9M12 12 4 7.5M12 12l8-4.5"/></svg></span><h3 class="t-h4">Token-first</h3><p class="t-small u-fg-subtle u-mt-2">Every value is a variable off a ladder. Change three and the whole site rebrands — site, player, thumbnails.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 4"/></svg></span><h3 class="t-h4">One rationed accent</h3><p class="t-small u-fg-subtle u-mt-2">Near-monochrome ink so a single colour can mean <em>live</em>. Attention is budgeted, not sprayed.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><rect x="3.5" y="4.5" width="17" height="13" rx="2"/><path d="M3.5 8.5h17M12 17.5V20M8 20h8"/></svg></span><h3 class="t-h4">The platform first</h3><p class="t-small u-fg-subtle u-mt-2">&lt;details&gt;, &lt;dialog&gt;, the Popover API and native inputs. Keyboard and focus come free.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M4 12h4l2-5 3 10 2-5h5"/></svg></span><h3 class="t-h4">Honest motion</h3><p class="t-small u-fg-subtle u-mt-2">Under 200ms for feedback, one property at a time, and every animation off under reduced-motion.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></span><h3 class="t-h4">Light and dark</h3><p class="t-small u-fg-subtle u-mt-2">Both themes from the same variables. Ink and paper flip; the record-red is the one hue that stays.</p></div><div class="lp-feat"><span class="lp-feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lp-feat__icon"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m3.5 15 4.5-4 4 3.5 3-2.5 5.5 4.5"/><circle cx="9" cy="9.5" r="1.3"/></svg></span><h3 class="t-h4">Site and channel</h3><p class="t-small u-fg-subtle u-mt-2">The same tokens export to YouTube thumbnails, banners and Instagram posts. One brand, not two.</p></div></div>
-	</section>
+		<p class="cta__fine">Or contribute — issues and pull requests are genuinely welcome.</p>
+	</div>
+</section>
 
-	<section class="container section">
-		<div class="grid-2" style="gap:var(--space-10);align-items:center">
-			<div>
-				<span class="sec-head-row__kicker">Install</span>
-				<h2 class="sec-head-row__title u-mb-4">Three lines, any stack</h2>
-				<p class="u-fg-subtle" style="max-width:var(--measure-ui)">
-					It is a stylesheet. Use it with plain CSS, SCSS, Tailwind, Ghost,
-					Astro or a single HTML file — then override three variables and
-					it is yours.
-				</p>
-				<a class="t-link fx-shift u-inline-block u-mt-4" href="/install.html">
-					Full install guide <span class="fx-shift__icon">→</span></a>
+
 			</div>
-			<div class="lp-install"><div class="tabs" role="tablist" aria-label="Install"><button class="tab" role="tab" aria-selected="true" data-install-tab="npm">npm</button><button class="tab" role="tab" aria-selected="false" data-install-tab="cdn">CDN</button><button class="tab" role="tab" aria-selected="false" data-install-tab="css">Download</button></div><div data-install-panel="npm"><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">npm install creator-design-system</span></code></pre></figure><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">css</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln"><span class='tok-key'>@import</span> <span class='tok-str'>&quot;creator-design-system&quot;</span>;</span></code></pre></figure></div><div data-install-panel="cdn" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">html</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">&lt;<span class='tok-key'>link</span> rel=<span class='tok-str'>&quot;stylesheet&quot;</span></span><span class="ln">      href=<span class='tok-str'>&quot;https://cdn.jsdelivr.net/npm/creator-design-system@0/dist/creator.min.css&quot;</span>&gt;</span></code></pre></figure></div><div data-install-panel="css" hidden><figure class="codebox u-m-0"><figcaption class="codebox__head"><span class="codebox__lang">bash</span><button class="codebox__copy" type="button" data-copy>Copy</button></figcaption><pre class="codebox__pre"><code><span class="ln">curl -O https://unpkg.com/creator-design-system/dist/creator.css</span><span class="ln"><span class='tok-com'># link it. that is the whole installation.</span></span></code></pre></figure></div></div>
-		</div>
-	</section>
-
-	<section class="container section">
-		<div class="sec-head-row">
-			<div><span class="sec-head-row__kicker">Built with it</span>
-			<h2 class="sec-head-row__title">Showcase</h2></div>
-			<a class="sec-head-row__more fx-shift" href="/showcase.html">All sites <span class="fx-shift__icon">→</span></a>
-		</div>
-		<div class="deck-c"><a class="card" href="https://imswarnil.com" rel="noopener" target="_blank"><span class="card__media pattern pattern-grid pattern-media"></span><span class="card__body"><span class="card__meta">Swarnil Singhai</span><span class="card__title">imswarnil.com</span><span class="card__excerpt">The site the system was built for — videos, courses, build logs and trips under one identity.</span></span></a></div>
-	</section>
-
-	<section class="container section">
-		<div class="sec-head-row">
-			<div><span class="sec-head-row__kicker">Start from a finished thing</span>
-			<h2 class="sec-head-row__title">Templates</h2></div>
-			<a class="sec-head-row__more fx-shift" href="/templates.html">All templates <span class="fx-shift__icon">→</span></a>
-		</div>
-		<div class="stack"><a class="card card-row" href="https://imswarnil.com/shop/" rel="noopener" target="_blank"><span class="card__body"><span class="card__meta">Ghost · <b>$49</b></span><span class="card__title">Swarnil — Ghost theme</span><span class="card__excerpt">The full creator theme: videos, courses with syllabus, web series, projects with build logs, travel and docs.</span></span></a></div>
-	</section>
-
-	<section class="container section">
-		<div class="cta pattern pattern-grid" data-surface="inverse">
-			<span class="cta__kicker">Open source</span>
-			<h2 class="cta__title">Free forever. <em>Sponsored</em> keeps it maintained.</h2>
-			<p class="cta__body">
-				MIT-licensed and built in public. If it saved you a weekend, sponsorship
-				pays for the next component — and templates fund the rest.
-			</p>
-			<div class="cta__actions">
-				<a class="btn btn-primary btn-lg" href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">Sponsor the project</a>
-				<a class="btn btn-secondary btn-lg" href="https://github.com/imswarnil/Creator-Design-System" rel="noopener" target="_blank">Star on GitHub</a>
+			<aside class="doc-rail">
+				<div class="doc-rail__in">
+			<nav class="doc-toc" aria-label="On this page">
+				<span class="doc-toc__title">On this page</span>
+				<div class="doc-toc__links">
+					<a href="#opinions-so-you-can-stop-having-them">Opinions, so you can stop having them</a>
+					<a href="#three-lines-any-stack">Three lines, any stack</a>
+					<a href="#showcase">Showcase</a>
+					<a href="#templates">Templates</a>
+				</div>
+			</nav>
+			<div class="doc-sponsor">
+				<span class="doc-sponsor__eyebrow">Support</span>
+				<p class="doc-sponsor__lead">Creator Design System is free, MIT, and built in the
+				open. Sponsoring keeps the next release coming.</p>
+				<a class="btn btn-primary btn-sm btn-pill doc-sponsor__cta"
+				   href="https://github.com/sponsors/imswarnil" rel="noopener" target="_blank">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+					     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 19.5s-7-4.4-7-9a3.9 3.9 0 0 1 7-2.4A3.9 3.9 0 0 1 19 10.5c0 4.6-7 9-7 9Z"/>
+					</svg>Sponsor my project</a>
+				<a class="doc-sponsor__alt" href="/sponsor.html">What sponsorship pays for →</a>
 			</div>
-			<p class="cta__fine">Or contribute — issues and pull requests are genuinely welcome.</p>
+				</div>
+			</aside>
 		</div>
-	</section>
 
-	<footer class="container footer">
-		<div class="footer__grid">
-			<div class="footer__brand">
-				<span class="cds-mark"><span class="cds-mark__word">creat<i class="cds-mark__o" aria-hidden="true"></i><span class="u-sr-only">o</span>r</span></span>
-				<p class="footer__tag">Frame &amp; Signal — a token-first design system for creators building their site.</p>
+		<footer class="section-sm" style="padding-bottom:0">
+			<hr class="rule" style="margin-bottom:var(--space-6)" />
+			<div class="row-between">
+				<p class="t-slate" style="display:flex;align-items:center;gap:8px">Creator Design System <span class="dot dot-sm"></span></p>
+				<p class="t-slate-sm">Frame &amp; Signal · for creators building their site.</p>
 			</div>
-			<div><h2 class="footer__head">Docs</h2><div class="footer__links">
-				<a href="/introduction.html">Introduction</a><a href="/principles.html">Principles</a>
-				<a href="/install.html">Install</a><a href="/components.html">Components</a></div></div>
-			<div><h2 class="footer__head">Project</h2><div class="footer__links">
-				<a href="https://github.com/imswarnil/Creator-Design-System" rel="noopener">GitHub</a>
-				<a href="https://github.com/imswarnil/Creator-Design-System/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
-				<a href="https://github.com/imswarnil/Creator-Design-System/releases" rel="noopener">Releases</a></div></div>
-			<div><h2 class="footer__head">More</h2><div class="footer__links">
-				<a href="/showcase.html">Showcase</a><a href="/templates.html">Templates</a>
-				<a href="https://github.com/sponsors/imswarnil" rel="noopener">Sponsor</a></div></div>
-		</div>
-		<div class="footer__signoff">
-			<span>MIT © 2026 Swarnil Singhai</span>
-			<span class="footer__rec"><span class="dot dot-sm dot-live"></span> still rolling</span>
-		</div>
-	</footer>
+		</footer>
+	</div>
 </main>
-
 <script>
 (function () {
 	var root = document.documentElement, btn = document.getElementById('themeToggle'),
@@ -294,7 +503,6 @@
 		label.textContent = d ? 'Dark' : 'Light';
 		btn.setAttribute('aria-pressed', String(d));
 	};
-	try { var t = localStorage.getItem('cds-theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
 	sync();
 	btn.addEventListener('click', function () {
 		var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -302,30 +510,13 @@
 		try { localStorage.setItem('cds-theme', next); } catch (e) {}
 		sync();
 	});
+	try { var t = localStorage.getItem('cds-theme'); if (t) { root.setAttribute('data-theme', t); sync(); } } catch (e) {}
 
-	// Install tabs
-	document.querySelectorAll('[data-install-tab]').forEach(function (tab) {
-		tab.addEventListener('click', function () {
-			var k = tab.getAttribute('data-install-tab');
-			document.querySelectorAll('[data-install-tab]').forEach(function (t) {
-				t.setAttribute('aria-selected', String(t === tab));
-			});
-			document.querySelectorAll('[data-install-panel]').forEach(function (p) {
-				p.hidden = p.getAttribute('data-install-panel') !== k;
-			});
-		});
-	});
-
-	// Live star count — falls back to the star glyph if the API is unreachable.
 	var stars = document.querySelector('[data-gh-stars]');
 	if (stars) {
 		fetch('https://api.github.com/repos/imswarnil/Creator-Design-System')
 			.then(function (r) { return r.ok ? r.json() : null; })
-			.then(function (d) {
-				if (d && typeof d.stargazers_count === 'number') {
-					stars.textContent = '★ ' + d.stargazers_count.toLocaleString();
-				}
-			})
+			.then(function (d) { if (d && typeof d.stargazers_count === 'number') stars.textContent = d.stargazers_count.toLocaleString(); })
 			.catch(function () {});
 	}
 })();
